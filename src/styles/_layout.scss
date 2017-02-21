@@ -10,6 +10,7 @@
 .l-header {
   display: flex;
   position: relative;
+  z-index: 10000;
 }
 
 /* Main content */
@@ -28,7 +29,7 @@
   max-width: $max-width-sidebar;
   display: flex;
   flex-direction: column;
-  z-index: 9999;
+  z-index: 9999; // Must be over Leaflet map
   min-width: 650px;
 
   .l-sidebar-toggle {

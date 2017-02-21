@@ -1,14 +1,52 @@
-.l-header {
-  display: flex;
-  position: relative;
-}
 
+/* App */
 .l-app {
   height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
+/* Header */
+.l-header {
+  display: flex;
+  position: relative;
+}
+
+/* Main content */
 .l-main {
   flex: 1;
+  position: relative;
+}
+
+/* Sidebar */
+.l-sidebar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 50%;
+  max-width: $max-width-sidebar;
+  display: flex;
+  flex-direction: column;
+  z-index: 9999;
+  min-width: 650px;
+
+  .l-sidebar-toggle {
+    position: absolute;
+    z-index: 2;
+  }
+
+  .l-sidebar-content {
+    position: relative;
+    overflow: auto;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 0;
+  }
+}
+
+/* Map page */
+.l-map-page {
+  height: 100%;
 }

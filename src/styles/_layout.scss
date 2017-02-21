@@ -1,0 +1,14 @@
+.l-header {
+  display: flex;
+  position: relative;
+}
+
+.l-app {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.l-main {
+  flex: 1;
+}

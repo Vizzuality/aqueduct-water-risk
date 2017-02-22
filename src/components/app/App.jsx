@@ -3,6 +3,10 @@ import { Header } from 'aqueduct-components';
 
 export default class App extends React.Component {
 
+  componentWillMount() {
+    this.props.getDatasets();
+  }
+
   render() {
     return (
       <div className="l-app">
@@ -16,5 +20,6 @@ export default class App extends React.Component {
 }
 
 App.propTypes = {
-  children: React.PropTypes.object
+  children: React.PropTypes.object,
+  getDatasets: React.PropTypes.func
 };

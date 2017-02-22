@@ -1,1 +1,1 @@
-export { default as datasets } from './datasets';
+export { datasetsReducer as datasets } from './datasets';

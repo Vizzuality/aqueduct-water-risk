@@ -54,8 +54,6 @@ export default class Map extends React.Component {
       const setB = new Set(this.props.layers);
       const union = new Set([...nextProps.layers, ...this.props.layers]);
 
-      if (setA.size === setB.size) setB.clear();
-
       for (const layer of union) {
         if (!setB.has(layer)) {
           this.addLayer(layer);

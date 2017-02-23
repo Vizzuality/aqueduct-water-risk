@@ -3,6 +3,11 @@ import { Sidebar } from 'aqueduct-components';
 import Map from 'components/map/Map';
 
 export default class MapPage extends React.Component {
+
+  componentWillMount() {
+    this.props.updateMapUrl();
+  }
+
   render() {
     /* Map config */
     const updateMap = (map) => {
@@ -51,5 +56,6 @@ export default class MapPage extends React.Component {
 MapPage.propTypes = {
   layersActive: React.PropTypes.array,
   setMapParams: React.PropTypes.func,
+  updateMapUrl: React.PropTypes.func,
   mapState: React.PropTypes.object
 };

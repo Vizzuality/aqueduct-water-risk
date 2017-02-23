@@ -9,7 +9,8 @@ const initialState = {
   latLng: {
     lat: 30,
     lng: -120
-  }
+  },
+  zoom: 3
 };
 
 /* Reducer */

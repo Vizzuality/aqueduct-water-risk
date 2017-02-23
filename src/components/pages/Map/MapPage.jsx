@@ -4,13 +4,17 @@ import Map from 'components/map/Map';
 
 export default class MapPage extends React.Component {
   render() {
+    /* Map config */
+    const updateMap = (map) => {
+      this.props.setMapParams({
+        zoom: map.getZoom(),
+        latLng: map.getCenter()
+      });
+    };
+
     const listeners = {
-      click: () => {
-        console.log('click');
-      },
-      dragend: () => {
-        console.log('dragend');
-      }
+      zoomend: updateMap,
+      dragend: updateMap
     };
 
     const mapMethods = {
@@ -20,6 +24,11 @@ export default class MapPage extends React.Component {
         { url: config.BASEMAP_LABEL_URL, zIndex: 0 },
         { url: config.BASEMAP_TILE_URL, zIndex: 1000 }
       ]
+    };
+
+    const mapOptions = {
+      zoom: this.props.mapState.zoom,
+      center: [this.props.mapState.latLng.lat, this.props.mapState.latLng.lng]
     };
 
     return (
@@ -32,6 +41,7 @@ export default class MapPage extends React.Component {
           listeners={listeners}
           mapMethods={mapMethods}
           layers={this.props.layersActive}
+          mapOptions={mapOptions}
         />
       </div>
     );
@@ -39,5 +49,7 @@ export default class MapPage extends React.Component {
 }
 
 MapPage.propTypes = {
-  layersActive: React.PropTypes.array
+  layersActive: React.PropTypes.array,
+  setMapParams: React.PropTypes.func,
+  mapState: React.PropTypes.object
 };

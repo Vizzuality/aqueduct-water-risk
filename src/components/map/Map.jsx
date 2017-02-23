@@ -44,12 +44,25 @@ export default class Map extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    // TODO: check props.layers and props.mapOptions
+    // Fitbounds
     if (!isEqual(this.props.mapMethods.fitBounds, nextProps.mapMethods.fitBounds)) {
       this.map.fitBounds(nextProps.mapMethods.fitBounds);
     }
+    // Layers
     if (!isEqual(this.props.layers, nextProps.layers)) {
-      this.addLayer(nextProps.layers);
+      const setA = new Set(nextProps.layers);
+      const setB = new Set(this.props.layers);
+      const union = new Set([...nextProps.layers, ...this.props.layers]);
+
+      if (setA.size === setB.size) setB.clear();
+
+      for (const layer of union) {
+        if (!setB.has(layer)) {
+          this.addLayer(layer);
+        } else if (!setA.has(layer)) {
+          this.removeLayer(layer.id);
+        }
+      }
     }
   }
 
@@ -116,7 +129,7 @@ export default class Map extends React.Component {
       layer.forEach(l => this.layerManager.addLayer(l));
       return;
     }
-    this.layerManager.addLayer(layer.id);
+    this.layerManager.addLayer(layer);
   }
 
   removeLayer(layer) {

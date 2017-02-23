@@ -19,7 +19,7 @@ export default class MapPage extends React.Component {
 
     const listeners = {
       zoomend: updateMap,
-      dragend: updateMap
+      moveend: updateMap
     };
 
     const mapMethods = {

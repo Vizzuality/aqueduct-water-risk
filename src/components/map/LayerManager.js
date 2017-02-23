@@ -1,7 +1,6 @@
 /* eslint import/no-unresolved: 0 */
 /* eslint import/extensions: 0 */
 
-import 'whatwg-fetch';
 import L from 'leaflet/dist/leaflet';
 import esri from 'esri-leaflet';
 import { post } from 'utils/request';

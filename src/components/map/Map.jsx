@@ -7,7 +7,7 @@ import isEqual from 'lodash/isEqual';
 import { Spinner } from 'aqueduct-components';
 import LayerManager from './LayerManager';
 
-const MAP_CONFIG = {
+const MAP_OPTIONS = {
   zoom: 2,
   minZoom: 2,
   center: [30, -120],
@@ -28,16 +28,13 @@ export default class Map extends React.Component {
   /* Component Lyfecyle */
   componentDidMount() {
     this._mounted = true;
-    const cfg = Object.assign({}, MAP_CONFIG, this.props.mapOptions);
-    this.map = L.map(this.mapNode, cfg);
+    const mapOptions = Object.assign({}, MAP_OPTIONS, this.props.mapOptions);
+    this.map = L.map(this.mapNode, mapOptions);
 
     // Add event listeners
     this.props.listeners && this.setMapEventListeners();
     // Exec leaflet methods
-    this.props.mapMethods.zoomControlPosition && this.setZoomControlPosition();
-    this.props.mapMethods.attribution && this.setAttribution();
-    this.props.mapMethods.tileLayers && this.setTileLayers();
-
+    this.execMethods();
     // Add layers
     this.initLayerManager();
     this.props.layers.length && this.addLayer(this.props.layers);
@@ -90,6 +87,14 @@ export default class Map extends React.Component {
   }
 
   /* MapMethods methods */
+  execMethods() {
+    Object.keys(this.props.mapMethods).forEach((name) => {
+      const methodName = name.charAt(0).toUpperCase() + name.slice(1);
+      const fnName = `set${methodName}`;
+      typeof this[fnName] === 'function' && this[fnName].call(this);
+    });
+  }
+
   setAttribution() {
     this.map.attributionControl.addAttribution(this.props.mapMethods.attribution);
   }

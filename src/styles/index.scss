@@ -1,4 +1,4 @@
-/* Lib */
+/* Settings */
 @import "settings";
 @import "functions";
 @import "reset";
@@ -7,9 +7,15 @@
 @import "mixins";
 @import "layout";
 
+/* Lib */
+@import "lib/foundation";
+
+/* Components */
+@import "components/segmentedui";
+@import "components/filters";
+
 /* Aqueduct-components */
 @import "~aqueduct-components/styles/timeline";
-@import "~aqueduct-components/styles/segmentedui";
 @import "~aqueduct-components/styles/select";
 @import "~aqueduct-components/styles/radio";
 @import "~aqueduct-components/styles/map";

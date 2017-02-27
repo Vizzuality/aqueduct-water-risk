@@ -39,7 +39,6 @@
 
   .l-sidebar-content {
     position: relative;
-    overflow: auto;
     width: 100%;
     top: 0;
     left: 0;
@@ -50,4 +49,9 @@
 /* Map page */
 .l-map-page {
   height: 100%;
+}
+
+// Grid
+.row {
+  margin: 0 -0.9375rem !important;
 }

@@ -47,3 +47,13 @@ $separation: $space-1 * 2;
     }
   }
 }
+
+.advanced {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: flex-end;
+  .c-checkbox {
+    margin-left: $space-1;
+  }
+}

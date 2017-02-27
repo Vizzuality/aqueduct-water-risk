@@ -1,5 +1,5 @@
 import React from 'react';
-import { Radio } from 'aqueduct-components';
+import { Radio, Checkbox } from 'aqueduct-components';
 
 export default class LayerList extends React.Component {
 
@@ -35,6 +35,10 @@ export default class LayerList extends React.Component {
   render() {
     return (
       <div className="c-layerlist">
+        <span className="advanced">
+          Advanced settings
+          <Checkbox />
+        </span>
         <span className="layerlist-title">Indicators</span>
         <ul className="layerlist-list">
           {this.getLayerList()}

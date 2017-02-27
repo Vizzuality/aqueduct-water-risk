@@ -3,6 +3,8 @@ import { Sidebar, SegmentedUi } from 'aqueduct-components';
 import Map from 'components/map/Map';
 import Filters from 'components/filters/Filters';
 import { tabOptions } from 'constants/mapView';
+import { layers } from 'constants/layers';
+import LayerList from 'components/layers/LayerList';
 
 export default class MapPage extends React.Component {
 
@@ -47,12 +49,17 @@ export default class MapPage extends React.Component {
             selected={this.props.scope}
             onChange={selected => this.props.setScope(selected.value)}
           />
-          { this.props.scope === 'mapView' &&
-            <Filters
-              filters={this.props.mapView.filters}
-              setFilters={this.props.setFilters}
-            />
-          }
+          <div className="l-mapview-content">
+            { this.props.scope === 'mapView' &&
+              <div>
+                <Filters
+                  filters={this.props.mapView.filters}
+                  setFilters={this.props.setFilters}
+                />
+                <LayerList layers={layers} />
+              </div>
+            }
+          </div>
         </Sidebar>
         <Map
           listeners={listeners}

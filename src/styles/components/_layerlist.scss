@@ -1,0 +1,49 @@
+$separation: $space-1 * 2;
+
+.c-layerlist {
+  padding: $sidebar-padding;
+  background-color: palette(sand);
+  color: palette(gray, dark);
+  font-family: $font-family-roboto;
+}
+
+.layerlist-title {
+  display: block;
+  font-size: $font-size-extrabig;
+  margin-bottom: $separation;
+}
+
+.layerlist-item {
+  margin-bottom: $separation;
+
+  > span {
+    text-transform: uppercase;
+    letter-spacing: .9px;
+    text-transform: uppercase;
+  }
+
+  span {
+    display: block;
+    margin-bottom: $separation;
+  }
+
+  .c-radio {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  ul {
+    padding-left: $separation;
+    margin-bottom: $separation;
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    li {
+      margin-bottom: $separation;
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}

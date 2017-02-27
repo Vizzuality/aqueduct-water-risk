@@ -1,0 +1,28 @@
+.c-segmented-ui {
+  list-style-type: none;
+  display: flex;
+  &.-tabs {
+    background-color: palette(blue, dark);
+    .segmented-ui-btn {
+      padding: ($sidebar-padding/2) $sidebar-padding;
+      text-transform: uppercase;
+      color: palette(blue, lightest);
+      font-size: $font-size-default;
+      font-weight: 500;
+      letter-spacing: 1.2px;
+      transition: all linear $animation-time;
+      &:hover {
+        color: palette(blue, light);
+      }
+    }
+    .segmented-ui-item {
+      &.-active {
+        .segmented-ui-btn {
+          pointer-events: none;
+          background: palette(blue);
+          color: palette(white);
+        }
+      }
+    }
+  }
+}

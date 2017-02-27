@@ -1,6 +1,7 @@
 import React from 'react';
-import { Sidebar } from 'aqueduct-components';
+import { Sidebar, SegmentedUi } from 'aqueduct-components';
 import Map from 'components/map/Map';
+import Filters from 'components/filters/Filters';
 
 export default class MapPage extends React.Component {
 
@@ -39,8 +40,18 @@ export default class MapPage extends React.Component {
     return (
       <div className="c-map-page l-map-page">
         <Sidebar setSidebarWidth={() => {}}>
-          <h1>Sidebar</h1>
-          <div>Content</div>
+          <SegmentedUi
+            className="-tabs"
+            items={[{ label: 'map view', value: 'mapView' }, { label: 'analyse locations', value: 'analyseLocations' }]}
+            selected={this.props.scope}
+            onChange={selected => this.props.setScope(selected.value)}
+          />
+          { this.props.scope === 'mapView' &&
+            <Filters
+              filters={this.props.mapView.filters}
+              setFilters={this.props.setFilters}
+            />
+          }
         </Sidebar>
         <Map
           listeners={listeners}
@@ -56,6 +67,10 @@ export default class MapPage extends React.Component {
 MapPage.propTypes = {
   layersActive: React.PropTypes.array,
   setMapParams: React.PropTypes.func,
+  setScope: React.PropTypes.func,
   updateMapUrl: React.PropTypes.func,
-  mapState: React.PropTypes.object
+  setFilters: React.PropTypes.func,
+  mapState: React.PropTypes.object,
+  mapView: React.PropTypes.object,
+  scope: React.PropTypes.string
 };

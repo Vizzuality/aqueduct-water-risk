@@ -3,7 +3,7 @@ import MapPage from 'components/pages/Map/MapPage';
 import getActiveLayers from 'selectors/layers_active';
 import { setMapLocation, updateMapUrl } from 'modules/map';
 import { setScope } from 'modules/scope';
-import { setFilters } from 'modules/mapView';
+import { setFilters, setActiveLayers } from 'modules/mapView';
 
 const mapStateToProps = state => ({
   layersActive: getActiveLayers(state),
@@ -25,6 +25,9 @@ const mapDispatchToProps = dispatch => ({
   },
   setFilters: (filter) => {
     dispatch(setFilters(filter));
+  },
+  setActiveLayers: (layers) => {
+    dispatch(setActiveLayers(layers));
   }
 });
 

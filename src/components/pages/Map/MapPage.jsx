@@ -56,7 +56,14 @@ export default class MapPage extends React.Component {
                   filters={this.props.mapView.filters}
                   setFilters={this.props.setFilters}
                 />
-                <LayerList layers={layers} />
+                <LayerList
+                  activeLayers={this.props.mapView.layers.active}
+                  layers={layers}
+                  onSelectLayer={this.props.setActiveLayers}
+                  year={this.props.mapView.filters.year}
+                  scenario={this.props.mapView.filters.scenario}
+                  setFilters={this.props.setFilters}
+                />
               </div>
             }
           </div>
@@ -83,5 +90,6 @@ MapPage.propTypes = {
   setMapParams: React.PropTypes.func,
   setScope: React.PropTypes.func,
   updateMapUrl: React.PropTypes.func,
-  setFilters: React.PropTypes.func
+  setFilters: React.PropTypes.func,
+  setActiveLayers: React.PropTypes.func
 };

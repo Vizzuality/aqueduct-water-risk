@@ -14,13 +14,9 @@ $separation: $space-1 * 2;
 }
 
 .layerlist-item {
-  margin-bottom: $separation;
-
-  &:last-child {
-    margin-bottom: 0;
-  }
 
   span {
+    @include clearfix;
     text-transform: uppercase;
     letter-spacing: .9px;
     display: block;
@@ -38,6 +34,16 @@ $separation: $space-1 * 2;
 
   li span {
     text-transform: none;
+  }
+
+  .c-icon {
+    fill: palette(blue);
+    float: right;
+    border: 1px solid palette(gray);
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    padding: 3px;
   }
 }
 

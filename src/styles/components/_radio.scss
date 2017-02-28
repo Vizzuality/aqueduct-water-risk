@@ -1,0 +1,16 @@
+.c-radio {
+  label {
+    font-weight: normal;
+    color: palette(gray, dark);
+    font-size: $font-size-default;
+    letter-spacing: 0;
+
+    &:hover {
+      color: palette(gray, dark);
+    }
+  }
+
+  input[type="radio"]:checked + label {
+    color: palette(gray, dark);
+  }
+}

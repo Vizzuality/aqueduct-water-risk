@@ -16,13 +16,13 @@ $separation: $space-1 * 2;
 .layerlist-item {
   margin-bottom: $separation;
 
-  > span {
-    text-transform: uppercase;
-    letter-spacing: .9px;
-    text-transform: uppercase;
+  &:last-child {
+    margin-bottom: 0;
   }
 
   span {
+    text-transform: uppercase;
+    letter-spacing: .9px;
     display: block;
     margin-bottom: $separation;
   }
@@ -34,17 +34,10 @@ $separation: $space-1 * 2;
 
   ul {
     padding-left: $separation;
-    margin-bottom: $separation;
-    &:last-child {
-      margin-bottom: 0;
-    }
+  }
 
-    li {
-      margin-bottom: $separation;
-      &:last-child {
-        margin-bottom: 0;
-      }
-    }
+  li span {
+    text-transform: none;
   }
 }
 

@@ -3,33 +3,20 @@ import { Radio, Checkbox } from 'aqueduct-components';
 
 export default class LayerList extends React.Component {
 
-  getChildLayers(l) {
-    if (!l.children || !l.children.length) {
-      return null;
-    }
+  getLayerList(layers) {
     return (
-      <ul>
-        {l.children.map((layer, index) => {
+      <ul className="layerlist-list">
+        {layers.map((l, index) => {
           return (
-            <li key={index}>
-              <span><Radio name="layer" value={layer.id} />{layer.name}</span>
-              {this.getChildLayers(layer)}
+            <li className="layerlist-item" key={index}>
+              <span><Radio name="layer" value={l.id} />{l.name}</span>
+              {l.children && l.children.length &&
+                this.getLayerList(l.children)
+              }
             </li>
           );
         })}
-      </ul>
-    );
-  }
-
-  getLayerList() {
-    return this.props.layers.map((l, index) => {
-      return (
-        <li className="layerlist-item" key={index}>
-          <span><Radio name="layer" value={l.id} />{l.name}</span>
-          {this.getChildLayers(l)}
-        </li>
-      );
-    });
+      </ul>);
   }
 
   render() {
@@ -40,9 +27,7 @@ export default class LayerList extends React.Component {
           <Checkbox />
         </span>
         <span className="layerlist-title">Indicators</span>
-        <ul className="layerlist-list">
-          {this.getLayerList()}
-        </ul>
+        {this.getLayerList(this.props.layers)}
       </div>
     );
   }

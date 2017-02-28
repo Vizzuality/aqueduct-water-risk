@@ -17,10 +17,13 @@ $separation: $space-1 * 2;
 
   span {
     @include clearfix;
-    text-transform: uppercase;
     letter-spacing: .9px;
     display: block;
     margin-bottom: $separation;
+
+    &.-upper label {
+      text-transform: uppercase;
+    }
   }
 
   .c-radio {

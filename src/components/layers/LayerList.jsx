@@ -13,13 +13,13 @@ export default class LayerList extends React.Component {
   }
 
   /* Partial renders */
-  renderLayerList(layers) {
+  renderLayerList(layers, deep) {
     return (
       <ul className="layerlist-list">
         {layers.map((l, index) => {
           return (
             <li className="layerlist-item" key={index}>
-              <span>
+              <span className={deep < 2 ? '-upper' : ''}>
                 <Radio
                   label={l.name}
                   onChange={i => this.props.onSelectLayer([i])}
@@ -30,7 +30,7 @@ export default class LayerList extends React.Component {
                 <Icon name="icon-info" />
               </span>
               {l.children && l.children.length &&
-                this.renderLayerList(l.children)
+                this.renderLayerList(l.children, deep + 1)
               }
             </li>
           );
@@ -57,7 +57,7 @@ export default class LayerList extends React.Component {
           </div>
         }
         <span className="layerlist-title">Indicators</span>
-        {this.renderLayerList(this.props.layers)}
+        {this.renderLayerList(this.props.layers, 0)}
       </div>
     );
   }

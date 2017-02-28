@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { IndexRoute, Router, Route } from 'react-router';
-import { onEnterMapPage } from 'modules/map';
+import { onEnterMapPage } from 'modules/url';
 
 // Components
 import MapPage from 'containers/pages/MapPage';

@@ -1,5 +1,3 @@
-import { dispatch } from 'main';
-
 /* Constants */
 const SET_MAP_LOCATION = 'SET_MAP_LOCATION';
 
@@ -30,21 +28,4 @@ function setMapLocation(locationParams) {
   };
 }
 
-function onEnterMapPage({ location }, replaceUrl, done) {
-  // TODO: this check is not as consistent as it should be. The right solution could be grouping all map params inside "map"
-  // if there are map position params
-  if (location.query.zoom) {
-    const map = {
-      zoom: +location.query.zoom,
-      latLng: {
-        lat: +location.query.lat,
-        lng: +location.query.lng
-      }
-    };
-    dispatch(setMapLocation(map));
-  }
-
-  done();
-}
-
-export { mapReducer, setMapLocation, onEnterMapPage };
+export { mapReducer, setMapLocation };

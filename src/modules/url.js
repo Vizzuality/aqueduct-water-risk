@@ -1,4 +1,7 @@
+import { dispatch } from 'main';
 import { replace } from 'react-router-redux';
+import { setMapLocation } from 'modules/map';
+import { setFilters, setActiveLayers } from 'modules/mapView';
 
 function updateUrl() {
   return (storeDispatch, getState) => {
@@ -23,4 +26,30 @@ function updateUrl() {
   };
 }
 
-export { updateUrl };
+function onEnterMapPage({ location }, replaceUrl, done) {
+  // TODO: this check is not as consistent as it should be. The right solution could be grouping all map params inside "map"
+  // if there are map position params
+  if (location.query.zoom) {
+    const map = {
+      zoom: +location.query.zoom,
+      latLng: {
+        lat: +location.query.lat,
+        lng: +location.query.lng
+      }
+    };
+    dispatch(setMapLocation(map));
+  }
+  if (location.query.year) {
+    const { year, scenario, timeScale, geoScale } = location.query;
+    dispatch(setFilters({
+      year,
+      scenario,
+      timeScale,
+      geoScale
+    }));
+  }
+
+  done();
+}
+
+export { updateUrl, onEnterMapPage };

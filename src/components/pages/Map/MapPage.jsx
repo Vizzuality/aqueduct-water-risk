@@ -9,7 +9,7 @@ import LayerList from 'components/layers/LayerList';
 export default class MapPage extends React.Component {
 
   componentWillMount() {
-    this.props.updateMapUrl();
+    this.props.updateUrl();
   }
 
   render() {
@@ -89,7 +89,7 @@ MapPage.propTypes = {
   // Actions
   setMapParams: React.PropTypes.func,
   setScope: React.PropTypes.func,
-  updateMapUrl: React.PropTypes.func,
+  updateUrl: React.PropTypes.func,
   setFilters: React.PropTypes.func,
   setActiveLayers: React.PropTypes.func
 };

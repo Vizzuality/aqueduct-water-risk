@@ -1,4 +1,3 @@
-import { replace } from 'react-router-redux';
 import { dispatch } from 'main';
 
 /* Constants */
@@ -31,23 +30,6 @@ function setMapLocation(locationParams) {
   };
 }
 
-
-/* Route actions */
-function updateMapUrl() {
-  return (storeDispatch, state) => {
-    const { map } = state();
-    const locationDescriptor = {
-      pathname: '/',
-      query: {
-        lat: map.latLng.lat.toFixed(2),
-        lng: map.latLng.lng.toFixed(2),
-        zoom: map.zoom
-      }
-    };
-    storeDispatch(replace(locationDescriptor));
-  };
-}
-
 function onEnterMapPage({ location }, replaceUrl, done) {
   // TODO: this check is not as consistent as it should be. The right solution could be grouping all map params inside "map"
   // if there are map position params
@@ -65,4 +47,4 @@ function onEnterMapPage({ location }, replaceUrl, done) {
   done();
 }
 
-export { mapReducer, setMapLocation, updateMapUrl, onEnterMapPage };
+export { mapReducer, setMapLocation, onEnterMapPage };

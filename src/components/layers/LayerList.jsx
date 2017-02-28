@@ -64,8 +64,9 @@ export default class LayerList extends React.Component {
 
   renderFuture() {
     return (
-      <div>
-        <div>
+      <div className="c-future">
+        <div className="future-group">
+          <span className="future-title">Projected changes in...</span>
           {futureLayers.map((i, index) => {
             return (
               <Radio
@@ -78,12 +79,15 @@ export default class LayerList extends React.Component {
               />);
           })}
         </div>
-        <div>
+        <div className="future-group">
+          <span className="future-title">Scenario</span>
+          <p>Future water availibility depends on how the world grows. These possible scenarios are based on the IPCC 5th assessment report.</p>
           <RadioGroup
             name="scenario"
             items={scenarioOptions}
             onChange={selected => this.props.setFilters({ scenario: selected.value })}
             selected={this.props.scenario}
+            className="-inline"
           />
         </div>
       </div>

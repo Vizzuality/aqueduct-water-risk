@@ -1,6 +1,5 @@
 import React from 'react';
 import { Radio, Checkbox, RadioGroup, Icon } from 'aqueduct-components';
-name="scenario"
 import { futureLayers, scenarioOptions } from 'constants/layers';
 
 export default class LayerList extends React.Component {

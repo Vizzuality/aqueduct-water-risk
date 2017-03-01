@@ -19,7 +19,7 @@ function updateUrl() {
         scenario,
         timeScale,
         geoScale,
-        layers: layers.active
+        layers: layers.active.join(',')
       }
     };
     storeDispatch(replace(locationDescriptor));
@@ -47,6 +47,9 @@ function onEnterMapPage({ location }, replaceUrl, done) {
       timeScale,
       geoScale
     }));
+  }
+  if (location.query.layers) {
+    dispatch(setActiveLayers(location.query.layers.split(',')));
   }
 
   done();

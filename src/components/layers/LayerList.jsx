@@ -86,7 +86,7 @@ export default class LayerList extends React.Component {
             name="scenario"
             items={scenarioOptions}
             onChange={selected => this.props.setFilters({ scenario: selected.value })}
-            selected={this.props.scenario}
+            defaultValue={this.props.scenario}
             className="-inline"
           />
         </div>

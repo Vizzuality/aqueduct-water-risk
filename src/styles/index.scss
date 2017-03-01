@@ -10,10 +10,6 @@
 /* Lib */
 @import "lib/foundation";
 
-/* Components */
-@import "components/segmentedui";
-@import "components/filters";
-
 /* Aqueduct-components */
 @import "~aqueduct-components/styles/timeline";
 @import "~aqueduct-components/styles/select";
@@ -26,3 +22,10 @@
 @import "~aqueduct-components/styles/spinner";
 @import "~aqueduct-components/styles/header";
 @import "~aqueduct-components/styles/sidebar";
+
+/* Components */
+@import "components/segmentedui";
+@import "components/filters";
+@import "components/layerlist";
+@import "components/checkbox";
+@import "components/radio";

@@ -1,10 +1,11 @@
 /* Constants */
 const SET_FILTERS = 'SET_FILTERS';
+const SET_ACTIVE_LAYERS = 'SET_ACTIVE_LAYERS';
 
 /* Initial state */
 const initialState = {
   layers: {
-    list: []
+    active: []
   },
   filters: {
     year: 'baseline',
@@ -35,6 +36,8 @@ function mapViewReducer(state = initialState, action) {
         }
       };
     }
+    case SET_ACTIVE_LAYERS:
+      return { ...state, layers: { active: action.payload } };
     default:
       return state;
   }
@@ -48,4 +51,11 @@ function setFilters(value) {
   };
 }
 
-export { mapViewReducer, setFilters };
+function setActiveLayers(layers) {
+  return {
+    type: SET_ACTIVE_LAYERS,
+    payload: layers
+  };
+}
+
+export { mapViewReducer, setFilters, setActiveLayers };

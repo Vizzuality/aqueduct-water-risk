@@ -1,9 +1,10 @@
 import { connect } from 'react-redux';
 import MapPage from 'components/pages/Map/MapPage';
 import getActiveLayers from 'selectors/layers_active';
-import { setMapLocation, updateMapUrl } from 'modules/map';
+import { setMapLocation } from 'modules/map';
+import { updateUrl } from 'modules/url';
 import { setScope } from 'modules/scope';
-import { setFilters } from 'modules/mapView';
+import { setFilters, setActiveLayers } from 'modules/mapView';
 
 const mapStateToProps = state => ({
   layersActive: getActiveLayers(state),
@@ -15,16 +16,22 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   setMapParams: (params) => {
     dispatch(setMapLocation(params));
-    dispatch(updateMapUrl());
+    dispatch(updateUrl());
   },
-  updateMapUrl: () => {
-    dispatch(updateMapUrl());
+  updateUrl: () => {
+    dispatch(updateUrl());
   },
   setScope: (scope) => {
     dispatch(setScope(scope));
+    dispatch(updateUrl());
   },
   setFilters: (filter) => {
     dispatch(setFilters(filter));
+    dispatch(updateUrl());
+  },
+  setActiveLayers: (layers) => {
+    dispatch(setActiveLayers(layers));
+    dispatch(updateUrl());
   }
 });
 

@@ -3,11 +3,13 @@ import { Sidebar, SegmentedUi } from 'aqueduct-components';
 import Map from 'components/map/Map';
 import Filters from 'components/filters/Filters';
 import { tabOptions } from 'constants/mapView';
+import { layers } from 'constants/layers';
+import LayerList from 'components/layers/LayerList';
 
 export default class MapPage extends React.Component {
 
   componentWillMount() {
-    this.props.updateMapUrl();
+    this.props.updateUrl();
   }
 
   render() {
@@ -47,12 +49,24 @@ export default class MapPage extends React.Component {
             selected={this.props.scope}
             onChange={selected => this.props.setScope(selected.value)}
           />
-          { this.props.scope === 'mapView' &&
-            <Filters
-              filters={this.props.mapView.filters}
-              setFilters={this.props.setFilters}
-            />
-          }
+          <div className="l-mapview-content">
+            { this.props.scope === 'mapView' &&
+              <div>
+                <Filters
+                  filters={this.props.mapView.filters}
+                  setFilters={this.props.setFilters}
+                />
+                <LayerList
+                  activeLayers={this.props.mapView.layers.active}
+                  layers={layers}
+                  onSelectLayer={this.props.setActiveLayers}
+                  year={this.props.mapView.filters.year}
+                  scenario={this.props.mapView.filters.scenario}
+                  setFilters={this.props.setFilters}
+                />
+              </div>
+            }
+          </div>
         </Sidebar>
         <Map
           listeners={listeners}
@@ -75,6 +89,7 @@ MapPage.propTypes = {
   // Actions
   setMapParams: React.PropTypes.func,
   setScope: React.PropTypes.func,
-  updateMapUrl: React.PropTypes.func,
-  setFilters: React.PropTypes.func
+  updateUrl: React.PropTypes.func,
+  setFilters: React.PropTypes.func,
+  setActiveLayers: React.PropTypes.func
 };

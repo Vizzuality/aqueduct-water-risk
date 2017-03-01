@@ -39,16 +39,22 @@
 
   .l-sidebar-content {
     position: relative;
-    width: 100%;
-    top: 0;
-    left: 0;
-    z-index: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow-y: hidden;
   }
 }
 
 /* Map page */
 .l-map-page {
   height: 100%;
+}
+
+/* MapView content */
+.l-mapview-content {
+  flex: 1;
+  overflow-y: auto;
 }
 
 // Grid

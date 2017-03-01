@@ -5,7 +5,7 @@ const SET_ACTIVE_LAYERS = 'SET_ACTIVE_LAYERS';
 /* Initial state */
 const initialState = {
   layers: {
-    active: []
+    active: ['000001']
   },
   filters: {
     year: 'baseline',

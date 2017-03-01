@@ -1,6 +1,7 @@
 import React from 'react';
 import { Radio, Checkbox, RadioGroup, Icon } from 'aqueduct-components';
 import { futureLayers, scenarioOptions } from 'constants/layers';
+import Presets from 'components/presets/Presets';
 
 export default class LayerList extends React.Component {
 
@@ -50,10 +51,7 @@ export default class LayerList extends React.Component {
           />
         </span>
         {this.state.advanced &&
-          <div>
-            <span>Weight scheme presets</span>
-            <span>Indicators</span>
-          </div>
+          <Presets />
         }
         <span className="layerlist-title">Indicators</span>
         {this.renderLayerList(this.props.layers, 0)}

@@ -1,5 +1,9 @@
 .c-checkbox {
 
+  &.-inline {
+    display: inline-block;
+  }
+
   &.-reverse {
     label {
       padding-left: 0;

@@ -19,13 +19,18 @@ $separation: $space-1 * 2;
     margin-bottom: $space-1 * 4;
   }
 
-  span {
+  .custom {
+    float: right;
+    letter-spacing: normal;
+  }
+
+  .title {
     @include clearfix;
     letter-spacing: .9px;
     display: block;
     margin-bottom: $separation;
 
-    &.-upper label {
+    &.-upper .c-radio label {
       text-transform: uppercase;
     }
   }
@@ -39,11 +44,11 @@ $separation: $space-1 * 2;
     padding-left: $separation;
   }
 
-  li span {
+  li .title {
     text-transform: none;
   }
 
-  .c-icon {
+  .item-icon {
     fill: palette(blue);
     float: right;
     border: 1px solid palette(gray);

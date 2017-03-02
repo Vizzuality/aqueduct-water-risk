@@ -8,7 +8,7 @@ export default function List(props) {
         {layers.map((l, index) => {
           return (
             <li className="layerlist-item" key={index}>
-              <span className={deep < 2 ? '-upper' : ''}>
+              <span className={deep < 2 ? 'title -upper' : 'title'}>
                 <Radio
                   label={l.name}
                   onChange={i => props.onSelectLayer([i])}
@@ -16,7 +16,7 @@ export default function List(props) {
                   value={l.id}
                   selected={props.activeLayers[0]}
                 />
-                <Icon name="icon-info" />
+              <Icon className="item-icon" name="icon-info" />
               </span>
               {l.children && l.children.length &&
                 getLayers(l.children, deep + 1)

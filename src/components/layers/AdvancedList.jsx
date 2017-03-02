@@ -1,31 +1,18 @@
 import React from 'react';
-import { Timeline, Radio, Icon } from 'aqueduct-components';
+import { Checkbox, Timeline, Radio, Icon } from 'aqueduct-components';
+import { points } from 'constants/points';
 
-const points = [
-  {
-    label: '',
-    value: '1'
-  },
-  {
-    label: '',
-    value: '2'
-  },
-  {
-    label: '',
-    value: '3'
-  },
-  {
-    label: '',
-    value: '4'
-  },
-  {
-    label: '',
-    value: '5'
+export default class AdvancedList extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      custom: false
+    };
   }
-];
 
-export default function AdvancedList(props) {
-  function getLayers(layers, deep) {
+  getLayers(layers, deep) {
+    const cNames = ['-rate'];
+    if (!this.state.custom) cNames.push('-bloqued');
     return (
       <ul className="layerlist-list -advanced">
         {layers.map((l, index) => {
@@ -34,21 +21,32 @@ export default function AdvancedList(props) {
               {Array.isArray(l.ponderation) ?
                 <span>
                   <span>{l.name}</span>
-                  <Timeline className="-rate -bloqued" items={points} selected={{ value: '3' }} onChange={() => {}} />
+                  <Timeline className={cNames.join(' ')} items={points} selected={{ value: '3' }} onChange={() => {}} />
                 </span> :
-                <span className={deep < 2 ? '-upper' : ''}>
+                <span className={deep < 2 ? 'title -upper' : 'title'}>
                   <Radio
                     label={l.name}
-                    onChange={i => props.onSelectLayer([i])}
+                    onChange={i => this.props.onSelectLayer([i])}
                     name="layer"
                     value={l.id}
-                    selected={props.activeLayers[0]}
+                    selected={this.props.activeLayers[0]}
                   />
-                  <Icon name="icon-info" />
+                  {l.overall ?
+                    <span className="custom">
+                      <Checkbox
+                        className="-reverse -inline"
+                        label="Customize weights"
+                        name="custom"
+                        value="custom"
+                        onChange={val => this.setState({ custom: val.checked })}
+                      />
+                    </span> :
+                    <Icon className="item-icon" name="icon-info" />
+                    }
                 </span>
-              }
+                }
               {l.children && l.children.length &&
-                getLayers(l.children, deep + 1)
+                this.getLayers(l.children, deep + 1)
               }
             </li>
           );
@@ -57,12 +55,15 @@ export default function AdvancedList(props) {
     );
   }
 
-  return getLayers(props.layers, 0);
+  render() {
+    return this.getLayers(this.props.layers, 0);
+  }
 }
 
 AdvancedList.propTypes = {
   layers: React.PropTypes.array,
-  activeLayers: React.PropTypes.array
+  activeLayers: React.PropTypes.array,
+  onSelectLayer: React.PropTypes.func
 };
 
 AdvancedList.defaultProps = {

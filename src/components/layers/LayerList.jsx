@@ -18,16 +18,15 @@ export default class LayerList extends React.Component {
   /* Partial renders */
   renderLayerList() {
     return this.state.advanced ?
-      <AdvancedList /> :
+      <AdvancedList
+        layers={this.props.layers}
+        activeLayers={this.props.activeLayers}
+      /> :
       <List
         layers={this.props.layers}
         activeLayers={this.props.activeLayers}
         onSelectLayer={this.props.onSelectLayer}
       />;
-  }
-
-  renderAdvancedLayerList() {
-    return <AdvancedList />;
   }
 
   renderCurrent() {

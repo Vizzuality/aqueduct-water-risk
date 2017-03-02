@@ -15,6 +15,10 @@ $separation: $space-1 * 2;
 
 .layerlist-item {
 
+  .-advanced > & {
+    margin-bottom: $space-1 * 4;
+  }
+
   span {
     @include clearfix;
     letter-spacing: .9px;

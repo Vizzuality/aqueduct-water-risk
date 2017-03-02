@@ -2,32 +2,53 @@ const layers = [
   {
     id: '000001',
     name: 'Overall water risk',
+    overall: true,
     children: [
       {
-        id: '0002',
-        name: 'Children 1'
-      },
-      {
         id: '0003',
-        name: 'Children 3'
-      },
-      {
-        id: '000004',
-        name: 'Layer 3'
+        name: 'Physical risk quantity',
+        children: [
+          {
+            id: '0004',
+            name: 'Baseline water stress',
+            ponderation: []
+          }
+        ]
       },
       {
         id: '000005',
-        name: 'Layer 4',
+        name: 'Physical risk quantity',
         children: [
           {
             id: '0006',
-            name: 'Layer 5',
-            children: [
-              {
-                id: '00007',
-                name: 'Layer 5'
-              }
-            ]
+            name: 'Baseline water stress',
+            ponderation: []
+          }
+        ]
+      },
+      {
+        id: '00007',
+        name: 'Physical risk quantity',
+        children: [
+          {
+            id: '0008',
+            name: 'Baseline water stress',
+            ponderation: []
+          },
+          {
+            id: '0009',
+            name: 'Baseline water stress',
+            ponderation: []
+          },
+          {
+            id: '0010',
+            name: 'Baseline water stress',
+            ponderation: []
+          },
+          {
+            id: '0011',
+            name: 'Baseline water stress',
+            ponderation: []
           }
         ]
       }

@@ -1,14 +1,15 @@
 .c-custom-select {
 
-  &:after {
-    border-bottom-color: palette(blue, secondary);
-    right: $space-1 * 2;
-  }
 
   &.-big {
     background-color: palette(white);
     border-bottom-color: #dbdfe5;
 
+    &:after {
+      border-bottom-color: palette(blue, secondary);
+      right: $space-1 * 2;
+    }
+    
     .custom-select-text {
       text-transform: uppercase;
       letter-spacing: .9px;

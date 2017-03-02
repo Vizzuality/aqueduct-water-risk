@@ -1,20 +1,21 @@
 .c-timeline {
   &.-rate {
-
+    padding: 0;
+    max-width: 325px;
     .timeline-list {
       background-image: none;
-      border-top: 1px dotted rgba(palette(gray, dark), .3);
+      border-top: 1px dotted lighten(palette(gray, dark), 30%);
     }
 
     .timeline-list-item {
       box-shadow: 0 0 0px 7px palette(sand);
       border: none;
-      background-color: rgba(palette(gray, dark), .3);
+      background-color: lighten(palette(gray, dark), 30%);
       width: 6px;
       height: 6px;
 
       &.-selected {
-        background-color: rgba(palette(gray, dark), 1);
+        background-color: palette(gray, dark);
         width: 14px;
         height: 14px;
       }

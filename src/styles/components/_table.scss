@@ -1,0 +1,32 @@
+
+.c-table {
+
+  padding: $space-1 * 4;
+  color: palette(gray, dark);
+
+  .table {
+    width: 100%;
+    table-layout: fixed;
+    background-color: palette(white);
+
+    th {
+      font-weight: bold;
+    }
+
+    tbody {
+      tr {
+        &:nth-child(even) {
+          background-color: rgba(palette(gray), .05);
+        }
+      }
+    }
+  }
+
+  .paginator {
+    display: flex;
+
+    button {
+      padding: $space-1 ($space-1 * 2);
+    }
+  }
+}

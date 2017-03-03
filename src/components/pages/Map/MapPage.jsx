@@ -5,6 +5,7 @@ import Filters from 'components/filters/Filters';
 import { tabOptions } from 'constants/mapView';
 import { layers } from 'constants/layers';
 import LayerList from 'components/layers/LayerList';
+import CustomTable from 'components/ui/Table'
 
 export default class MapPage extends React.Component {
 
@@ -40,6 +41,98 @@ export default class MapPage extends React.Component {
       center: [this.props.mapState.latLng.lat, this.props.mapState.latLng.lng]
     };
 
+    const columns = [
+      {
+        label: 'Field a',
+        value: 'fieldA'
+      },
+      {
+        label: 'Field b',
+        value: 'fieldB'
+      },
+      {
+        label: 'Field c',
+        value: 'fieldC'
+      },
+      {
+        label: 'Field d',
+        value: 'fieldD'
+      }
+    ];
+
+    const data = [
+      {
+        name: 'Pepe',
+        fieldA: 1,
+        fieldB: 1,
+        fieldC: 1,
+        fieldD: 1
+      },
+      {
+        name: 'Pepe',
+        fieldA: 2,
+        fieldB: 2,
+        fieldC: 2,
+        fieldD: 2
+      },
+      {
+        name: 'Pepe',
+        fieldA: 3,
+        fieldB: 3,
+        fieldC: 3,
+        fieldD: 3
+      },
+      {
+        name: 'Pepe',
+        fieldA: 4,
+        fieldB: 4,
+        fieldC: 4,
+        fieldD: 4
+      },
+      {
+        name: 'Pepe',
+        fieldA: 5,
+        fieldB: 5,
+        fieldC: 5,
+        fieldD: 5
+      },
+      {
+        name: 'Pepe',
+        fieldA: 1,
+        fieldB: 1,
+        fieldC: 1,
+        fieldD: 1
+      },
+      {
+        name: 'Pepe',
+        fieldA: 2,
+        fieldB: 2,
+        fieldC: 2,
+        fieldD: 2
+      },
+      {
+        name: 'Pepe',
+        fieldA: 3,
+        fieldB: 3,
+        fieldC: 3,
+        fieldD: 3
+      },
+      {
+        name: 'Pepe',
+        fieldA: 4,
+        fieldB: 4,
+        fieldC: 4,
+        fieldD: 4
+      },
+      {
+        name: 'Pepe',
+        fieldA: 5,
+        fieldB: 5,
+        fieldC: 5,
+        fieldD: 5
+      }
+    ];
+
     return (
       <div className="c-map-page l-map-page">
         <Sidebar setSidebarWidth={() => {}}>
@@ -67,6 +160,9 @@ export default class MapPage extends React.Component {
                   setPonderation={this.props.setPonderation}
                 />
               </div>
+            }
+            { this.props.scope === 'analyseLocations' &&
+              <CustomTable columns={columns} data={data} pageSize={4} />
             }
           </div>
         </Sidebar>

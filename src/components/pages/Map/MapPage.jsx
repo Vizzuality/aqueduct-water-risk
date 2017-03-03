@@ -162,7 +162,7 @@ export default class MapPage extends React.Component {
               </div>
             }
             { this.props.scope === 'analyseLocations' &&
-              <CustomTable columns={columns} data={data} pageSize={4} />
+              <CustomTable columns={columns} data={data} pageSize={4} filters />
             }
           </div>
         </Sidebar>

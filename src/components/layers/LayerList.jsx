@@ -1,6 +1,10 @@
 import React from 'react';
-import { Radio, Checkbox, RadioGroup, Icon } from 'aqueduct-components';
+import { Checkbox, Icon } from 'aqueduct-components';
 import { futureLayers, scenarioOptions } from 'constants/layers';
+import Presets from 'components/presets/Presets';
+import Future from './Future';
+import List from './List';
+import AdvancedList from './AdvancedList';
 
 export default class LayerList extends React.Component {
 
@@ -12,32 +16,20 @@ export default class LayerList extends React.Component {
   }
 
   /* Partial renders */
-  renderLayerList(layers, deep) {
-    return (
-      <ul className="layerlist-list">
-        {layers.map((l, index) => {
-          return (
-            <li className="layerlist-item" key={index}>
-              <span className={deep < 2 ? '-upper' : ''}>
-                <Radio
-                  label={l.name}
-                  onChange={i => this.props.onSelectLayer([i])}
-                  name="layer"
-                  value={l.id}
-                  selected={this.props.activeLayers[0]}
-                />
-                <Icon name="icon-info" />
-              </span>
-              {l.children && l.children.length &&
-                this.renderLayerList(l.children, deep + 1)
-              }
-            </li>
-          );
-        })}
-      </ul>);
+  renderLayerList() {
+    return this.state.advanced ?
+      <AdvancedList
+        layers={this.props.layers}
+        activeLayers={this.props.activeLayers}
+      /> :
+      <List
+        layers={this.props.layers}
+        activeLayers={this.props.activeLayers}
+        onSelectLayer={this.props.onSelectLayer}
+      />;
   }
 
-  renderIndicators() {
+  renderCurrent() {
     return (
       <div>
         <span className="advanced">
@@ -50,10 +42,7 @@ export default class LayerList extends React.Component {
           />
         </span>
         {this.state.advanced &&
-          <div>
-            <span>Weight scheme presets</span>
-            <span>Indicators</span>
-          </div>
+          <Presets onChange={this.props.setPonderation} ponderation={this.props.ponderation} />
         }
         <span className="layerlist-title">Indicators</span>
         {this.renderLayerList(this.props.layers, 0)}
@@ -63,33 +52,14 @@ export default class LayerList extends React.Component {
 
   renderFuture() {
     return (
-      <div className="c-future">
-        <div className="future-group">
-          <span className="future-title">Projected changes in...</span>
-          {futureLayers.map((i, index) => {
-            return (
-              <Radio
-                key={index}
-                label={i.name}
-                name="indicator"
-                value={i.id}
-                selected={this.props.activeLayers[0]}
-                onChange={l => this.props.onSelectLayer([l])}
-              />);
-          })}
-        </div>
-        <div className="future-group">
-          <span className="future-title">Scenario</span>
-          <p>Future water availibility depends on how the world grows. These possible scenarios are based on the IPCC 5th assessment report.</p>
-          <RadioGroup
-            name="scenario"
-            items={scenarioOptions}
-            onChange={selected => this.props.setFilters({ scenario: selected.value })}
-            defaultValue={this.props.scenario}
-            className="-inline"
-          />
-        </div>
-      </div>
+      <Future
+        layers={futureLayers}
+        scenarioOptions={scenarioOptions}
+        activeLayers={this.props.activeLayers}
+        onSelectLayer={this.props.onSelectLayer}
+        setFilters={this.props.setFilters}
+        scenario={this.props.scenario}
+      />
     );
   }
 
@@ -97,7 +67,7 @@ export default class LayerList extends React.Component {
   render() {
     return (
       <div className="c-layerlist">
-        {this.props.year === 'baseline' ? this.renderIndicators() : this.renderFuture()}
+        {this.props.year === 'baseline' ? this.renderCurrent() : this.renderFuture()}
       </div>
     );
   }
@@ -109,7 +79,9 @@ LayerList.propTypes = {
   activeLayers: React.PropTypes.array,
   year: React.PropTypes.string,
   scenario: React.PropTypes.string,
+  ponderation: React.PropTypes.string,
   // Actions
   onSelectLayer: React.PropTypes.func,
-  setFilters: React.PropTypes.func
+  setFilters: React.PropTypes.func,
+  setPonderation: React.PropTypes.func
 };

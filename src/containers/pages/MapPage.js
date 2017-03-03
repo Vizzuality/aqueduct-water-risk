@@ -4,7 +4,7 @@ import getActiveLayers from 'selectors/layers_active';
 import { setMapLocation } from 'modules/map';
 import { updateUrl } from 'modules/url';
 import { setScope } from 'modules/scope';
-import { setFilters, setActiveLayers } from 'modules/mapView';
+import { setFilters, setActiveLayers, setPonderation } from 'modules/mapView';
 
 const mapStateToProps = state => ({
   layersActive: getActiveLayers(state),
@@ -31,6 +31,10 @@ const mapDispatchToProps = dispatch => ({
   },
   setActiveLayers: (layers) => {
     dispatch(setActiveLayers(layers));
+    dispatch(updateUrl());
+  },
+  setPonderation: (ponderation) => {
+    dispatch(setPonderation(ponderation));
     dispatch(updateUrl());
   }
 });

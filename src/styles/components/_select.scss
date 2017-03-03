@@ -1,0 +1,31 @@
+.c-custom-select {
+
+
+  &.-big {
+    background-color: palette(white);
+    border-bottom-color: #dbdfe5;
+
+    &:after {
+      border-bottom-color: palette(blue, secondary);
+      right: $space-1 * 2;
+    }
+    
+    .custom-select-text {
+      text-transform: uppercase;
+      letter-spacing: .9px;
+      color: palette(gray, dark);
+      font-weight: normal;
+      font-size: $font-size-default;
+      min-height: auto;
+      padding: $space-1 0 $space-1 ($space-1 * 2);
+    }
+
+    .custom-select-options {
+      li {
+        font-weight: normal;
+        font-size: $font-size-default;
+        color: palette(gray, dark);
+      }
+    }
+  }
+}

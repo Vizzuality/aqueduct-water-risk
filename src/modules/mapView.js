@@ -1,6 +1,7 @@
 /* Constants */
 const SET_FILTERS = 'SET_FILTERS';
 const SET_ACTIVE_LAYERS = 'SET_ACTIVE_LAYERS';
+const SET_PONDERATION = 'SET_PONDERATION';
 
 /* Initial state */
 const initialState = {
@@ -14,12 +15,10 @@ const initialState = {
     timeScale: 'annual',
     geoScale: 'global'
   },
-  weight: {
+  ponderation: {
     mode: 'default',
-    scheme: {
-      default: 'agriculture',
-      advanced: {}
-    }
+    scheme: 'agriculture',
+    advanced: {}
   }
 };
 
@@ -32,6 +31,15 @@ function mapViewReducer(state = initialState, action) {
         ...state,
         filters: {
           ...state.filters,
+          ...action.payload
+        }
+      };
+    }
+    case SET_PONDERATION: {
+      return {
+        ...state,
+        ponderation: {
+          ...state.ponderation,
           ...action.payload
         }
       };
@@ -51,6 +59,13 @@ function setFilters(value) {
   };
 }
 
+function setPonderation(value) {
+  return {
+    type: SET_PONDERATION,
+    payload: value
+  };
+}
+
 function setActiveLayers(layers) {
   return {
     type: SET_ACTIVE_LAYERS,
@@ -58,4 +73,4 @@ function setActiveLayers(layers) {
   };
 }
 
-export { mapViewReducer, setFilters, setActiveLayers };
+export { mapViewReducer, setFilters, setActiveLayers, setPonderation };

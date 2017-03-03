@@ -42,7 +42,7 @@ export default class LayerList extends React.Component {
           />
         </span>
         {this.state.advanced &&
-          <Presets />
+          <Presets onChange={this.props.setPonderation} ponderation={this.props.ponderation} />
         }
         <span className="layerlist-title">Indicators</span>
         {this.renderLayerList(this.props.layers, 0)}
@@ -79,7 +79,9 @@ LayerList.propTypes = {
   activeLayers: React.PropTypes.array,
   year: React.PropTypes.string,
   scenario: React.PropTypes.string,
+  ponderation: React.PropTypes.string,
   // Actions
   onSelectLayer: React.PropTypes.func,
-  setFilters: React.PropTypes.func
+  setFilters: React.PropTypes.func,
+  setPonderation: React.PropTypes.func
 };

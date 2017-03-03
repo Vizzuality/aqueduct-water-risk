@@ -61,8 +61,10 @@ export default class MapPage extends React.Component {
                   layers={layers}
                   onSelectLayer={this.props.setActiveLayers}
                   year={this.props.mapView.filters.year}
+                  ponderation={this.props.mapView.ponderation.scheme}
                   scenario={this.props.mapView.filters.scenario}
                   setFilters={this.props.setFilters}
+                  setPonderation={this.props.setPonderation}
                 />
               </div>
             }
@@ -91,5 +93,6 @@ MapPage.propTypes = {
   setScope: React.PropTypes.func,
   updateUrl: React.PropTypes.func,
   setFilters: React.PropTypes.func,
-  setActiveLayers: React.PropTypes.func
+  setActiveLayers: React.PropTypes.func,
+  setPonderation: React.PropTypes.func
 };

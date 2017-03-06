@@ -12,6 +12,20 @@ export default class TableFilters extends React.Component {
     // Bindings
     this.toggle = this.toggle.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.onScreenClick = this.onScreenClick.bind(this);
+  }
+
+  /* Component lifecycle */
+  componentWillUnmount() {
+    window.removeEventListener('click', this.onScreenClick);
+  }
+
+  onScreenClick(evt) {
+    const clickOutside = this.el.contains && !this.el.contains(evt.target);
+    if (clickOutside) {
+      this.toggle();
+      window.removeEventListener('click', this.onScreenClick);
+    }
   }
 
   onChange() {
@@ -25,12 +39,16 @@ export default class TableFilters extends React.Component {
   }
 
   toggle() {
-    this.setState({ closed: !this.state.closed });
+    const { closed } = this.state;
+    if (closed) {
+      window.addEventListener('click', this.onScreenClick);
+    }
+    this.setState({ closed: !closed });
   }
 
   render() {
     return (
-      <div className="c-table-filters">
+      <div ref={node => this.el = node} className="c-table-filters">
         <button onClick={this.toggle} className="filters-btn" />
         {this.state.closed ||
           <div className="filters-content">

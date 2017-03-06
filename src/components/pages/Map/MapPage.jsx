@@ -64,72 +64,72 @@ export default class MapPage extends React.Component {
       {
         name: 'Pepe',
         fieldA: 1,
-        fieldB: 1,
-        fieldC: 1,
-        fieldD: 1
+        fieldB: 13,
+        fieldC: 31,
+        fieldD: 16
       },
       {
         name: 'Pepe',
-        fieldA: 2,
-        fieldB: 2,
-        fieldC: 2,
-        fieldD: 2
+        fieldA: 22,
+        fieldB: 552,
+        fieldC: 27,
+        fieldD: 82
       },
       {
         name: 'Pepe',
-        fieldA: 3,
-        fieldB: 3,
-        fieldC: 3,
-        fieldD: 3
+        fieldA: 13,
+        fieldB: 344,
+        fieldC: 73,
+        fieldD: 32
       },
       {
         name: 'Pepe',
-        fieldA: 4,
-        fieldB: 4,
-        fieldC: 4,
-        fieldD: 4
+        fieldA: 45,
+        fieldB: 64,
+        fieldC: 0,
+        fieldD: 422
       },
       {
         name: 'Pepe',
-        fieldA: 5,
-        fieldB: 5,
-        fieldC: 5,
+        fieldA: 775,
+        fieldB: 58,
+        fieldC: 15,
+        fieldD: 56
+      },
+      {
+        name: 'Pepe',
+        fieldA: 19,
+        fieldB: 12,
+        fieldC: 1111,
         fieldD: 5
+      },
+      {
+        name: 'Pepe',
+        fieldA: 20,
+        fieldB: 'Hola mundo',
+        fieldC: 'jejeje',
+        fieldD: 55
       },
       {
         name: 'Pepe',
         fieldA: 1,
-        fieldB: 1,
-        fieldC: 1,
-        fieldD: 1
+        fieldB: 33,
+        fieldC: 663,
+        fieldD: 35
       },
       {
         name: 'Pepe',
-        fieldA: 2,
-        fieldB: 2,
-        fieldC: 2,
-        fieldD: 2
+        fieldA: 42,
+        fieldB: 234,
+        fieldC: 46,
+        fieldD: 24
       },
       {
         name: 'Pepe',
-        fieldA: 3,
-        fieldB: 3,
-        fieldC: 3,
-        fieldD: 3
-      },
-      {
-        name: 'Pepe',
-        fieldA: 4,
-        fieldB: 4,
-        fieldC: 4,
-        fieldD: 4
-      },
-      {
-        name: 'Pepe',
-        fieldA: 5,
-        fieldB: 5,
-        fieldC: 5,
-        fieldD: 5
+        fieldA: 5343,
+        fieldB: 65,
+        fieldC: 534,
+        fieldD: 'Hello world'
       }
     ];
 

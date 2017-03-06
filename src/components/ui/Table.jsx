@@ -7,18 +7,29 @@ export default class CustomTable extends React.Component {
     super(props);
 
     const { data } = props;
-    const numPages = Math.ceil(data.length / props.pageSize);
+    const totalPages = Math.ceil(data.length / props.pageSize);
     const bounds = this.getPageBounds(props.initialPage);
 
+    /*
+      Initial state
+      - props.data => original data
+      - filteredData => original data with filters (if any) applied
+      - displayedData => filteredData with pagination
+    */
     this.state = {
-      data: props.data.slice(bounds.bottom, bounds.top),
+      filteredData: props.data,
+      displayedData: props.data.slice(bounds.bottom, bounds.top),
       currentPage: 0,
-      numPages
+      totalPages
     };
 
     // Bindings
     this.nextPage = this.nextPage.bind(this);
     this.prevPage = this.prevPage.bind(this);
+    this.filter = this.filter.bind(this);
+
+    // Aux variables
+    this.query = {};
   }
 
   getPageBounds(page) {
@@ -28,7 +39,7 @@ export default class CustomTable extends React.Component {
   }
 
   nextPage() {
-    if (this.state.currentPage === this.state.numPages - 1) return;
+    if (this.state.currentPage === this.state.totalPages - 1) return;
     this.goToPage(this.state.currentPage + 1);
   }
 
@@ -38,14 +49,43 @@ export default class CustomTable extends React.Component {
   }
 
   goToPage(page) {
-    const bounds = this.getPageBounds(page);
+    const { bottom, top } = this.getPageBounds(page);
 
     this.setState({
       currentPage: page,
-      data: this.props.data.slice(bounds.bottom, bounds.top)
+      displayedData: this.state.filteredData.slice(bottom, top)
     });
   }
 
+  filter(query) {
+    this.query[query.field] = query.value;
+    const data = this.props.data.filter((row) => {
+      let match = true;
+      let matched;
+      Object.keys(this.query).forEach((field) => {
+        matched = !!row[field].toString().match(this.query[field]);
+        match *= matched;
+      });
+      return match;
+    });
+    this.setState({
+      filteredData: data,
+      totalPages: Math.ceil(data.length / this.props.pageSize)
+    }, () => this.goToPage(0));
+  }
+
+  /* Partial renders */
+  renderTableContent() {
+    return this.state.displayedData.map((row, index) => {
+      return (
+        <tr key={index}>
+          {this.props.columns.map((col, i) => <td key={i}>{row[col.value]}</td>)}
+        </tr>
+      );
+    });
+  }
+
+  /* Render */
   render() {
     return (
       <div className="c-table">
@@ -53,19 +93,20 @@ export default class CustomTable extends React.Component {
         <div className="table-header">
           {/* Page locator */
             this.props.paginated &&
-              <span>{`Page ${this.state.currentPage + 1} of ${this.state.numPages}`}</span>
+              <span>Page <span>{this.state.currentPage + 1}</span> of <span>{this.state.totalPages}</span></span>
           }
         </div>
         <table className="table">
           <thead>
             <tr>
               {/* Table head */}
-              {this.props.columns.map((c, index) => <th key={index}>{c.label}{this.props.filters && <TableFilters />}</th>)}
+              {this.props.columns.map((c, index) => <th key={index}>{c.label}{this.props.filters && <TableFilters field={c.value} onChange={this.filter} />}</th>)}
             </tr>
           </thead>
           <tbody>
-            {/* Table content */}
-            {this.state.data.map((row, index) => <tr key={index}>{this.props.columns.map((col, i) => <td key={i}>{row[col.value]}</td>)}</tr>)}
+            {/* Table content */
+              this.renderTableContent()
+            }
           </tbody>
         </table>
         <div className="table-footer">

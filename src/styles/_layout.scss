@@ -53,6 +53,7 @@
 
 /* MapView content */
 .l-mapview-content {
+  padding: $sidebar-padding;
   flex: 1;
   overflow-y: auto;
 }

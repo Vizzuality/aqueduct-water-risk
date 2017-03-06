@@ -61,11 +61,10 @@ export default class CustomTable extends React.Component {
     this.query[query.field] = query.value;
     const data = this.props.data.filter((row) => {
       let match = true;
-      let matched;
       Object.keys(this.query).forEach((field) => {
-        matched = !!row[field].toString().match(this.query[field]);
-        match *= matched;
+        match *= !!row[field].toString().toLowerCase().match(this.query[field].toString().toLowerCase());
       });
+
       return match;
     });
     this.setState({
@@ -75,7 +74,32 @@ export default class CustomTable extends React.Component {
   }
 
   /* Partial renders */
+  renderTableHead() {
+    return this.props.columns.map((c, index) => {
+      return (
+        <th key={index}>
+          <span className="th-wrapper">
+            <span>{c.label}</span>
+            {this.props.filters &&
+              <TableFilters field={c.value} onChange={this.filter} />
+            }
+          </span>
+        </th>
+      );
+    });
+  }
+
   renderTableContent() {
+    const { displayedData } = this.state;
+
+    if (!displayedData.length) {
+      return (
+        <tr>
+          <td colSpan={this.props.columns.length}>No results found</td>
+        </tr>
+      );
+    }
+
     return this.state.displayedData.map((row, index) => {
       return (
         <tr key={index}>
@@ -90,17 +114,13 @@ export default class CustomTable extends React.Component {
     return (
       <div className="c-table">
         {/* Table */}
-        <div className="table-header">
-          {/* Page locator */
-            this.props.paginated &&
-              <span>Page <span>{this.state.currentPage + 1}</span> of <span>{this.state.totalPages}</span></span>
-          }
-        </div>
+        <div className="table-header" />
         <table className="table">
           <thead>
             <tr>
-              {/* Table head */}
-              {this.props.columns.map((c, index) => <th key={index}>{c.label}{this.props.filters && <TableFilters field={c.value} onChange={this.filter} />}</th>)}
+              {/* Table head */
+                this.renderTableHead()
+              }
             </tr>
           </thead>
           <tbody>
@@ -112,10 +132,14 @@ export default class CustomTable extends React.Component {
         <div className="table-footer">
           {/* Paginator */
             this.props.paginated &&
-              <ul className="paginator">
-                <li className="paginator-link"><button className="paginator-btn" onClick={this.prevPage}>Prev</button></li>
-                <li className="paginator-link"><button className="paginator-btn" onClick={this.nextPage}>Next</button></li>
-              </ul>
+            <ul className="paginator">
+              <li className="paginator-link"><button className="paginator-btn" onClick={this.prevPage}>Prev</button></li>
+              <li className="paginator-link"><button className="paginator-btn" onClick={this.nextPage}>Next</button></li>
+            </ul>
+          }
+          {/* Page locator */
+            this.props.paginated &&
+              <span>Page <span>{this.state.currentPage + 1}</span> of <span>{this.state.totalPages}</span></span>
           }
         </div>
       </div>

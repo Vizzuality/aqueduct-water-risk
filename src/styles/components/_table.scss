@@ -1,23 +1,31 @@
 
 .c-table {
 
-  padding: $space-1 * 4;
+  padding: $space-1;
+  background-color: palette(white);
   color: palette(gray, dark);
 
   .table {
     width: 100%;
     table-layout: fixed;
-    background-color: palette(white);
 
     th {
       font-weight: bold;
+      letter-spacing: .9px;
+      line-height: 1;
+      vertical-align: bottom;
+      padding: $space-1;
     }
 
     tbody {
       tr {
-        &:nth-child(even) {
-          background-color: rgba(palette(gray), .05);
+        &:nth-child(odd) {
+          background-color: rgba(palette(gray), .1);
         }
+      }
+
+      td {
+        padding: $space-1
       }
     }
   }
@@ -28,6 +36,17 @@
     button {
       padding: $space-1 ($space-1 * 2);
     }
+  }
+
+  .th-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  .table-footer {
+    display: flex;
+    justify-content: space-between;
   }
 }
 

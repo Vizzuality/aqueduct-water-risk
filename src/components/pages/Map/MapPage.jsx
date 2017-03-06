@@ -43,93 +43,83 @@ export default class MapPage extends React.Component {
 
     const columns = [
       {
-        label: 'Field a',
-        value: 'fieldA'
+        label: 'Name',
+        value: 'name'
       },
       {
-        label: 'Field b',
-        value: 'fieldB'
+        label: 'Country',
+        value: 'country'
       },
       {
-        label: 'Field c',
-        value: 'fieldC'
+        label: 'River Basin',
+        value: 'basin'
       },
       {
-        label: 'Field d',
-        value: 'fieldD'
+        label: 'Regulatory & Reputational Risk',
+        value: 'regulatory'
       }
     ];
 
     const data = [
       {
         name: 'Pepe',
-        fieldA: 1,
-        fieldB: 13,
-        fieldC: 31,
-        fieldD: 16
+        country: 1,
+        basin: 13,
+        regulatory: 31
       },
       {
         name: 'Pepe',
-        fieldA: 22,
-        fieldB: 552,
-        fieldC: 27,
-        fieldD: 82
+        country: 22,
+        basin: 552,
+        regulatory: 27
       },
       {
         name: 'Pepe',
-        fieldA: 13,
-        fieldB: 344,
-        fieldC: 73,
-        fieldD: 32
+        country: 13,
+        basin: 344,
+        regulatory: 73
       },
       {
         name: 'Pepe',
-        fieldA: 45,
-        fieldB: 64,
-        fieldC: 0,
-        fieldD: 422
+        country: 45,
+        basin: 64,
+        regulatory: 0
       },
       {
         name: 'Pepe',
-        fieldA: 775,
-        fieldB: 58,
-        fieldC: 15,
-        fieldD: 56
+        country: 775,
+        basin: 58,
+        regulatory: 15
       },
       {
         name: 'Pepe',
-        fieldA: 19,
-        fieldB: 12,
-        fieldC: 1111,
-        fieldD: 5
+        country: 19,
+        basin: 12,
+        regulatory: 1111
       },
       {
         name: 'Pepe',
-        fieldA: 20,
-        fieldB: 'Hola mundo',
-        fieldC: 'jejeje',
-        fieldD: 55
+        country: 20,
+        basin: 'Hola mundo',
+        regulatory: 'jejeje'
       },
       {
         name: 'Pepe',
-        fieldA: 1,
-        fieldB: 33,
-        fieldC: 663,
-        fieldD: 35
+        country: 1,
+        basin: 33,
+        regulatory: 663
       },
       {
         name: 'Pepe',
-        fieldA: 42,
-        fieldB: 234,
-        fieldC: 46,
-        fieldD: 24
+        country: 42,
+        basin: 234,
+        regulatory: 46
       },
       {
         name: 'Pepe',
-        fieldA: 5343,
-        fieldB: 65,
-        fieldC: 534,
-        fieldD: 'Hello world'
+        country: 5343,
+        basin: 65,
+        regulatory: 534
       }
     ];
 

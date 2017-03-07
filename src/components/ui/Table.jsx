@@ -72,8 +72,10 @@ export default class CustomTable extends React.Component {
   }
 
   filter(q) {
-    const { query } = this.state;
-    query[q.field] = q.value;
+    const query = {
+      ...this.state.query,
+      [q.field]: q.value
+    };
 
     const data = this.props.data.filter((row) => {
       let match = true;
@@ -91,8 +93,9 @@ export default class CustomTable extends React.Component {
   }
 
   sort(s) {
-    const sort = {};
-    sort[s.field] = s.value;
+    const sort = {
+      [s.field]: s.value
+    };
 
     const filteredData = this.state.filteredData.slice().sort((rowA, rowB) => {
       return rowA[s.field].toString().toLowerCase() > rowB[s.field].toString().toLowerCase() ? s.value : (s.value * -1);

@@ -15,6 +15,20 @@ const MAP_OPTIONS = {
   detectRetina: true
 };
 
+function addAndRemove(oldItems, newItems, addedCb, removedCb) {
+  const setA = new Set(newItems);
+  const setB = new Set(oldItems);
+  const union = new Set([...newItems, ...oldItems]);
+
+  for (const item of union) {
+    if (!setB.has(item)) {
+      addedCb && addedCb(item);
+    } else if (!setA.has(item)) {
+      removedCb && removedCb(item);
+    }
+  }
+}
+
 export default class Map extends React.Component {
 
   /* Constructor */
@@ -48,32 +62,14 @@ export default class Map extends React.Component {
     }
     // Layers
     if (!isEqual(this.props.layers, nextProps.layers)) {
-      const setA = new Set(nextProps.layers);
-      const setB = new Set(this.props.layers);
-      const union = new Set([...nextProps.layers, ...this.props.layers]);
-
-      for (const layer of union) {
-        if (!setB.has(layer)) {
-          this.addLayer(layer);
-        } else if (!setA.has(layer)) {
-          this.removeLayer(layer.id);
-        }
-      }
+      addAndRemove(this.props.layers, nextProps.layers, layer => this.addLayer(layer), layer => this.removeLayer(layer.id));
     }
+
 
     // Markers
     if (!isEqual(this.props.markers, nextProps.markers)) {
-      const setA = new Set(nextProps.markers);
-      const setB = new Set(this.props.markers);
-      const union = new Set([...nextProps.markers, ...this.props.markers]);
-
-      for (const marker of union) {
-        if (!setB.has(marker)) {
-          this.addMarker(marker);
-        } else if (!setA.has(marker)) {
-          // this.removeLayer(marker.id);
-        }
-      }
+      // TODO: implement removeMarker method
+      addAndRemove(this.props.markers, nextProps.markers, marker => this.addMarker(marker));
     }
   }
 
@@ -161,16 +157,11 @@ export default class Map extends React.Component {
 
   /* Marker methods */
   addMarker(marker) {
-    const icon = L.divIcon({
-      className: 'c-marker',
-      html: '<div class="marker-inner"></div>'
-    });
-
     if (Array.isArray(marker)) {
-      marker.forEach(m => L.marker([m.lat, m.lng], { icon }).addTo(this.map));
+      marker.forEach(m => L.marker([m.lat, m.lng], { icon: this.props.markerIcon }).addTo(this.map));
       return;
     }
-    L.marker([marker.lat, marker.lng], { icon }).addTo(this.map);
+    L.marker([marker.lat, marker.lng], { icon: this.props.markerIcon }).addTo(this.map);
   }
 
   /* Render method */
@@ -189,6 +180,7 @@ Map.propTypes = {
   mapMethods: React.PropTypes.object,
   layers: React.PropTypes.array,
   markers: React.PropTypes.array,
+  markerIcon: React.PropTypes.object,
   listeners: React.PropTypes.object
 };
 
@@ -197,5 +189,5 @@ Map.defaultProps = {
   mapMethods: {},
   layers: [],
   listeners: {},
-  points: []
+  markers: []
 };

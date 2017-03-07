@@ -1,3 +1,4 @@
+import L from 'leaflet/dist/leaflet';
 import React from 'react';
 import { Sidebar, SegmentedUi } from 'aqueduct-components';
 import Map from 'components/map/Map';
@@ -75,6 +76,11 @@ export default class MapPage extends React.Component {
       }
     ];
 
+    const markerIcon = L.divIcon({
+      className: 'c-marker',
+      html: '<div class="marker-inner"></div>'
+    });
+
     return (
       <div className="c-map-page l-map-page">
         <Sidebar setSidebarWidth={() => {}}>
@@ -105,6 +111,7 @@ export default class MapPage extends React.Component {
           layers={this.props.layersActive}
           mapOptions={mapOptions}
           markers={this.props.points}
+          markerIcon={markerIcon}
         />
       </div>
     );

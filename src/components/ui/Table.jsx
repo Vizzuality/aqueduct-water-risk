@@ -33,6 +33,7 @@ export default class CustomTable extends React.Component {
     this.sort = this.sort.bind(this);
   }
 
+  /* Component api */
   getPageBounds(page) {
     const bottom = page * this.props.pageSize;
     const top = bottom + this.props.pageSize;
@@ -169,6 +170,7 @@ export default class CustomTable extends React.Component {
   }
 }
 
+/* Property typing */
 CustomTable.propTypes = {
   data: React.PropTypes.array,
   columns: React.PropTypes.array,
@@ -177,6 +179,8 @@ CustomTable.propTypes = {
   pageSize: React.PropTypes.number,
   initialPage: React.PropTypes.number
 };
+
+/* Property default values */
 CustomTable.defaultProps = {
   data: [],
   columns: [],

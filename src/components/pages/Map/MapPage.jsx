@@ -1,11 +1,10 @@
 import React from 'react';
 import { Sidebar, SegmentedUi } from 'aqueduct-components';
 import Map from 'components/map/Map';
-import Filters from 'components/filters/Filters';
 import { tabOptions } from 'constants/mapView';
 import { layers } from 'constants/layers';
-import LayerList from 'components/layers/LayerList';
-import CustomTable from 'components/ui/Table'
+import MapView from './MapView';
+import AnalyseLocations from './AnalyseLocations';
 
 export default class MapPage extends React.Component {
 
@@ -60,7 +59,7 @@ export default class MapPage extends React.Component {
       }
     ];
 
-    const data = [
+    const tableData = [
       {
         name: 'Pepe',
         country: 1,
@@ -134,25 +133,16 @@ export default class MapPage extends React.Component {
           />
           <div className="l-mapview-content">
             { this.props.scope === 'mapView' &&
-              <div>
-                <Filters
-                  filters={this.props.mapView.filters}
-                  setFilters={this.props.setFilters}
-                />
-                <LayerList
-                  activeLayers={this.props.mapView.layers.active}
-                  layers={layers}
-                  onSelectLayer={this.props.setActiveLayers}
-                  year={this.props.mapView.filters.year}
-                  ponderation={this.props.mapView.ponderation.scheme}
-                  scenario={this.props.mapView.filters.scenario}
-                  setFilters={this.props.setFilters}
-                  setPonderation={this.props.setPonderation}
-                />
-              </div>
+              <MapView
+                mapView={this.props.mapView}
+                layers={layers}
+                onSelectLayer={this.props.setActiveLayers}
+                setFilters={this.props.setFilters}
+                setPonderation={this.props.setPonderation}
+              />
             }
             { this.props.scope === 'analyseLocations' &&
-              <CustomTable columns={columns} data={data} pageSize={4} filters />
+              <AnalyseLocations columns={columns} data={tableData} />
             }
           </div>
         </Sidebar>

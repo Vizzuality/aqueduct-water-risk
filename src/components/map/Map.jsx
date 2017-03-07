@@ -114,7 +114,7 @@ export default class Map extends React.Component {
   setMapEventListeners() {
     const { listeners } = this.props;
     Object.keys(listeners).forEach((eventName) => {
-      this.map.on(eventName, (...args) => listeners[eventName](this.map, args));
+      this.map.on(eventName, (...args) => listeners[eventName](this.map, ...args));
     });
   }
 

@@ -7,7 +7,7 @@ export default class AnalyseLocations extends React.Component {
       <CustomTable
         columns={this.props.columns}
         data={this.props.data}
-        pageSize={4}
+        pageSize={20}
         filters
       />
     );

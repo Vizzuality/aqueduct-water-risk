@@ -5,12 +5,14 @@ import { setMapLocation } from 'modules/map';
 import { updateUrl } from 'modules/url';
 import { setScope } from 'modules/scope';
 import { setFilters, setActiveLayers, setPonderation } from 'modules/mapView';
+import { setPoints, addPoint, removePoint } from 'modules/analyseLocations';
 
 const mapStateToProps = state => ({
   layersActive: getActiveLayers(state),
   mapState: state.map,
   scope: state.scope.name,
-  mapView: state.mapView
+  mapView: state.mapView,
+  points: state.analyseLocations.points
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -36,6 +38,15 @@ const mapDispatchToProps = dispatch => ({
   setPonderation: (ponderation) => {
     dispatch(setPonderation(ponderation));
     dispatch(updateUrl());
+  },
+  setPoints: (points) => {
+    dispatch(setPoints(points));
+  },
+  addPoint: (point) => {
+    dispatch(addPoint(point));
+  },
+  removePoint: (pointIndex) => {
+    dispatch(removePoint(pointIndex));
   }
 });
 

@@ -21,9 +21,14 @@ export default class MapPage extends React.Component {
       });
     };
 
+    const addPoint = (map, opts) => {
+      this.props.addPoint(opts.latlng);
+    };
+
     const listeners = {
       zoomend: updateMap,
-      moveend: updateMap
+      moveend: updateMap,
+      click: addPoint
     };
 
     const mapMethods = {
@@ -40,85 +45,33 @@ export default class MapPage extends React.Component {
       center: [this.props.mapState.latLng.lat, this.props.mapState.latLng.lng]
     };
 
+    // const columns = [
+    //   {
+    //     label: 'Name',
+    //     value: 'name'
+    //   },
+    //   {
+    //     label: 'Country',
+    //     value: 'country'
+    //   },
+    //   {
+    //     label: 'River Basin',
+    //     value: 'basin'
+    //   },
+    //   {
+    //     label: 'Regulatory & Reputational Risk',
+    //     value: 'regulatory'
+    //   }
+    // ];
+
     const columns = [
       {
-        label: 'Name',
-        value: 'name'
+        label: 'Lat',
+        value: 'lat'
       },
       {
-        label: 'Country',
-        value: 'country'
-      },
-      {
-        label: 'River Basin',
-        value: 'basin'
-      },
-      {
-        label: 'Regulatory & Reputational Risk',
-        value: 'regulatory'
-      }
-    ];
-
-    const tableData = [
-      {
-        name: 'Pepe',
-        country: 1,
-        basin: 13,
-        regulatory: 31
-      },
-      {
-        name: 'Pepe',
-        country: 22,
-        basin: 552,
-        regulatory: 27
-      },
-      {
-        name: 'Pepe',
-        country: 13,
-        basin: 344,
-        regulatory: 73
-      },
-      {
-        name: 'Pepe',
-        country: 45,
-        basin: 64,
-        regulatory: 0
-      },
-      {
-        name: 'Pepe',
-        country: 775,
-        basin: 58,
-        regulatory: 15
-      },
-      {
-        name: 'Pepe',
-        country: 19,
-        basin: 12,
-        regulatory: 1111
-      },
-      {
-        name: 'Pepe',
-        country: 20,
-        basin: 'Hola mundo',
-        regulatory: 'jejeje'
-      },
-      {
-        name: 'Pepe',
-        country: 1,
-        basin: 33,
-        regulatory: 663
-      },
-      {
-        name: 'Pepe',
-        country: 42,
-        basin: 234,
-        regulatory: 46
-      },
-      {
-        name: 'Pepe',
-        country: 5343,
-        basin: 65,
-        regulatory: 534
+        label: 'Lng',
+        value: 'lng'
       }
     ];
 
@@ -142,7 +95,7 @@ export default class MapPage extends React.Component {
               />
             }
             { this.props.scope === 'analyseLocations' &&
-              <AnalyseLocations columns={columns} data={tableData} />
+              <AnalyseLocations columns={columns} data={this.props.points} />
             }
           </div>
         </Sidebar>
@@ -162,6 +115,7 @@ MapPage.propTypes = {
   mapState: React.PropTypes.object,
   mapView: React.PropTypes.object,
   scope: React.PropTypes.string,
+  points: React.PropTypes.array,
   // Selector
   layersActive: React.PropTypes.array,
   // Actions
@@ -170,5 +124,6 @@ MapPage.propTypes = {
   updateUrl: React.PropTypes.func,
   setFilters: React.PropTypes.func,
   setActiveLayers: React.PropTypes.func,
-  setPonderation: React.PropTypes.func
+  setPonderation: React.PropTypes.func,
+  addPoint: React.PropTypes.func
 };

@@ -1,11 +1,30 @@
 import React from 'react';
 import TableFilters from './TableFilters';
+import isEqual from 'lodash/isEqual';
 
 export default class CustomTable extends React.Component {
 
   constructor(props) {
     super(props);
 
+    this.setTableData(props);
+
+    // Bindings
+    this.nextPage = this.nextPage.bind(this);
+    this.prevPage = this.prevPage.bind(this);
+    this.filter = this.filter.bind(this);
+    this.sort = this.sort.bind(this);
+  }
+
+  /* Component lifecycle */
+  componentWillReceiveProps(nextProps) {
+    if (!isEqual(this.props.data, nextProps.data)) {
+      this.setTableData(nextProps);
+    }
+  }
+
+  /* Component api */
+  setTableData(props) {
     const { data } = props;
     const totalPages = Math.ceil(data.length / props.pageSize);
     const bounds = this.getPageBounds(props.initialPage);
@@ -25,15 +44,8 @@ export default class CustomTable extends React.Component {
       query: {},
       sort: {}
     };
-
-    // Bindings
-    this.nextPage = this.nextPage.bind(this);
-    this.prevPage = this.prevPage.bind(this);
-    this.filter = this.filter.bind(this);
-    this.sort = this.sort.bind(this);
   }
 
-  /* Component api */
   getPageBounds(page) {
     const bottom = page * this.props.pageSize;
     const top = bottom + this.props.pageSize;

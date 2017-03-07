@@ -9,6 +9,7 @@ export default class CustomTable extends React.Component {
     const { data } = props;
     const totalPages = Math.ceil(data.length / props.pageSize);
     const bounds = this.getPageBounds(props.initialPage);
+    const displayedData = this.props.paginated ? props.data.slice(bounds.bottom, bounds.top) : props.data;
 
     /*
       Initial state
@@ -18,7 +19,7 @@ export default class CustomTable extends React.Component {
     */
     this.state = {
       filteredData: props.data,
-      displayedData: props.data.slice(bounds.bottom, bounds.top),
+      displayedData,
       currentPage: 0,
       totalPages
     };
@@ -81,7 +82,7 @@ export default class CustomTable extends React.Component {
           <span className="th-wrapper">
             <span>{c.label}</span>
             {this.props.filters &&
-              <TableFilters field={c.value} onChange={this.filter} />
+              <TableFilters field={c.value} onFilter={this.filter} />
             }
           </span>
         </th>

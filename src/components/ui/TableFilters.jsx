@@ -11,7 +11,7 @@ export default class TableFilters extends React.Component {
 
     // Bindings
     this.toggle = this.toggle.bind(this);
-    this.onChange = this.onChange.bind(this);
+    this.onFilter = this.onFilter.bind(this);
     this.onScreenClick = this.onScreenClick.bind(this);
   }
 
@@ -24,15 +24,14 @@ export default class TableFilters extends React.Component {
     const clickOutside = this.el.contains && !this.el.contains(evt.target);
     if (clickOutside) {
       this.toggle();
-      window.removeEventListener('click', this.onScreenClick);
     }
   }
 
-  onChange() {
+  onFilter() {
     this.setState({
       value: this.input.value
     });
-    this.props.onChange && this.props.onChange({
+    this.props.onFilter && this.props.onFilter({
       field: this.props.field,
       value: this.input.value
     });
@@ -40,10 +39,8 @@ export default class TableFilters extends React.Component {
 
   toggle() {
     const { closed } = this.state;
-    if (closed) {
-      window.addEventListener('click', this.onScreenClick);
-    }
-    this.setState({ closed: !closed });
+    window[closed ? 'addEventListener' : 'removeEventListener']('click', this.onScreenClick);
+    this.setState({ closed: !closed }, () => closed && this.input.focus());
   }
 
   render() {
@@ -52,7 +49,7 @@ export default class TableFilters extends React.Component {
         <button onClick={this.toggle} className="filters-btn" />
         {this.state.closed ||
           <div className="filters-content">
-            <input ref={node => this.input = node} type="search" onChange={this.onChange} value={this.state.value} />
+            <input ref={node => this.input = node} type="search" onChange={this.onFilter} value={this.state.value} />
           </div>
         }
       </div>
@@ -61,7 +58,7 @@ export default class TableFilters extends React.Component {
 }
 
 TableFilters.propTypes = {
-  onChange: React.PropTypes.func,
+  onFilter: React.PropTypes.func,
   field: React.PropTypes.string.isRequired
 };
 TableFilters.defaultProps = {

@@ -6,7 +6,8 @@ export default class TableFilters extends React.Component {
 
     this.state = {
       closed: true,
-      value: ''
+      value: '',
+      sort: 1
     };
 
     // Bindings
@@ -50,6 +51,10 @@ export default class TableFilters extends React.Component {
         {this.state.closed ||
           <div className="filters-content">
             <input ref={node => this.input = node} type="search" onChange={this.onFilter} value={this.state.value} />
+            <ul className="sort">
+              <li><button onClick={() => this.props.onSort && this.props.onSort({ field: this.props.field, value: -1 })}>DESC</button></li>
+              <li><button onClick={() => this.props.onSort && this.props.onSort({ field: this.props.field, value: 1 })}>ASC</button></li>
+            </ul>
           </div>
         }
       </div>
@@ -59,6 +64,7 @@ export default class TableFilters extends React.Component {
 
 TableFilters.propTypes = {
   onFilter: React.PropTypes.func,
+  onSort: React.PropTypes.func,
   field: React.PropTypes.string.isRequired
 };
 TableFilters.defaultProps = {

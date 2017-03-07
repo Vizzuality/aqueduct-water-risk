@@ -14,23 +14,23 @@ export default class CustomTable extends React.Component {
     /*
       Initial state
       - props.data => original data
-      - filteredData => original data with filters (if any) applied
+      - filteredData => original data with filters and/or sort (if any) applied
       - displayedData => filteredData with pagination
     */
     this.state = {
       filteredData: props.data,
       displayedData,
       currentPage: 0,
-      totalPages
+      totalPages,
+      query: {},
+      sort: {}
     };
 
     // Bindings
     this.nextPage = this.nextPage.bind(this);
     this.prevPage = this.prevPage.bind(this);
     this.filter = this.filter.bind(this);
-
-    // Aux variables
-    this.query = {};
+    this.sort = this.sort.bind(this);
   }
 
   getPageBounds(page) {
@@ -58,19 +58,36 @@ export default class CustomTable extends React.Component {
     });
   }
 
-  filter(query) {
-    this.query[query.field] = query.value;
+  filter(q) {
+    const { query } = this.state;
+    query[q.field] = q.value;
+
     const data = this.props.data.filter((row) => {
       let match = true;
-      Object.keys(this.query).forEach((field) => {
-        match *= !!row[field].toString().toLowerCase().match(this.query[field].toString().toLowerCase());
+      Object.keys(query).forEach((field) => {
+        match *= !!row[field].toString().toLowerCase().match(query[field].toString().toLowerCase());
       });
-
       return match;
     });
+
     this.setState({
+      query,
       filteredData: data,
       totalPages: Math.ceil(data.length / this.props.pageSize)
+    }, () => this.goToPage(0));
+  }
+
+  sort(s) {
+    const sort = {};
+    sort[s.field] = s.value;
+
+    const filteredData = this.state.filteredData.slice().sort((rowA, rowB) => {
+      return rowA[s.field].toString().toLowerCase() > rowB[s.field].toString().toLowerCase() ? s.value : (s.value * -1);
+    });
+
+    this.setState({
+      sort,
+      filteredData
     }, () => this.goToPage(0));
   }
 
@@ -82,7 +99,11 @@ export default class CustomTable extends React.Component {
           <span className="th-wrapper">
             <span>{c.label}</span>
             {this.props.filters &&
-              <TableFilters field={c.value} onFilter={this.filter} />
+              <TableFilters
+                field={c.value}
+                onFilter={this.filter}
+                onSort={this.sort}
+              />
             }
           </span>
         </th>

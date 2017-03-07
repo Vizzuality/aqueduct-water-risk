@@ -2,10 +2,11 @@ import { dispatch } from 'main';
 import { replace } from 'react-router-redux';
 import { setMapLocation } from 'modules/map';
 import { setFilters, setActiveLayers, setPonderation } from 'modules/mapView';
+import { setScope } from 'modules/scope';
 
 function updateUrl() {
   return (storeDispatch, getState) => {
-    const { map, mapView } = getState();
+    const { map, mapView, scope } = getState();
     const { year, scenario, timeScale, geoScale } = mapView.filters;
     const { layers, ponderation } = mapView;
 
@@ -20,7 +21,8 @@ function updateUrl() {
         timeScale,
         geoScale,
         layers: layers.active.join(','),
-        ponderation: ponderation.scheme
+        ponderation: ponderation.scheme,
+        scope: scope.name
       }
     };
     storeDispatch(replace(locationDescriptor));
@@ -54,6 +56,9 @@ function onEnterMapPage({ location }, replaceUrl, done) {
   }
   if (location.query.ponderation) {
     dispatch(setPonderation({ scheme: location.query.ponderation }));
+  }
+  if (location.query.scope) {
+    dispatch(setScope(location.query.scope));
   }
 
   done();

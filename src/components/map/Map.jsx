@@ -38,6 +38,7 @@ export default class Map extends React.Component {
     // Add layers
     this.initLayerManager();
     this.props.layers.length && this.addLayer(this.props.layers);
+    this.props.markers.length && this.addMarker(this.props.markers);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -56,6 +57,21 @@ export default class Map extends React.Component {
           this.addLayer(layer);
         } else if (!setA.has(layer)) {
           this.removeLayer(layer.id);
+        }
+      }
+    }
+
+    // Markers
+    if (!isEqual(this.props.markers, nextProps.markers)) {
+      const setA = new Set(nextProps.markers);
+      const setB = new Set(this.props.markers);
+      const union = new Set([...nextProps.markers, ...this.props.markers]);
+
+      for (const marker of union) {
+        if (!setB.has(marker)) {
+          this.addMarker(marker);
+        } else if (!setA.has(marker)) {
+          // this.removeLayer(marker.id);
         }
       }
     }
@@ -143,6 +159,20 @@ export default class Map extends React.Component {
     this.layerManager.removeLayer(layer.id);
   }
 
+  /* Marker methods */
+  addMarker(marker) {
+    const icon = L.divIcon({
+      className: 'c-marker',
+      html: '<div class="marker-inner"></div>'
+    });
+
+    if (Array.isArray(marker)) {
+      marker.forEach(m => L.marker([m.lat, m.lng], { icon }).addTo(this.map));
+      return;
+    }
+    L.marker([marker.lat, marker.lng], { icon }).addTo(this.map);
+  }
+
   /* Render method */
   render() {
     return (
@@ -158,6 +188,7 @@ Map.propTypes = {
   mapOptions: React.PropTypes.object,
   mapMethods: React.PropTypes.object,
   layers: React.PropTypes.array,
+  markers: React.PropTypes.array,
   listeners: React.PropTypes.object
 };
 
@@ -165,5 +196,6 @@ Map.defaultProps = {
   mapOptions: {},
   mapMethods: {},
   layers: [],
-  listeners: {}
+  listeners: {},
+  points: []
 };

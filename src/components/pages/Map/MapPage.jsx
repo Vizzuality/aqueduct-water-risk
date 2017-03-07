@@ -104,6 +104,7 @@ export default class MapPage extends React.Component {
           mapMethods={mapMethods}
           layers={this.props.layersActive}
           mapOptions={mapOptions}
+          markers={this.props.points}
         />
       </div>
     );

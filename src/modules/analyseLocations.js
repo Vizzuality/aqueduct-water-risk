@@ -42,14 +42,14 @@ function analyseLocataionsReducer(state = initialState, action) {
 function setPoints(points) {
   return {
     type: SET_POINTS,
-    payload: points
+    payload: points.map(p => ({ ...p, id: Date.now() }))
   };
 }
 
 function addPoint(point) {
   return {
     type: ADD_POINT,
-    payload: point
+    payload: { ...point, id: Date.now() }
   };
 }
 

@@ -14,6 +14,7 @@ export default class LayerManager {
   constructor(map, options = {}) {
     this._map = map;
     this._mapLayers = {};
+    this._mapMarkers = {};
     this._onLayerAddedSuccess = options.onLayerAddedSuccess;
     this._onLayerAddedError = options.onLayerAddedError;
   }
@@ -31,6 +32,18 @@ export default class LayerManager {
     if (this._mapLayers[layerId]) {
       this._map.removeLayer(this._mapLayers[layerId]);
       delete this._mapLayers[layerId];
+    }
+  }
+
+  addMarker({ id, lat, lng }, icon) {
+    this._mapMarkers[id] = L.marker([lat, lng], { icon });
+    this._mapMarkers[id].addTo(this._map);
+  }
+
+  removeMarker(markerId) {
+    if (this._mapMarkers[markerId]) {
+      this._map.removeLayer(this._mapMarkers[markerId]);
+      delete this._mapMarkers[markerId];
     }
   }
 

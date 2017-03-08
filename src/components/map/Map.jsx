@@ -69,7 +69,7 @@ export default class Map extends React.Component {
     // Markers
     if (!isEqual(this.props.markers, nextProps.markers)) {
       // TODO: implement removeMarker method
-      addAndRemove(this.props.markers, nextProps.markers, marker => this.addMarker(marker));
+      addAndRemove(this.props.markers, nextProps.markers, marker => this.addMarker(marker), marker => this.removeMarker(marker.id));
     }
   }
 
@@ -158,10 +158,14 @@ export default class Map extends React.Component {
   /* Marker methods */
   addMarker(marker) {
     if (Array.isArray(marker)) {
-      marker.forEach(m => L.marker([m.lat, m.lng], { icon: this.props.markerIcon }).addTo(this.map));
+      marker.forEach(m => this.layerManager.addMarker(m, this.props.markerIcon));
       return;
     }
-    L.marker([marker.lat, marker.lng], { icon: this.props.markerIcon }).addTo(this.map);
+    this.layerManager.addMarker(marker, this.props.markerIcon);
+  }
+
+  removeMarker(markerId) {
+    this.layerManager.removeMarker(markerId);
   }
 
   /* Render method */

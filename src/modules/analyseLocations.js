@@ -1,36 +1,36 @@
+import { get, post } from 'utils/request';
+import { toGeoJsonCollection } from 'utils/geojson';
+import { updateUrl } from 'modules/url';
+
 /* Constants */
 const SET_POINTS = 'SET_POINTS';
-const ADD_POINT = 'ADD_POINT';
-const REMOVE_POINT = 'REMOVE_POINT';
+const SET_GEOSTORE_ID = 'SET_GEOSTORE_ID';
 
 /* Initial state */
 const initialState = {
-  points: []
+  points: {
+    list: [],
+    geoStore: undefined
+  }
 };
 
 /* Reducer */
-function analyseLocataionsReducer(state = initialState, action) {
+function analyseLocationsReducer(state = initialState, action) {
   switch (action.type) {
     case SET_POINTS: {
       return {
-        ...state,
-        points: action.payload
+        points: {
+          ...state.points,
+          list: action.payload
+        }
       };
     }
-    case ADD_POINT: {
-      const points = state.points.slice();
-      points.push(action.payload);
+    case SET_GEOSTORE_ID: {
       return {
-        ...state,
-        points
-      };
-    }
-    case REMOVE_POINT: {
-      const points = state.points.slice();
-      points.splice(action.payload, 1);
-      return {
-        ...state,
-        points
+        points: {
+          ...state.points,
+          geoStore: action.payload
+        }
       };
     }
     default:
@@ -42,22 +42,42 @@ function analyseLocataionsReducer(state = initialState, action) {
 function setPoints(points) {
   return {
     type: SET_POINTS,
-    payload: points.map(p => ({ ...p, id: Date.now() }))
+    payload: points.map((p, index) => ({ ...p, id: `${Date.now()}${index}` }))
   };
 }
 
-function addPoint(point) {
+function setGeostoreId(id) {
   return {
-    type: ADD_POINT,
-    payload: { ...point, id: Date.now() }
+    type: SET_GEOSTORE_ID,
+    payload: id
   };
 }
 
-function removePoint(pointIndex) {
-  return {
-    type: REMOVE_POINT,
-    payload: pointIndex
+function fetchFromGeostore(id) {
+  return (dispatch) => {
+    get({
+      url: `${config.API_URL}/geostore/${id}`,
+      onSuccess: (data) => {
+        const points = data.data.attributes.geojson.features.map(p => (
+          { lat: p.geometry.coordinates[0], lng: p.geometry.coordinates[1] }
+        ));
+        dispatch(setPoints(points));
+      }
+    });
   };
 }
 
-export { analyseLocataionsReducer, setPoints, addPoint, removePoint };
+function saveOnGeostore(points) {
+  return (dispatch) => {
+    post({
+      url: `${config.API_URL}/geostore`,
+      body: toGeoJsonCollection(points),
+      onSuccess: (data) => {
+        dispatch(setGeostoreId(data.data.id));
+        dispatch(updateUrl());
+      }
+    });
+  };
+}
+
+export { analyseLocationsReducer, setPoints, saveOnGeostore, fetchFromGeostore, setGeostoreId };

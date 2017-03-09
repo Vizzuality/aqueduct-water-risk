@@ -5,14 +5,15 @@ import { setMapLocation } from 'modules/map';
 import { updateUrl } from 'modules/url';
 import { setScope } from 'modules/scope';
 import { setFilters, setActiveLayers, setPonderation } from 'modules/mapView';
-import { setPoints, addPoint, removePoint } from 'modules/analyseLocations';
+import { setPoints, saveOnGeostore } from 'modules/analyseLocations';
+import { store } from 'main';
 
 const mapStateToProps = state => ({
   layersActive: getActiveLayers(state),
   mapState: state.map,
   scope: state.scope.name,
   mapView: state.mapView,
-  points: state.analyseLocations.points
+  points: state.analyseLocations.points.list
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -41,12 +42,19 @@ const mapDispatchToProps = dispatch => ({
   },
   setPoints: (points) => {
     dispatch(setPoints(points));
+    dispatch(saveOnGeostore(points));
   },
   addPoint: (point) => {
-    dispatch(addPoint(point));
+    const points = store.getState().analyseLocations.points.list.slice();
+    points.push(point);
+    dispatch(setPoints(points));
+    dispatch(saveOnGeostore(points));
   },
   removePoint: (pointIndex) => {
-    dispatch(removePoint(pointIndex));
+    const points = store.getState().analyseLocations.points.list.slice();
+    points.splice(pointIndex, 1);
+    dispatch(setPoints(points));
+    dispatch(saveOnGeostore(points));
   }
 });
 

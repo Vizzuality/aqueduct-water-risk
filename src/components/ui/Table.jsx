@@ -27,19 +27,15 @@ export default class CustomTable extends React.Component {
   setTableData(props) {
     const { data } = props;
     const totalPages = Math.ceil(data.length / props.pageSize);
-    const bounds = this.getPageBounds(props.initialPage);
-    const displayedData = this.props.paginated ? props.data.slice(bounds.bottom, bounds.top) : props.data;
 
     /*
       Initial state
       - props.data => original data
       - filteredData => original data with filters and/or sort (if any) applied
-      - displayedData => filteredData with pagination
     */
     this.state = {
       filteredData: props.data,
-      displayedData,
-      currentPage: 0,
+      currentPage: (this.state && this.state.currentPage) || 0,
       totalPages,
       query: {},
       sort: {}
@@ -63,11 +59,8 @@ export default class CustomTable extends React.Component {
   }
 
   goToPage(page) {
-    const { bottom, top } = this.getPageBounds(page);
-
     this.setState({
-      currentPage: page,
-      displayedData: this.state.filteredData.slice(bottom, top)
+      currentPage: page
     });
   }
 
@@ -128,9 +121,10 @@ export default class CustomTable extends React.Component {
   }
 
   renderTableContent() {
-    const { displayedData } = this.state;
+    const { filteredData } = this.state;
+    const { bottom, top } = this.getPageBounds(this.state.currentPage);
 
-    if (!displayedData.length) {
+    if (!filteredData.length) {
       return (
         <tr>
           <td colSpan={this.props.columns.length}>No results found</td>
@@ -138,13 +132,34 @@ export default class CustomTable extends React.Component {
       );
     }
 
-    return this.state.displayedData.map((row, index) => {
+    /* Apply pagination to filteredData */
+    const paginatedData = filteredData.slice(bottom, top);
+
+    return paginatedData.map((row, index) => {
       return (
         <tr key={index}>
           {this.props.columns.map((col, i) => <td key={i}>{row[col.value]}</td>)}
         </tr>
       );
     });
+  }
+
+  renderTableFooter() {
+    return (
+      <div className="table-footer">
+        {/* Paginator */}
+        {this.props.paginated &&
+          <ul className="paginator">
+            <li className="paginator-link"><button className="paginator-btn" onClick={this.prevPage}>Prev</button></li>
+            <li className="paginator-link"><button className="paginator-btn" onClick={this.nextPage}>Next</button></li>
+          </ul>
+        }
+        {/* Page locator */}
+        {this.props.paginated &&
+          <span>Page <span>{this.state.currentPage + 1}</span> of <span>{this.state.totalPages}</span></span>
+        }
+      </div>
+    );
   }
 
   /* Render */
@@ -156,30 +171,16 @@ export default class CustomTable extends React.Component {
         <table className="table">
           <thead>
             <tr>
-              {/* Table head */
-                this.renderTableHead()
-              }
+              {/* Table head */}
+              {this.renderTableHead()}
             </tr>
           </thead>
           <tbody>
-            {/* Table content */
-              this.renderTableContent()
-            }
+            {/* Table content */}
+            {this.renderTableContent()}
           </tbody>
         </table>
-        <div className="table-footer">
-          {/* Paginator */
-            this.props.paginated &&
-            <ul className="paginator">
-              <li className="paginator-link"><button className="paginator-btn" onClick={this.prevPage}>Prev</button></li>
-              <li className="paginator-link"><button className="paginator-btn" onClick={this.nextPage}>Next</button></li>
-            </ul>
-          }
-          {/* Page locator */
-            this.props.paginated &&
-              <span>Page <span>{this.state.currentPage + 1}</span> of <span>{this.state.totalPages}</span></span>
-          }
-        </div>
+        {this.renderTableFooter()}
       </div>
     );
   }
@@ -191,8 +192,7 @@ CustomTable.propTypes = {
   columns: React.PropTypes.array,
   paginated: React.PropTypes.bool,
   filters: React.PropTypes.bool,
-  pageSize: React.PropTypes.number,
-  initialPage: React.PropTypes.number
+  pageSize: React.PropTypes.number
 };
 
 /* Property default values */

@@ -110,7 +110,7 @@ export default class MapPage extends React.Component {
           mapMethods={mapMethods}
           layers={this.props.layersActive}
           mapOptions={mapOptions}
-          markers={this.props.points}
+          markers={this.props.scope === 'analyseLocations' ? this.props.points : []}
           markerIcon={markerIcon}
         />
       </div>

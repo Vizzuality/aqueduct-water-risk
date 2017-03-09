@@ -15,18 +15,10 @@ const MAP_OPTIONS = {
   detectRetina: true
 };
 
-function addAndRemove(oldItems, newItems, addedCb, removedCb) {
-  const setA = new Set(newItems);
-  const setB = new Set(oldItems);
-  const union = new Set([...newItems, ...oldItems]);
-
-  for (const item of union) {
-    if (!setB.has(item)) {
-      addedCb && addedCb(item);
-    } else if (!setA.has(item)) {
-      removedCb && removedCb(item);
-    }
-  }
+function addOrRemove(oldItems, newItems, addCb, removeCb) {
+  // TODO: improve performace uning sets instead of looping over arrays
+  oldItems.forEach(i => !newItems.find(ii => i.id === ii.id) && removeCb(i));
+  newItems.forEach(i => !oldItems.find(ii => i.id === ii.id) && addCb(i));
 }
 
 export default class Map extends React.Component {
@@ -62,14 +54,11 @@ export default class Map extends React.Component {
     }
     // Layers
     if (!isEqual(this.props.layers, nextProps.layers)) {
-      addAndRemove(this.props.layers, nextProps.layers, layer => this.addLayer(layer), layer => this.removeLayer(layer.id));
+      addOrRemove(this.props.layers, nextProps.layers, layer => this.addLayer(layer), layer => this.removeLayer(layer.id));
     }
-
-
     // Markers
     if (!isEqual(this.props.markers, nextProps.markers)) {
-      // TODO: implement removeMarker method
-      addAndRemove(this.props.markers, nextProps.markers, marker => this.addMarker(marker));
+      addOrRemove(this.props.markers, nextProps.markers, marker => this.addMarker(marker), marker => this.removeMarker(marker.id));
     }
   }
 
@@ -158,10 +147,14 @@ export default class Map extends React.Component {
   /* Marker methods */
   addMarker(marker) {
     if (Array.isArray(marker)) {
-      marker.forEach(m => L.marker([m.lat, m.lng], { icon: this.props.markerIcon }).addTo(this.map));
+      marker.forEach(m => this.layerManager.addMarker(m, this.props.markerIcon));
       return;
     }
-    L.marker([marker.lat, marker.lng], { icon: this.props.markerIcon }).addTo(this.map);
+    this.layerManager.addMarker(marker, this.props.markerIcon);
+  }
+
+  removeMarker(markerId) {
+    this.layerManager.removeMarker(markerId);
   }
 
   /* Render method */

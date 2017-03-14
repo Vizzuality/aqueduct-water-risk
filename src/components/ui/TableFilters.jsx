@@ -14,7 +14,7 @@ export default class TableFilters extends React.Component {
     };
 
     // Bindings
-    this.toggle = this.toggle.bind(this);
+    this.onToggle = this.onToggle.bind(this);
     this.onFilter = this.onFilter.bind(this);
     this.onScreenClick = this.onScreenClick.bind(this);
   }
@@ -24,10 +24,18 @@ export default class TableFilters extends React.Component {
     window.removeEventListener('click', this.onScreenClick);
   }
 
-  onScreenClick(evt) {
-    const clickOutside = this.el.contains && !this.el.contains(evt.target);
+  /**
+   * UI EVENTS
+   * - onScreenClick
+   * - onFilter
+   * - onToggle
+  */
+  onScreenClick(e) {
+    const el = document.querySelector('.c-table-filters-content');
+    const clickOutside = el && el.contains && !el.contains(e.target);
+
     if (clickOutside) {
-      this.toggle();
+      this.onToggle();
     }
   }
 
@@ -41,15 +49,24 @@ export default class TableFilters extends React.Component {
     });
   }
 
-  toggle() {
+  onToggle() {
     const { closed } = this.state;
-    window[closed ? 'addEventListener' : 'removeEventListener']('click', this.onScreenClick);
-    this.setState({ closed: !closed }, () => closed && this.input.focus());
+
+    // requestAnimationFrame
+    //   - Goal: Prevent double trigger at first atempt
+    //   - Issue: When you add the listener the click event is not finished yet so it will trigger onScrennClick
+    //   - Stop propagation?: if I put e.stopPropagation clicking on another filter btn won't trigger the screenClick,
+    //                        so we will have 2 dropdown filters at the same time
+    requestAnimationFrame(() => window[closed ? 'addEventListener' : 'removeEventListener']('click', this.onScreenClick));
+
+    this.setState({ closed: !closed }, () =>
+      closed && this.input.focus()
+    );
   }
 
   render() {
     return (
-      <div ref={node => this.el = node} className="c-table-filters">
+      <div className="c-table-filters">
         <ul>
           <li>
             <TetherComponent
@@ -63,7 +80,11 @@ export default class TableFilters extends React.Component {
               offset="-8px 0"
             >
               {/* First child: This is what the item will be tethered to */}
-              <button onClick={this.toggle} className="filters-btn" />
+              <button
+                ref={node => this.btnToggle = node}
+                onClick={this.onToggle}
+                className="filters-btn"
+              />
 
               {/* Second child: If present, this item will be tethered to the the first child */}
               {!this.state.closed &&

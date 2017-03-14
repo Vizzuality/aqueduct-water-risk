@@ -6,6 +6,7 @@ import { tabOptions } from 'constants/mapView';
 import { layers } from 'constants/layers';
 import MapView from './MapView';
 import AnalyseLocations from './AnalyseLocations';
+import ZoomControl from 'components/zoom/ZoomControl';
 
 export default class MapPage extends React.Component {
 
@@ -27,14 +28,12 @@ export default class MapPage extends React.Component {
     };
 
     const listeners = {
-      zoomend: updateMap,
       moveend: updateMap,
       click: addPoint
     };
 
     const mapMethods = {
       attribution: '&copy; <a href="http://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>',
-      zoomControlPosition: 'topright',
       tileLayers: [
         { url: config.BASEMAP_LABEL_URL, zIndex: 0 },
         { url: config.BASEMAP_TILE_URL, zIndex: 1000 }
@@ -43,6 +42,9 @@ export default class MapPage extends React.Component {
 
     const mapOptions = {
       zoom: this.props.mapState.zoom,
+      minZoom: 2,
+      maxZoom: 7,
+      zoomControl: false,
       center: [this.props.mapState.latLng.lat, this.props.mapState.latLng.lng]
     };
 
@@ -113,6 +115,12 @@ export default class MapPage extends React.Component {
           markers={this.props.scope === 'analyseLocations' ? this.props.points : []}
           markerIcon={markerIcon}
         />
+        <ZoomControl
+          zoom={this.props.mapState.zoom}
+          onZoomChange={zoom => this.props.setMapParams({ zoom })}
+        >
+          <button type="button" className="btn-help">?</button>
+        </ZoomControl>
       </div>
     );
   }

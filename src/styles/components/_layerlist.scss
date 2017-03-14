@@ -40,8 +40,25 @@ $separation: $space-1 * 2;
     vertical-align: middle;
   }
 
+  &.-selected {
+    > .layerlist-list:after {
+      border-left-color: palette(blue, secondary);
+    }
+  }
+
   .layerlist-list {
-    padding-left: $separation;
+    padding-left: $separation * 2;
+    position: relative;
+
+    &:after {
+      content: '';
+      position: absolute;
+      height: calc(100% + 10px);
+      left: 7px;
+      bottom: 0;
+      width: 2px;
+      border-left: 1px solid palette(gray, light);
+    }
   }
 
   .layerlist-item .title {

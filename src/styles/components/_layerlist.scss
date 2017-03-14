@@ -7,9 +7,22 @@ $separation: $space-1 * 2;
   font-family: $font-family-roboto;
 }
 
+.layerlist-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: $separation;
+}
+
 .layerlist-title {
   display: block;
   font-size: $font-size-extrabig;
+}
+
+.timeline-title {
+  display: block;
+  font-weight: 500;
+  font-size: $font-size-big;
   margin-bottom: $separation;
 }
 
@@ -77,11 +90,6 @@ $separation: $space-1 * 2;
 }
 
 .advanced {
-  display: flex;
-  width: 100%;
-  align-items: center;
-  justify-content: flex-end;
-
   .c-checkbox {
     margin-left: $space-1;
   }

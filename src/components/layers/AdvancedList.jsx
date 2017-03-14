@@ -20,7 +20,7 @@ export default class AdvancedList extends React.Component {
             <li className="layerlist-item" key={index}>
               {Array.isArray(l.ponderation) ?
                 <span>
-                  <span>{l.name}</span>
+                  <span className="timeline-title">{l.name}</span>
                   <Timeline className={cNames.join(' ')} items={points} selected={{ value: '3' }} onChange={() => {}} />
                 </span> :
                 <span className={deep < 2 ? 'title -upper' : 'title'}>

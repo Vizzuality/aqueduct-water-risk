@@ -32,19 +32,21 @@ export default class LayerList extends React.Component {
   renderCurrent() {
     return (
       <div>
-        <span className="advanced">
-          <Checkbox
-            className="-reverse"
-            label="Advanced settings"
-            name="advanced"
-            value="advanced"
-            onChange={val => this.setState({ advanced: val.checked })}
-          />
-        </span>
+        <div className="layerlist-header">
+          <span className="layerlist-title">Indicators</span>
+          <span className="advanced">
+            <Checkbox
+              className="-reverse"
+              label="Change indicator weightings"
+              name="advanced"
+              value="advanced"
+              onChange={val => this.setState({ advanced: val.checked })}
+            />
+          </span>
+        </div>
         {this.state.advanced &&
           <Presets onChange={this.props.setPonderation} ponderation={this.props.ponderation} />
         }
-        <span className="layerlist-title">Indicators</span>
         {this.renderLayerList(this.props.layers, 0)}
       </div>
     );

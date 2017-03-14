@@ -1,8 +1,14 @@
 .c-filters {
+
   background-color: palette(blue);
   padding: $sidebar-padding;
   margin: -32px -32px 0;
+
   .c-timeline {
     margin-bottom: $space-1 * 6;
+  }
+
+  .filters-group {
+    margin-top: $space-1 * 4;
   }
 }

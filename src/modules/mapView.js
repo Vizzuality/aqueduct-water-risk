@@ -13,7 +13,8 @@ const initialState = {
     changeFromBaseline: false,
     scenario: 'optimistic',
     timeScale: 'annual',
-    geoScale: 'global'
+    geoScale: 'global',
+    projection: 'absolute'
   },
   ponderation: {
     mode: 'default',

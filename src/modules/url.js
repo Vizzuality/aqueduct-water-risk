@@ -8,7 +8,7 @@ import { fetchFromGeostore, setGeostoreId } from 'modules/analyseLocations';
 function updateUrl() {
   return (storeDispatch, getState) => {
     const { map, mapView, scope, analyseLocations } = getState();
-    const { year, scenario, timeScale, geoScale } = mapView.filters;
+    const { year, scenario, timeScale, geoScale, projection } = mapView.filters;
     const { layers, ponderation } = mapView;
     const { points } = analyseLocations;
 
@@ -22,6 +22,7 @@ function updateUrl() {
         scenario,
         timeScale,
         geoScale,
+        projection,
         layers: layers.active.join(','),
         ponderation: ponderation.scheme,
         scope: scope.name,
@@ -46,12 +47,13 @@ function onEnterMapPage({ location }, replaceUrl, done) {
     dispatch(setMapLocation(map));
   }
   if (location.query.year) {
-    const { year, scenario, timeScale, geoScale } = location.query;
+    const { year, scenario, timeScale, geoScale, projection } = location.query;
     dispatch(setFilters({
       year,
       scenario,
       timeScale,
-      geoScale
+      geoScale,
+      projection
     }));
   }
   if (location.query.layers) {

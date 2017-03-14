@@ -1,6 +1,6 @@
 import React from 'react';
-import { Timeline, Icon, CustomSelect } from 'aqueduct-components';
-import { yearOptions, timeScaleOptions, spaceScaleOptions } from 'constants/filters';
+import { Timeline, Icon, CustomSelect, RadioGroup } from 'aqueduct-components';
+import { yearOptions, timeScaleOptions, spaceScaleOptions, projectionOptions } from 'constants/filters';
 
 export default class Filters extends React.Component {
   render() {
@@ -21,23 +21,25 @@ export default class Filters extends React.Component {
           />
         </div>
         <div className="row expanded">
-          <div className="small-6 column">
-            {/* Time scale */}
-            <div className="c-select">
-              <div className="select-header">
-                <span className="title">Time scale</span>
-                <button type="button" className="icon-container">
-                  <Icon name="icon-question" className="title-icon" />
-                </button>
+          {this.props.filters.year === 'baseline' &&
+            <div className="small-6 column">
+              {/* Time scale */}
+              <div className="c-select">
+                <div className="select-header">
+                  <span className="title">Time scale</span>
+                  <button type="button" className="icon-container">
+                    <Icon name="icon-question" className="title-icon" />
+                  </button>
+                </div>
+                <CustomSelect
+                  className="-fixed"
+                  options={timeScaleOptions}
+                  value={this.props.filters.timeScale}
+                  onValueChange={selected => this.props.setFilters({ timeScale: selected.value })}
+                />
               </div>
-              <CustomSelect
-                className="-fixed"
-                options={timeScaleOptions}
-                value={this.props.filters.timeScale}
-                onValueChange={selected => this.props.setFilters({ timeScale: selected.value })}
-              />
             </div>
-          </div>
+          }
           <div className="small-6 column">
             {/* Space scale */}
             <div className="c-select">
@@ -56,6 +58,17 @@ export default class Filters extends React.Component {
             </div>
           </div>
         </div>
+        {this.props.filters.year !== 'baseline' &&
+          <div className="filters-group">
+            <RadioGroup
+              className="-inline -secondary"
+              items={projectionOptions}
+              defaultValue={this.props.filters.projection}
+              name="projection"
+              onChange={selected => this.props.setFilters({ projection: selected.value })}
+            />
+          </div>
+        }
       </div>
     );
   }

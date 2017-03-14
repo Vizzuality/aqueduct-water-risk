@@ -40,11 +40,11 @@ $separation: $space-1 * 2;
     vertical-align: middle;
   }
 
-  ul {
+  .layerlist-list {
     padding-left: $separation;
   }
 
-  li .title {
+  .layerlist-item .title {
     text-transform: none;
   }
 

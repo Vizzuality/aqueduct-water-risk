@@ -1,6 +1,9 @@
 import React from 'react';
-import TableFilters from './TableFilters';
 import isEqual from 'lodash/isEqual';
+import uniq from 'lodash/uniq';
+import flatten from 'lodash/flatten';
+
+import TableFilters from './TableFilters';
 
 export default class CustomTable extends React.Component {
 
@@ -23,7 +26,12 @@ export default class CustomTable extends React.Component {
     }
   }
 
-  /* Component api */
+  /**
+   * HELPERS
+   * - setTableData
+   * - getColumnValues
+   * - getPageBounds
+  */
   setTableData(props) {
     const { data } = props;
     const totalPages = Math.ceil(data.length / props.pageSize);
@@ -38,8 +46,25 @@ export default class CustomTable extends React.Component {
       currentPage: (this.state && this.state.currentPage) || 0,
       totalPages,
       query: {},
-      sort: {}
+      sort: {},
+      columns: this.getColumnValuesV2(props.data)
     };
+  }
+
+  getColumnValuesV2(data) {
+    const columnsKeys = uniq(flatten(data.map(d => Object.keys(d))));
+    const columns = {};
+
+    columnsKeys.forEach((key) => {
+      columns[key] = uniq(data.map(d => d[key])).sort();
+    });
+
+    return columns;
+  }
+
+  getColumnValues(field) {
+    const { data } = this.props;
+    return uniq(data.map(d => d[field])).sort();
   }
 
   getPageBounds(page) {
@@ -110,6 +135,7 @@ export default class CustomTable extends React.Component {
             {this.props.filters &&
               <TableFilters
                 field={c.value}
+                values={this.state.columns[c.value]}
                 onFilter={this.filter}
                 onSort={this.sort}
               />
@@ -180,6 +206,7 @@ export default class CustomTable extends React.Component {
             {this.renderTableContent()}
           </tbody>
         </table>
+        {/* Table footer */}
         {this.renderTableFooter()}
       </div>
     );
@@ -200,7 +227,7 @@ CustomTable.defaultProps = {
   data: [],
   columns: [],
   paginated: true,
-  pageSize: 2,
+  pageSize: 10,
   initialPage: 0,
   filters: false
 };

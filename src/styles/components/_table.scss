@@ -49,27 +49,3 @@
     justify-content: space-between;
   }
 }
-
-/* Filters */
-
-.c-table-filters {
-
-  position: relative;
-
-  .filters-btn {
-    display: inline-block;
-    width: 15px;
-    height: 10px;
-    background-color: green;
-  }
-
-  .filters-content {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background-color: palette(white);
-    padding: $space-1;
-    z-index: 999;
-    border: 1px solid palette(gray, light);
-  }
-}

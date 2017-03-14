@@ -1,0 +1,71 @@
+/* Filters */
+$_arrow-width: 12px;
+
+.c-table-filters {
+
+  position: relative;
+
+  .filters-btn {
+    display: inline-block;
+    width: 15px;
+    height: 10px;
+    background-color: green;
+  }
+}
+
+/* Table filters content */
+.c-table-filters-content {
+  z-index: 10000;
+  background: $color-white;
+  border: 1px solid palette(gray, light);
+  box-shadow: 0 2px 4px 0 rgba(black, 0.2);
+  opacity: 1;
+  visibility: visible;
+
+  &.tether-out-of-bounds-top,
+  &.tether-out-of-bounds-bottom {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  &:after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: $_arrow-width;
+    height: $_arrow-width;
+    margin: -#{$_arrow-width/2} 0px 0px -#{$_arrow-width/2};
+    background: $color-white;
+    border-top: 1px solid palette(gray, light);
+    border-left: 1px solid palette(gray, light);
+    transform: rotate(45deg);
+  }
+
+  .content {
+    width: auto;
+    max-width: 330px;
+    max-height: 250px;
+    overflow-y: auto;
+    padding: $space-1 * 3;
+
+    &:before, &:after {
+      content: '';
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: $space-1 * 3;
+      z-index: 1;
+    }
+
+    &:before {
+      top: 0;
+      background: linear-gradient(to bottom, $color-white, rgba($color-white, 0)); /* Standard syntax */
+    }
+
+    &:after {
+      bottom: 0;
+      background: linear-gradient(to top, $color-white, rgba($color-white, 0)); /* Standard syntax */
+    }
+  }
+}

@@ -47,24 +47,22 @@ export default class CustomTable extends React.Component {
       totalPages,
       query: {},
       sort: {},
-      columns: this.getColumnValuesV2(props.data)
+      columns: this.getColumnValues(props.data)
     };
   }
 
-  getColumnValuesV2(data) {
+  getColumnValues(data) {
     const columnsKeys = uniq(flatten(data.map(d => Object.keys(d))));
     const columns = {};
 
     columnsKeys.forEach((key) => {
-      columns[key] = uniq(data.map(d => d[key])).sort();
+      const values = uniq(data.map(d => d[key]))
+                     .sort((a, b) => a - b)
+                     .map(d => d.toString());
+      columns[key] = values;
     });
 
     return columns;
-  }
-
-  getColumnValues(field) {
-    const { data } = this.props;
-    return uniq(data.map(d => d[field])).sort();
   }
 
   getPageBounds(page) {
@@ -95,18 +93,18 @@ export default class CustomTable extends React.Component {
       [q.field]: q.value
     };
 
-    const data = this.props.data.filter((row) => {
-      let match = true;
-      Object.keys(query).forEach((field) => {
-        match *= !!row[field].toString().toLowerCase().match(query[field].toString().toLowerCase());
-      });
-      return match;
+    const filteredData = this.props.data.filter((row) => {
+      return Object.keys(query).map((field) => {
+        return query[field].map((val) => {
+          return !!row[field].toString().toLowerCase().match(val.toString().toLowerCase());
+        }).some(match => match);
+      }).every(match => match);
     });
 
     this.setState({
       query,
-      filteredData: data,
-      totalPages: Math.ceil(data.length / this.props.pageSize)
+      filteredData,
+      totalPages: Math.ceil(filteredData.length / this.props.pageSize)
     }, () => this.goToPage(0));
   }
 
@@ -136,6 +134,7 @@ export default class CustomTable extends React.Component {
               <TableFilters
                 field={c.value}
                 values={this.state.columns[c.value]}
+                selected={this.state.query[c.value]}
                 onFilter={this.filter}
                 onSort={this.sort}
               />

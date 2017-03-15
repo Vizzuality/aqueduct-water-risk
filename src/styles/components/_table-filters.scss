@@ -1,5 +1,6 @@
 /* Filters */
 $_arrow-width: 12px;
+$_footer-height: 40px;
 
 .c-table-filters {
 
@@ -42,30 +43,62 @@ $_arrow-width: 12px;
     transform: rotate(45deg);
   }
 
-  .content {
-    width: auto;
-    max-width: 330px;
-    max-height: 250px;
-    overflow-y: auto;
-    padding: $space-1 * 3;
+  .filters-content {
+    padding-bottom: $_footer-height;
 
-    &:before, &:after {
-      content: '';
+    // Content
+    .content {
+      width: auto;
+      max-width: 330px;
+      max-height: 250px;
+      overflow-y: auto;
+      padding: $space-1 * 3 $space-1 * 3 $space-1 * 2;
+
+      &:before, &:after {
+        content: '';
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: $space-1 * 3;
+        z-index: 1;
+        pointer-events: none;
+      }
+
+      &:before {
+        top: 0;
+        background: linear-gradient(to bottom, $color-white, rgba($color-white, 0)); /* Standard syntax */
+      }
+
+      &:after {
+        bottom: $_footer-height;
+        background: linear-gradient(to top, $color-white, rgba($color-white, 0)); /* Standard syntax */
+      }
+    }
+
+    // Footer
+    .footer {
       position: absolute;
       left: 0;
-      width: 100%;
-      height: $space-1 * 3;
-      z-index: 1;
-    }
-
-    &:before {
-      top: 0;
-      background: linear-gradient(to bottom, $color-white, rgba($color-white, 0)); /* Standard syntax */
-    }
-
-    &:after {
       bottom: 0;
-      background: linear-gradient(to top, $color-white, rgba($color-white, 0)); /* Standard syntax */
+      width: 100%;
+      height: $_footer-height;
+      border-top: 1px solid $border-color-1;
+
+      ul {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        padding: 0 $space-1 * 3;
+
+        li {
+          margin-right: $space-1;
+          &:last-child {
+            margin-right: 0;
+          }
+        }
+      }
     }
   }
 }

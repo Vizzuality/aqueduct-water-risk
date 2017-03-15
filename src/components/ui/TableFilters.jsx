@@ -15,21 +15,49 @@ export default class TableFilters extends React.Component {
 
     // Bindings
     this.onToggle = this.onToggle.bind(this);
-    this.onFilter = this.onFilter.bind(this);
     this.onScreenClick = this.onScreenClick.bind(this);
+
+    this.onFilter = this.onFilter.bind(this);
+    this.onFilterSelect = this.onFilterSelect.bind(this);
+    this.onFilterSelectAll = this.onFilterSelectAll.bind(this);
+    this.onFilterClear = this.onFilterClear.bind(this);
   }
 
   /* Component lifecycle */
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      selected: (nextProps.selected) ? nextProps.selected : nextProps.values
+    });
+  }
+
   componentWillUnmount() {
     window.removeEventListener('click', this.onScreenClick);
   }
 
   /**
    * UI EVENTS
+   * - onToggle
    * - onScreenClick
    * - onFilter
-   * - onToggle
+   * - onFilterSelect
+   * - onFilterSelectAll
+   * - onFilterClear
   */
+  onToggle() {
+    const { closed } = this.state;
+
+    // requestAnimationFrame
+    //   - Goal: Prevent double trigger at first atempt
+    //   - Issue: When you add the listener the click event is not finished yet so it will trigger onScrennClick
+    //   - Stop propagation?: if I put e.stopPropagation clicking on another filter btn won't trigger the screenClick,
+    //                        so we will have 2 dropdown filters at the same time
+    requestAnimationFrame(() => window[closed ? 'addEventListener' : 'removeEventListener']('click', this.onScreenClick));
+
+    this.setState({ closed: !closed }, () =>
+      closed && this.input.focus()
+    );
+  }
+
   onScreenClick(e) {
     const el = document.querySelector('.c-table-filters-content');
     const clickOutside = el && el.contains && !el.contains(e.target);
@@ -49,22 +77,37 @@ export default class TableFilters extends React.Component {
     });
   }
 
-  onToggle() {
-    const { closed } = this.state;
+  onFilterSelect(selected) {
+    this.setState({ selected }, () => {
+      this.props.onFilter && this.props.onFilter({
+        field: this.props.field,
+        value: this.state.selected
+      });
+    });
+  }
 
-    // requestAnimationFrame
-    //   - Goal: Prevent double trigger at first atempt
-    //   - Issue: When you add the listener the click event is not finished yet so it will trigger onScrennClick
-    //   - Stop propagation?: if I put e.stopPropagation clicking on another filter btn won't trigger the screenClick,
-    //                        so we will have 2 dropdown filters at the same time
-    requestAnimationFrame(() => window[closed ? 'addEventListener' : 'removeEventListener']('click', this.onScreenClick));
+  onFilterSelectAll() {
+    this.setState({ selected: this.props.values }, () => {
+      this.props.onFilter && this.props.onFilter({
+        field: this.props.field,
+        value: this.state.selected
+      });
+    });
+  }
 
-    this.setState({ closed: !closed }, () =>
-      closed && this.input.focus()
-    );
+  onFilterClear() {
+    this.setState({ selected: [] }, () => {
+      this.props.onFilter && this.props.onFilter({
+        field: this.props.field,
+        value: this.state.selected
+      });
+    });
   }
 
   render() {
+    const { field, values } = this.props;
+    const { selected } = this.state;
+
     return (
       <div className="c-table-filters">
         <ul>
@@ -88,16 +131,42 @@ export default class TableFilters extends React.Component {
 
               {/* Second child: If present, this item will be tethered to the the first child */}
               {!this.state.closed &&
-                <div className="content">
-                  <input ref={node => this.input = node} type="search" onChange={this.onFilter} value={this.state.value} />
-                  <CheckboxGroup
-                    name={`${this.props.field}-checkbox-group`}
-                    items={this.props.values.map(v => ({ label: v.toString(), value: v.toString() }))}
-                  />
-                  <ul className="sort">
-                    <li><button onClick={() => this.props.onSort && this.props.onSort({ field: this.props.field, value: -1 })}>DESC</button></li>
-                    <li><button onClick={() => this.props.onSort && this.props.onSort({ field: this.props.field, value: 1 })}>ASC</button></li>
-                  </ul>
+                <div className="filters-content">
+                  <div className="content">
+                    <input ref={node => this.input = node} type="search" onChange={this.onFilter} value={this.state.value} />
+                    <CheckboxGroup
+                      name={`${field}-checkbox-group`}
+                      items={values.map(v => ({ label: v, value: v }))}
+                      selected={selected}
+                      onChange={this.onFilterSelect}
+                    />
+                    {/* <ul>
+                      <li>
+                        <button onClick={() => this.props.onSort && this.props.onSort({ field: this.props.field, value: -1 })}>
+                          DESC
+                        </button>
+                      </li>
+                      <li>
+                        <button onClick={() => this.props.onSort && this.props.onSort({ field: this.props.field, value: 1 })}>
+                          ASC
+                        </button>
+                      </li>
+                    </ul> */}
+                  </div>
+                  <div className="footer">
+                    <ul>
+                      <li>
+                        <button onClick={this.onFilterSelectAll}>
+                          Select all
+                        </button>
+                      </li>
+                      <li>
+                        <button onClick={this.onFilterClear}>
+                          Clear
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
               }
             </TetherComponent>
@@ -109,11 +178,14 @@ export default class TableFilters extends React.Component {
 }
 
 TableFilters.propTypes = {
-  onFilter: React.PropTypes.func,
-  onSort: React.PropTypes.func,
   field: React.PropTypes.string.isRequired,
-  values: React.PropTypes.array
+  values: React.PropTypes.array,
+  selected: React.PropTypes.array,
+  onFilter: React.PropTypes.func,
+  onSort: React.PropTypes.func
 };
+
 TableFilters.defaultProps = {
-  onChange: null
+  onChange: null,
+  selected: null
 };

@@ -1,4 +1,7 @@
 import React from 'react';
+import TetherComponent from 'react-tether';
+import { CheckboxGroup, Icon } from 'aqueduct-components';
+
 
 export default class TableFilters extends React.Component {
   constructor(props) {
@@ -6,67 +9,200 @@ export default class TableFilters extends React.Component {
 
     this.state = {
       closed: true,
-      value: '',
-      sort: 1
+      input: '',
+      sort: 1,
+      values: props.values || [],
+      selected: props.selected || []
     };
 
     // Bindings
-    this.toggle = this.toggle.bind(this);
-    this.onFilter = this.onFilter.bind(this);
+    this.onToggle = this.onToggle.bind(this);
     this.onScreenClick = this.onScreenClick.bind(this);
+
+    this.onChangeInput = this.onChangeInput.bind(this);
+    this.onFilterSelect = this.onFilterSelect.bind(this);
+    this.onFilterSelectAll = this.onFilterSelectAll.bind(this);
+    this.onFilterClear = this.onFilterClear.bind(this);
   }
 
   /* Component lifecycle */
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      selected: (nextProps.selected) ? nextProps.selected : nextProps.values,
+      values: nextProps.values
+    });
+  }
+
   componentWillUnmount() {
     window.removeEventListener('click', this.onScreenClick);
   }
 
-  onScreenClick(evt) {
-    const clickOutside = this.el.contains && !this.el.contains(evt.target);
+  /**
+   * UI EVENTS
+   * - onToggle
+   * - onScreenClick
+   *
+   * - onChangeInput
+   * - onFilterSelect
+   * - onFilterSelectAll
+   * - onFilterClear
+  */
+  onToggle() {
+    const { closed } = this.state;
+
+    // requestAnimationFrame
+    //   - Goal: Prevent double trigger at first atempt
+    //   - Issue: When you add the listener the click event is not finished yet so it will trigger onScrennClick
+    //   - Stop propagation?: if I put e.stopPropagation clicking on another filter btn won't trigger the screenClick,
+    //                        so we will have 2 dropdown filters at the same time
+    requestAnimationFrame(() => window[closed ? 'addEventListener' : 'removeEventListener']('click', this.onScreenClick));
+
+    this.setState({ closed: !closed }, () =>
+      closed && this.input.focus()
+    );
+  }
+
+  onScreenClick(e) {
+    const el = document.querySelector('.c-table-tooltip');
+    const clickOutside = el && el.contains && !el.contains(e.target);
+
     if (clickOutside) {
-      this.toggle();
+      this.onToggle();
     }
   }
 
-  onFilter() {
+  onChangeInput() {
     this.setState({
-      value: this.input.value
+      input: this.input.value
     });
-    this.props.onFilter && this.props.onFilter({
-      field: this.props.field,
-      value: this.input.value
+    // this.props.onFilter && this.props.onFilter({
+    //   field: this.props.field,
+    //   value: this.input.value
+    // });
+  }
+
+  onFilterSelect(selected) {
+    this.setState({ selected }, () => {
+      this.props.onFilter && this.props.onFilter({
+        field: this.props.field,
+        value: this.state.selected
+      });
     });
   }
 
-  toggle() {
-    const { closed } = this.state;
-    window[closed ? 'addEventListener' : 'removeEventListener']('click', this.onScreenClick);
-    this.setState({ closed: !closed }, () => closed && this.input.focus());
+  onFilterSelectAll() {
+    this.setState({ selected: this.props.values }, () => {
+      this.props.onFilter && this.props.onFilter({
+        field: this.props.field,
+        value: this.state.selected
+      });
+    });
+  }
+
+  onFilterClear() {
+    this.setState({ selected: [] }, () => {
+      this.props.onFilter && this.props.onFilter({
+        field: this.props.field,
+        value: this.state.selected
+      });
+    });
+  }
+
+  /**
+   * HELPERS
+   * - getFilteredValues
+  */
+  getFilteredValues() {
+    const { values, input } = this.state;
+
+    const filteredValues = values.filter((val) => {
+      if (input) {
+        return !!val.toString().toLowerCase().match(input.toString().toLowerCase());
+      }
+      return true;
+    });
+    return filteredValues.map(v => ({ label: v, value: v }));
   }
 
   render() {
+    const { field } = this.props;
+    const { selected } = this.state;
+
     return (
-      <div ref={node => this.el = node} className="c-table-filters">
-        <button onClick={this.toggle} className="filters-btn" />
-        {this.state.closed ||
-          <div className="filters-content">
-            <input ref={node => this.input = node} type="search" onChange={this.onFilter} value={this.state.value} />
-            <ul className="sort">
-              <li><button onClick={() => this.props.onSort && this.props.onSort({ field: this.props.field, value: -1 })}>DESC</button></li>
-              <li><button onClick={() => this.props.onSort && this.props.onSort({ field: this.props.field, value: 1 })}>ASC</button></li>
-            </ul>
-          </div>
-        }
+      <div>
+        <TetherComponent
+          attachment="top center"
+          constraints={[{
+            to: 'scrollParent'
+          }]}
+          classes={{
+            element: 'c-table-tooltip -footer'
+          }}
+          offset="-8px 0"
+        >
+          {/* First child: This is what the item will be tethered to */}
+          <button
+            ref={node => this.btnToggle = node}
+            onClick={this.onToggle}
+            className="table-header-btn"
+          >
+            <Icon name="icon-filter" className="-small" />
+          </button>
+
+          {/* Second child: If present, this item will be tethered to the the first child */}
+          {!this.state.closed &&
+            <div className="tooltip-content">
+              <div className="content">
+                <input ref={node => this.input = node} type="search" onChange={this.onChangeInput} value={this.state.value} />
+                <CheckboxGroup
+                  name={`${field}-checkbox-group`}
+                  items={this.getFilteredValues()}
+                  selected={selected}
+                  onChange={this.onFilterSelect}
+                />
+                {/* <ul>
+                  <li>
+                    <button onClick={() => this.props.onSort && this.props.onSort({ field: this.props.field, value: -1 })}>
+                      DESC
+                    </button>
+                  </li>
+                  <li>
+                    <button onClick={() => this.props.onSort && this.props.onSort({ field: this.props.field, value: 1 })}>
+                      ASC
+                    </button>
+                  </li>
+                </ul> */}
+              </div>
+              <div className="footer">
+                <ul>
+                  <li>
+                    <button onClick={this.onFilterSelectAll}>
+                      Select all
+                    </button>
+                  </li>
+                  <li>
+                    <button onClick={this.onFilterClear}>
+                      Clear
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          }
+        </TetherComponent>
       </div>
     );
   }
 }
 
 TableFilters.propTypes = {
-  onFilter: React.PropTypes.func,
-  onSort: React.PropTypes.func,
-  field: React.PropTypes.string.isRequired
+  field: React.PropTypes.string.isRequired,
+  values: React.PropTypes.array,
+  selected: React.PropTypes.array,
+  onFilter: React.PropTypes.func
 };
+
 TableFilters.defaultProps = {
-  onChange: null
+  onChange: null,
+  selected: null
 };

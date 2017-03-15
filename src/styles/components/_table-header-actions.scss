@@ -1,0 +1,24 @@
+.c-table-header-actions {
+  position: relative;
+
+  ul {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+    li {
+      margin-right: $space-1;
+
+      &:last-child {
+        margin-right: 0
+      }
+    }
+  }
+
+  .table-header-btn {
+    display: inline-block;
+    width: 15px;
+    height: 10px;
+    fill: $color-text-1;
+  }
+}

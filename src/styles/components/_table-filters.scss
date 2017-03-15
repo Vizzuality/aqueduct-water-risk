@@ -44,7 +44,8 @@ $_footer-height: 40px;
   }
 
   .filters-content {
-    padding-bottom: $_footer-height;
+    display: flex;
+    flex-direction: column;
 
     // Content
     .content {
@@ -77,9 +78,7 @@ $_footer-height: 40px;
 
     // Footer
     .footer {
-      position: absolute;
-      left: 0;
-      bottom: 0;
+      flex: 1;
       width: 100%;
       height: $_footer-height;
       border-top: 1px solid $border-color-1;

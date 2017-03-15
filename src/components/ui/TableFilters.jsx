@@ -9,15 +9,17 @@ export default class TableFilters extends React.Component {
 
     this.state = {
       closed: true,
-      value: '',
-      sort: 1
+      input: '',
+      sort: 1,
+      values: props.values || [],
+      selected: props.selected || []
     };
 
     // Bindings
     this.onToggle = this.onToggle.bind(this);
     this.onScreenClick = this.onScreenClick.bind(this);
 
-    this.onFilter = this.onFilter.bind(this);
+    this.onChangeInput = this.onChangeInput.bind(this);
     this.onFilterSelect = this.onFilterSelect.bind(this);
     this.onFilterSelectAll = this.onFilterSelectAll.bind(this);
     this.onFilterClear = this.onFilterClear.bind(this);
@@ -26,7 +28,8 @@ export default class TableFilters extends React.Component {
   /* Component lifecycle */
   componentWillReceiveProps(nextProps) {
     this.setState({
-      selected: (nextProps.selected) ? nextProps.selected : nextProps.values
+      selected: (nextProps.selected) ? nextProps.selected : nextProps.values,
+      values: nextProps.values
     });
   }
 
@@ -38,7 +41,8 @@ export default class TableFilters extends React.Component {
    * UI EVENTS
    * - onToggle
    * - onScreenClick
-   * - onFilter
+   *
+   * - onChangeInput
    * - onFilterSelect
    * - onFilterSelectAll
    * - onFilterClear
@@ -67,14 +71,14 @@ export default class TableFilters extends React.Component {
     }
   }
 
-  onFilter() {
+  onChangeInput() {
     this.setState({
-      value: this.input.value
+      input: this.input.value
     });
-    this.props.onFilter && this.props.onFilter({
-      field: this.props.field,
-      value: this.input.value
-    });
+    // this.props.onFilter && this.props.onFilter({
+    //   field: this.props.field,
+    //   value: this.input.value
+    // });
   }
 
   onFilterSelect(selected) {
@@ -104,8 +108,24 @@ export default class TableFilters extends React.Component {
     });
   }
 
+  /**
+   * HELPERS
+   * - getFilteredValues
+  */
+  getFilteredValues() {
+    const { values, input } = this.state;
+
+    const filteredValues = values.filter((val) => {
+      if (input) {
+        return !!val.toString().toLowerCase().match(input.toString().toLowerCase());
+      }
+      return true;
+    });
+    return filteredValues.map(v => ({ label: v, value: v }));
+  }
+
   render() {
-    const { field, values } = this.props;
+    const { field } = this.props;
     const { selected } = this.state;
 
     return (
@@ -133,10 +153,10 @@ export default class TableFilters extends React.Component {
               {!this.state.closed &&
                 <div className="filters-content">
                   <div className="content">
-                    <input ref={node => this.input = node} type="search" onChange={this.onFilter} value={this.state.value} />
+                    <input ref={node => this.input = node} type="search" onChange={this.onChangeInput} value={this.state.value} />
                     <CheckboxGroup
                       name={`${field}-checkbox-group`}
-                      items={values.map(v => ({ label: v, value: v }))}
+                      items={this.getFilteredValues()}
                       selected={selected}
                       onChange={this.onFilterSelect}
                     />

@@ -1,0 +1,46 @@
+.c-btn-menu {
+  display: flex;
+  margin: 0 (-$space-1);
+
+  /* Modifiers */
+  &.-stacked {
+    .btn-menu-item {
+      flex: 1;
+    }
+
+    .btn-menu-btn {
+      width: 100%;
+    }
+  }
+
+  /* Themes */
+  &.-theme-white {
+    .btn-menu-btn {
+      background-color: palette(white);
+      color: palette(blue);
+    }
+  }
+
+  &.-theme-sand {
+    .btn-menu-btn {
+      background-color: palette(sand);
+      color: palette(blue);
+
+      &:hover {
+        background-color: rgba(palette(gray, light), .5);
+      }
+    }
+  }
+}
+
+.btn-menu-item {
+  padding: 0 $space-1;
+}
+
+.btn-menu-btn {
+  display: block;
+  border-radius: 3px;
+  border: 1px solid palette(gray, light);
+  padding: ($space-1 / 2) ($space-1 * 4);
+  transition: background-color linear $animation-time;
+}

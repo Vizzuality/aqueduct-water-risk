@@ -7,6 +7,7 @@ import { layers } from 'constants/layers';
 import MapView from './MapView';
 import AnalyseLocations from './AnalyseLocations';
 import ZoomControl from 'components/zoom/ZoomControl';
+import BtnMenu from 'components/ui/BtnMenu';
 
 export default class MapPage extends React.Component {
 
@@ -105,6 +106,11 @@ export default class MapPage extends React.Component {
             { this.props.scope === 'analyseLocations' &&
               <AnalyseLocations columns={columns} data={this.props.points} />
             }
+            {/* TODO: functionallity */}
+            <BtnMenu
+              className="mapview-actions-menu -stacked -theme-sand"
+              items={[{ label: 'Methodology' }, { label: 'Print / Share' }, { label: 'Download data' }]}
+            />
           </div>
         </Sidebar>
         <Map

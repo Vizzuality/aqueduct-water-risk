@@ -1,5 +1,6 @@
 import React from 'react';
 import isEqual from 'lodash/isEqual';
+import isEmpty from 'lodash/isEmpty';
 import uniq from 'lodash/uniq';
 import flatten from 'lodash/flatten';
 
@@ -110,16 +111,11 @@ export default class CustomTable extends React.Component {
 
   sort(s) {
     const sort = {
-      [s.field]: s.value
+      field: s.field,
+      value: s.value
     };
-
-    const filteredData = this.state.filteredData.slice().sort((rowA, rowB) => {
-      return rowA[s.field].toString().toLowerCase() > rowB[s.field].toString().toLowerCase() ? s.value : (s.value * -1);
-    });
-
     this.setState({
-      sort,
-      filteredData
+      sort
     }, () => this.goToPage(0));
   }
 
@@ -146,7 +142,8 @@ export default class CustomTable extends React.Component {
   }
 
   renderTableContent() {
-    const { filteredData } = this.state;
+    let { filteredData } = this.state;
+    const { sort } = this.state;
     const { bottom, top } = this.getPageBounds(this.state.currentPage);
 
     if (!filteredData.length) {
@@ -156,11 +153,17 @@ export default class CustomTable extends React.Component {
         </tr>
       );
     }
+    /* Apply sorting to filteredData */
+    if (!isEmpty(sort)) {
+      filteredData = filteredData.slice().sort((rowA, rowB) => {
+        return rowA[sort.field].toString().toLowerCase() > rowB[sort.field].toString().toLowerCase() ? sort.value : (sort.value * -1);
+      });
+    }
 
     /* Apply pagination to filteredData */
-    const paginatedData = filteredData.slice(bottom, top);
+    filteredData = filteredData.slice(bottom, top);
 
-    return paginatedData.map((row, index) => {
+    return filteredData.map((row, index) => {
       return (
         <tr key={index}>
           {this.props.columns.map((col, i) => <td key={i}>{row[col.value]}</td>)}

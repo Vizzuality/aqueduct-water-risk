@@ -57,7 +57,7 @@ export default class TableFilters extends React.Component {
           classes={{
             element: 'c-table-tooltip'
           }}
-          offset="-8px 0"
+          offset="-12px 0"
         >
           {/* First child: This is what the item will be tethered to */}
           <button

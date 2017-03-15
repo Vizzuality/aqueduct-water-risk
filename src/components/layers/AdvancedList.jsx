@@ -1,4 +1,5 @@
 import React from 'react';
+import classnames from 'classnames';
 import { Timeline, Radio } from 'aqueduct-components';
 import { points } from 'constants/points';
 
@@ -7,8 +8,11 @@ export default function AdvancedList(props) {
     return (
       <ul className="layerlist-list -advanced">
         {layers.map((l, index) => {
+          const cNames = classnames('layerlist-item', {
+            '-selected': props.activeLayers.includes(l.id)
+          });
           return (
-            <li className="layerlist-item" key={index}>
+            <li className={cNames} key={index}>
               {Array.isArray(l.ponderation) ?
                 <span>
                   <span className="timeline-title">{l.name}</span>

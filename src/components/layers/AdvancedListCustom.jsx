@@ -1,8 +1,8 @@
 import React from 'react';
-import { Timeline, Radio } from 'aqueduct-components';
+import { Checkbox, Timeline } from 'aqueduct-components';
 import { points } from 'constants/points';
 
-export default function AdvancedList(props) {
+export default function AdvancedListCustom(props) {
   function getLayers(layers, deep) {
     return (
       <ul className="layerlist-list -advanced">
@@ -11,17 +11,17 @@ export default function AdvancedList(props) {
             <li className="layerlist-item" key={index}>
               {Array.isArray(l.ponderation) ?
                 <span>
-                  <span className="timeline-title">{l.name}</span>
-                  <Timeline className="-rate -bloqued" items={points} selected={{ value: '3' }} onChange={() => {}} />
+                  <Checkbox
+                    className="layerlist-cbox"
+                    label={l.name}
+                    name={l.id}
+                    value={l.id}
+                    onChange={val => console.log(val)}
+                  />
+                <Timeline className="-rate" items={points} selected={{ value: '3' }} onChange={val => console.log(val)} />
                 </span> :
                 <span className={deep < 2 ? 'title -upper' : 'title'}>
-                  <Radio
-                    label={l.name}
-                    onChange={i => props.onSelectLayer([i])}
-                    name="layer"
-                    value={l.id}
-                    selected={props.activeLayers[0]}
-                  />
+                  <span>{l.name}</span>
                 </span>
                 }
               {l.children && l.children.length &&
@@ -34,16 +34,19 @@ export default function AdvancedList(props) {
     );
   }
 
-  return getLayers(props.layers, 0);
+  // Omit "Overall water risk"
+  const layers = props.layers[0].children;
+
+  return getLayers(layers, 0);
 }
 
-AdvancedList.propTypes = {
+AdvancedListCustom.propTypes = {
   layers: React.PropTypes.array,
   activeLayers: React.PropTypes.array,
   onSelectLayer: React.PropTypes.func
 };
 
-AdvancedList.defaultProps = {
+AdvancedListCustom.defaultProps = {
   layers: [],
   activeLayers: []
 };

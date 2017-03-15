@@ -2,7 +2,7 @@ import React from 'react';
 import { CustomSelect } from 'aqueduct-components';
 import { presetOptions } from 'constants/presets';
 
-export default function Indicators(props) {
+export default function Presets(props) {
   return (
     <div className="c-presets">
       <span className="presets-title">Weighting Scheme Presets</span>
@@ -16,7 +16,7 @@ export default function Indicators(props) {
   );
 }
 
-Indicators.propTypes = {
+Presets.propTypes = {
   onChange: React.PropTypes.func,
-  ponderation: React.PropTypes.func
+  ponderation: React.PropTypes.string
 };

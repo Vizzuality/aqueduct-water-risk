@@ -15,11 +15,15 @@
       background-color: palette(sand);
       border: 1px solid lighten(palette(gray, dark), 30%);
       box-shadow: 0 0 0px 7px palette(sand);
+      width: 7px;
+      height: 7px;
 
       &.-selected {
         border: 1px solid palette(blue, secondary);
         background-color: palette(blue, secondary);
         box-shadow: 0 0 0px 3px palette(sand) inset, 0 0 0px 7px palette(sand);
+        width: 16px;
+        height: 16px;
       }
     }
 

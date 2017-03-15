@@ -10,6 +10,10 @@ const presetOptions = [
   {
     label: 'Chemicals',
     value: 'chemicals'
+  },
+  {
+    label: 'Custom',
+    value: 'custom'
   }
 ];
 

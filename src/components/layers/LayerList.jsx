@@ -5,6 +5,7 @@ import Presets from 'components/presets/Presets';
 import Future from './Future';
 import List from './List';
 import AdvancedList from './AdvancedList';
+import AdvancedListCustom from './AdvancedListCustom';
 
 export default class LayerList extends React.Component {
 
@@ -17,16 +18,21 @@ export default class LayerList extends React.Component {
 
   /* Partial renders */
   renderLayerList() {
-    return this.state.advanced ?
-      <AdvancedList
-        layers={this.props.layers}
-        activeLayers={this.props.activeLayers}
-      /> :
-      <List
-        layers={this.props.layers}
-        activeLayers={this.props.activeLayers}
-        onSelectLayer={this.props.onSelectLayer}
-      />;
+    const props = {
+      layers: this.props.layers,
+      activeLayers: this.props.activeLayers,
+      onSelectLayer: this.props.onSelectLayer
+    };
+
+    let list;
+
+    if (this.state.advanced) {
+      list = this.props.ponderation === 'custom' ? <AdvancedListCustom {...props} /> : <AdvancedList {...props} />;
+    } else {
+      list = <List {...props} />;
+    }
+
+    return list;
   }
 
   renderCurrent() {

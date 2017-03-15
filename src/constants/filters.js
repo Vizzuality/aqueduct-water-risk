@@ -16,4 +16,9 @@ const spaceScaleOptions = [
   { value: 'local', label: 'Local' }
 ];
 
-export { yearOptions, timeScaleOptions, spaceScaleOptions };
+const projectionOptions = [
+  { value: 'absolute', label: 'Absolute value' },
+  { value: 'baseline', label: 'Change from baseline' }
+];
+
+export { yearOptions, timeScaleOptions, spaceScaleOptions, projectionOptions };

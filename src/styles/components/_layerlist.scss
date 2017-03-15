@@ -7,10 +7,27 @@ $separation: $space-1 * 2;
   font-family: $font-family-roboto;
 }
 
+.layerlist-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: $separation;
+}
+
 .layerlist-title {
   display: block;
   font-size: $font-size-extrabig;
+}
+
+.timeline-title {
+  display: block;
+  font-weight: 500;
+  font-size: $font-size-big;
   margin-bottom: $separation;
+}
+
+.layerlist-cbox {
+  margin-bottom: $space-1 * 2;
 }
 
 .layerlist-item {
@@ -25,13 +42,14 @@ $separation: $space-1 * 2;
   }
 
   .title {
-    @include clearfix;
     letter-spacing: .9px;
     display: block;
     margin-bottom: $separation;
 
-    &.-upper .c-radio label {
-      text-transform: uppercase;
+    &.-upper {
+      &, & .c-radio label {
+        text-transform: uppercase;
+      }
     }
   }
 
@@ -40,8 +58,25 @@ $separation: $space-1 * 2;
     vertical-align: middle;
   }
 
+  &.-selected {
+    > .layerlist-list:after {
+      border-left-color: palette(blue, secondary);
+    }
+  }
+
   .layerlist-list {
-    padding-left: $separation;
+    padding-left: $separation * 2;
+    position: relative;
+
+    &:after {
+      content: '';
+      position: absolute;
+      height: calc(100% + 10px);
+      left: 7px;
+      bottom: 0;
+      width: 2px;
+      border-left: 1px solid palette(gray, light);
+    }
   }
 
   .layerlist-item .title {
@@ -60,11 +95,6 @@ $separation: $space-1 * 2;
 }
 
 .advanced {
-  display: flex;
-  width: 100%;
-  align-items: center;
-  justify-content: flex-end;
-
   .c-checkbox {
     margin-left: $space-1;
   }

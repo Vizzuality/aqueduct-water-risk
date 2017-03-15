@@ -14,7 +14,7 @@ export default function MapView(props) {
         layers={props.layers}
         onSelectLayer={props.onSelectLayer}
         year={props.mapView.filters.year}
-        ponderation={props.mapView.ponderation.scheme}
+        ponderation={props.mapView.ponderation}
         scenario={props.mapView.filters.scenario}
         setFilters={props.setFilters}
         setPonderation={props.setPonderation}

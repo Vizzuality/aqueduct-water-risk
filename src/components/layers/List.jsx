@@ -1,13 +1,17 @@
 import React from 'react';
 import { Radio, Icon } from 'aqueduct-components';
+import classnames from 'classnames';
 
 export default function List(props) {
   function getLayers(layers, deep) {
     return (
       <ul className="layerlist-list">
         {layers.map((l, index) => {
+          const cNames = classnames('layerlist-item', {
+            '-selected': props.activeLayers.includes(l.id)
+          });
           return (
-            <li className="layerlist-item" key={index}>
+            <li className={cNames} key={index}>
               <span className={deep < 2 ? 'title -upper' : 'title'}>
                 <Radio
                   label={l.name}

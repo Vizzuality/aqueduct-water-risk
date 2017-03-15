@@ -16,8 +16,8 @@
 
   label {
     font-family: $font-family-roboto;
-    font-size: $font-size-default;
-    font-weight: normal;
+    font-weight: 500;
+    font-size: $font-size-big;
     color: palette(gray, dark);
     padding-right: $space-1 * 3;
     &:hover {
@@ -26,7 +26,7 @@
   }
 
   input[type="checkbox"]:checked + label {
-    color: palette(gray, dark);
+    color: palette(blue, secondary);
   }
 
 }

@@ -5,6 +5,7 @@ import Presets from 'components/presets/Presets';
 import Future from './Future';
 import List from './List';
 import AdvancedList from './AdvancedList';
+import AdvancedListCustom from './AdvancedListCustom';
 
 export default class LayerList extends React.Component {
 
@@ -17,34 +18,43 @@ export default class LayerList extends React.Component {
 
   /* Partial renders */
   renderLayerList() {
-    return this.state.advanced ?
-      <AdvancedList
-        layers={this.props.layers}
-        activeLayers={this.props.activeLayers}
-      /> :
-      <List
-        layers={this.props.layers}
-        activeLayers={this.props.activeLayers}
-        onSelectLayer={this.props.onSelectLayer}
-      />;
+    const props = {
+      layers: this.props.layers,
+      activeLayers: this.props.activeLayers,
+      onSelectLayer: this.props.onSelectLayer
+    };
+
+    let list;
+
+    if (this.state.advanced) {
+      list = this.props.ponderation.scheme === 'custom' ?
+        <AdvancedListCustom {...props} onSelectLayer={this.props.setPonderation} customPonderation={this.props.ponderation.custom} /> :
+        <AdvancedList {...props} />;
+    } else {
+      list = <List {...props} />;
+    }
+
+    return list;
   }
 
   renderCurrent() {
     return (
       <div>
-        <span className="advanced">
-          <Checkbox
-            className="-reverse"
-            label="Advanced settings"
-            name="advanced"
-            value="advanced"
-            onChange={val => this.setState({ advanced: val.checked })}
-          />
-        </span>
+        <div className="layerlist-header">
+          <span className="layerlist-title">Indicators</span>
+          <span className="advanced">
+            <Checkbox
+              className="-reverse"
+              label="Change indicator weightings"
+              name="advanced"
+              value="advanced"
+              onChange={val => this.setState({ advanced: val.checked })}
+            />
+          </span>
+        </div>
         {this.state.advanced &&
-          <Presets onChange={this.props.setPonderation} ponderation={this.props.ponderation} />
+          <Presets onChange={this.props.setPonderation} ponderation={this.props.ponderation.scheme} />
         }
-        <span className="layerlist-title">Indicators</span>
         {this.renderLayerList(this.props.layers, 0)}
       </div>
     );
@@ -79,7 +89,7 @@ LayerList.propTypes = {
   activeLayers: React.PropTypes.array,
   year: React.PropTypes.string,
   scenario: React.PropTypes.string,
-  ponderation: React.PropTypes.string,
+  ponderation: React.PropTypes.object,
   // Actions
   onSelectLayer: React.PropTypes.func,
   setFilters: React.PropTypes.func,

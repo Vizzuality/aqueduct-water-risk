@@ -27,7 +27,9 @@ export default class LayerList extends React.Component {
     let list;
 
     if (this.state.advanced) {
-      list = this.props.ponderation === 'custom' ? <AdvancedListCustom {...props} /> : <AdvancedList {...props} />;
+      list = this.props.ponderation.scheme === 'custom' ?
+        <AdvancedListCustom {...props} onSelectLayer={this.props.setPonderation} customPonderation={this.props.ponderation.custom} /> :
+        <AdvancedList {...props} />;
     } else {
       list = <List {...props} />;
     }
@@ -51,7 +53,7 @@ export default class LayerList extends React.Component {
           </span>
         </div>
         {this.state.advanced &&
-          <Presets onChange={this.props.setPonderation} ponderation={this.props.ponderation} />
+          <Presets onChange={this.props.setPonderation} ponderation={this.props.ponderation.scheme} />
         }
         {this.renderLayerList(this.props.layers, 0)}
       </div>
@@ -87,7 +89,7 @@ LayerList.propTypes = {
   activeLayers: React.PropTypes.array,
   year: React.PropTypes.string,
   scenario: React.PropTypes.string,
-  ponderation: React.PropTypes.string,
+  ponderation: React.PropTypes.object,
   // Actions
   onSelectLayer: React.PropTypes.func,
   setFilters: React.PropTypes.func,

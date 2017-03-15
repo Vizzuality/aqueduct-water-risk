@@ -42,13 +42,14 @@ $separation: $space-1 * 2;
   }
 
   .title {
-    @include clearfix;
     letter-spacing: .9px;
     display: block;
     margin-bottom: $separation;
 
-    &.-upper .c-radio label {
-      text-transform: uppercase;
+    &.-upper {
+      &, & .c-radio label {
+        text-transform: uppercase;
+      }
     }
   }
 

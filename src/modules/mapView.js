@@ -17,9 +17,8 @@ const initialState = {
     projection: 'absolute'
   },
   ponderation: {
-    mode: 'default',
     scheme: 'agriculture',
-    advanced: {}
+    custom: {}
   }
 };
 
@@ -41,7 +40,11 @@ function mapViewReducer(state = initialState, action) {
         ...state,
         ponderation: {
           ...state.ponderation,
-          ...action.payload
+          ...action.payload,
+          custom: {
+            ...state.ponderation.custom,
+            ...action.payload.custom
+          }
         }
       };
     }

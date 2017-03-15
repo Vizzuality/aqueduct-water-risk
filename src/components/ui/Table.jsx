@@ -3,7 +3,7 @@ import isEqual from 'lodash/isEqual';
 import uniq from 'lodash/uniq';
 import flatten from 'lodash/flatten';
 
-import TableFilters from './TableFilters';
+import TableHeaderActions from './TableHeaderActions';
 
 export default class CustomTable extends React.Component {
 
@@ -131,7 +131,7 @@ export default class CustomTable extends React.Component {
           <span className="th-wrapper">
             <span>{c.label}</span>
             {this.props.filters &&
-              <TableFilters
+              <TableHeaderActions
                 field={c.value}
                 values={this.state.columns[c.value]}
                 selected={this.state.query[c.value]}

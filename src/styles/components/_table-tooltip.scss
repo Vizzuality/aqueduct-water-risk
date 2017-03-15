@@ -2,20 +2,8 @@
 $_arrow-width: 12px;
 $_footer-height: 40px;
 
-.c-table-filters {
-
-  position: relative;
-
-  .filters-btn {
-    display: inline-block;
-    width: 15px;
-    height: 10px;
-    background-color: green;
-  }
-}
-
 /* Table filters content */
-.c-table-filters-content {
+.c-table-tooltip {
   z-index: 10000;
   background: $color-white;
   border: 1px solid palette(gray, light);
@@ -43,7 +31,7 @@ $_footer-height: 40px;
     transform: rotate(45deg);
   }
 
-  .filters-content {
+  .tooltip-content {
     display: flex;
     flex-direction: column;
 
@@ -67,12 +55,12 @@ $_footer-height: 40px;
 
       &:before {
         top: 0;
-        background: linear-gradient(to bottom, $color-white, rgba($color-white, 0)); /* Standard syntax */
+        background: linear-gradient(to bottom, $color-white, rgba($color-white, 0));
       }
 
       &:after {
-        bottom: $_footer-height;
-        background: linear-gradient(to top, $color-white, rgba($color-white, 0)); /* Standard syntax */
+        bottom: 0;
+        background: linear-gradient(to top, $color-white, rgba($color-white, 0));
       }
     }
 
@@ -96,6 +84,16 @@ $_footer-height: 40px;
           &:last-child {
             margin-right: 0;
           }
+        }
+      }
+    }
+  }
+
+  &.-footer {
+    .tooltip-content {
+      .content {
+        &:after {
+          bottom: $_footer-height;
         }
       }
     }

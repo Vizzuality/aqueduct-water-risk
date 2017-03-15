@@ -1,6 +1,6 @@
 import React from 'react';
 import TetherComponent from 'react-tether';
-import { CheckboxGroup } from 'aqueduct-components';
+import { CheckboxGroup, Icon } from 'aqueduct-components';
 
 
 export default class TableFilters extends React.Component {
@@ -63,7 +63,7 @@ export default class TableFilters extends React.Component {
   }
 
   onScreenClick(e) {
-    const el = document.querySelector('.c-table-filters-content');
+    const el = document.querySelector('.c-table-tooltip');
     const clickOutside = el && el.contains && !el.contains(e.target);
 
     if (clickOutside) {
@@ -129,69 +129,67 @@ export default class TableFilters extends React.Component {
     const { selected } = this.state;
 
     return (
-      <div className="c-table-filters">
-        <ul>
-          <li>
-            <TetherComponent
-              attachment="top center"
-              constraints={[{
-                to: 'scrollParent'
-              }]}
-              classes={{
-                element: 'c-table-filters-content'
-              }}
-              offset="-8px 0"
-            >
-              {/* First child: This is what the item will be tethered to */}
-              <button
-                ref={node => this.btnToggle = node}
-                onClick={this.onToggle}
-                className="filters-btn"
-              />
+      <div>
+        <TetherComponent
+          attachment="top center"
+          constraints={[{
+            to: 'scrollParent'
+          }]}
+          classes={{
+            element: 'c-table-tooltip -footer'
+          }}
+          offset="-8px 0"
+        >
+          {/* First child: This is what the item will be tethered to */}
+          <button
+            ref={node => this.btnToggle = node}
+            onClick={this.onToggle}
+            className="table-header-btn"
+          >
+            <Icon name="icon-filter" className="-small" />
+          </button>
 
-              {/* Second child: If present, this item will be tethered to the the first child */}
-              {!this.state.closed &&
-                <div className="filters-content">
-                  <div className="content">
-                    <input ref={node => this.input = node} type="search" onChange={this.onChangeInput} value={this.state.value} />
-                    <CheckboxGroup
-                      name={`${field}-checkbox-group`}
-                      items={this.getFilteredValues()}
-                      selected={selected}
-                      onChange={this.onFilterSelect}
-                    />
-                    {/* <ul>
-                      <li>
-                        <button onClick={() => this.props.onSort && this.props.onSort({ field: this.props.field, value: -1 })}>
-                          DESC
-                        </button>
-                      </li>
-                      <li>
-                        <button onClick={() => this.props.onSort && this.props.onSort({ field: this.props.field, value: 1 })}>
-                          ASC
-                        </button>
-                      </li>
-                    </ul> */}
-                  </div>
-                  <div className="footer">
-                    <ul>
-                      <li>
-                        <button onClick={this.onFilterSelectAll}>
-                          Select all
-                        </button>
-                      </li>
-                      <li>
-                        <button onClick={this.onFilterClear}>
-                          Clear
-                        </button>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              }
-            </TetherComponent>
-          </li>
-        </ul>
+          {/* Second child: If present, this item will be tethered to the the first child */}
+          {!this.state.closed &&
+            <div className="tooltip-content">
+              <div className="content">
+                <input ref={node => this.input = node} type="search" onChange={this.onChangeInput} value={this.state.value} />
+                <CheckboxGroup
+                  name={`${field}-checkbox-group`}
+                  items={this.getFilteredValues()}
+                  selected={selected}
+                  onChange={this.onFilterSelect}
+                />
+                {/* <ul>
+                  <li>
+                    <button onClick={() => this.props.onSort && this.props.onSort({ field: this.props.field, value: -1 })}>
+                      DESC
+                    </button>
+                  </li>
+                  <li>
+                    <button onClick={() => this.props.onSort && this.props.onSort({ field: this.props.field, value: 1 })}>
+                      ASC
+                    </button>
+                  </li>
+                </ul> */}
+              </div>
+              <div className="footer">
+                <ul>
+                  <li>
+                    <button onClick={this.onFilterSelectAll}>
+                      Select all
+                    </button>
+                  </li>
+                  <li>
+                    <button onClick={this.onFilterClear}>
+                      Clear
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          }
+        </TetherComponent>
       </div>
     );
   }
@@ -201,8 +199,7 @@ TableFilters.propTypes = {
   field: React.PropTypes.string.isRequired,
   values: React.PropTypes.array,
   selected: React.PropTypes.array,
-  onFilter: React.PropTypes.func,
-  onSort: React.PropTypes.func
+  onFilter: React.PropTypes.func
 };
 
 TableFilters.defaultProps = {

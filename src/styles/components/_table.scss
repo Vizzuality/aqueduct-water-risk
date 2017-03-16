@@ -22,6 +22,11 @@
         &:nth-child(odd) {
           background-color: rgba(palette(gray), .1);
         }
+
+        &.-selected {
+          // color: palette(white);
+          background-color: palette(blue, light);
+        }
       }
 
       td {

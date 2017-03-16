@@ -9,6 +9,7 @@ export default class AnalyseLocations extends React.Component {
         data={this.props.data}
         pageSize={20}
         filters
+        onSelectedRows={(rows) => console.info(rows)}
       />
     );
   }

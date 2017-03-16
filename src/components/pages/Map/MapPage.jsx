@@ -4,8 +4,8 @@ import { Sidebar, SegmentedUi } from 'aqueduct-components';
 import Map from 'components/map/Map';
 import { tabOptions } from 'constants/mapView';
 import { layers } from 'constants/layers';
-import MapView from './MapView';
-import AnalyseLocations from './AnalyseLocations';
+import MapView from './_MapView';
+import AnalyseLocations from './_AnalyseLocations';
 import ZoomControl from 'components/zoom/ZoomControl';
 import BtnMenu from 'components/ui/BtnMenu';
 
@@ -104,7 +104,7 @@ export default class MapPage extends React.Component {
               />
             }
             { this.props.scope === 'analyseLocations' &&
-              <AnalyseLocations columns={columns} data={this.props.points} />
+              <AnalyseLocations columns={columns} data={this.props.points} toggleModal={this.props.toggleModal} />
             }
             {/* TODO: functionallity */}
             <BtnMenu
@@ -141,6 +141,7 @@ MapPage.propTypes = {
   // Selector
   layersActive: React.PropTypes.array,
   // Actions
+  toggleModal: React.PropTypes.func,
   setMapParams: React.PropTypes.func,
   setScope: React.PropTypes.func,
   updateUrl: React.PropTypes.func,

@@ -7,6 +7,7 @@ import { setScope } from 'modules/scope';
 import { setFilters, setActiveLayers, setPonderation } from 'modules/mapView';
 import { setPoints, saveOnGeostore } from 'modules/analyseLocations';
 import { store } from 'main';
+import { toggleModal } from 'aqueduct-components';
 
 const mapStateToProps = state => ({
   layersActive: getActiveLayers(state),
@@ -17,40 +18,43 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  setMapParams: (params) => {
+  toggleModal(opened, opts) {
+    dispatch(toggleModal(opened, opts));
+  },
+  setMapParams(params) {
     dispatch(setMapLocation(params));
     dispatch(updateUrl());
   },
-  updateUrl: () => {
+  updateUrl() {
     dispatch(updateUrl());
   },
-  setScope: (scope) => {
+  setScope(scope) {
     dispatch(setScope(scope));
     dispatch(updateUrl());
   },
-  setFilters: (filter) => {
+  setFilters(filter) {
     dispatch(setFilters(filter));
     dispatch(updateUrl());
   },
-  setActiveLayers: (layers) => {
+  setActiveLayers(layers) {
     dispatch(setActiveLayers(layers));
     dispatch(updateUrl());
   },
-  setPonderation: (ponderation) => {
+  setPonderation(ponderation) {
     dispatch(setPonderation(ponderation));
     dispatch(updateUrl());
   },
-  setPoints: (points) => {
+  setPoints(points) {
     dispatch(setPoints(points));
     dispatch(saveOnGeostore(points));
   },
-  addPoint: (point) => {
+  addPoint(point) {
     const points = store.getState().analyseLocations.points.list.slice();
     points.push(point);
     dispatch(setPoints(points));
     dispatch(saveOnGeostore(points));
   },
-  removePoint: (pointIndex) => {
+  removePoint(pointIndex) {
     const points = store.getState().analyseLocations.points.list.slice();
     points.splice(pointIndex, 1);
     dispatch(setPoints(points));

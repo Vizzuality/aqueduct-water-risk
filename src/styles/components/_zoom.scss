@@ -4,7 +4,7 @@ $zoom-size: 48px;
   position: absolute;
   top: $space-1 * 2;
   right: $space-1 * 2;
-  z-index: 9999;
+  z-index: 999;
 
   .zoom-control-item {
     border: 1px solid palette(gray, light);

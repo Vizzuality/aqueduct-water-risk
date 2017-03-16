@@ -16,9 +16,15 @@
   }
 
   .table-header-btn {
-    display: inline-block;
-    width: 15px;
-    height: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     fill: $color-text-1;
+    border-radius: 50%;
+
+    &.-active {
+      background: $color-tertiary;
+      fill: $color-white;
+    }
   }
 }

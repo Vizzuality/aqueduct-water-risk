@@ -1,5 +1,7 @@
 import React from 'react';
 import TetherComponent from 'react-tether';
+import classnames from 'classnames';
+import isEqual from 'lodash/isEqual';
 import { CheckboxGroup, Icon } from 'aqueduct-components';
 
 
@@ -20,6 +22,8 @@ export default class TableFilters extends React.Component {
     this.onScreenClick = this.onScreenClick.bind(this);
 
     this.onChangeInput = this.onChangeInput.bind(this);
+    this.onResetInput = this.onResetInput.bind(this);
+
     this.onFilterSelect = this.onFilterSelect.bind(this);
     this.onFilterSelectAll = this.onFilterSelectAll.bind(this);
     this.onFilterClear = this.onFilterClear.bind(this);
@@ -43,6 +47,8 @@ export default class TableFilters extends React.Component {
    * - onScreenClick
    *
    * - onChangeInput
+   * - onResetInput
+   *
    * - onFilterSelect
    * - onFilterSelectAll
    * - onFilterClear
@@ -57,9 +63,7 @@ export default class TableFilters extends React.Component {
     //                        so we will have 2 dropdown filters at the same time
     requestAnimationFrame(() => window[closed ? 'addEventListener' : 'removeEventListener']('click', this.onScreenClick));
 
-    this.setState({ closed: !closed }, () =>
-      closed && this.input.focus()
-    );
+    this.setState({ closed: !closed, input: '' });
   }
 
   onScreenClick(e) {
@@ -75,10 +79,16 @@ export default class TableFilters extends React.Component {
     this.setState({
       input: this.input.value
     });
-    // this.props.onFilter && this.props.onFilter({
-    //   field: this.props.field,
-    //   value: this.input.value
-    // });
+  }
+
+  onResetInput(e) {
+    // As we are using svg symbols, if you click on one it will consider that it's outside the dropdown
+    // That's why I put this
+    e && e.stopPropagation();
+
+    this.setState({
+      input: ''
+    });
   }
 
   onFilterSelect(selected) {
@@ -126,7 +136,11 @@ export default class TableFilters extends React.Component {
 
   render() {
     const { field } = this.props;
-    const { selected } = this.state;
+    const { selected, input, values } = this.state;
+
+    const btnClass = classnames({
+      '-active': values && selected && !isEqual(values.sort(), selected.sort())
+    });
 
     return (
       <div>
@@ -138,13 +152,13 @@ export default class TableFilters extends React.Component {
           classes={{
             element: 'c-table-tooltip -footer'
           }}
-          offset="-8px 0"
+          offset="-12px 0"
         >
           {/* First child: This is what the item will be tethered to */}
           <button
             ref={node => this.btnToggle = node}
             onClick={this.onToggle}
-            className="table-header-btn"
+            className={`table-header-btn ${btnClass}`}
           >
             <Icon name="icon-filter" className="-small" />
           </button>
@@ -153,7 +167,29 @@ export default class TableFilters extends React.Component {
           {!this.state.closed &&
             <div className="tooltip-content">
               <div className="content">
-                <input ref={node => this.input = node} type="search" onChange={this.onChangeInput} value={this.state.value} />
+                <div className="search-box">
+                  <input
+                    ref={node => this.input = node}
+                    type="text"
+                    value={input}
+                    placeholder="Type search"
+                    onChange={this.onChangeInput}
+                  />
+                  {!input &&
+                    <button className="-search">
+                      <Icon name="icon-search" className="-small" />
+                    </button>
+                  }
+
+                  {!!input &&
+                    <button
+                      className="-close"
+                      onClick={this.onResetInput}
+                    >
+                      <Icon name="icon-cross" className="-small" />
+                    </button>
+                  }
+                </div>
                 <CheckboxGroup
                   name={`${field}-checkbox-group`}
                   items={this.getFilteredValues()}

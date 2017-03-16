@@ -1,4 +1,5 @@
 import React from 'react';
+import classnames from 'classnames';
 import isEqual from 'lodash/isEqual';
 import isEmpty from 'lodash/isEmpty';
 import uniq from 'lodash/uniq';
@@ -18,6 +19,9 @@ export default class CustomTable extends React.Component {
     this.prevPage = this.prevPage.bind(this);
     this.filter = this.filter.bind(this);
     this.sort = this.sort.bind(this);
+
+    // Table
+    this.toggleSelectedRow = this.toggleSelectedRow.bind(this);
   }
 
   /* Component lifecycle */
@@ -48,6 +52,7 @@ export default class CustomTable extends React.Component {
       totalPages,
       query: {},
       sort: {},
+      selectedRows: [],
       columns: this.getColumnValues(props.data)
     };
   }
@@ -72,6 +77,12 @@ export default class CustomTable extends React.Component {
     return { bottom, top };
   }
 
+  /**
+   * UI EVENTS
+   * - nextPage
+   * - prevPage
+   * - toggleSelectedRow
+  */
   nextPage() {
     if (this.state.currentPage === this.state.totalPages - 1) return;
     this.goToPage(this.state.currentPage + 1);
@@ -85,6 +96,22 @@ export default class CustomTable extends React.Component {
   goToPage(page) {
     this.setState({
       currentPage: page
+    });
+  }
+
+  toggleSelectedRow(row) {
+    const selectedRows = this.state.selectedRows.slice();
+    const index = selectedRows.indexOf(row.id);
+
+    // Toggle the active dataset
+    if (index !== -1) {
+      selectedRows.splice(index, 1);
+    } else {
+      selectedRows.push(row.id);
+    }
+
+    this.setState({ selectedRows }, () => {
+      this.props.onSelectedRows && this.props.onSelectedRows(this.state.selectedRows);
     });
   }
 
@@ -105,8 +132,12 @@ export default class CustomTable extends React.Component {
     this.setState({
       query,
       filteredData,
+      selectedRows: [],
       totalPages: Math.ceil(filteredData.length / this.props.pageSize)
-    }, () => this.goToPage(0));
+    }, () => {
+      this.goToPage(0);
+      this.props.onSelectedRows && this.props.onSelectedRows(this.state.selectedRows);
+    });
   }
 
   sort(s) {
@@ -143,7 +174,7 @@ export default class CustomTable extends React.Component {
 
   renderTableContent() {
     let { filteredData } = this.state;
-    const { sort } = this.state;
+    const { sort, selectedRows } = this.state;
     const { bottom, top } = this.getPageBounds(this.state.currentPage);
 
     if (!filteredData.length) {
@@ -164,8 +195,11 @@ export default class CustomTable extends React.Component {
     filteredData = filteredData.slice(bottom, top);
 
     return filteredData.map((row, index) => {
+      const selectedClass = classnames({
+        '-selected': selectedRows.includes(row.id)
+      });
       return (
-        <tr key={index}>
+        <tr className={`${selectedClass}`} onClick={() => this.toggleSelectedRow(row)} key={index}>
           {this.props.columns.map((col, i) => <td key={i}>{row[col.value]}</td>)}
         </tr>
       );
@@ -221,7 +255,8 @@ CustomTable.propTypes = {
   columns: React.PropTypes.array,
   paginated: React.PropTypes.bool,
   filters: React.PropTypes.bool,
-  pageSize: React.PropTypes.number
+  pageSize: React.PropTypes.number,
+  onSelectedRows: React.PropTypes.func
 };
 
 /* Property default values */
@@ -231,5 +266,6 @@ CustomTable.defaultProps = {
   paginated: true,
   pageSize: 10,
   initialPage: 0,
-  filters: false
+  filters: false,
+  onSelectedRows: null
 };

@@ -1,6 +1,7 @@
 import React from 'react';
 import CustomTable from 'components/ui/Table';
 import BtnMenu from 'components/ui/BtnMenu';
+import ImportFile from 'components/modal/importFile';
 
 export default class AnalyseLocations extends React.Component {
 
@@ -12,7 +13,7 @@ export default class AnalyseLocations extends React.Component {
           {/* TODO: functionallity */}
           <BtnMenu
             className="-theme-white"
-            items={[{ label: 'Click map' }, { label: 'Coordinates' }, { label: 'Import file' }]}
+            items={[{ label: 'Click map' }, { label: 'Coordinates' }, { label: 'Import file', cb: () => this.props.toggleModal(true, { children: ImportFile }) }]}
           />
         </div>
         <CustomTable
@@ -20,7 +21,7 @@ export default class AnalyseLocations extends React.Component {
           data={this.props.data}
           pageSize={20}
           filters
-          onSelectedRows={(rows) => console.info(rows)}
+          onSelectedRows={rows => console.info(rows)}
         />
       </div>
     );
@@ -29,5 +30,6 @@ export default class AnalyseLocations extends React.Component {
 
 AnalyseLocations.propTypes = {
   data: React.PropTypes.array,
-  columns: React.PropTypes.array
+  columns: React.PropTypes.array,
+  toggleModal: React.PropTypes.func
 };

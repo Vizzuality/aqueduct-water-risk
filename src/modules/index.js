@@ -3,3 +3,4 @@ export { mapReducer as map } from './map';
 export { scopeReducer as scope } from './scope';
 export { mapViewReducer as mapView } from './mapView';
 export { analyseLocationsReducer as analyseLocations } from './analyseLocations';
+export { modalReducer as modal } from 'aqueduct-components';

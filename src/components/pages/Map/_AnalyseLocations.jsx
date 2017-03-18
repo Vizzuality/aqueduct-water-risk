@@ -31,6 +31,9 @@ export default class AnalyseLocations extends React.Component {
             page: 0
           }}
           onSelectedRows={rows => console.info(rows)}
+          onDeleteRow={(id) => {
+            this.props.onRemovePoint(id);
+          }}
         />
       </div>
     );
@@ -40,5 +43,6 @@ export default class AnalyseLocations extends React.Component {
 AnalyseLocations.propTypes = {
   data: React.PropTypes.array,
   columns: React.PropTypes.array,
-  toggleModal: React.PropTypes.func
+  toggleModal: React.PropTypes.func,
+  onRemovePoint: React.PropTypes.func
 };

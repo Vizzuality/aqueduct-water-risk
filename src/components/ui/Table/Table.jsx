@@ -9,12 +9,18 @@ import TableFooter from './Footer/TableFooter';
 
 export default class CustomTable extends React.Component {
 
-  static getColumns(data) {
+  /**
+   * STATIC METHODS
+   * - getColumnKeys
+   * - getColumnValues
+   * - setTableData
+  */
+  static getColumnKeys(data) {
     return uniq(flatten(data.map(d => Object.keys(d))));
   }
 
   static getColumnValues(data) {
-    const columnsKeys = CustomTable.getColumns(data);
+    const columnsKeys = CustomTable.getColumnKeys(data);
     const columns = {};
 
     columnsKeys.forEach((key) => {
@@ -28,32 +34,34 @@ export default class CustomTable extends React.Component {
   }
 
   static setTableData(props) {
+    const data = props.filteredData || props.data;
+
     return {
-      filteredData: props.data,
+      filteredData: data,
       pagination: {
         ...props.pagination,
-        total: Math.ceil(props.data.length / props.pagination.pageSize)
+        total: Math.ceil(data.length / props.pagination.pageSize)
       },
-      sort: {},
-      // Rows
-      rowSelection: [],
       // Columns
-      columnValues: CustomTable.getColumnValues(props.data),
-      columnQueries: {}
+      columnValues: CustomTable.getColumnValues(data)
     };
   }
 
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      sort: {},
+      // Rows
+      rowSelection: []
+    };
 
     // Bindings
-    this.onNextPage = this.onNextPage.bind(this);
-    this.onPrevPage = this.onPrevPage.bind(this);
+    this.onChangePage = this.onChangePage.bind(this);
     this.onFilter = this.onFilter.bind(this);
     this.onSort = this.onSort.bind(this);
 
+    this.onDeleteRow = this.onDeleteRow.bind(this);
     this.onSelectedRows = this.onSelectedRows.bind(this);
   }
 
@@ -72,20 +80,12 @@ export default class CustomTable extends React.Component {
 
   /**
    * UI EVENTS
-   * - onNextPage
-   * - onPrevPage
    * - onSelectedRows
+   * - onDeleteRow
+   * - onFilter
+   * - onSort
+   * - onChangePage
   */
-  onNextPage() {
-    if (this.state.pagination.page === this.state.pagination.total - 1) return;
-    this.goToPage(this.state.pagination.page + 1);
-  }
-
-  onPrevPage() {
-    if (this.state.pagination.page === 0) return;
-    this.goToPage(this.state.pagination.page - 1);
-  }
-
   onSelectedRows(row) {
     const { rowSelection } = this.state;
     const index = rowSelection.indexOf(row.id);
@@ -99,6 +99,18 @@ export default class CustomTable extends React.Component {
 
     this.setState({ rowSelection }, () => {
       this.props.onSelectedRows && this.props.onSelectedRows(this.state.rowSelection);
+    });
+  }
+
+  onDeleteRow(id) {
+    const { filteredData } = this.state;
+    const index = filteredData.findIndex(row => row.id === id);
+    filteredData.splice(index, 1);
+
+    this.setState({ filteredData }, () => {
+      // CustomTable.setTableData(this.state);
+      // TODO: It will reload the table, we should re-think about it
+      this.props.onDeleteRow && this.props.onDeleteRow(id);
     });
   }
 
@@ -125,7 +137,7 @@ export default class CustomTable extends React.Component {
         total: Math.ceil(filteredData.length / this.state.pagination.pageSize)
       }
     }, () => {
-      this.goToPage(0);
+      this.onChangePage(0);
       this.props.onSelectedRows && this.props.onSelectedRows(this.state.rowSelection);
     });
   }
@@ -137,14 +149,14 @@ export default class CustomTable extends React.Component {
     };
     this.setState({
       sort
-    }, () => this.goToPage(0));
+    }, () => this.onChangePage(0));
   }
 
   /**
    * HELPERS
-   * - goToPage
+   * - onChangePage
   */
-  goToPage(page) {
+  onChangePage(page) {
     this.setState({
       pagination: {
         ...this.state.pagination,
@@ -176,14 +188,14 @@ export default class CustomTable extends React.Component {
             {...this.props}
             {...this.state}
             onSelectedRows={this.onSelectedRows}
+            onDeleteRow={this.onDeleteRow}
           />
 
         </table>
         {/* Table footer */}
         <TableFooter
           pagination={this.state.pagination}
-          onPrevPage={this.onPrevPage}
-          onNextPage={this.onNextPage}
+          onChangePage={this.onChangePage}
         />
       </div>
     );
@@ -196,7 +208,8 @@ CustomTable.propTypes = {
   data: React.PropTypes.array,
   columns: React.PropTypes.array,
   pagination: React.PropTypes.object,
-  onSelectedRows: React.PropTypes.func
+  onSelectedRows: React.PropTypes.func,
+  onDeleteRow: React.PropTypes.func
 };
 
 /* Property default values */
@@ -210,5 +223,6 @@ CustomTable.defaultProps = {
     page: 0,
     total: null
   },
-  onSelectedRows: null
+  onSelectedRows: null,
+  onDeleteRow: null
 };

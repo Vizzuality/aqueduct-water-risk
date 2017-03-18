@@ -54,8 +54,9 @@ const mapDispatchToProps = dispatch => ({
     dispatch(setPoints(points));
     dispatch(saveOnGeostore(points));
   },
-  removePoint(pointIndex) {
+  removePoint(id) {
     const points = store.getState().analyseLocations.points.list.slice();
+    const pointIndex = points.findIndex(point => point.id === id);
     points.splice(pointIndex, 1);
     dispatch(setPoints(points));
     dispatch(saveOnGeostore(points));

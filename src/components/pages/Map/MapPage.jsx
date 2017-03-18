@@ -104,7 +104,12 @@ export default class MapPage extends React.Component {
               />
             }
             { this.props.scope === 'analyseLocations' &&
-              <AnalyseLocations columns={columns} data={this.props.points} toggleModal={this.props.toggleModal} />
+              <AnalyseLocations
+                columns={columns}
+                data={this.props.points}
+                toggleModal={this.props.toggleModal}
+                onRemovePoint={id => this.props.removePoint(id)}
+              />
             }
             {/* TODO: functionallity */}
             <BtnMenu
@@ -148,5 +153,6 @@ MapPage.propTypes = {
   setFilters: React.PropTypes.func,
   setActiveLayers: React.PropTypes.func,
   setPonderation: React.PropTypes.func,
-  addPoint: React.PropTypes.func
+  addPoint: React.PropTypes.func,
+  removePoint: React.PropTypes.func
 };

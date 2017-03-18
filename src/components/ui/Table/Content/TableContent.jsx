@@ -51,9 +51,16 @@ export default class TableContent extends React.Component {
             <tr className={`${selectedClass}`} onClick={() => this.props.onSelectedRows(row)} key={index}>
               {(actions.showable || actions.editable || actions.removable) &&
                 <td>
-                  <button>
-                    <Icon name="icon-cross" className="-small" />
-                  </button>
+                  {actions.removable &&
+                    <button
+                      onClick={(e) => {
+                        e && e.stopPropagation();
+                        this.props.onDeleteRow(row.id);
+                      }}
+                    >
+                      <Icon name="icon-cross" className="-small" />
+                    </button>
+                  }
                 </td>
               }
               {columns.map((col, i) =>
@@ -75,6 +82,7 @@ TableContent.propTypes = {
   rowSelection: React.PropTypes.array,
   sort: React.PropTypes.object,
   // FUNCTIONS
+  onDeleteRow: React.PropTypes.func,
   onSelectedRows: React.PropTypes.func
 };
 
@@ -86,5 +94,6 @@ TableContent.defaultProps = {
   rowSelection: [],
   sort: {},
   // FUNCTIONS
+  onDeleteRow: null,
   onSelectedRows: null
 };

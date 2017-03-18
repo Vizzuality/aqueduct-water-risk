@@ -1,6 +1,25 @@
 import React from 'react';
 
 export default class TableFooter extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    // BINDINGS
+    this.onPrevPage = this.onPrevPage.bind(this);
+    this.onNextPage = this.onNextPage.bind(this);
+  }
+
+  onNextPage() {
+    if (this.props.pagination.page === this.props.pagination.total - 1) return;
+    this.props.onChangePage && this.props.onChangePage(this.props.pagination.page + 1);
+  }
+
+  onPrevPage() {
+    if (this.props.pagination.page === 0) return;
+    this.props.onChangePage && this.props.onChangePage(this.props.pagination.page - 1);
+  }
+
   render() {
     const { pagination } = this.props;
     return (
@@ -9,12 +28,12 @@ export default class TableFooter extends React.Component {
         {pagination.enabled &&
           <ul className="paginator">
             <li className="paginator-link">
-              <button className="paginator-btn" onClick={this.props.onPrevPage}>
+              <button className="paginator-btn" onClick={this.onPrevPage}>
                 Prev
               </button>
             </li>
             <li className="paginator-link">
-              <button className="paginator-btn" onClick={this.props.onNextPage}>
+              <button className="paginator-btn" onClick={this.onNextPage}>
                 Next
               </button>
             </li>
@@ -32,8 +51,7 @@ export default class TableFooter extends React.Component {
 
 TableFooter.propTypes = {
   pagination: React.PropTypes.object,
-  onPrevPage: React.PropTypes.func,
-  onNextPage: React.PropTypes.func
+  onChangePage: React.PropTypes.func
 };
 
 TableFooter.defaultProps = {

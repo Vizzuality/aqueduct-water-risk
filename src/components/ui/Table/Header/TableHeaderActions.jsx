@@ -1,6 +1,6 @@
 import React from 'react';
-import TableFilters from 'components/ui/TableFilters';
-import TableSorts from 'components/ui/TableSorts';
+import TableFilters from './TableFilters';
+import TableSorts from './TableSorts';
 
 
 export default class TableHeaderActions extends React.Component {

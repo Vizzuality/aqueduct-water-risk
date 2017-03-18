@@ -1,5 +1,5 @@
 import React from 'react';
-import CustomTable from 'components/ui/Table';
+import CustomTable from 'components/ui/Table/Table';
 import BtnMenu from 'components/ui/BtnMenu';
 import ImportFile from 'components/modal/importFile';
 
@@ -20,7 +20,11 @@ export default class AnalyseLocations extends React.Component {
           columns={this.props.columns}
           data={this.props.data}
           pageSize={20}
-          filters
+          actions={{
+            showable: false,
+            editable: false,
+            removable: true
+          }}
           onSelectedRows={rows => console.info(rows)}
         />
       </div>

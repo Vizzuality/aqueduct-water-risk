@@ -5,7 +5,7 @@ import isEmpty from 'lodash/isEmpty';
 import uniq from 'lodash/uniq';
 import flatten from 'lodash/flatten';
 
-import TableHeaderActions from './TableHeaderActions';
+import TableHeader from './Header/TableHeader';
 
 export default class CustomTable extends React.Component {
 
@@ -50,10 +50,10 @@ export default class CustomTable extends React.Component {
       filteredData: props.data,
       currentPage: (this.state && this.state.currentPage) || 0,
       totalPages,
-      query: {},
       sort: {},
       selectedRows: [],
-      columns: this.getColumnValues(props.data)
+      columnValues: this.getColumnValues(props.data),
+      columnQueries: {}
     };
   }
 
@@ -116,21 +116,21 @@ export default class CustomTable extends React.Component {
   }
 
   filter(q) {
-    const query = {
-      ...this.state.query,
+    const columnQueries = {
+      ...this.state.columnQueries,
       [q.field]: q.value
     };
 
     const filteredData = this.props.data.filter((row) => {
-      return Object.keys(query).map((field) => {
-        return query[field].map((val) => {
+      return Object.keys(columnQueries).map((field) => {
+        return columnQueries[field].map((val) => {
           return !!row[field].toString().toLowerCase().match(val.toString().toLowerCase());
         }).some(match => match);
       }).every(match => match);
     });
 
     this.setState({
-      query,
+      columnQueries,
       filteredData,
       selectedRows: [],
       totalPages: Math.ceil(filteredData.length / this.props.pageSize)
@@ -150,28 +150,6 @@ export default class CustomTable extends React.Component {
     }, () => this.goToPage(0));
   }
 
-  /* Partial renders */
-  renderTableHead() {
-    return this.props.columns.map((c, index) => {
-      return (
-        <th key={index}>
-          <span className="th-wrapper">
-            <span>{c.label}</span>
-            {this.props.filters &&
-              <TableHeaderActions
-                field={c.value}
-                values={this.state.columns[c.value]}
-                selected={this.state.query[c.value]}
-                onFilter={this.filter}
-                onSort={this.sort}
-              />
-            }
-          </span>
-        </th>
-      );
-    });
-  }
-
   renderTableContent() {
     let { filteredData } = this.state;
     const { sort, selectedRows } = this.state;
@@ -184,6 +162,7 @@ export default class CustomTable extends React.Component {
         </tr>
       );
     }
+
     /* Apply sorting to filteredData */
     if (!isEmpty(sort)) {
       filteredData = filteredData.slice().sort((rowA, rowB) => {
@@ -231,16 +210,22 @@ export default class CustomTable extends React.Component {
         {/* Table */}
         <div className="table-header" />
         <table className="table">
-          <thead>
-            <tr>
-              {/* Table head */}
-              {this.renderTableHead()}
-            </tr>
-          </thead>
+
+          {/* Table head */}
+          <TableHeader
+            actions={this.props.actions}
+            columns={this.props.columns}
+            columnValues={this.state.columnValues}
+            columnQueries={this.state.columnQueries}
+            onFilter={this.filter}
+            onSort={this.sort}
+          />
+
           <tbody>
             {/* Table content */}
             {this.renderTableContent()}
           </tbody>
+
         </table>
         {/* Table footer */}
         {this.renderTableFooter()}
@@ -251,21 +236,21 @@ export default class CustomTable extends React.Component {
 
 /* Property typing */
 CustomTable.propTypes = {
+  actions: React.PropTypes.object,
   data: React.PropTypes.array,
   columns: React.PropTypes.array,
   paginated: React.PropTypes.bool,
-  filters: React.PropTypes.bool,
   pageSize: React.PropTypes.number,
   onSelectedRows: React.PropTypes.func
 };
 
 /* Property default values */
 CustomTable.defaultProps = {
+  actions: {},
   data: [],
   columns: [],
   paginated: true,
   pageSize: 10,
   initialPage: 0,
-  filters: false,
   onSelectedRows: null
 };

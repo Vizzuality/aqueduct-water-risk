@@ -1,70 +1,20 @@
 import React from 'react';
-import classnames from 'classnames';
 import isEqual from 'lodash/isEqual';
-import isEmpty from 'lodash/isEmpty';
 import uniq from 'lodash/uniq';
 import flatten from 'lodash/flatten';
 
 import TableHeader from './Header/TableHeader';
+import TableContent from './Content/TableContent';
 import TableFooter from './Footer/TableFooter';
 
 export default class CustomTable extends React.Component {
 
-  constructor(props) {
-    super(props);
-
-    this.state = {};
-
-    // Bindings
-    this.onNextPage = this.onNextPage.bind(this);
-    this.onPrevPage = this.onPrevPage.bind(this);
-    this.filter = this.filter.bind(this);
-    this.sort = this.sort.bind(this);
-
-    this.toggleSelectedRow = this.toggleSelectedRow.bind(this);
-  }
-
-  /**
-   * COMPONENT LIFECYCLE
-  */
-  componentWillMount() {
-    this.setState(this.setTableData(this.props));
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (!isEqual(this.props.data, nextProps.data)) {
-      this.setState(this.setTableData(nextProps));
-    }
-  }
-
-  /**
-   * HELPERS
-   * - setTableData
-   * - getColumnValues
-   * - getPageBounds
-  */
-  setTableData(props) {
-    return {
-      filteredData: props.data,
-      pagination: {
-        ...props.pagination,
-        total: Math.ceil(props.data.length / props.pagination.pageSize)
-      },
-      sort: {},
-      // Rows
-      selectedRows: [],
-      // Columns
-      columnValues: this.getColumnValues(props.data),
-      columnQueries: {}
-    };
-  }
-
-  getColumns(data) {
+  static getColumns(data) {
     return uniq(flatten(data.map(d => Object.keys(d))));
   }
 
-  getColumnValues(data) {
-    const columnsKeys = this.getColumns(data);
+  static getColumnValues(data) {
+    const columnsKeys = CustomTable.getColumns(data);
     const columns = {};
 
     columnsKeys.forEach((key) => {
@@ -77,17 +27,54 @@ export default class CustomTable extends React.Component {
     return columns;
   }
 
-  getPageBounds(page) {
-    const bottom = page * this.state.pagination.pageSize;
-    const top = bottom + this.state.pagination.pageSize;
-    return { bottom, top };
+  static setTableData(props) {
+    return {
+      filteredData: props.data,
+      pagination: {
+        ...props.pagination,
+        total: Math.ceil(props.data.length / props.pagination.pageSize)
+      },
+      sort: {},
+      // Rows
+      rowSelection: [],
+      // Columns
+      columnValues: CustomTable.getColumnValues(props.data),
+      columnQueries: {}
+    };
+  }
+
+  constructor(props) {
+    super(props);
+
+    this.state = {};
+
+    // Bindings
+    this.onNextPage = this.onNextPage.bind(this);
+    this.onPrevPage = this.onPrevPage.bind(this);
+    this.onFilter = this.onFilter.bind(this);
+    this.onSort = this.onSort.bind(this);
+
+    this.onSelectedRows = this.onSelectedRows.bind(this);
+  }
+
+  /**
+   * COMPONENT LIFECYCLE
+  */
+  componentWillMount() {
+    this.setState(CustomTable.setTableData(this.props));
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!isEqual(this.props.data, nextProps.data)) {
+      this.setState(CustomTable.setTableData(nextProps));
+    }
   }
 
   /**
    * UI EVENTS
    * - onNextPage
    * - onPrevPage
-   * - toggleSelectedRow
+   * - onSelectedRows
   */
   onNextPage() {
     if (this.state.pagination.page === this.state.pagination.total - 1) return;
@@ -99,32 +86,23 @@ export default class CustomTable extends React.Component {
     this.goToPage(this.state.pagination.page - 1);
   }
 
-  goToPage(page) {
-    this.setState({
-      pagination: {
-        ...this.state.pagination,
-        page
-      }
-    });
-  }
-
-  toggleSelectedRow(row) {
-    const selectedRows = this.state.selectedRows.slice();
-    const index = selectedRows.indexOf(row.id);
+  onSelectedRows(row) {
+    const { rowSelection } = this.state;
+    const index = rowSelection.indexOf(row.id);
 
     // Toggle the active dataset
     if (index !== -1) {
-      selectedRows.splice(index, 1);
+      rowSelection.splice(index, 1);
     } else {
-      selectedRows.push(row.id);
+      rowSelection.push(row.id);
     }
 
-    this.setState({ selectedRows }, () => {
-      this.props.onSelectedRows && this.props.onSelectedRows(this.state.selectedRows);
+    this.setState({ rowSelection }, () => {
+      this.props.onSelectedRows && this.props.onSelectedRows(this.state.rowSelection);
     });
   }
 
-  filter(q) {
+  onFilter(q) {
     const columnQueries = {
       ...this.state.columnQueries,
       [q.field]: q.value
@@ -139,20 +117,20 @@ export default class CustomTable extends React.Component {
     });
 
     this.setState({
-      columnQueries,
       filteredData,
-      selectedRows: [],
+      columnQueries,
+      rowSelection: [],
       pagination: {
         ...this.state.pagination,
         total: Math.ceil(filteredData.length / this.state.pagination.pageSize)
       }
     }, () => {
       this.goToPage(0);
-      this.props.onSelectedRows && this.props.onSelectedRows(this.state.selectedRows);
+      this.props.onSelectedRows && this.props.onSelectedRows(this.state.rowSelection);
     });
   }
 
-  sort(s) {
+  onSort(s) {
     const sort = {
       field: s.field,
       value: s.value
@@ -162,38 +140,16 @@ export default class CustomTable extends React.Component {
     }, () => this.goToPage(0));
   }
 
-  renderTableContent() {
-    let { filteredData } = this.state;
-    const { sort, selectedRows } = this.state;
-    const { bottom, top } = this.getPageBounds(this.state.pagination.page);
-
-    if (!filteredData.length) {
-      return (
-        <tr>
-          <td colSpan={this.props.columns.length}>No results found</td>
-        </tr>
-      );
-    }
-
-    /* Apply sorting to filteredData */
-    if (!isEmpty(sort)) {
-      filteredData = filteredData.slice().sort((rowA, rowB) => {
-        return rowA[sort.field].toString().toLowerCase() > rowB[sort.field].toString().toLowerCase() ? sort.value : (sort.value * -1);
-      });
-    }
-
-    /* Apply pagination to filteredData */
-    filteredData = filteredData.slice(bottom, top);
-
-    return filteredData.map((row, index) => {
-      const selectedClass = classnames({
-        '-selected': selectedRows.includes(row.id)
-      });
-      return (
-        <tr className={`${selectedClass}`} onClick={() => this.toggleSelectedRow(row)} key={index}>
-          {this.props.columns.map((col, i) => <td key={i}>{row[col.value]}</td>)}
-        </tr>
-      );
+  /**
+   * HELPERS
+   * - goToPage
+  */
+  goToPage(page) {
+    this.setState({
+      pagination: {
+        ...this.state.pagination,
+        page
+      }
     });
   }
 
@@ -211,14 +167,16 @@ export default class CustomTable extends React.Component {
             columns={this.props.columns}
             columnValues={this.state.columnValues}
             columnQueries={this.state.columnQueries}
-            onFilter={this.filter}
-            onSort={this.sort}
+            onFilter={this.onFilter}
+            onSort={this.onSort}
           />
 
-          <tbody>
-            {/* Table content */}
-            {this.renderTableContent()}
-          </tbody>
+          {/* Table content */}
+          <TableContent
+            {...this.props}
+            {...this.state}
+            onSelectedRows={this.onSelectedRows}
+          />
 
         </table>
         {/* Table footer */}

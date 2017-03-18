@@ -6,28 +6,34 @@ import uniq from 'lodash/uniq';
 import flatten from 'lodash/flatten';
 
 import TableHeader from './Header/TableHeader';
+import TableFooter from './Footer/TableFooter';
 
 export default class CustomTable extends React.Component {
 
   constructor(props) {
     super(props);
 
-    this.setTableData(props);
+    this.state = {};
 
     // Bindings
-    this.nextPage = this.nextPage.bind(this);
-    this.prevPage = this.prevPage.bind(this);
+    this.onNextPage = this.onNextPage.bind(this);
+    this.onPrevPage = this.onPrevPage.bind(this);
     this.filter = this.filter.bind(this);
     this.sort = this.sort.bind(this);
 
-    // Table
     this.toggleSelectedRow = this.toggleSelectedRow.bind(this);
   }
 
-  /* Component lifecycle */
+  /**
+   * COMPONENT LIFECYCLE
+  */
+  componentWillMount() {
+    this.setState(this.setTableData(this.props));
+  }
+
   componentWillReceiveProps(nextProps) {
     if (!isEqual(this.props.data, nextProps.data)) {
-      this.setTableData(nextProps);
+      this.setState(this.setTableData(nextProps));
     }
   }
 
@@ -38,27 +44,27 @@ export default class CustomTable extends React.Component {
    * - getPageBounds
   */
   setTableData(props) {
-    const { data } = props;
-    const totalPages = Math.ceil(data.length / props.pageSize);
-
-    /*
-      Initial state
-      - props.data => original data
-      - filteredData => original data with filters and/or sort (if any) applied
-    */
-    this.state = {
+    return {
       filteredData: props.data,
-      currentPage: (this.state && this.state.currentPage) || 0,
-      totalPages,
+      pagination: {
+        ...props.pagination,
+        total: Math.ceil(props.data.length / props.pagination.pageSize)
+      },
       sort: {},
+      // Rows
       selectedRows: [],
+      // Columns
       columnValues: this.getColumnValues(props.data),
       columnQueries: {}
     };
   }
 
+  getColumns(data) {
+    return uniq(flatten(data.map(d => Object.keys(d))));
+  }
+
   getColumnValues(data) {
-    const columnsKeys = uniq(flatten(data.map(d => Object.keys(d))));
+    const columnsKeys = this.getColumns(data);
     const columns = {};
 
     columnsKeys.forEach((key) => {
@@ -72,30 +78,33 @@ export default class CustomTable extends React.Component {
   }
 
   getPageBounds(page) {
-    const bottom = page * this.props.pageSize;
-    const top = bottom + this.props.pageSize;
+    const bottom = page * this.state.pagination.pageSize;
+    const top = bottom + this.state.pagination.pageSize;
     return { bottom, top };
   }
 
   /**
    * UI EVENTS
-   * - nextPage
-   * - prevPage
+   * - onNextPage
+   * - onPrevPage
    * - toggleSelectedRow
   */
-  nextPage() {
-    if (this.state.currentPage === this.state.totalPages - 1) return;
-    this.goToPage(this.state.currentPage + 1);
+  onNextPage() {
+    if (this.state.pagination.page === this.state.pagination.total - 1) return;
+    this.goToPage(this.state.pagination.page + 1);
   }
 
-  prevPage() {
-    if (this.state.currentPage === 0) return;
-    this.goToPage(this.state.currentPage - 1);
+  onPrevPage() {
+    if (this.state.pagination.page === 0) return;
+    this.goToPage(this.state.pagination.page - 1);
   }
 
   goToPage(page) {
     this.setState({
-      currentPage: page
+      pagination: {
+        ...this.state.pagination,
+        page
+      }
     });
   }
 
@@ -133,7 +142,10 @@ export default class CustomTable extends React.Component {
       columnQueries,
       filteredData,
       selectedRows: [],
-      totalPages: Math.ceil(filteredData.length / this.props.pageSize)
+      pagination: {
+        ...this.state.pagination,
+        total: Math.ceil(filteredData.length / this.state.pagination.pageSize)
+      }
     }, () => {
       this.goToPage(0);
       this.props.onSelectedRows && this.props.onSelectedRows(this.state.selectedRows);
@@ -153,7 +165,7 @@ export default class CustomTable extends React.Component {
   renderTableContent() {
     let { filteredData } = this.state;
     const { sort, selectedRows } = this.state;
-    const { bottom, top } = this.getPageBounds(this.state.currentPage);
+    const { bottom, top } = this.getPageBounds(this.state.pagination.page);
 
     if (!filteredData.length) {
       return (
@@ -185,24 +197,6 @@ export default class CustomTable extends React.Component {
     });
   }
 
-  renderTableFooter() {
-    return (
-      <div className="table-footer">
-        {/* Paginator */}
-        {this.props.paginated &&
-          <ul className="paginator">
-            <li className="paginator-link"><button className="paginator-btn" onClick={this.prevPage}>Prev</button></li>
-            <li className="paginator-link"><button className="paginator-btn" onClick={this.nextPage}>Next</button></li>
-          </ul>
-        }
-        {/* Page locator */}
-        {this.props.paginated &&
-          <span>Page <span>{this.state.currentPage + 1}</span> of <span>{this.state.totalPages}</span></span>
-        }
-      </div>
-    );
-  }
-
   /* Render */
   render() {
     return (
@@ -211,7 +205,7 @@ export default class CustomTable extends React.Component {
         <div className="table-header" />
         <table className="table">
 
-          {/* Table head */}
+          {/* Table header */}
           <TableHeader
             actions={this.props.actions}
             columns={this.props.columns}
@@ -228,7 +222,11 @@ export default class CustomTable extends React.Component {
 
         </table>
         {/* Table footer */}
-        {this.renderTableFooter()}
+        <TableFooter
+          pagination={this.state.pagination}
+          onPrevPage={this.onPrevPage}
+          onNextPage={this.onNextPage}
+        />
       </div>
     );
   }
@@ -239,8 +237,7 @@ CustomTable.propTypes = {
   actions: React.PropTypes.object,
   data: React.PropTypes.array,
   columns: React.PropTypes.array,
-  paginated: React.PropTypes.bool,
-  pageSize: React.PropTypes.number,
+  pagination: React.PropTypes.object,
   onSelectedRows: React.PropTypes.func
 };
 
@@ -249,8 +246,11 @@ CustomTable.defaultProps = {
   actions: {},
   data: [],
   columns: [],
-  paginated: true,
-  pageSize: 10,
-  initialPage: 0,
+  pagination: {
+    enabled: true,
+    pageSize: 20,
+    page: 0,
+    total: null
+  },
   onSelectedRows: null
 };

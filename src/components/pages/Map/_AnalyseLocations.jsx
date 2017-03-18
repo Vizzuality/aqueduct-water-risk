@@ -25,6 +25,11 @@ export default class AnalyseLocations extends React.Component {
             editable: false,
             removable: true
           }}
+          pagination={{
+            enabled: true,
+            pageSize: 20,
+            page: 0
+          }}
           onSelectedRows={rows => console.info(rows)}
         />
       </div>

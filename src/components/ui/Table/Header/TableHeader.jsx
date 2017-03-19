@@ -5,11 +5,11 @@ import TableHeaderActions from './TableHeaderActions';
 
 export default class TableHeader extends React.Component {
   render() {
-    const { actions, columns, columnValues, columnQueries, onFilter, onSort } = this.props;
+    const { actions, columns, columnValues, columnQueries, filteredData, onFilter, onSort } = this.props;
     return (
       <thead>
         <tr>
-          {(actions.showable || actions.editable || actions.removable) &&
+          {(actions.showable || actions.editable || actions.removable) && !!filteredData.length &&
             <th />
           }
           {columns.map((c, index) => {
@@ -40,6 +40,7 @@ TableHeader.propTypes = {
   columns: React.PropTypes.array,
   columnValues: React.PropTypes.object,
   columnQueries: React.PropTypes.object,
+  filteredData: React.PropTypes.array,
   onFilter: React.PropTypes.func,
   onSort: React.PropTypes.func
 };
@@ -48,6 +49,7 @@ TableHeader.defaultProps = {
   columns: [],
   columnValues: {},
   columnQueries: {},
+  filteredData: [],
   onFilter: null,
   onSort: null
 };

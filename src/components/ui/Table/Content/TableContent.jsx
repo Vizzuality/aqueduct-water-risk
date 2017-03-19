@@ -22,12 +22,10 @@ export default class TableContent extends React.Component {
     let data = this.props.filteredData;
 
     if (!data.length) {
-      const hasActions = (actions.showable || actions.editable || actions.removable);
       return (
         <tbody>
           <tr>
-            {hasActions && <td />}
-            <td colSpan={columns.length + hasActions}>No results found</td>
+            <td colSpan={columns.length}>No results found</td>
           </tr>
         </tbody>
       );

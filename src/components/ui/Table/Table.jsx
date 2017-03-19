@@ -203,6 +203,7 @@ export default class CustomTable extends React.Component {
             columns={this.props.columns}
             columnValues={this.state.columnValues}
             columnQueries={this.state.columnQueries}
+            filteredData={this.state.filteredData}
             onFilter={this.onFilter}
             onSort={this.onSort}
           />

@@ -118,11 +118,18 @@ export default class CustomTable extends React.Component {
   }
 
   onFilter(q) {
-    const columnQueries = {
-      ...this.state.columnQueries,
-      [q.field]: q.value
-    };
+    let columnQueries = {};
 
+    // Let's use null when you select all the values, so whenever you add more points to
+    // the map they will be selected
+    if (q.value) {
+      columnQueries = {
+        ...this.state.columnQueries,
+        [q.field]: q.value
+      };
+    } else {
+      !!columnQueries[q.field] && delete columnQueries[q.field];
+    }
 
     this.setState({
       columnQueries

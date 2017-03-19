@@ -94,9 +94,10 @@ export default class TableFilters extends React.Component {
 
   onFilterSelect(selected) {
     this.setState({ selected }, () => {
+      const { selected, values } = this.state;
       this.props.onFilter && this.props.onFilter({
         field: this.props.field,
-        value: this.state.selected
+        value: (selected.length !== values.length) ? selected : null
       });
     });
   }
@@ -105,7 +106,7 @@ export default class TableFilters extends React.Component {
     this.setState({ selected: null }, () => {
       this.props.onFilter && this.props.onFilter({
         field: this.props.field,
-        value: this.state.values
+        value: this.state.selected
       });
     });
   }

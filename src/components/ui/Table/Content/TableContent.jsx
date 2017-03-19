@@ -57,7 +57,8 @@ export default class TableContent extends React.Component {
                 <td>
                   {actions.removable &&
                     <button
-                      onClick={() => {
+                      onClick={(e) => {
+                        e && e.stopPropagation();
                         this.props.onDeleteRow(row.id);
                       }}
                     >

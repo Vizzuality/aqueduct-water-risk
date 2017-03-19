@@ -1,12 +1,12 @@
 
 .c-table {
-
-  padding: $space-1;
+  padding: $space-1 * 3 $space-1 0;
   background-color: palette(white);
   color: palette(gray, dark);
 
   .table {
     width: 100%;
+    padding: $space-1;
     // table-layout: fixed;
 
     th {
@@ -30,7 +30,13 @@
       }
 
       td {
-        padding: $space-1
+        padding: $space-1;
+
+        button {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
       }
     }
   }
@@ -52,5 +58,8 @@
   .table-footer {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    padding: $space-1;
+    border-top: 1px solid $border-color-1;
   }
 }

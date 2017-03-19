@@ -48,13 +48,16 @@ export default class TableContent extends React.Component {
         {data.map((row, index) => {
           const selectedClass = classnames({ '-selected': rowSelection.includes(row.id) });
           return (
-            <tr className={`${selectedClass}`} onClick={() => this.props.onSelectedRows(row)} key={index}>
+            <tr
+              className={`${selectedClass}`}
+              // onClick={() => this.props.onSelectedRows(row)}
+              key={index}
+            >
               {(actions.showable || actions.editable || actions.removable) &&
                 <td>
                   {actions.removable &&
                     <button
-                      onClick={(e) => {
-                        e && e.stopPropagation();
+                      onClick={() => {
                         this.props.onDeleteRow(row.id);
                       }}
                     >

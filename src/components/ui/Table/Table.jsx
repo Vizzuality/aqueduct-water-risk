@@ -1,7 +1,7 @@
 import React from 'react';
-import isEqual from 'lodash/isEqual';
 import uniq from 'lodash/uniq';
 import flatten from 'lodash/flatten';
+import isEqual from 'lodash/isEqual';
 
 import TableHeader from './Header/TableHeader';
 import TableContent from './Content/TableContent';
@@ -34,14 +34,10 @@ export default class CustomTable extends React.Component {
   }
 
   static setTableData(props) {
-    const data = props.filteredData || props.data;
+    const data = props.data;
 
     return {
-      filteredData: data,
-      pagination: {
-        ...props.pagination,
-        total: Math.ceil(data.length / props.pagination.pageSize)
-      },
+      data,
       // Columns
       columnValues: CustomTable.getColumnValues(data)
     };
@@ -51,7 +47,10 @@ export default class CustomTable extends React.Component {
     super(props);
 
     this.state = {
+      pagination: props.pagination,
       sort: {},
+      // Columns
+      columnQueries: {},
       // Rows
       rowSelection: []
     };
@@ -69,12 +68,17 @@ export default class CustomTable extends React.Component {
    * COMPONENT LIFECYCLE
   */
   componentWillMount() {
-    this.setState(CustomTable.setTableData(this.props));
+    this.setState(CustomTable.setTableData(this.props), () => {
+      this.filter();
+    });
   }
 
   componentWillReceiveProps(nextProps) {
-    if (!isEqual(this.props.data, nextProps.data)) {
-      this.setState(CustomTable.setTableData(nextProps));
+    if (!isEqual(this.state.data, nextProps.data)) {
+      // TODO: check if the data has changed to reload all the data or only to filter it
+      this.setState(CustomTable.setTableData(nextProps), () => {
+        this.filter();
+      });
     }
   }
 
@@ -103,13 +107,12 @@ export default class CustomTable extends React.Component {
   }
 
   onDeleteRow(id) {
-    const { filteredData } = this.state;
-    const index = filteredData.findIndex(row => row.id === id);
-    filteredData.splice(index, 1);
+    const data = this.state.data.slice();
+    const index = data.findIndex(row => row.id === id);
+    data.splice(index, 1);
 
-    this.setState({ filteredData }, () => {
-      // CustomTable.setTableData(this.state);
-      // TODO: It will reload the table, we should re-think about it
+    this.setState({ data }, () => {
+      this.filter();
       this.props.onDeleteRow && this.props.onDeleteRow(id);
     });
   }
@@ -120,25 +123,11 @@ export default class CustomTable extends React.Component {
       [q.field]: q.value
     };
 
-    const filteredData = this.props.data.filter((row) => {
-      return Object.keys(columnQueries).map((field) => {
-        return columnQueries[field].map((val) => {
-          return !!row[field].toString().toLowerCase().match(val.toString().toLowerCase());
-        }).some(match => match);
-      }).every(match => match);
-    });
 
     this.setState({
-      filteredData,
-      columnQueries,
-      rowSelection: [],
-      pagination: {
-        ...this.state.pagination,
-        total: Math.ceil(filteredData.length / this.state.pagination.pageSize)
-      }
+      columnQueries
     }, () => {
-      this.onChangePage(0);
-      this.props.onSelectedRows && this.props.onSelectedRows(this.state.rowSelection);
+      this.filter();
     });
   }
 
@@ -152,16 +141,44 @@ export default class CustomTable extends React.Component {
     }, () => this.onChangePage(0));
   }
 
-  /**
-   * HELPERS
-   * - onChangePage
-  */
   onChangePage(page) {
     this.setState({
       pagination: {
         ...this.state.pagination,
         page
       }
+    });
+  }
+
+  /**
+   * FILTER
+   * - filter
+  */
+  filter() {
+    const { columnQueries, pagination } = this.state;
+
+    const filteredData = this.state.data.filter((row) => {
+      return Object.keys(columnQueries).map((field) => {
+        return columnQueries[field].map((val) => {
+          return !!row[field].toString().toLowerCase().match(val.toString().toLowerCase());
+        }).some(match => match);
+      }).every(match => match);
+    });
+
+    const total = Math.ceil(filteredData.length / pagination.pageSize);
+    // Check if the page is equal to the total
+    const page = (pagination.page !== 0 && pagination.page === total) ? pagination.page - 1 : pagination.page;
+
+    this.setState({
+      filteredData,
+      rowSelection: [],
+      pagination: {
+        ...pagination,
+        page,
+        total
+      }
+    }, () => {
+      this.props.onSelectedRows && this.props.onSelectedRows(this.state.rowSelection);
     });
   }
 

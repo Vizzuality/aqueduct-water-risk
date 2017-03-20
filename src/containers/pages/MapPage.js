@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import MapPage from 'components/pages/Map/MapPage';
 import getActiveLayers from 'selectors/layers_active';
+import getCategorizedPoints from 'selectors/points_categorized';
 import { setMapLocation } from 'modules/map';
 import { updateUrl } from 'modules/url';
 import { setScope } from 'modules/scope';
@@ -10,11 +11,11 @@ import { store } from 'main';
 import { toggleModal } from 'aqueduct-components';
 
 const mapStateToProps = state => ({
-  layersActive: getActiveLayers(state),
-  mapState: state.map,
   scope: state.scope.name,
+  mapState: state.map,
   mapView: state.mapView,
-  points: state.analyseLocations.points.list
+  layersActive: getActiveLayers(state),
+  pointsCategorized: getCategorizedPoints(state)
 });
 
 const mapDispatchToProps = dispatch => ({

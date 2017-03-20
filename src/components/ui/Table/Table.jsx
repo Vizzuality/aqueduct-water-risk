@@ -37,6 +37,7 @@ export default class CustomTable extends React.Component {
     const data = props.data;
 
     return {
+      // Data
       data,
       // Columns
       columnValues: CustomTable.getColumnValues(data)
@@ -74,10 +75,28 @@ export default class CustomTable extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (!isEqual(this.state.data, nextProps.data)) {
+    const currentLength = this.state.data.length;
+    const currentColumnsKeys = CustomTable.getColumnKeys(this.state.data).sort();
+
+    const nextLength = nextProps.data.length;
+    const nextColumnsKeys = CustomTable.getColumnKeys(nextProps.data).sort();
+
+    if (currentLength !== nextLength) {
       // TODO: check if the data has changed to reload all the data or only to filter it
       this.setState(CustomTable.setTableData(nextProps), () => {
         this.filter();
+      });
+    }
+
+    if (!isEqual(currentColumnsKeys, nextColumnsKeys)) {
+      this.setState({
+        ...CustomTable.setTableData(nextProps),
+        // Sort
+        sort: {},
+        // Columns
+        columnQueries: {},
+        // Rows
+        rowSelection: []
       });
     }
   }
@@ -91,7 +110,7 @@ export default class CustomTable extends React.Component {
    * - onChangePage
   */
   onToggleSelectedRow(id) {
-    const { rowSelection } = this.state;
+    const rowSelection = this.state.rowSelection.slice();
     const index = rowSelection.indexOf(id);
 
     // Toggle the active dataset
@@ -178,14 +197,11 @@ export default class CustomTable extends React.Component {
 
     this.setState({
       filteredData,
-      rowSelection: [],
       pagination: {
         ...pagination,
         page,
         total
       }
-    }, () => {
-      this.props.onToggleSelectedRow && this.props.onToggleSelectedRow(this.state.rowSelection);
     });
   }
 

@@ -106,7 +106,7 @@ export default class MapPage extends React.Component {
             { this.props.scope === 'analyseLocations' &&
               <AnalyseLocations
                 columns={columns}
-                data={this.props.points}
+                data={this.props.pointsCategorized}
                 toggleModal={this.props.toggleModal}
                 setSelectedPoints={ids => this.props.setSelectedPoints(ids)}
                 onRemovePoint={id => this.props.removePoint(id)}
@@ -124,7 +124,7 @@ export default class MapPage extends React.Component {
           mapMethods={mapMethods}
           listeners={listeners}
           layers={this.props.layersActive}
-          markers={this.props.scope === 'analyseLocations' ? this.props.points : []}
+          markers={this.props.scope === 'analyseLocations' ? this.props.pointsCategorized : []}
           markerIcon={markerIcon}
         />
         <ZoomControl
@@ -143,9 +143,9 @@ MapPage.propTypes = {
   mapState: React.PropTypes.object,
   mapView: React.PropTypes.object,
   scope: React.PropTypes.string,
-  points: React.PropTypes.array,
   // Selector
   layersActive: React.PropTypes.array,
+  pointsCategorized: React.PropTypes.array,
   // Actions
   toggleModal: React.PropTypes.func,
   setMapParams: React.PropTypes.func,

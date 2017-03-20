@@ -52,7 +52,12 @@ function analyseLocationsReducer(state = initialState, action) {
 function setPoints(points) {
   return {
     type: SET_POINTS,
-    payload: points.map((p, index) => ({ ...p, id: `${Date.now()}${index}` }))
+    payload: points.map((p, index) => {
+      return {
+        ...p,
+        id: p.id || `${Date.now()}${index}`
+      };
+    })
   };
 }
 

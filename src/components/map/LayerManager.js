@@ -47,6 +47,13 @@ export default class LayerManager {
     }
   }
 
+  updateMarker({ id, options }) {
+    const { selected } = options;
+    const markerIcon = this._mapMarkers[id]._icon;
+
+    markerIcon.classList.toggle('-selected', selected);
+  }
+
   /* Private methods */
   _addCartoLayer(layer) {
     const onSuccess = (data) => {

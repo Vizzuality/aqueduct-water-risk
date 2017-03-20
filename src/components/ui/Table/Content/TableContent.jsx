@@ -48,7 +48,7 @@ export default class TableContent extends React.Component {
           return (
             <tr
               className={`${selectedClass}`}
-              // onClick={() => this.props.onSelectedRows(row)}
+              onClick={() => this.props.onToggleSelectedRow(row.id)}
               key={index}
             >
               {(actions.showable || actions.editable || actions.removable) &&
@@ -85,7 +85,7 @@ TableContent.propTypes = {
   sort: React.PropTypes.object,
   // FUNCTIONS
   onDeleteRow: React.PropTypes.func,
-  onSelectedRows: React.PropTypes.func
+  onToggleSelectedRow: React.PropTypes.func
 };
 
 TableContent.defaultProps = {
@@ -97,5 +97,5 @@ TableContent.defaultProps = {
   sort: {},
   // FUNCTIONS
   onDeleteRow: null,
-  onSelectedRows: null
+  onToggleSelectedRow: null
 };

@@ -108,6 +108,7 @@ export default class MapPage extends React.Component {
                 columns={columns}
                 data={this.props.points}
                 toggleModal={this.props.toggleModal}
+                setSelectedPoints={ids => this.props.setSelectedPoints(ids)}
                 onRemovePoint={id => this.props.removePoint(id)}
               />
             }
@@ -119,10 +120,10 @@ export default class MapPage extends React.Component {
           </div>
         </Sidebar>
         <Map
-          listeners={listeners}
-          mapMethods={mapMethods}
-          layers={this.props.layersActive}
           mapOptions={mapOptions}
+          mapMethods={mapMethods}
+          listeners={listeners}
+          layers={this.props.layersActive}
           markers={this.props.scope === 'analyseLocations' ? this.props.points : []}
           markerIcon={markerIcon}
         />
@@ -154,5 +155,6 @@ MapPage.propTypes = {
   setActiveLayers: React.PropTypes.func,
   setPonderation: React.PropTypes.func,
   addPoint: React.PropTypes.func,
-  removePoint: React.PropTypes.func
+  removePoint: React.PropTypes.func,
+  setSelectedPoints: React.PropTypes.func
 };

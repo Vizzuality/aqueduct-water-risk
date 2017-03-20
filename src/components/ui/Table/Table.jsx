@@ -61,7 +61,7 @@ export default class CustomTable extends React.Component {
     this.onSort = this.onSort.bind(this);
 
     this.onDeleteRow = this.onDeleteRow.bind(this);
-    this.onSelectedRows = this.onSelectedRows.bind(this);
+    this.onToggleSelectedRow = this.onToggleSelectedRow.bind(this);
   }
 
   /**
@@ -84,25 +84,25 @@ export default class CustomTable extends React.Component {
 
   /**
    * UI EVENTS
-   * - onSelectedRows
+   * - onToggleSelectedRow
    * - onDeleteRow
    * - onFilter
    * - onSort
    * - onChangePage
   */
-  onSelectedRows(row) {
+  onToggleSelectedRow(id) {
     const { rowSelection } = this.state;
-    const index = rowSelection.indexOf(row.id);
+    const index = rowSelection.indexOf(id);
 
     // Toggle the active dataset
     if (index !== -1) {
       rowSelection.splice(index, 1);
     } else {
-      rowSelection.push(row.id);
+      rowSelection.push(id);
     }
 
     this.setState({ rowSelection }, () => {
-      this.props.onSelectedRows && this.props.onSelectedRows(this.state.rowSelection);
+      this.props.onToggleSelectedRow && this.props.onToggleSelectedRow(this.state.rowSelection);
     });
   }
 
@@ -121,7 +121,7 @@ export default class CustomTable extends React.Component {
     let columnQueries = this.state.columnQueries;
 
     // Let's use null when you select all the values, so whenever you add more points to
-    // the map they will be selected
+    // the map they will be selected because you will remove the filter from the columnQueries
     if (q.value) {
       columnQueries = {
         ...this.state.columnQueries,
@@ -185,7 +185,7 @@ export default class CustomTable extends React.Component {
         total
       }
     }, () => {
-      this.props.onSelectedRows && this.props.onSelectedRows(this.state.rowSelection);
+      this.props.onToggleSelectedRow && this.props.onToggleSelectedRow(this.state.rowSelection);
     });
   }
 
@@ -212,7 +212,7 @@ export default class CustomTable extends React.Component {
           <TableContent
             {...this.props}
             {...this.state}
-            onSelectedRows={this.onSelectedRows}
+            onToggleSelectedRow={this.onToggleSelectedRow}
             onDeleteRow={this.onDeleteRow}
           />
 
@@ -233,7 +233,7 @@ CustomTable.propTypes = {
   data: React.PropTypes.array,
   columns: React.PropTypes.array,
   pagination: React.PropTypes.object,
-  onSelectedRows: React.PropTypes.func,
+  onToggleSelectedRow: React.PropTypes.func,
   onDeleteRow: React.PropTypes.func
 };
 
@@ -248,6 +248,6 @@ CustomTable.defaultProps = {
     page: 0,
     total: null
   },
-  onSelectedRows: null,
+  onToggleSelectedRow: null,
   onDeleteRow: null
 };

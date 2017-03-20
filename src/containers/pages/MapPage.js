@@ -5,7 +5,7 @@ import { setMapLocation } from 'modules/map';
 import { updateUrl } from 'modules/url';
 import { setScope } from 'modules/scope';
 import { setFilters, setActiveLayers, setPonderation } from 'modules/mapView';
-import { setPoints, saveOnGeostore } from 'modules/analyseLocations';
+import { setPoints, setSelectedPoints, saveOnGeostore } from 'modules/analyseLocations';
 import { store } from 'main';
 import { toggleModal } from 'aqueduct-components';
 
@@ -47,6 +47,9 @@ const mapDispatchToProps = dispatch => ({
   setPoints(points) {
     dispatch(setPoints(points));
     dispatch(saveOnGeostore(points));
+  },
+  setSelectedPoints(active) {
+    dispatch(setSelectedPoints(active));
   },
   addPoint(point) {
     const points = store.getState().analyseLocations.points.list.slice();

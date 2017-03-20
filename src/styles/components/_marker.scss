@@ -1,5 +1,4 @@
 $marker-size: 24px;
-$marker-selected-size: 34px;
 
 .c-marker {
   z-index: 1;
@@ -11,6 +10,8 @@ $marker-selected-size: 34px;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
     border: 2px solid $color-white;
     border-radius: 50%;
+    transition: all $animation-time $ease-in-out-sine;
+    transform-origin: 50% 50%;
   }
 
   &.-selected {
@@ -18,6 +19,7 @@ $marker-selected-size: 34px;
 
     .marker-inner {
       background-color: palette(blue, light);
+      transform: scale(1.5);
     }
   }
 }

@@ -109,7 +109,7 @@ export default class MapPage extends React.Component {
                 data={this.props.pointsCategorized}
                 toggleModal={this.props.toggleModal}
                 setSelectedPoints={ids => this.props.setSelectedPoints(ids)}
-                onRemovePoint={id => this.props.removePoint(id)}
+                onPointRemove={id => this.props.removePoint(id)}
               />
             }
             {/* TODO: functionallity */}

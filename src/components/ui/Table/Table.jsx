@@ -61,7 +61,7 @@ export default class CustomTable extends React.Component {
     this.onFilter = this.onFilter.bind(this);
     this.onSort = this.onSort.bind(this);
 
-    this.onDeleteRow = this.onDeleteRow.bind(this);
+    this.onRowDelete = this.onRowDelete.bind(this);
     this.onToggleSelectedRow = this.onToggleSelectedRow.bind(this);
   }
 
@@ -104,7 +104,7 @@ export default class CustomTable extends React.Component {
   /**
    * UI EVENTS
    * - onToggleSelectedRow
-   * - onDeleteRow
+   * - onRowDelete
    * - onFilter
    * - onSort
    * - onChangePage
@@ -125,7 +125,7 @@ export default class CustomTable extends React.Component {
     });
   }
 
-  onDeleteRow(id) {
+  onRowDelete(id) {
     const data = this.state.data.slice();
     const index = data.findIndex(row => row.id === id);
     data.splice(index, 1);
@@ -137,7 +137,7 @@ export default class CustomTable extends React.Component {
       columnValues: CustomTable.getColumnValues(data)
     }, () => {
       this.filter();
-      this.props.onDeleteRow && this.props.onDeleteRow(id);
+      this.props.onRowDelete && this.props.onRowDelete(id);
     });
   }
 
@@ -234,7 +234,7 @@ export default class CustomTable extends React.Component {
             {...this.props}
             {...this.state}
             onToggleSelectedRow={this.onToggleSelectedRow}
-            onDeleteRow={this.onDeleteRow}
+            onRowDelete={this.onRowDelete}
           />
 
         </table>
@@ -255,7 +255,7 @@ CustomTable.propTypes = {
   columns: React.PropTypes.array,
   pagination: React.PropTypes.object,
   onToggleSelectedRow: React.PropTypes.func,
-  onDeleteRow: React.PropTypes.func
+  onRowDelete: React.PropTypes.func
 };
 
 /* Property default values */
@@ -270,5 +270,5 @@ CustomTable.defaultProps = {
     total: null
   },
   onToggleSelectedRow: null,
-  onDeleteRow: null
+  onRowDelete: null
 };

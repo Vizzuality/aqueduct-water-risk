@@ -57,7 +57,7 @@ export default class TableContent extends React.Component {
                     <button
                       onClick={(e) => {
                         e && e.stopPropagation();
-                        this.props.onDeleteRow(row.id);
+                        this.props.onRowDelete(row.id);
                       }}
                     >
                       <Icon name="icon-cross" className="-small" />
@@ -84,7 +84,7 @@ TableContent.propTypes = {
   rowSelection: React.PropTypes.array,
   sort: React.PropTypes.object,
   // FUNCTIONS
-  onDeleteRow: React.PropTypes.func,
+  onRowDelete: React.PropTypes.func,
   onToggleSelectedRow: React.PropTypes.func
 };
 
@@ -96,6 +96,6 @@ TableContent.defaultProps = {
   rowSelection: [],
   sort: {},
   // FUNCTIONS
-  onDeleteRow: null,
+  onRowDelete: null,
   onToggleSelectedRow: null
 };

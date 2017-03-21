@@ -33,8 +33,8 @@ export default class AnalyseLocations extends React.Component {
           onToggleSelectedRow={(ids) => {
             this.props.setSelectedPoints(ids);
           }}
-          onDeleteRow={(id) => {
-            this.props.onRemovePoint(id);
+          onRowDelete={(id) => {
+            this.props.onPointRemove(id);
           }}
         />
       </div>
@@ -49,5 +49,5 @@ AnalyseLocations.propTypes = {
   // FUNCTIONS
   toggleModal: React.PropTypes.func,
   setSelectedPoints: React.PropTypes.func,
-  onRemovePoint: React.PropTypes.func
+  onPointRemove: React.PropTypes.func
 };

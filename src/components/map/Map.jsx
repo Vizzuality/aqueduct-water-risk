@@ -64,7 +64,7 @@ export default class Map extends React.Component {
     }
     // Layers
     if (!isEqual(this.props.layers, nextProps.layers)) {
-      addOrRemove(this.props.layers, nextProps.layers, layer => this.addLayer(layer), layer => this.removeLayer(layer.id), null);
+      addOrRemove(this.props.layers, nextProps.layers, layer => this.addLayer(layer), layer => this.removeLayer(layer.id));
     }
     // Markers
     if (!isEqual(this.props.markers, nextProps.markers)) {

@@ -130,7 +130,12 @@ export default class CustomTable extends React.Component {
     const index = data.findIndex(row => row.id === id);
     data.splice(index, 1);
 
-    this.setState({ data }, () => {
+    this.setState({
+      // Data
+      data,
+      // Columns
+      columnValues: CustomTable.getColumnValues(data)
+    }, () => {
       this.filter();
       this.props.onDeleteRow && this.props.onDeleteRow(id);
     });

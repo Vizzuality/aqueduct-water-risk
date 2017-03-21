@@ -31,6 +31,7 @@ export default class TableFilters extends React.Component {
 
   /* Component lifecycle */
   componentWillReceiveProps(nextProps) {
+    const selected = (nextProps.selected) ? nextProps.selected : nextProps.values;
     this.setState({
       selected: (nextProps.selected) ? nextProps.selected : nextProps.values,
       values: nextProps.values
@@ -93,15 +94,16 @@ export default class TableFilters extends React.Component {
 
   onFilterSelect(selected) {
     this.setState({ selected }, () => {
+      const { selected, values } = this.state;
       this.props.onFilter && this.props.onFilter({
         field: this.props.field,
-        value: this.state.selected
+        value: (selected.length !== values.length) ? selected : null
       });
     });
   }
 
   onFilterSelectAll() {
-    this.setState({ selected: this.props.values }, () => {
+    this.setState({ selected: null }, () => {
       this.props.onFilter && this.props.onFilter({
         field: this.props.field,
         value: this.state.selected
@@ -139,7 +141,7 @@ export default class TableFilters extends React.Component {
     const { selected, input, values } = this.state;
 
     const btnClass = classnames({
-      '-active': values && selected && !isEqual(values.sort(), selected.sort())
+      '-active': values && selected && values.length !== selected.length
     });
 
     return (
@@ -192,7 +194,7 @@ export default class TableFilters extends React.Component {
                 <CheckboxGroup
                   name={`${field}-checkbox-group`}
                   items={this.getFilteredValues()}
-                  selected={selected}
+                  selected={selected || values}
                   onChange={this.onFilterSelect}
                 />
                 {/* <ul>

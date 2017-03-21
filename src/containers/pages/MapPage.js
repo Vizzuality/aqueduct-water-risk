@@ -1,20 +1,21 @@
 import { connect } from 'react-redux';
 import MapPage from 'components/pages/Map/MapPage';
 import getActiveLayers from 'selectors/layers_active';
+import getCategorizedPoints from 'selectors/points_categorized';
 import { setMapLocation } from 'modules/map';
 import { updateUrl } from 'modules/url';
 import { setScope } from 'modules/scope';
 import { setFilters, setActiveLayers, setPonderation } from 'modules/mapView';
-import { setPoints, saveOnGeostore } from 'modules/analyseLocations';
+import { setPoints, setSelectedPoints, saveOnGeostore } from 'modules/analyseLocations';
 import { store } from 'main';
 import { toggleModal } from 'aqueduct-components';
 
 const mapStateToProps = state => ({
-  layersActive: getActiveLayers(state),
-  mapState: state.map,
   scope: state.scope.name,
+  mapState: state.map,
   mapView: state.mapView,
-  points: state.analyseLocations.points.list
+  layersActive: getActiveLayers(state),
+  pointsCategorized: getCategorizedPoints(state)
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -48,14 +49,18 @@ const mapDispatchToProps = dispatch => ({
     dispatch(setPoints(points));
     dispatch(saveOnGeostore(points));
   },
+  setSelectedPoints(active) {
+    dispatch(setSelectedPoints(active));
+  },
   addPoint(point) {
     const points = store.getState().analyseLocations.points.list.slice();
     points.push(point);
     dispatch(setPoints(points));
     dispatch(saveOnGeostore(points));
   },
-  removePoint(pointIndex) {
+  removePoint(id) {
     const points = store.getState().analyseLocations.points.list.slice();
+    const pointIndex = points.findIndex(point => point.id === id);
     points.splice(pointIndex, 1);
     dispatch(setPoints(points));
     dispatch(saveOnGeostore(points));

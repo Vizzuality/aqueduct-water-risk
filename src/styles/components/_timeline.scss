@@ -1,7 +1,46 @@
 .c-timeline {
+
   &.-bloqued {
     pointer-events: none;
   }
+
+  &.-sand {
+
+    margin-bottom: $space-1 * 4;
+    padding-left: 60px;
+    padding-right: 60px;
+
+    .timeline-label {
+      font-size: $font-size-default;
+      font-weight: normal;
+      color: palette(gray, dark);
+      width: 130px;
+      text-align: center;
+    }
+
+    .timeline-list-item {
+      background-color: palette(sand);
+      border: 1px solid lighten(palette(gray, dark), 30%);
+      box-shadow: 0 0 0px 7px palette(sand);
+
+      &:hover {
+        .timeline-label {
+          color: palette(blue, secondary);
+        }
+      }
+
+      &.-selected {
+        border: 1px solid palette(blue, secondary);
+        background-color: palette(blue, secondary);
+        box-shadow: 0 0 0px 3px palette(sand) inset, 0 0 0px 7px palette(sand);
+
+        .timeline-label {
+          color: palette(blue, secondary);
+        }
+      }
+    }
+  }
+
   &.-rate {
     padding: 0;
     max-width: 325px;

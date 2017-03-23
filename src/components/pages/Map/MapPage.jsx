@@ -110,6 +110,8 @@ export default class MapPage extends React.Component {
                 toggleModal={this.props.toggleModal}
                 setSelectedPoints={ids => this.props.setSelectedPoints(ids)}
                 onPointRemove={id => this.props.removePoint(id)}
+                setActiveLayers={this.props.setActiveLayers}
+                layersActive={this.props.mapView.layers.active}
               />
             }
             {/* TODO: functionallity */}

@@ -27,7 +27,7 @@ export default function AdvancedListCustom(props) {
                     onChange={val => console.log(val)}
                   />
                 <Timeline
-                  className="-rate"
+                  className="-rate -fixed"
                   items={points}
                   selected={{ value: isNaN(props.customPonderation[l.id]) ? '3' : props.customPonderation[l.id] }}
                   onChange={i => setCustomValue(i.value, l.id)}

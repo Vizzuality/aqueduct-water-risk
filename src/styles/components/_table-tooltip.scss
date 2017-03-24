@@ -8,8 +8,7 @@ $_footer-height: 40px;
   opacity: 1;
   visibility: visible;
 
-  &.tether-out-of-bounds-top,
-  &.tether-out-of-bounds-bottom {
+  &.tether-out-of-bounds-top, {
     opacity: 0;
     visibility: hidden;
   }

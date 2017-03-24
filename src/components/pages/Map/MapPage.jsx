@@ -104,7 +104,15 @@ export default class MapPage extends React.Component {
               />
             }
             { this.props.scope === 'analyseLocations' &&
-              <AnalyseLocations columns={columns} data={this.props.points} toggleModal={this.props.toggleModal} />
+              <AnalyseLocations
+                columns={columns}
+                data={this.props.pointsCategorized}
+                toggleModal={this.props.toggleModal}
+                setSelectedPoints={ids => this.props.setSelectedPoints(ids)}
+                onPointRemove={id => this.props.removePoint(id)}
+                setActiveLayers={this.props.setActiveLayers}
+                layersActive={this.props.mapView.layers.active}
+              />
             }
             {/* TODO: functionallity */}
             <BtnMenu
@@ -114,11 +122,11 @@ export default class MapPage extends React.Component {
           </div>
         </Sidebar>
         <Map
-          listeners={listeners}
-          mapMethods={mapMethods}
-          layers={this.props.layersActive}
           mapOptions={mapOptions}
-          markers={this.props.scope === 'analyseLocations' ? this.props.points : []}
+          mapMethods={mapMethods}
+          listeners={listeners}
+          layers={this.props.layersActive}
+          markers={this.props.scope === 'analyseLocations' ? this.props.pointsCategorized : []}
           markerIcon={markerIcon}
         />
         <ZoomControl
@@ -137,9 +145,9 @@ MapPage.propTypes = {
   mapState: React.PropTypes.object,
   mapView: React.PropTypes.object,
   scope: React.PropTypes.string,
-  points: React.PropTypes.array,
   // Selector
   layersActive: React.PropTypes.array,
+  pointsCategorized: React.PropTypes.array,
   // Actions
   toggleModal: React.PropTypes.func,
   setMapParams: React.PropTypes.func,
@@ -148,5 +156,7 @@ MapPage.propTypes = {
   setFilters: React.PropTypes.func,
   setActiveLayers: React.PropTypes.func,
   setPonderation: React.PropTypes.func,
-  addPoint: React.PropTypes.func
+  addPoint: React.PropTypes.func,
+  removePoint: React.PropTypes.func,
+  setSelectedPoints: React.PropTypes.func
 };

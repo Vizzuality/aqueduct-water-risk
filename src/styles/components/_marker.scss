@@ -1,20 +1,25 @@
+$marker-size: 24px;
+
 .c-marker {
-  /* !important for overriding Leaflet inline styles */
-  border-radius: 50% !important;
-  width: 24px !important;
-	height: 24px !important;
-	background-color: #ffffff;
-	box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
-  border-radius: 50%;
+  z-index: 1;
 
   .marker-inner {
-    width: 14px;
-    height: 14px;
-    background-color: #224280;
+    width: $marker-size - 10;
+    height: $marker-size - 10;
+    background-color: $color-tertiary;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
+    border: 2px solid $color-white;
     border-radius: 50%;
-    position: absolute;
-    margin: auto;
-    top: 0; bottom: 0; left: 0; right: 0;
+    transition: all $animation-time $ease-in-out-sine;
+    transform-origin: 50% 50%;
+  }
+
+  &.-selected {
+    z-index: 999999 !important;
+
+    .marker-inner {
+      background-color: palette(blue, light);
+      transform: scale(1.5);
+    }
   }
 }

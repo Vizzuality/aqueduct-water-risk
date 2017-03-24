@@ -4,12 +4,14 @@ import { updateUrl } from 'modules/url';
 
 /* Constants */
 const SET_POINTS = 'SET_POINTS';
+const SET_SELECTED_POINTS = 'SET_SELECTED_POINTS';
 const SET_GEOSTORE_ID = 'SET_GEOSTORE_ID';
 
 /* Initial state */
 const initialState = {
   points: {
     list: [],
+    selected: [],
     geoStore: undefined
   }
 };
@@ -22,6 +24,14 @@ function analyseLocationsReducer(state = initialState, action) {
         points: {
           ...state.points,
           list: action.payload
+        }
+      };
+    }
+    case SET_SELECTED_POINTS: {
+      return {
+        points: {
+          ...state.points,
+          selected: action.payload
         }
       };
     }
@@ -42,7 +52,19 @@ function analyseLocationsReducer(state = initialState, action) {
 function setPoints(points) {
   return {
     type: SET_POINTS,
-    payload: points.map((p, index) => ({ ...p, id: `${Date.now()}${index}` }))
+    payload: points.map((p, index) => {
+      return {
+        ...p,
+        id: p.id || `${Date.now()}${index}`
+      };
+    })
+  };
+}
+
+function setSelectedPoints(selected) {
+  return {
+    type: SET_SELECTED_POINTS,
+    payload: selected
   };
 }
 
@@ -80,4 +102,4 @@ function saveOnGeostore(points) {
   };
 }
 
-export { analyseLocationsReducer, setPoints, saveOnGeostore, fetchFromGeostore, setGeostoreId };
+export { analyseLocationsReducer, setPoints, setSelectedPoints, saveOnGeostore, fetchFromGeostore, setGeostoreId };

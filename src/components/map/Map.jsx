@@ -14,10 +14,21 @@ const MAP_OPTIONS = {
   detectRetina: true
 };
 
-function addOrRemove(oldItems, newItems, addCb, removeCb) {
+function addOrRemove(oldItems, newItems, addCb, removeCb, updateCb) {
   // TODO: improve performace uning sets instead of looping over arrays
+  // Remove
   oldItems.forEach(i => !newItems.find(ii => i.id === ii.id) && removeCb(i));
+
+  // Add
   newItems.forEach(i => !oldItems.find(ii => i.id === ii.id) && addCb(i));
+
+  // Update
+  newItems.forEach((i) => {
+    const old = oldItems.find(ii => i.id === ii.id);
+    if (!!updateCb && !!old && !isEqual(old, i)) {
+      updateCb(i);
+    }
+  });
 }
 
 export default class Map extends React.Component {
@@ -57,7 +68,7 @@ export default class Map extends React.Component {
     }
     // Markers
     if (!isEqual(this.props.markers, nextProps.markers)) {
-      addOrRemove(this.props.markers, nextProps.markers, marker => this.addMarker(marker), marker => this.removeMarker(marker.id));
+      addOrRemove(this.props.markers, nextProps.markers, marker => this.addMarker(marker), marker => this.removeMarker(marker.id), marker => this.updateMarker(marker));
     }
     // Zoom
     if (this.props.mapOptions.zoom !== nextProps.mapOptions.zoom) {
@@ -159,6 +170,10 @@ export default class Map extends React.Component {
 
   removeMarker(markerId) {
     this.layerManager.removeMarker(markerId);
+  }
+
+  updateMarker(marker) {
+    this.layerManager.updateMarker(marker);
   }
 
   /* Render method */

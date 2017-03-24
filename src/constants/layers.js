@@ -81,6 +81,10 @@ const scenarioOptions = [
     value: 'optimistic'
   },
   {
+    label: 'Pesimistic',
+    value: 'pesimistic'
+  },
+  {
     label: 'Business as usual',
     value: 'businessAsUsual'
   }

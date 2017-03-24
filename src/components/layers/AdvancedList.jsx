@@ -16,7 +16,7 @@ export default function AdvancedList(props) {
               {Array.isArray(l.ponderation) ?
                 <span>
                   <span className="timeline-title">{l.name}</span>
-                  <Timeline className="-rate -bloqued" items={points} selected={{ value: '3' }} onChange={() => {}} />
+                  <Timeline className="-rate -fixed -bloqued" items={points} selected={{ value: '3' }} onChange={() => {}} />
                 </span> :
                 <span className={deep < 2 ? 'title -upper' : 'title'}>
                   <Radio

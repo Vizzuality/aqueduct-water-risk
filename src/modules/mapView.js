@@ -6,7 +6,7 @@ const SET_PONDERATION = 'SET_PONDERATION';
 /* Initial state */
 const initialState = {
   layers: {
-    active: ['000001']
+    active: ['overall_water_risk']
   },
   filters: {
     year: 'baseline',
@@ -17,7 +17,7 @@ const initialState = {
     projection: 'absolute'
   },
   ponderation: {
-    scheme: '_default',
+    scheme: 'default',
     custom: {}
   }
 };

@@ -8,7 +8,7 @@ import MapView from './_MapView';
 import AnalyseLocations from './_AnalyseLocations';
 import ZoomControl from 'components/zoom/ZoomControl';
 import BtnMenu from 'components/ui/BtnMenu';
-import { sqlParamsParse } from 'utils/parsings';
+import { sqlParamsParse, defaultKeyParse } from 'utils/parsings';
 
 export default class MapPage extends React.Component {
 
@@ -66,10 +66,20 @@ export default class MapPage extends React.Component {
       html: '<div class="marker-inner"></div>'
     });
 
+    // Set default value
+    let { scheme } = this.props.mapView.ponderation;
+    const indicator = this.props.mapView.layers.active;
+    scheme = scheme === 'default' ? defaultKeyParse(indicator) : scheme;
+
     // Layers sql parsing
-    const parsedLayers = sqlParamsParse(this.props.layersActive, {
-      weight_indicator: this.props.mapView.ponderation.scheme
-    });
+    const layer = this.props.layersActive.length ? this.props.layersActive[0] : null;
+    let parsedLayer = null;
+    if (layer) {
+      // TODO: add parsings for "indicators" layer type
+      parsedLayer = sqlParamsParse(layer, {
+        weight_indicator: scheme
+      });
+    }
 
     return (
       <div className="c-map-page l-map-page">
@@ -112,7 +122,7 @@ export default class MapPage extends React.Component {
           mapOptions={mapOptions}
           mapMethods={mapMethods}
           listeners={listeners}
-          layers={parsedLayers}
+          layers={parsedLayer ? [parsedLayer] : []}
           markers={this.props.scope === 'analyseLocations' ? this.props.pointsCategorized : []}
           markerIcon={markerIcon}
         />

@@ -7,4 +7,13 @@ function sqlParamsParse(layers, paramsMap) {
   return JSON.parse(stringLayers);
 }
 
-export { sqlParamsParse };
+function defaultKeyParse(indicator) {
+  return {
+    overall_water_risk: '_default',
+    physical_risk_quantity: 'def_pquant',
+    physical_risk_quality: 'def_pqual',
+    regulatory_and_reputational_risk: 'def_regrep'
+  }[indicator];
+}
+
+export { sqlParamsParse, defaultKeyParse };

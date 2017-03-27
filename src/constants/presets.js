@@ -1,7 +1,7 @@
 const presetOptions = [
   {
     label: 'Default',
-    value: '_default'
+    value: 'default'
   },
   {
     label: 'Argiculture',

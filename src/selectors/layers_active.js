@@ -5,10 +5,8 @@ const datasets = state => state.datasets;
 
 // Create a function to compare the current active datatasets and the current datasetsIds
 function getActiveLayers(_datasets) {
-  const dataset = _datasets.list.find(d => d.layer.length && d.layer[0].attributes.provider === 'cartodb');
-  return dataset ? [dataset.layer[0].attributes] : [];
-        // .filter(d => d.layer.length && d.layer[0].attributes.provider === 'cartodb')
-        // .map(d => d.layer[0].attributes);
+  const layersActive = _datasets.list.length ? [{ id: _datasets.list[0].layer[0].id, ..._datasets.list[0].layer[0].attributes }] : [];
+  return layersActive;
 }
 
 // Export the selector

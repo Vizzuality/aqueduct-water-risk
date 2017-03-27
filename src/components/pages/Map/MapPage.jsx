@@ -8,6 +8,7 @@ import MapView from './_MapView';
 import AnalyseLocations from './_AnalyseLocations';
 import ZoomControl from 'components/zoom/ZoomControl';
 import BtnMenu from 'components/ui/BtnMenu';
+import { sqlParamsParse } from 'utils/parsings';
 
 export default class MapPage extends React.Component {
 
@@ -36,8 +37,8 @@ export default class MapPage extends React.Component {
     const mapMethods = {
       attribution: '&copy; <a href="http://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>',
       tileLayers: [
-        { url: config.BASEMAP_LABEL_URL, zIndex: 0 },
-        { url: config.BASEMAP_TILE_URL, zIndex: 1000 }
+        { url: config.BASEMAP_LABEL_URL, zIndex: 1000 },
+        { url: config.BASEMAP_TILE_URL, zIndex: 0 }
       ]
     };
 
@@ -48,25 +49,6 @@ export default class MapPage extends React.Component {
       zoomControl: false,
       center: [this.props.mapState.latLng.lat, this.props.mapState.latLng.lng]
     };
-
-    // const columns = [
-    //   {
-    //     label: 'Name',
-    //     value: 'name'
-    //   },
-    //   {
-    //     label: 'Country',
-    //     value: 'country'
-    //   },
-    //   {
-    //     label: 'River Basin',
-    //     value: 'basin'
-    //   },
-    //   {
-    //     label: 'Regulatory & Reputational Risk',
-    //     value: 'regulatory'
-    //   }
-    // ];
 
     const columns = [
       {
@@ -82,6 +64,11 @@ export default class MapPage extends React.Component {
     const markerIcon = L.divIcon({
       className: 'c-marker',
       html: '<div class="marker-inner"></div>'
+    });
+
+    // Layers sql parsing
+    const parsedLayers = sqlParamsParse(this.props.layersActive, {
+      weight_indicator: this.props.mapView.ponderation.scheme
     });
 
     return (
@@ -125,7 +112,7 @@ export default class MapPage extends React.Component {
           mapOptions={mapOptions}
           mapMethods={mapMethods}
           listeners={listeners}
-          layers={this.props.layersActive}
+          layers={parsedLayers}
           markers={this.props.scope === 'analyseLocations' ? this.props.pointsCategorized : []}
           markerIcon={markerIcon}
         />

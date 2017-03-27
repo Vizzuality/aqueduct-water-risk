@@ -17,7 +17,7 @@ const initialState = {
     projection: 'absolute'
   },
   ponderation: {
-    scheme: 'agriculture',
+    scheme: '_default',
     custom: {}
   }
 };

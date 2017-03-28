@@ -18,13 +18,25 @@ const initialState = {
   },
   ponderation: {
     scheme: 'default',
-    custom: {}
+    custom: {
+      water_stress: 1,
+      interannual_variability: 1,
+      seasonal_variability: 1,
+      flood_occurrence: 1,
+      drought_severity: 1,
+      upstream_storage: 1,
+      groundwater_stress: 1,
+      return_flow_ratio: 1,
+      upstream_protected_land: 1,
+      media_coverage: 1,
+      access_to_water: 1,
+      threatened_amphibians: 1
+    }
   }
 };
 
 /* Reducer */
 function mapViewReducer(state = initialState, action) {
-  // TODO: define reductions
   switch (action.type) {
     case SET_FILTERS: {
       return {

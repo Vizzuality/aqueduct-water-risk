@@ -1,5 +1,9 @@
 const presetOptions = [
   {
+    label: 'Custom',
+    value: 'custom'
+  },
+  {
     label: 'Default',
     value: 'default'
   },

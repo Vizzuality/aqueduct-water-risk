@@ -1,23 +1,23 @@
 const points = [
   {
     label: '',
-    value: '1'
+    value: 0.2
   },
   {
     label: '',
-    value: '2'
+    value: 0.5
   },
   {
     label: '',
-    value: '3'
+    value: 1
   },
   {
     label: '',
-    value: '4'
+    value: 2
   },
   {
     label: '',
-    value: '5'
+    value: 4
   }
 ];
 

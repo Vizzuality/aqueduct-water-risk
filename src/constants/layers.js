@@ -10,31 +10,38 @@ const layers = [
         children: [
           {
             id: 'water_stress',
-            name: 'Baseline water stress'
+            name: 'Baseline water stress',
+            ponderation: true
           },
           {
             id: 'interannual_variability',
-            name: 'Interannual Variability'
+            name: 'Interannual Variability',
+            ponderation: true
           },
           {
             id: 'seasonal_variability',
-            name: 'Seasonal Variability'
+            name: 'Seasonal Variability',
+            ponderation: true
           },
           {
             id: 'flood_occurrence',
-            name: 'Flood Occurrence'
+            name: 'Flood Occurrence',
+            ponderation: true
           },
           {
             id: 'drought_severity',
-            name: 'Drought Severity'
+            name: 'Drought Severity',
+            ponderation: true
           },
           {
             id: 'upstream_storage',
-            name: 'Upstream Storage'
+            name: 'Upstream Storage',
+            ponderation: true
           },
           {
             id: 'groundwater_stress',
-            name: 'Groundwater Stress'
+            name: 'Groundwater Stress',
+            ponderation: true
           }
         ]
       },
@@ -44,11 +51,13 @@ const layers = [
         children: [
           {
             id: 'return_flow_ratio',
-            name: 'Return Flow Ratio'
+            name: 'Return Flow Ratio',
+            ponderation: true
           },
           {
             id: 'upstream_protected_land',
-            name: 'Upstream Protected Land'
+            name: 'Upstream Protected Land',
+            ponderation: true
           }
         ]
       },
@@ -58,15 +67,18 @@ const layers = [
         children: [
           {
             id: 'media_coverage',
-            name: 'Media Coverage'
+            name: 'Media Coverage',
+            ponderation: true
           },
           {
             id: 'access_to_water',
-            name: 'Access to Water'
+            name: 'Access to Water',
+            ponderation: true
           },
           {
             id: 'threatened_amphibians',
-            name: 'Threatened Amphibians'
+            name: 'Threatened Amphibians',
+            ponderation: true
           }
         ]
       }

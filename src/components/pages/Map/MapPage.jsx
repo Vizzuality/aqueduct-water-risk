@@ -8,7 +8,7 @@ import MapView from './_MapView';
 import AnalyseLocations from './_AnalyseLocations';
 import ZoomControl from 'components/zoom/ZoomControl';
 import BtnMenu from 'components/ui/BtnMenu';
-import { sqlParamsParse, defaultKeyParse } from 'utils/parsings';
+import { sqlParamsParse } from 'utils/parsings';
 
 export default class MapPage extends React.Component {
 
@@ -66,19 +66,12 @@ export default class MapPage extends React.Component {
       html: '<div class="marker-inner"></div>'
     });
 
-    // Set default value
-    let { scheme } = this.props.mapView.ponderation;
-    const indicator = this.props.mapView.layers.active;
-    scheme = scheme === 'default' ? defaultKeyParse(indicator) : scheme;
-
     // Layers sql parsing
     const layer = this.props.layersActive.length ? this.props.layersActive[0] : null;
     let parsedLayer = null;
+
     if (layer) {
-      // TODO: add parsings for "indicators" layer type
-      parsedLayer = sqlParamsParse(layer, {
-        weight_indicator: scheme
-      });
+      parsedLayer = sqlParamsParse(layer, this.props.mapView);
     }
 
     return (

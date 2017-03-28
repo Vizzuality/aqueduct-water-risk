@@ -13,18 +13,28 @@ function getActiveLayers(_datasets, _mapView) {
   let layerType;
 
   if (weightLayers.includes(currentLayer)) {
+    // Weights dataset
     layerType = 'weights';
   }
+  if (_mapView.ponderation.scheme === 'custom') {
+    // Custom weights dataset
+    layerType = 'custom-weights';
+  }
   if (indicatorLayers.includes(currentLayer)) {
+    // Indicators dataset
     layerType = 'indicators';
   }
 
+  // Find dataset that matches with 'layerType' tag
   const dataset = _datasets.list.find((d) => {
     const layerTypesVocabulary = d.vocabulary.find(voc => voc.attributes.name === 'layerTypes');
     return layerTypesVocabulary.attributes.tags.includes(layerType);
   });
 
-  return [{ id: dataset.layer[0].id, ...dataset.layer[0].attributes }];
+  // Return default selected dataset's default layer
+  const layer = dataset.layer.find(l => l.attributes.default);
+
+  return [{ id: layer.id, ...layer.attributes }];
 }
 
 // Export the selector

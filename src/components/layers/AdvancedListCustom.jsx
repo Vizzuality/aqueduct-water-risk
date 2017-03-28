@@ -17,7 +17,7 @@ export default function AdvancedListCustom(props) {
         {layers.map((l, index) => {
           return (
             <li className="layerlist-item" key={index}>
-              {Array.isArray(l.ponderation) ?
+              {l.ponderation ?
                 <span>
                   <Checkbox
                     className="layerlist-cbox"
@@ -29,7 +29,7 @@ export default function AdvancedListCustom(props) {
                 <Timeline
                   className="-rate -fixed"
                   items={points}
-                  selected={{ value: isNaN(props.customPonderation[l.id]) ? '3' : props.customPonderation[l.id] }}
+                  selected={{ value: props.customPonderation[l.id] }}
                   onChange={i => setCustomValue(i.value, l.id)}
                 />
                 </span> :

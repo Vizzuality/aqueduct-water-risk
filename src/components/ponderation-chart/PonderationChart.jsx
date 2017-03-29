@@ -1,7 +1,7 @@
 import React from 'react';
-import { VegaChart } from 'aqueduct-components';
 import { ponderationChart } from 'utils/ponderationChart';
 import { ponderationValues } from 'constants/ponderationPresetsValues';
+import VegaChart from 'components/vega-chart/VegaChart';
 
 export default function PonderationChart({ ponderation }) {
   const values = {};
@@ -41,7 +41,7 @@ export default function PonderationChart({ ponderation }) {
 
   return (
     <div className="c-ponderation-chart">
-      <VegaChart theme={{}} data={data} />
+      <VegaChart data={data} />
     </div>
   );
 }

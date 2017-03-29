@@ -40,6 +40,9 @@ const ponderationChart = {
          "y": {"value": -25}
        },
        "labels": {
+         "text": {
+           "template": " {{datum.data}}"
+         },
          "fontSize": {"value": 16},
          "fontWeight": {"value": 400},
          "fill": {"value": "#758290"}

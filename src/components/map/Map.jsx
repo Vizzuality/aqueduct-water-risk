@@ -5,6 +5,7 @@ import React from 'react';
 import L from 'leaflet/dist/leaflet';
 import isEqual from 'lodash/isEqual';
 import LayerManager from './LayerManager';
+import { Spinner } from 'aqueduct-components';
 
 const MAP_OPTIONS = {
   zoom: 2,
@@ -65,7 +66,7 @@ export default class Map extends React.Component {
     // Layers
     if (!isEqual(this.props.layers, nextProps.layers)) {
       this.layerManager.removeAllLayers();
-      this.layerManager.addLayer(nextProps.layers[0]);
+      this.addLayer(nextProps.layers[0]);
     }
     // Markers
     if (!isEqual(this.props.markers, nextProps.markers)) {
@@ -182,6 +183,7 @@ export default class Map extends React.Component {
     return (
       <div className="c-map">
         <div ref={(node) => { this.mapNode = node; }} className="map-leaflet" />
+        <Spinner isLoading={this.state.loading} />
       </div>
     );
   }

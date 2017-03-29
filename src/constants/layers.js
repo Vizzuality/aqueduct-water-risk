@@ -46,7 +46,7 @@ const layers = [
         ]
       },
       {
-        id: 'physical_risk_quantity',
+        id: 'physical_risk_quality',
         name: 'Physical risk quality',
         children: [
           {

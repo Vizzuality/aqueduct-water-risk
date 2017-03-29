@@ -24,14 +24,15 @@ export default function AdvancedListCustom(props) {
                     label={l.name}
                     name={l.id}
                     value={l.id}
-                    onChange={val => console.log(val)}
+                    onChange={item => setCustomValue(item.checked ? 1 : null, item.value)}
+                    checked={props.customPonderation[l.id] !== null}
                   />
-                <Timeline
-                  className="-rate -fixed"
-                  items={points}
-                  selected={{ value: props.customPonderation[l.id] }}
-                  onChange={i => setCustomValue(i.value, l.id)}
-                />
+                  <Timeline
+                    className="-rate -fixed"
+                    items={points}
+                    selected={{ value: props.customPonderation[l.id] }}
+                    onChange={i => setCustomValue(i.value, l.id)}
+                  />
                 </span> :
                 <span className={deep < 2 ? 'title -upper' : 'title'}>{l.name}</span>
                 }

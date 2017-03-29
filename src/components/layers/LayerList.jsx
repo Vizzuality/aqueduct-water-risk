@@ -30,7 +30,7 @@ export default class LayerList extends React.Component {
     if (this.state.advanced) {
       list = this.props.ponderation.scheme === 'custom' ?
         <AdvancedListCustom {...props} onSelectLayer={this.props.setPonderation} customPonderation={this.props.ponderation.custom} /> :
-        <AdvancedList {...props} />;
+        <AdvancedList {...props} ponderation={this.props.ponderation.scheme} />;
     } else {
       list = <List {...props} />;
     }

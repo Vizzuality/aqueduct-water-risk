@@ -1,18 +1,45 @@
 import { createSelector } from 'reselect';
+import { weightLayers, indicatorLayers } from 'constants/layerTypes';
 
 // Get the datasets and filters from state
 const datasets = state => state.datasets;
+const mapView = state => state.mapView;
 
 // Create a function to compare the current active datatasets and the current datasetsIds
-function getActiveLayers(_datasets) {
-  const dataset = _datasets.list.find(d => d.layer.length && d.layer[0].attributes.provider === 'cartodb');
-  return dataset ? [dataset.layer[0].attributes] : [];
-        // .filter(d => d.layer.length && d.layer[0].attributes.provider === 'cartodb')
-        // .map(d => d.layer[0].attributes);
+function getActiveLayers(_datasets, _mapView) {
+  if (!_datasets.list.length) return [];
+
+  const currentLayer = _mapView.layers.active[0];
+  let layerType;
+
+  if (weightLayers.includes(currentLayer)) {
+    // Weights dataset
+    layerType = 'weights';
+  }
+  if (_mapView.ponderation.scheme === 'custom') {
+    // Custom weights dataset
+    layerType = 'custom-weights';
+  }
+  if (indicatorLayers.includes(currentLayer)) {
+    // Indicators dataset
+    layerType = 'indicators';
+  }
+
+  // Find dataset that matches with 'layerType' tag
+  const dataset = _datasets.list.find((d) => {
+    const layerTypesVocabulary = d.vocabulary.find(voc => voc.attributes.name === 'layerTypes');
+    return layerTypesVocabulary.attributes.tags.includes(layerType);
+  });
+
+  // Return default selected dataset's default layer
+  const layer = dataset.layer.find(l => l.attributes.default);
+
+  return [{ id: layer.id, ...layer.attributes }];
 }
 
 // Export the selector
 export default createSelector(
   datasets,
+  mapView,
   getActiveLayers
 );

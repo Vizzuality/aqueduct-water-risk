@@ -6,6 +6,7 @@ import Future from './Future';
 import List from './List';
 import AdvancedList from './AdvancedList';
 import AdvancedListCustom from './AdvancedListCustom';
+import PonderationChart from 'components/ponderation-chart/PonderationChart';
 
 export default class LayerList extends React.Component {
 
@@ -29,7 +30,7 @@ export default class LayerList extends React.Component {
     if (this.state.advanced) {
       list = this.props.ponderation.scheme === 'custom' ?
         <AdvancedListCustom {...props} onSelectLayer={this.props.setPonderation} customPonderation={this.props.ponderation.custom} /> :
-        <AdvancedList {...props} />;
+        <AdvancedList {...props} ponderation={this.props.ponderation.scheme} />;
     } else {
       list = <List {...props} />;
     }
@@ -53,7 +54,10 @@ export default class LayerList extends React.Component {
           </span>
         </div>
         {this.state.advanced &&
-          <Presets onChange={this.props.setPonderation} ponderation={this.props.ponderation.scheme} />
+          <div>
+            <Presets onChange={this.props.setPonderation} ponderation={this.props.ponderation.scheme} />
+            <PonderationChart ponderation={this.props.ponderation} />
+          </div>
         }
         {this.renderLayerList(this.props.layers, 0)}
       </div>

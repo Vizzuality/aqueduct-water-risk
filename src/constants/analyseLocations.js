@@ -1,19 +1,19 @@
 const layerOptions = [
   {
     label: 'Overall water risk',
-    value: '000001'
+    value: 'overall_water_risk'
   },
   {
     label: 'Physical risk quantity',
-    value: '0003'
+    value: 'physical_risk_quantity'
   },
   {
     label: 'Physical risk quality',
-    value: '0004'
+    value: 'physical_risk_quantity'
   },
   {
     label: 'Regulatory and reputational risk',
-    value: '352352'
+    value: 'regulatory_and_reputational_risk'
   },
   {
     label: 'Projected change',

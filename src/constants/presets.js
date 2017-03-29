@@ -1,19 +1,47 @@
 const presetOptions = [
   {
-    label: 'Agriculture',
-    value: 'agriculture'
+    label: 'Custom',
+    value: 'custom'
+  },
+  {
+    label: 'Default',
+    value: 'default'
+  },
+  {
+    label: 'Argiculture',
+    value: 'w_agr'
+  },
+  {
+    label: 'Power',
+    value: 'w_power'
+  },
+  {
+    label: 'Semiconductor',
+    value: 'w_semico'
+  },
+  {
+    label: 'Oil and gas',
+    value: 'w_oilgas'
+  },
+  {
+    label: 'Chemical',
+    value: 'w_chem'
   },
   {
     label: 'Mining',
-    value: 'mining'
+    value: 'w_mine'
   },
   {
-    label: 'Chemicals',
-    value: 'chemicals'
+    label: 'Food and beverage',
+    value: 'w_foodbv'
   },
   {
-    label: 'Custom',
-    value: 'custom'
+    label: 'Construction materials',
+    value: 'w_constr'
+  },
+  {
+    label: 'Textile',
+    value: 'w_tex'
   }
 ];
 

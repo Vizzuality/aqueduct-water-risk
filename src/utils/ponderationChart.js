@@ -9,12 +9,12 @@ const ponderationChart = {
         "enter": {
           "startAngle": {"field": "layout_start"},
           "endAngle": {"field": "layout_end"},
-          "innerRadius": {"value": 35},
-          "outerRadius": {"value": 55},
+          "innerRadius": {"value": 40},
+          "outerRadius": {"value": 65},
           "x": {"mult": 0.5,"group": "width"},
           "y": {"mult": 0.5,"group": "height"},
           "fill": {"field": "x","scale": "color"},
-          "stroke": {"value": "white"}
+          "stroke": {"value": "white"},
         }
       },
       "from": {
@@ -24,28 +24,10 @@ const ponderationChart = {
       "type": "arc"
     }
   ],
-  "data": [
-    {
-      "name": "table",
-      "values": [
-        {"x": "Physical risk quantity","y": 90},
-        {"x": "Physical risk quality","y": 49},
-        {"x": "Regulatory and reputational risk","y": 16}
-      ],
-      "transform": [
-        {"type": "pie","field": "y"},
-        {
-          "type": "formula",
-          "field": "x_percent",
-          "expr": "round((datum.layout_end - datum.layout_start)/2/PI*100) + '% ' + datum.x"
-        }
-      ]
-    }
-  ],
   "scales": [
     {
       "name": "color",
-      "range": ["#00a0e1","#2e57b8","#afc7ff"],
+      "range": ["#afc7ff", "#00a0e1", "#2e57b8"],
       "domain": {"data": "table", "field": "x_percent"},
       "type": "ordinal"
     }
@@ -54,15 +36,19 @@ const ponderationChart = {
     "fill": "color",
     "properties": {
        "legend": {
+         "x": {"value": 200},
          "y": {"value": -25}
        },
        "labels": {
-         "fontSize": {"value": 14},
-         "fontWeight": {"value": "300"},
+         "text": {
+           "template": " {{datum.data}}"
+         },
+         "fontSize": {"value": 16},
+         "fontWeight": {"value": 400},
          "fill": {"value": "#758290"}
        },
        "symbols": {
-         "size": {"value": 100},
+         "size": {"value": 250},
          "shape": {"value": "square"},
          "stroke": {"value": "transparent"},
          "strokeWidth": {"value": 0}

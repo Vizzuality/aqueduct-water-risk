@@ -1,54 +1,84 @@
 const layers = [
   {
-    id: '000001',
+    id: 'overall_water_risk',
     name: 'Overall water risk',
     overall: true,
     children: [
       {
-        id: '0003',
+        id: 'physical_risk_quantity',
         name: 'Physical risk quantity',
         children: [
           {
-            id: '0004',
+            id: 'water_stress',
             name: 'Baseline water stress',
-            ponderation: []
+            ponderation: true
+          },
+          {
+            id: 'interannual_variability',
+            name: 'Interannual Variability',
+            ponderation: true
+          },
+          {
+            id: 'seasonal_variability',
+            name: 'Seasonal Variability',
+            ponderation: true
+          },
+          {
+            id: 'flood_occurrence',
+            name: 'Flood Occurrence',
+            ponderation: true
+          },
+          {
+            id: 'drought_severity',
+            name: 'Drought Severity',
+            ponderation: true
+          },
+          {
+            id: 'upstream_storage',
+            name: 'Upstream Storage',
+            ponderation: true
+          },
+          {
+            id: 'groundwater_stress',
+            name: 'Groundwater Stress',
+            ponderation: true
           }
         ]
       },
       {
-        id: '000005',
-        name: 'Physical risk quantity',
+        id: 'physical_risk_quality',
+        name: 'Physical risk quality',
         children: [
           {
-            id: '0006',
-            name: 'Baseline water stress',
-            ponderation: []
+            id: 'return_flow_ratio',
+            name: 'Return Flow Ratio',
+            ponderation: true
+          },
+          {
+            id: 'upstream_protected_land',
+            name: 'Upstream Protected Land',
+            ponderation: true
           }
         ]
       },
       {
-        id: '00007',
-        name: 'Physical risk quantity',
+        id: 'regulatory_and_reputational_risk',
+        name: 'Regulatory and reputational risk',
         children: [
           {
-            id: '0008',
-            name: 'Baseline water stress',
-            ponderation: []
+            id: 'media_coverage',
+            name: 'Media Coverage',
+            ponderation: true
           },
           {
-            id: '0009',
-            name: 'Baseline water stress',
-            ponderation: []
+            id: 'access_to_water',
+            name: 'Access to Water',
+            ponderation: true
           },
           {
-            id: '0010',
-            name: 'Baseline water stress',
-            ponderation: []
-          },
-          {
-            id: '0011',
-            name: 'Baseline water stress',
-            ponderation: []
+            id: 'threatened_amphibians',
+            name: 'Threatened Amphibians',
+            ponderation: true
           }
         ]
       }

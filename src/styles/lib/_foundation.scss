@@ -55,6 +55,7 @@ audio,
 canvas,
 progress,
 video {
+  max-width: 100%;
   display: inline-block;
   /* 1 */
   vertical-align: baseline;

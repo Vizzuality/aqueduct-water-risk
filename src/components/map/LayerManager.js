@@ -3,7 +3,7 @@
 
 import L from 'leaflet/dist/leaflet';
 import esri from 'esri-leaflet';
-import { post } from 'utils/request';
+import { get } from 'utils/request';
 
 // adding support for esri
 L.esri = esri;
@@ -35,6 +35,12 @@ export default class LayerManager {
     }
   }
 
+  removeAllLayers() {
+    const layerIds = Object.keys(this._mapLayers);
+    if (!layerIds.length) return;
+    layerIds.forEach(id => this.removeLayer(id));
+  }
+
   addMarker({ id, lat, lng }, icon) {
     this._mapMarkers[id] = L.marker([lat, lng], { icon });
     this._mapMarkers[id].addTo(this._map);
@@ -58,7 +64,7 @@ export default class LayerManager {
   _addCartoLayer(layer) {
     const onSuccess = (data) => {
       const tileUrl = `https://${layer.layerConfig.account}.carto.com/api/v1/map/${data.layergroupid}/{z}/{x}/{y}.png`;
-      this._mapLayers[layer.id] = L.tileLayer(tileUrl).addTo(this._map).setZIndex(9999);
+      this._mapLayers[layer.id] = L.tileLayer(tileUrl).addTo(this._map).setZIndex(500);
       this._mapLayers[layer.id].on('load', () => {
         this._onLayerAddedSuccess();
       });
@@ -67,9 +73,15 @@ export default class LayerManager {
       });
     };
 
-    const request = post({
-      url: `https://${layer.layerConfig.account}.carto.com/api/v1/map`,
-      body: layer.layerConfig.body,
+    const layerTpl = {
+      version: '1.3.0',
+      stat_tag: 'API',
+      ...layer.layerConfig.body
+    };
+    const params = `stat_tag=API&config=${encodeURIComponent(JSON.stringify(layerTpl))}`;
+
+    const request = get({
+      url: `https://${layer.layerConfig.account}.carto.com/api/v1/map?${params}`,
       onSuccess,
       onError: this._onLayerAddedError
     });

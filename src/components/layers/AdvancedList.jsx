@@ -2,6 +2,7 @@ import React from 'react';
 import classnames from 'classnames';
 import { Timeline, Radio } from 'aqueduct-components';
 import { points } from 'constants/points';
+import { ponderationValues } from 'constants/ponderationPresetsValues';
 
 export default function AdvancedList(props) {
   function getLayers(layers, deep) {
@@ -11,12 +12,17 @@ export default function AdvancedList(props) {
           const cNames = classnames('layerlist-item', {
             '-selected': props.activeLayers.includes(l.id)
           });
+
           return (
             <li className={cNames} key={index}>
-              {Array.isArray(l.ponderation) ?
+              {l.ponderation ?
                 <span>
                   <span className="timeline-title">{l.name}</span>
-                  <Timeline className="-rate -fixed -bloqued" items={points} selected={{ value: '3' }} onChange={() => {}} />
+                  <Timeline
+                    className="-rate -fixed -bloqued"
+                    items={points}
+                    selected={{ value: ponderationValues[props.ponderation][l.id] }}
+                  />
                 </span> :
                 <span className={deep < 2 ? 'title -upper' : 'title'}>
                   <Radio
@@ -44,7 +50,8 @@ export default function AdvancedList(props) {
 AdvancedList.propTypes = {
   layers: React.PropTypes.array,
   activeLayers: React.PropTypes.array,
-  onSelectLayer: React.PropTypes.func
+  onSelectLayer: React.PropTypes.func,
+  ponderation: React.PropTypes.string
 };
 
 AdvancedList.defaultProps = {

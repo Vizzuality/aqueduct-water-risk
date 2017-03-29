@@ -24,24 +24,6 @@ const ponderationChart = {
       "type": "arc"
     }
   ],
-  "data": [
-    {
-      "name": "table",
-      "values": [
-        {"x": "Physical risk quantity","y": 90},
-        {"x": "Physical risk quality","y": 49},
-        {"x": "Regulatory and reputational risk","y": 16}
-      ],
-      "transform": [
-        {"type": "pie","field": "y"},
-        {
-          "type": "formula",
-          "field": "x_percent",
-          "expr": "round((datum.layout_end - datum.layout_start)/2/PI*100) + '% ' + datum.x"
-        }
-      ]
-    }
-  ],
   "scales": [
     {
       "name": "color",

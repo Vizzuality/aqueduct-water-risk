@@ -1,9 +1,9 @@
 import React from 'react';
 
-export default function ChoroplethItem({ layer }) {
+export default function ChoroplethItem({ layer, name }) {
   return (
     <div className="c-legend-item -choropleth">
-      <span className="legend-item-name">{layer.name}</span>
+      <span className="legend-item-name">{name || layer.name}</span>
       <ol className="list">
         {layer.legendConfig.items.map((item, index) => {
           return (
@@ -20,5 +20,6 @@ export default function ChoroplethItem({ layer }) {
 }
 
 ChoroplethItem.propTypes = {
-  layer: React.PropTypes.object
+  layer: React.PropTypes.object,
+  name: React.PropTypes.string
 };

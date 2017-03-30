@@ -25,7 +25,7 @@ function sqlParamsParse(layers, config) {
     scenario: 'historic',
     period_type: 'year',
     period_value: 0,
-    year: '2014',
+    year: '2014', // config.filters.year
     data_type: 'absolute',
     custom_weights: JSON.stringify(customWeights)
   };

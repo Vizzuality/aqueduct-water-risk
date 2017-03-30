@@ -126,7 +126,7 @@ export default class MapPage extends React.Component {
         >
           <button type="button" className="btn-help">?</button>
         </ZoomControl>
-        <Legend layers={this.props.layersActive} />
+        <Legend layers={this.props.layersActive} config={this.props.mapView} />
       </div>
     );
   }

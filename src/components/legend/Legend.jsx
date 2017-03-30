@@ -1,11 +1,17 @@
 import React from 'react';
 import ChoroplethItem from './ChoroplethItem';
+import startCase from 'lodash/startCase';
+import upperFirst from 'lodash/upperFirst';
 
 const legendItems = {
   choropleth: ChoroplethItem
 };
 
-export default function Legend({ layers }) {
+export default function Legend({ layers, config }) {
+  const indicator = config.layers.active[0];
+  let name = upperFirst(startCase(indicator));
+  name += indicator === 'water_stress' ? ` - ${upperFirst(config.ponderation.scheme)}` : '';
+
   return (
     <section className="c-legend">
       <div className="legend-content">
@@ -13,7 +19,7 @@ export default function Legend({ layers }) {
           const LegendItem = legendItems[layer.legendConfig.type];
           return (
             <li key={index}>
-              {LegendItem ? <LegendItem layer={layer} /> : null}
+              {LegendItem ? <LegendItem layer={layer} name={name} /> : null}
             </li>
           );
         })}
@@ -23,5 +29,6 @@ export default function Legend({ layers }) {
 }
 
 Legend.propTypes = {
-  layers: React.PropTypes.array
+  layers: React.PropTypes.array,
+  config: React.PropTypes.object
 };

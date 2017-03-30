@@ -41,18 +41,16 @@ export default class Legend extends React.Component {
             <Icon name={`icon-arrow-${this.state.closed ? 'down' : 'up'}-2`} className="header-icon" />
           </button>
         </header>
-        {this.state.closed ||
-          <div className="legend-content">
-            {layers.map((layer, index) => {
-              const LegendItem = legendItems[layer.legendConfig.type];
-              return (
-                <li key={index}>
-                  {LegendItem ? <LegendItem layer={layer} name={name} /> : null}
-                </li>
-              );
-            })}
-          </div>
-        }
+        <div className="legend-content">
+          {this.state.closed || layers.map((layer, index) => {
+            const LegendItem = legendItems[layer.legendConfig.type];
+            return (
+              <li key={index}>
+                {LegendItem ? <LegendItem layer={layer} name={name} /> : null}
+              </li>
+            );
+          })}
+        </div>
       </section>
     );
   }

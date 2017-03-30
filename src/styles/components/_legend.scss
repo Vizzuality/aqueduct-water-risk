@@ -38,7 +38,7 @@
     font-size: $font-size-default;
   }
 
-  .legend-content {
+  .legend-content:not(:empty) {
     padding: $space-1 * 2;
   }
 }

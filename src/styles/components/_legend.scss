@@ -7,6 +7,37 @@
   background-color: rgba(palette(sand), 0.9);
 	box-shadow: 0 0 2px 0 rgba(palette(black), 0.26);
 
+  .legend-header {
+    padding-left: $space-1 * 2;
+    border-bottom: 1px solid palette(gray, light);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .header-btn {
+      width: 30px;
+      height: 30px;
+      background-color: palette(white);
+      box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.1);
+      position: relative;;
+    }
+
+    .header-icon {
+      position: absolute;
+      top: 0; left: 0; bottom: 0; right: 0;
+      margin: auto;
+      height: 10px;
+      fill: palette(gray, dark);
+    }
+  }
+
+  .legend-title {
+    margin: 0;
+    text-transform: uppercase;
+    color: palette(gray, dark);
+    font-size: $font-size-default;
+  }
+
   .legend-content {
     padding: $space-1 * 2;
   }

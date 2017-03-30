@@ -183,7 +183,7 @@ export default class Map extends React.Component {
     return (
       <div className="c-map">
         <div ref={(node) => { this.mapNode = node; }} className="map-leaflet" />
-        <Spinner isLoading={this.state.loading} />
+        <Spinner isLoading={this.state.loading} className="-map" />
       </div>
     );
   }

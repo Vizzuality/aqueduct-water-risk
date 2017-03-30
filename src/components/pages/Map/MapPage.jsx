@@ -9,6 +9,7 @@ import AnalyseLocations from './_AnalyseLocations';
 import ZoomControl from 'components/zoom/ZoomControl';
 import BtnMenu from 'components/ui/BtnMenu';
 import { sqlParamsParse } from 'utils/parsings';
+import Legend from 'components/legend/Legend';
 
 export default class MapPage extends React.Component {
 
@@ -125,6 +126,7 @@ export default class MapPage extends React.Component {
         >
           <button type="button" className="btn-help">?</button>
         </ZoomControl>
+        <Legend layers={this.props.layersActive} />
       </div>
     );
   }

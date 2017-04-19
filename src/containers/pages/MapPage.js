@@ -8,7 +8,6 @@ import { setScope } from 'modules/scope';
 import { setFilters, setActiveLayers, setPonderation } from 'modules/mapView';
 import { setPoints, setSelectedPoints, saveOnGeostore } from 'modules/analyseLocations';
 import { store } from 'main';
-import { toggleModal } from 'aqueduct-components';
 
 const mapStateToProps = state => ({
   scope: state.scope.name,
@@ -19,9 +18,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  toggleModal(opened, opts) {
-    dispatch(toggleModal(opened, opts));
-  },
   setMapParams(params) {
     dispatch(setMapLocation(params));
     dispatch(updateUrl());

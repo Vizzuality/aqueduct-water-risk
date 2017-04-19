@@ -1,6 +1,8 @@
 import React from 'react';
 import { Header } from 'aqueduct-components';
-import Modal from 'components/ui/ModalContainer';
+
+import Modal from 'containers/ui/Modal';
+import { toggleModal, setModalOptions } from 'modules/modal';
 
 export default class App extends React.Component {
 
@@ -15,7 +17,10 @@ export default class App extends React.Component {
         <main role="main" className="l-main l-content">
           {this.props.children}
         </main>
-        <Modal />
+        <Modal
+          toggleModal={toggleModal}
+          setModalOptions={setModalOptions}
+        />
       </div>
     );
   }

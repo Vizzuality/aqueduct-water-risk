@@ -98,7 +98,6 @@ export default class MapPage extends React.Component {
               <AnalyseLocations
                 columns={columns}
                 data={this.props.pointsCategorized}
-                toggleModal={this.props.toggleModal}
                 setSelectedPoints={ids => this.props.setSelectedPoints(ids)}
                 onPointRemove={id => this.props.removePoint(id)}
                 setActiveLayers={this.props.setActiveLayers}
@@ -141,7 +140,6 @@ MapPage.propTypes = {
   layersActive: React.PropTypes.array,
   pointsCategorized: React.PropTypes.array,
   // Actions
-  toggleModal: React.PropTypes.func,
   setMapParams: React.PropTypes.func,
   setScope: React.PropTypes.func,
   updateUrl: React.PropTypes.func,

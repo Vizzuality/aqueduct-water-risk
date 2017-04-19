@@ -4,6 +4,7 @@ import BtnMenu from 'components/ui/BtnMenu';
 import ImportFile from 'components/modal/importFile';
 import { layerOptions } from 'constants/analyseLocations';
 import { Timeline } from 'aqueduct-components';
+import { toggleModal } from 'modules/modal';
 
 export default class AnalyseLocations extends React.Component {
 
@@ -15,7 +16,7 @@ export default class AnalyseLocations extends React.Component {
           {/* TODO: functionallity */}
           <BtnMenu
             className="-theme-white"
-            items={[{ label: 'Click map' }, { label: 'Coordinates' }, { label: 'Import file', cb: () => this.props.toggleModal(true, { children: ImportFile }) }]}
+            items={[{ label: 'Click map' }, { label: 'Coordinates' }, { label: 'Import file', cb: () => toggleModal(true, { children: ImportFile }) }]}
           />
         </div>
 
@@ -61,7 +62,6 @@ AnalyseLocations.propTypes = {
   data: React.PropTypes.array,
   columns: React.PropTypes.array,
   // FUNCTIONS
-  toggleModal: React.PropTypes.func,
   setSelectedPoints: React.PropTypes.func,
   onPointRemove: React.PropTypes.func,
   layersActive: React.PropTypes.array,

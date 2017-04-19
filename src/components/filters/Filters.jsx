@@ -1,12 +1,17 @@
 import React from 'react';
+
+// AQ COMPONENTS
 import {
+  APP_DEFINITIONS,
   Accordion,
   Timeline,
   Icon,
+  InfoModal,
   CustomSelect,
   RadioGroup
 } from 'aqueduct-components';
 
+// CONSTANTS
 import {
   yearOptions,
   timeScaleOptions,
@@ -14,7 +19,20 @@ import {
   projectionOptions
 } from 'constants/filters';
 
+// ACTIONS
+import { toggleModal } from 'modules/modal';
+
 export default class Filters extends React.Component {
+
+  openModal(slug) {
+    toggleModal(true, {
+      children: InfoModal,
+      childrenProps: {
+        info: APP_DEFINITIONS[slug]
+      }
+    });
+  }
+
   render() {
     return (
       <div className="c-filters">
@@ -32,7 +50,11 @@ export default class Filters extends React.Component {
                   <div className="c-filters-item">
                     <div className="filter-item-header">
                       <span className="title">Timeframe</span>
-                      <button type="button" className="icon-container">
+                      <button
+                        type="button"
+                        className="icon-container"
+                        onClick={() => this.openModal('timeframe')}
+                      >
                         <Icon name="icon-question" className="title-icon" />
                       </button>
                     </div>

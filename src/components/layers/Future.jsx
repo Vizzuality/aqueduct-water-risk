@@ -6,17 +6,13 @@ export default function Future(props) {
     <div className="c-future">
       <div className="future-group">
         <span className="future-title">Projected changes in...</span>
-        {props.layers.map((i, index) => {
-          return (
-            <Radio
-              key={index}
-              label={i.name}
-              name="indicator"
-              value={i.id}
-              selected={props.activeLayers[0]}
-              onChange={l => props.onSelectLayer([l])}
-            />);
-        })}
+        <RadioGroup
+          name="indicator"
+          items={props.layers.map(l => ({ label: l.name, value: l.id }))}
+          onChange={selected => props.onSelectLayer(selected.value)}
+          defaultValue={props.activeLayers[0]}
+          className="-secondary"
+        />
       </div>
       <div className="future-group">
         <span className="future-title">Scenario</span>
@@ -26,7 +22,7 @@ export default function Future(props) {
           items={props.scenarioOptions}
           onChange={selected => props.setFilters({ scenario: selected.value })}
           defaultValue={props.scenario}
-          className="-inline"
+          className="-inline -secondary"
         />
       </div>
     </div>

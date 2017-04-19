@@ -1,9 +1,5 @@
-$_separation: $space-1 * 4;
-
 .analyse-locations-header {
   background-color: palette(blue);
-  margin: ($_separation * -1) ($_separation * -1) ($_separation) ($_separation * -1);
-  padding: ($_separation);
   display: flex;
   align-items: center;
 

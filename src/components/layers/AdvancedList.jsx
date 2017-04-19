@@ -31,6 +31,7 @@ export default function AdvancedList(props) {
                     name="layer"
                     value={l.id}
                     selected={props.activeLayers[0]}
+                    className="-secondary"
                   />
                 </span>
                 }

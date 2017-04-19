@@ -10,7 +10,7 @@ export default class AnalyseLocations extends React.Component {
   render() {
     return (
       <div>
-        <div className="analyse-locations-header">
+        <div className="l-container analyse-locations-header">
           <span className="label">Add location</span>
           {/* TODO: functionallity */}
           <BtnMenu
@@ -18,33 +18,39 @@ export default class AnalyseLocations extends React.Component {
             items={[{ label: 'Click map' }, { label: 'Coordinates' }, { label: 'Import file', cb: () => this.props.toggleModal(true, { children: ImportFile }) }]}
           />
         </div>
-        <Timeline
-          className="-sand"
-          items={layerOptions}
-          selected={layerOptions.find(l => l.value === this.props.layersActive[0])}
-          onChange={selected => this.props.setActiveLayers([selected.value])}
-        />
-        <CustomTable
-          columns={this.props.columns}
-          data={this.props.data}
-          pageSize={20}
-          actions={{
-            showable: false,
-            editable: false,
-            removable: true
-          }}
-          pagination={{
-            enabled: true,
-            pageSize: 20,
-            page: 0
-          }}
-          onToggleSelectedRow={(ids) => {
-            this.props.setSelectedPoints(ids);
-          }}
-          onRowDelete={(id) => {
-            this.props.onPointRemove(id);
-          }}
-        />
+
+        <div className="l-container">
+          <Timeline
+            className="-sand"
+            items={layerOptions}
+            selected={layerOptions.find(l => l.value === this.props.layersActive[0])}
+            onChange={selected => this.props.setActiveLayers([selected.value])}
+          />
+        </div>
+
+        <div className="l-container -top">
+          <CustomTable
+            columns={this.props.columns}
+            data={this.props.data}
+            pageSize={20}
+            actions={{
+              showable: false,
+              editable: false,
+              removable: true
+            }}
+            pagination={{
+              enabled: true,
+              pageSize: 20,
+              page: 0
+            }}
+            onToggleSelectedRow={(ids) => {
+              this.props.setSelectedPoints(ids);
+            }}
+            onRowDelete={(id) => {
+              this.props.onPointRemove(id);
+            }}
+          />
+        </div>
       </div>
     );
   }

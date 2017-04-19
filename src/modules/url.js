@@ -23,7 +23,7 @@ function updateUrl() {
         timeScale,
         geoScale,
         projection,
-        layers: layers.active.join(','),
+        layers: (Array.isArray(layers.active)) ? layers.active.join(',') : layers.active,
         ponderation: ponderation.scheme,
         scope: scope.name,
         geoStore: points.geoStore

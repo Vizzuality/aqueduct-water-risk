@@ -54,12 +54,15 @@
 
 /* MapView content */
 .l-mapview-content {
-  padding: $sidebar-padding;
   flex: 1;
   overflow-y: auto;
 }
 
-// Grid
-.row {
-  margin: 0 -0.9375rem !important;
+.l-container {
+  padding: $sidebar-padding;
+
+  &.-top { padding-top: 0 }
+  &.-bottom { padding-bottom: 0 }
+  &.-left { padding-left: 0 }
+  &.-right { padding-right: 0 }
 }

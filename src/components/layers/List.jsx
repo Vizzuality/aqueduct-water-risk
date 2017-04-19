@@ -18,6 +18,7 @@ export default function List(props) {
                   onChange={i => props.onSelectLayer([i])}
                   name="layer"
                   value={l.id}
+                  className="-secondary"
                   selected={props.activeLayers[0]}
                 />
               <Icon className="item-icon" name="icon-info" />

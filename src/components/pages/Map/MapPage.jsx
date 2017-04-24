@@ -121,12 +121,7 @@ export default class MapPage extends React.Component {
         {/* Map controls */}
         <MapControls
           zoom={this.props.mapState.zoom}
-          onZoomChange={(zoom) => {
-            this.props.setMapParams({
-              ...this.props.mapState,
-              ...{ zoom }
-            });
-          }}
+          onZoomChange={zoom => this.props.setMapParams({ zoom })}
         >
           <button type="button" className="btn-help">?</button>
         </MapControls>

@@ -5,7 +5,8 @@ import Map from 'components/map/Map';
 import { tabOptions } from 'constants/mapView';
 import { layers } from 'constants/layers';
 import MapView from './_MapView';
-import AnalyseLocations from './_AnalyseLocations';
+import AnalyzeLocations from './_AnalyzeLocations';
+import ZoomControl from 'components/zoom/ZoomControl';
 import BtnMenu from 'components/ui/BtnMenu';
 import { sqlParamsParse } from 'utils/parsings';
 import Legend from 'components/legend/Legend';
@@ -93,8 +94,8 @@ export default class MapPage extends React.Component {
                 setPonderation={this.props.setPonderation}
               />
             }
-            { this.props.scope === 'analyseLocations' &&
-              <AnalyseLocations
+            { this.props.scope === 'analyzeLocations' &&
+              <AnalyzeLocations
                 columns={columns}
                 data={this.props.pointsCategorized}
                 setSelectedPoints={ids => this.props.setSelectedPoints(ids)}
@@ -115,7 +116,7 @@ export default class MapPage extends React.Component {
           mapMethods={mapMethods}
           listeners={listeners}
           layers={parsedLayer ? [parsedLayer] : []}
-          markers={this.props.scope === 'analyseLocations' ? this.props.pointsCategorized : []}
+          markers={this.props.scope === 'analyzeLocations' ? this.props.pointsCategorized : []}
           markerIcon={markerIcon}
         />
         {/* Map controls */}

@@ -46,7 +46,7 @@ export default class LayerList extends React.Component {
           <span className="advanced">
             <Checkbox
               className="-reverse"
-              label="Change indicator weightings"
+              label="Change Indicators and Weightings"
               name="advanced"
               value="advanced"
               onChange={val => this.setState({ advanced: val.checked })}

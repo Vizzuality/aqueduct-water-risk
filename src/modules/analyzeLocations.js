@@ -17,7 +17,7 @@ const initialState = {
 };
 
 /* Reducer */
-function analyseLocationsReducer(state = initialState, action) {
+function analyzeLocationsReducer(state = initialState, action) {
   switch (action.type) {
     case SET_POINTS: {
       return {
@@ -102,4 +102,4 @@ function saveOnGeostore(points) {
   };
 }
 
-export { analyseLocationsReducer, setPoints, setSelectedPoints, saveOnGeostore, fetchFromGeostore, setGeostoreId };
+export { analyzeLocationsReducer, setPoints, setSelectedPoints, saveOnGeostore, fetchFromGeostore, setGeostoreId };

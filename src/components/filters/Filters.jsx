@@ -103,7 +103,7 @@ export default class Filters extends React.Component {
                   {/* Space scale */}
                   <div className="c-filters-item">
                     <div className="filter-item-header">
-                      <span className="title">Scale</span>
+                      <span className="title">Geographic Scale</span>
                       <button type="button" className="icon-container">
                         <Icon name="icon-question" className="title-icon" />
                       </button>

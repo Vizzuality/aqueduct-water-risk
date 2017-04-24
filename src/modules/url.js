@@ -3,14 +3,14 @@ import { replace } from 'react-router-redux';
 import { setMapLocation } from 'modules/map';
 import { setFilters, setActiveLayers, setPonderation } from 'modules/mapView';
 import { setScope } from 'modules/scope';
-import { fetchFromGeostore, setGeostoreId } from 'modules/analyseLocations';
+import { fetchFromGeostore, setGeostoreId } from 'modules/analyzeLocations';
 
 function updateUrl() {
   return (storeDispatch, getState) => {
-    const { map, mapView, scope, analyseLocations } = getState();
+    const { map, mapView, scope, analyzeLocations } = getState();
     const { year, scenario, timeScale, geoScale, projection } = mapView.filters;
     const { layers, ponderation } = mapView;
-    const { points } = analyseLocations;
+    const { points } = analyzeLocations;
 
     const locationDescriptor = {
       pathname: '/',

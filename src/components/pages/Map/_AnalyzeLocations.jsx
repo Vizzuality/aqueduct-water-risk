@@ -3,15 +3,15 @@ import { dispatch } from 'main';
 import CustomTable from 'components/ui/Table/Table';
 import BtnMenu from 'components/ui/BtnMenu';
 import ImportFile from 'components/modal/importFile';
-import { layerOptions } from 'constants/analyseLocations';
+import { layerOptions } from 'constants/analyzeLocations';
 import { Timeline, toggleModal } from 'aqueduct-components';
 
-export default class AnalyseLocations extends React.Component {
+export default class AnalyzeLocations extends React.Component {
 
   render() {
     return (
       <div>
-        <div className="l-container analyse-locations-header">
+        <div className="l-container analyze-locations-header">
           <span className="label">Add location</span>
           {/* TODO: functionallity */}
           <BtnMenu
@@ -57,7 +57,7 @@ export default class AnalyseLocations extends React.Component {
   }
 }
 
-AnalyseLocations.propTypes = {
+AnalyzeLocations.propTypes = {
   // STATE
   data: React.PropTypes.array,
   columns: React.PropTypes.array,

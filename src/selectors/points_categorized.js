@@ -1,8 +1,8 @@
 import { createSelector } from 'reselect';
 
 // Get point list and selected point list from state
-const points = state => state.analyseLocations.points.list;
-const selected = state => state.analyseLocations.points.selected;
+const points = state => state.analyzeLocations.points.list;
+const selected = state => state.analyzeLocations.points.selected;
 
 // Create a function to compare the current active datatasets and the current datasetsIds
 function getCategorizedPoints(_points, _selected) {

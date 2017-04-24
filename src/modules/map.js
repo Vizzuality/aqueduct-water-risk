@@ -5,7 +5,7 @@ const SET_MAP_LOCATION = 'SET_MAP_LOCATION';
 const initialState = {
   latLng: {
     lat: 30,
-    lng: -120
+    lng: -15
   },
   zoom: 3
 };

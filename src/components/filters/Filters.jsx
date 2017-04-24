@@ -1,4 +1,5 @@
 import React from 'react';
+import { dispatch } from 'main';
 
 // AQ COMPONENTS
 import {
@@ -8,7 +9,8 @@ import {
   Icon,
   InfoModal,
   CustomSelect,
-  RadioGroup
+  RadioGroup,
+  toggleModal
 } from 'aqueduct-components';
 
 // CONSTANTS
@@ -19,18 +21,15 @@ import {
   projectionOptions
 } from 'constants/filters';
 
-// ACTIONS
-import { toggleModal } from 'modules/modal';
-
 export default class Filters extends React.Component {
 
   openModal(slug) {
-    toggleModal(true, {
+    dispatch(toggleModal(true, {
       children: InfoModal,
       childrenProps: {
         info: APP_DEFINITIONS[slug]
       }
-    });
+    }));
   }
 
   render() {

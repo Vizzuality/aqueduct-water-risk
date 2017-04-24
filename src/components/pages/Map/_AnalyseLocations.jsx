@@ -1,10 +1,10 @@
 import React from 'react';
+import { dispatch } from 'main';
 import CustomTable from 'components/ui/Table/Table';
 import BtnMenu from 'components/ui/BtnMenu';
 import ImportFile from 'components/modal/importFile';
 import { layerOptions } from 'constants/analyseLocations';
-import { Timeline } from 'aqueduct-components';
-import { toggleModal } from 'modules/modal';
+import { Timeline, toggleModal } from 'aqueduct-components';
 
 export default class AnalyseLocations extends React.Component {
 
@@ -16,7 +16,7 @@ export default class AnalyseLocations extends React.Component {
           {/* TODO: functionallity */}
           <BtnMenu
             className="-theme-white"
-            items={[{ label: 'Click map' }, { label: 'Coordinates' }, { label: 'Import file', cb: () => toggleModal(true, { children: ImportFile }) }]}
+            items={[{ label: 'Click map' }, { label: 'Coordinates' }, { label: 'Import file', cb: () => dispatch(toggleModal(true, { children: ImportFile })) }]}
           />
         </div>
 

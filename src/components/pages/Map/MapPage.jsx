@@ -1,6 +1,6 @@
 import L from 'leaflet/dist/leaflet';
 import React from 'react';
-import { Sidebar, SegmentedUi } from 'aqueduct-components';
+import { MapControls, Sidebar, SegmentedUi } from 'aqueduct-components';
 import Map from 'components/map/Map';
 import { tabOptions } from 'constants/mapView';
 import { layers } from 'constants/layers';
@@ -119,12 +119,13 @@ export default class MapPage extends React.Component {
           markers={this.props.scope === 'analyzeLocations' ? this.props.pointsCategorized : []}
           markerIcon={markerIcon}
         />
-        <ZoomControl
+        {/* Map controls */}
+        <MapControls
           zoom={this.props.mapState.zoom}
           onZoomChange={zoom => this.props.setMapParams({ zoom })}
         >
           <button type="button" className="btn-help">?</button>
-        </ZoomControl>
+        </MapControls>
         <Legend layers={this.props.layersActive} config={this.props.mapView} />
       </div>
     );

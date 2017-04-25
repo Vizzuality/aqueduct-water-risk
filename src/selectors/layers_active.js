@@ -1,4 +1,6 @@
 import { createSelector } from 'reselect';
+import startCase from 'lodash/startCase';
+import upperFirst from 'lodash/upperFirst';
 import { weightLayers, indicatorLayers } from 'constants/layerTypes';
 
 // Get the datasets and filters from state
@@ -34,7 +36,11 @@ function getActiveLayers(_datasets, _mapView) {
   // Return default selected dataset's default layer
   const layer = dataset.layer.find(l => l.attributes.default);
 
-  return [{ id: layer.id, ...layer.attributes }];
+  return [{
+    id: layer.id,
+    ...layer.attributes,
+    name: upperFirst(startCase(currentLayer))
+  }];
 }
 
 // Export the selector

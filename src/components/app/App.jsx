@@ -12,7 +12,7 @@ export default class App extends React.Component {
   render() {
     return (
       <div className="l-app">
-        <Header />
+        <Header title="Water Risk Atlas" />
         <main role="main" className="l-main l-content">
           {this.props.children}
         </main>

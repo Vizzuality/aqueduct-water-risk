@@ -88,11 +88,11 @@ const layers = [
 
 const futureLayers = [
   {
-    id: '11111',
+    id: 'water_stress',
     name: 'Water Stress'
   },
   {
-    id: '22222',
+    id: 'seasonal_variability',
     name: 'Seasonal variability'
   },
   {

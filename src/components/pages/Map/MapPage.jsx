@@ -1,6 +1,7 @@
 import L from 'leaflet/dist/leaflet';
 import React from 'react';
-import { MapControls, Sidebar, SegmentedUi } from 'aqueduct-components';
+import { MapControls, Sidebar, SegmentedUi, Legend, SourceModal, toggleModal } from 'aqueduct-components';
+import { dispatch } from 'main';
 import Map from 'components/map/Map';
 import { tabOptions } from 'constants/mapView';
 import { layers } from 'constants/layers';
@@ -9,12 +10,25 @@ import AnalyzeLocations from './_AnalyzeLocations';
 import ZoomControl from 'components/zoom/ZoomControl';
 import BtnMenu from 'components/ui/BtnMenu';
 import { sqlParamsParse } from 'utils/parsings';
-import Legend from 'components/legend/Legend';
 
 export default class MapPage extends React.Component {
 
+  constructor(props) {
+    super(props);
+
+    // BINDINGS
+    this.toggleSourceModal = this.toggleSourceModal.bind(this);
+  }
+
   componentWillMount() {
     this.props.updateUrl();
+  }
+
+  toggleSourceModal(layer) {
+    dispatch(toggleModal(true, {
+      children: SourceModal,
+      childrenProps: layer
+    }));
   }
 
   render() {
@@ -111,6 +125,8 @@ export default class MapPage extends React.Component {
             />
           </div>
         </Sidebar>
+
+        {/* Map */}
         <Map
           mapOptions={mapOptions}
           mapMethods={mapMethods}
@@ -119,6 +135,7 @@ export default class MapPage extends React.Component {
           markers={this.props.scope === 'analyzeLocations' ? this.props.pointsCategorized : []}
           markerIcon={markerIcon}
         />
+
         {/* Map controls */}
         <MapControls
           zoom={this.props.mapState.zoom}
@@ -126,7 +143,15 @@ export default class MapPage extends React.Component {
         >
           <button type="button" className="btn-help">?</button>
         </MapControls>
-        <Legend layers={this.props.layersActive} config={this.props.mapView} />
+
+        {/* Legend */}
+        <Legend
+          className="-map"
+          expanded
+          layers={this.props.layersActive}
+          filters={{}}
+          onToggleInfo={this.toggleSourceModal}
+        />
       </div>
     );
   }

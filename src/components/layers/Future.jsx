@@ -9,7 +9,7 @@ export default function Future(props) {
         <RadioGroup
           name="indicator"
           items={props.layers.map(l => ({ label: l.name, value: l.id }))}
-          onChange={selected => props.onSelectLayer(selected.value)}
+          onChange={selected => props.onSelectLayer([selected.value])}
           defaultValue={props.activeLayers[0]}
           className="-secondary"
         />

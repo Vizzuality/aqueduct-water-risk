@@ -1,0 +1,206 @@
+{
+  "water_stress": {
+    "account": "wri-01",
+    "body": {
+      "layers": [
+        {
+          "type": "cartodb",
+          "options": {
+            "sql": "with r as (SELECT basinid, label, value FROM water_risk_indicators where indicator = '{{indicator}}' and model = '{{scenario}}' and period = '{{period_type}}' and period_value = {{period_value}} and year ={{year}} and type = '{{data_type}}') select s.*, label, value from wri_subcatchements s left join r on s.basinid=r.basinid",
+            "cartocss": "#water_risk_indicators{ polygon-fill:transparent; polygon-opacity: 1; line-color:transparent; line-width: 1; line-opacity: 1;} #water_risk_indicators [ label='5. Extremely high (>80%)'] { polygon-fill:#B10026; line-color:#B10026 } #water_risk_indicators [ label='4. High (40-80%)'] { polygon-fill:  #FC4E2A; line-color:  #FC4E2A } #water_risk_indicators [ label='3. Medium to high (20-40%)'] { polygon-fill: #FD8D3C; line-color: #FD8D3C } #water_risk_indicators [ label='2. Low to medium (10-20%)'] { polygon-fill: #FED976; line-color:  #FED976 } #water_risk_indicators [label='1. Low (<10%)'] { polygon-fill: #FFFFB2; line-color:  #FFFFB2 } #water_risk_indicators [label='Arid & low water use'] { polygon-fill: #eee; line-color:  #eee }",
+            "cartocss_version": "2.3.0"
+          }
+        }
+      ]
+    },
+    "params_config": [],
+    "sql_config": []
+  },
+  "interannual_variability": {
+    "account": "wri-01",
+    "body": {
+      "layers": [
+        {
+          "type": "cartodb",
+          "options": {
+            "sql": "with r as (SELECT basinid, label, value FROM water_risk_indicators where indicator = '{{indicator}}' and model = '{{scenario}}' and period = '{{period_type}}' and period_value = {{period_value}} and year ={{year}} and type = '{{data_type}}') select s.*, label, value from wri_subcatchements s left join r on s.basinid=r.basinid",
+            "cartocss": "#water_risk_indicators{ polygon-fill:transparent; polygon-opacity: 1; line-color:transparent; line-width: 1; line-opacity: 1;} #water_risk_indicators [ label='5. Extremely high (>1.0)'] { polygon-fill:#B10026; line-color:#B10026 } #water_risk_indicators [ label='4. High (0.75-1.0)'] { polygon-fill:  #FC4E2A; line-color:  #FC4E2A } #water_risk_indicators [ label='3. Medium to high (0.5-0.75)'] { polygon-fill: #FD8D3C; line-color: #FD8D3C } #water_risk_indicators [ label='2. Low to medium (0.25-0.5)'] { polygon-fill: #FED976; line-color:  #FED976 } #water_risk_indicators [label='1. Low (<0.25)'] { polygon-fill: #FFFFB2; line-color:  #FFFFB2 } #water_risk_indicators [label='Arid & low water use'] { polygon-fill: #eee; line-color:  #eee }",
+            "cartocss_version": "2.3.0"
+          }
+        }
+      ]
+    },
+    "params_config": [],
+    "sql_config": []
+  },
+  "seasonal_variability": {
+    "account": "wri-01",
+    "body": {
+      "layers": [
+        {
+          "type": "cartodb",
+          "options": {
+            "sql": "with r as (SELECT basinid, label, value FROM water_risk_indicators where indicator = '{{indicator}}' and model = '{{scenario}}' and period = '{{period_type}}' and period_value = {{period_value}} and year ={{year}} and type = '{{data_type}}') select s.*, label, value from wri_subcatchements s left join r on s.basinid=r.basinid",
+            "cartocss": "#water_risk_indicators{ polygon-fill:transparent; polygon-opacity: 1; line-color:transparent; line-width: 1; line-opacity: 1;} #water_risk_indicators [ label='5. Extremely high (>1.33)'] { polygon-fill:#B10026; line-color:#B10026 } #water_risk_indicators [ label='4. High (1.0-1.33)'] { polygon-fill:  #FC4E2A; line-color:  #FC4E2A } #water_risk_indicators [ label='3. Medium to high (0.66-1.0)'] { polygon-fill: #FD8D3C; line-color: #FD8D3C } #water_risk_indicators [ label='2. Low to medium (0.33-0.66)'] { polygon-fill: #FED976; line-color:  #FED976 } #water_risk_indicators [label='1. Low (<0.33)'] { polygon-fill: #FFFFB2; line-color:  #FFFFB2 } #water_risk_indicators [label='Arid & low water use'] { polygon-fill: #eee; line-color:  #eee }",
+            "cartocss_version": "2.3.0"
+          }
+        }
+      ]
+    },
+    "params_config": [],
+    "sql_config": []
+  },
+  "flood_occurrence": {
+    "account": "wri-01",
+    "body": {
+      "layers": [
+        {
+          "type": "cartodb",
+          "options": {
+            "sql": "with r as (SELECT basinid, label, value FROM water_risk_indicators where indicator = '{{indicator}}' and model = '{{scenario}}' and period = '{{period_type}}' and period_value = {{period_value}} and year ={{year}} and type = '{{data_type}}') select s.*, label, value from wri_subcatchements s left join r on s.basinid=r.basinid",
+            "cartocss": "#water_risk_indicators{ polygon-fill:transparent; polygon-opacity: 1; line-color:transparent; line-width: 1; line-opacity: 1;} #water_risk_indicators [ label='5. Extremely high (>27)'] { polygon-fill:#B10026; line-color:#B10026 } #water_risk_indicators [ label='4. High (10-27)'] { polygon-fill:  #FC4E2A; line-color:  #FC4E2A } #water_risk_indicators [ label='3. Medium to high (4-9)'] { polygon-fill: #FD8D3C; line-color: #FD8D3C } #water_risk_indicators [ label='2. Low to medium (2-3)'] { polygon-fill: #FED976; line-color:  #FED976 } #water_risk_indicators [label='1. Low (0-1)'] { polygon-fill: #FFFFB2; line-color:  #FFFFB2 } #water_risk_indicators [label='Arid & low water use'] { polygon-fill: #eee; line-color:  #eee }",
+            "cartocss_version": "2.3.0"
+          }
+        }
+      ]
+    },
+    "params_config": [],
+    "sql_config": []
+  },
+  "drought_severity": {
+    "account": "wri-01",
+    "body": {
+      "layers": [
+        {
+          "type": "cartodb",
+          "options": {
+            "sql": "with r as (SELECT basinid, label, value FROM water_risk_indicators where indicator = '{{indicator}}' and model = '{{scenario}}' and period = '{{period_type}}' and period_value = {{period_value}} and year ={{year}} and type = '{{data_type}}') select s.*, label, value from wri_subcatchements s left join r on s.basinid=r.basinid",
+            "cartocss": "#water_risk_indicators{ polygon-fill:transparent; polygon-opacity: 1; line-color:transparent; line-width: 1; line-opacity: 1;} #water_risk_indicators [ label='5. Extremely high (>50)'] { polygon-fill:#B10026; line-color:#B10026 } #water_risk_indicators [ label='4. High (40-50)'] { polygon-fill:  #FC4E2A; line-color:  #FC4E2A } #water_risk_indicators [ label='3. Medium to high (30-40)'] { polygon-fill: #FD8D3C; line-color: #FD8D3C } #water_risk_indicators [ label='2. Low to medium (20-30)'] { polygon-fill: #FED976; line-color:  #FED976 } #water_risk_indicators [label='1. Low (<20)'] { polygon-fill: #FFFFB2; line-color:  #FFFFB2 } #water_risk_indicators [label='Arid & low water use'] { polygon-fill: #eee; line-color:  #eee }",
+            "cartocss_version": "2.3.0"
+          }
+        }
+      ]
+    },
+    "params_config": [],
+    "sql_config": []
+  },
+  "upstream_storage": {
+    "account": "wri-01",
+    "body": {
+      "layers": [
+        {
+          "type": "cartodb",
+          "options": {
+            "sql": "with r as (SELECT basinid, label, value FROM water_risk_indicators where indicator = '{{indicator}}' and model = '{{scenario}}' and period = '{{period_type}}' and period_value = {{period_value}} and year ={{year}} and type = '{{data_type}}') select s.*, label, value from wri_subcatchements s left join r on s.basinid=r.basinid",
+            "cartocss": "#water_risk_indicators{ polygon-fill:transparent; polygon-opacity: 1; line-color:transparent; line-width: 1; line-opacity: 1;} #water_risk_indicators [ label='5. Extremely low (<0.12)'] { polygon-fill:#B10026; line-color:#B10026 } #water_risk_indicators [ label='4. High (40-50)'] { polygon-fill:  #FC4E2A; line-color:  #FC4E2A } #water_risk_indicators [ label='3. Medium to low (0.5-0.25)'] { polygon-fill: #FD8D3C; line-color: #FD8D3C } #water_risk_indicators [ label='2. High to medium (1-0.5)'] { polygon-fill: #FED976; line-color:  #FED976 } #water_risk_indicators [label='1. Low (<20)'] { polygon-fill: #FFFFB2; line-color:  #FFFFB2 } #water_risk_indicators [label='No major reservoirs'] { polygon-fill: #eee; line-color:  #eee }",
+            "cartocss_version": "2.3.0"
+          }
+        }
+      ]
+    },
+    "params_config": [],
+    "sql_config": []
+  },
+  "groundwater_stress": {
+    "account": "wri-01",
+    "body": {
+      "layers": [
+        {
+          "type": "cartodb",
+          "options": {
+            "sql": "with r as (SELECT basinid, label, value FROM water_risk_indicators where indicator = '{{indicator}}' and model = '{{scenario}}' and period = '{{period_type}}' and period_value = {{period_value}} and year ={{year}} and type = '{{data_type}}') select s.*, label, value from wri_subcatchements s left join r on s.basinid=r.basinid",
+            "cartocss": "#water_risk_indicators{ polygon-fill:transparent; polygon-opacity: 1; line-color:transparent; line-width: 1; line-opacity: 1;} #water_risk_indicators [ label='5. Extremely low (<0.12)'] { polygon-fill:#B10026; line-color:#B10026 } #water_risk_indicators [ label='4. High (40-50)'] { polygon-fill:  #FC4E2A; line-color:  #FC4E2A } #water_risk_indicators [ label='3. Medium to low (0.5-0.25)'] { polygon-fill: #FD8D3C; line-color: #FD8D3C } #water_risk_indicators [ label='2. High to medium (1-0.5)'] { polygon-fill: #FED976; line-color:  #FED976 } #water_risk_indicators [label='1. Low (<20)'] { polygon-fill: #FFFFB2; line-color:  #FFFFB2 } #water_risk_indicators [label='No major reservoirs'] { polygon-fill: #eee; line-color:  #eee }",
+            "cartocss_version": "2.3.0"
+          }
+        }
+      ]
+    },
+    "params_config": [],
+    "sql_config": []
+  },
+  "return_flow_ratio": {
+    "account": "wri-01",
+    "body": {
+      "layers": [
+        {
+          "type": "cartodb",
+          "options": {
+            "sql": "with r as (SELECT basinid, label, value FROM water_risk_indicators where indicator = '{{indicator}}' and model = '{{scenario}}' and period = '{{period_type}}' and period_value = {{period_value}} and year ={{year}} and type = '{{data_type}}') select s.*, label, value from wri_subcatchements s left join r on s.basinid=r.basinid",
+            "cartocss": "#water_risk_indicators{ polygon-fill:transparent; polygon-opacity: 1; line-color:transparent; line-width: 1; line-opacity: 1;} #water_risk_indicators [ label='5. Extremely high (>80%)'] { polygon-fill:#B10026; line-color:#B10026 } #water_risk_indicators [ label='4. High (40-80%)'] { polygon-fill:  #FC4E2A; line-color:  #FC4E2A } #water_risk_indicators [ label='3. Medium to high (20-40%)'] { polygon-fill: #FD8D3C; line-color: #FD8D3C } #water_risk_indicators [ label='2. Low to medium (10-20%)'] { polygon-fill: #FED976; line-color:  #FED976 } #water_risk_indicators [label='1. Low (<10%)'] { polygon-fill: #FFFFB2; line-color:  #FFFFB2 } #water_risk_indicators [label='Arid & low water use'] { polygon-fill: #eee; line-color:  #eee }",
+            "cartocss_version": "2.3.0"
+          }
+        }
+      ]
+    },
+    "params_config": [],
+    "sql_config": []
+  },
+  "upstream_protected_land": {
+    "account": "wri-01",
+    "body": {
+      "layers": [
+        {
+          "type": "cartodb",
+          "options": {
+            "sql": "with r as (SELECT basinid, label, value FROM water_risk_indicators where indicator = '{{indicator}}' and model = '{{scenario}}' and period = '{{period_type}}' and period_value = {{period_value}} and year ={{year}} and type = '{{data_type}}') select s.*, label, value from wri_subcatchements s left join r on s.basinid=r.basinid",
+            "cartocss": "#water_risk_indicators{ polygon-fill:transparent; polygon-opacity: 1; line-color:transparent; line-width: 1; line-opacity: 1;} #water_risk_indicators [ label='5. Extremely low (<5%)'] { polygon-fill:#B10026; line-color:#B10026 } #water_risk_indicators [ label='4. Low (5-10%)'] { polygon-fill:  #FC4E2A; line-color:  #FC4E2A } #water_risk_indicators [ label='3. Medium to low (20-10%)'] { polygon-fill: #FD8D3C; line-color: #FD8D3C } #water_risk_indicators [ label='2. High to medium (20-40%)'] { polygon-fill: #FED976; line-color:  #FED976 } #water_risk_indicators [label='1. High (>40%)'] { polygon-fill: #FFFFB2; line-color:  #FFFFB2 } #water_risk_indicators [label='No major reservoirs'] { polygon-fill: #eee; line-color:  #eee }",
+            "cartocss_version": "2.3.0"
+          }
+        }
+      ]
+    },
+    "params_config": [],
+    "sql_config": []
+  },
+  "media_coverage": {
+    "account": "wri-01",
+    "body": {
+      "layers": [
+        {
+          "type": "cartodb",
+          "options": {
+            "sql": "with r as (SELECT basinid, label, value FROM water_risk_indicators where indicator = '{{indicator}}' and model = '{{scenario}}' and period = '{{period_type}}' and period_value = {{period_value}} and year ={{year}} and type = '{{data_type}}') select s.*, label, value from wri_subcatchements s left join r on s.basinid=r.basinid",
+            "cartocss": "#water_risk_indicators{ polygon-fill:transparent; polygon-opacity: 1; line-color:transparent; line-width: 1; line-opacity: 1;} #water_risk_indicators [ label='5. Extremely high (0.4-0.8%)'] { polygon-fill:#B10026; line-color:#B10026 } #water_risk_indicators [ label='4. High (0.2-0.4%)'] { polygon-fill:  #FC4E2A; line-color:  #FC4E2A } #water_risk_indicators [ label='3. Medium to high (0.1-0.2%)'] { polygon-fill: #FD8D3C; line-color: #FD8D3C } #water_risk_indicators [ label='2. Low to medium (0.05-0.1%)'] { polygon-fill: #FED976; line-color:  #FED976 } #water_risk_indicators [label='1. Low (<0.05%)'] { polygon-fill: #FFFFB2; line-color:  #FFFFB2 } #water_risk_indicators [label='No data'] { polygon-fill: #eee; line-color:  #eee }",
+            "cartocss_version": "2.3.0"
+          }
+        }
+      ]
+    },
+    "params_config": [],
+    "sql_config": []
+  },
+  "access_to_water": {
+    "account": "wri-01",
+    "body": {
+      "layers": [
+        {
+          "type": "cartodb",
+          "options": {
+            "sql": "with r as (SELECT basinid, label, value FROM water_risk_indicators where indicator = '{{indicator}}' and model = '{{scenario}}' and period = '{{period_type}}' and period_value = {{period_value}} and year ={{year}} and type = '{{data_type}}') select s.*, label, value from wri_subcatchements s left join r on s.basinid=r.basinid",
+            "cartocss": "#water_risk_indicators{ polygon-fill:transparent; polygon-opacity: 1; line-color:transparent; line-width: 1; line-opacity: 1;} #water_risk_indicators [ label='5. Extremely high (>20%)'] { polygon-fill:#B10026; line-color:#B10026 } #water_risk_indicators [ label='4. High (10-20%)'] { polygon-fill:  #FC4E2A; line-color:  #FC4E2A } #water_risk_indicators [ label='3. Medium to high (5-10%)'] { polygon-fill: #FD8D3C; line-color: #FD8D3C } #water_risk_indicators [ label='2. Low to medium (2-5%)'] { polygon-fill: #FED976; line-color:  #FED976 } #water_risk_indicators [label='1. Low (<2%)'] { polygon-fill: #FFFFB2; line-color:  #FFFFB2 } #water_risk_indicators [label='No data'] { polygon-fill: #eee; line-color:  #eee }",
+            "cartocss_version": "2.3.0"
+          }
+        }
+      ]
+    },
+    "params_config": [],
+    "sql_config": []
+  },
+  "threatened_amphibians": {
+    "account": "wri-01",
+    "body": {
+      "layers": [
+        {
+          "type": "cartodb",
+          "options": {
+            "sql": "with r as (SELECT basinid, label, value FROM water_risk_indicators where indicator = '{{indicator}}' and model = '{{scenario}}' and period = '{{period_type}}' and period_value = {{period_value}} and year ={{year}} and type = '{{data_type}}') select s.*, label, value from wri_subcatchements s left join r on s.basinid=r.basinid",
+            "cartocss": "#water_risk_indicators{ polygon-fill:transparent; polygon-opacity: 1; line-color:transparent; line-width: 1; line-opacity: 1;} #water_risk_indicators [ label='5. Extremely high (>35%)'] { polygon-fill:#B10026; line-color:#B10026 } #water_risk_indicators [ label='4. High (15-35%)'] { polygon-fill:  #FC4E2A; line-color:  #FC4E2A } #water_risk_indicators [ label='3. Medium to high (5-15%)'] { polygon-fill: #FD8D3C; line-color: #FD8D3C } #water_risk_indicators [ label='2. Low to medium (1-5%)'] { polygon-fill: #FED976; line-color:  #FED976 } #water_risk_indicators [label='1. Low (0%)'] { polygon-fill: #FFFFB2; line-color:  #FFFFB2 } #water_risk_indicators [label='Fewer than two species'] { polygon-fill: #eee; line-color:  #eee }",
+            "cartocss_version": "2.3.0"
+          }
+        }
+      ]
+    },
+    "params_config": [],
+    "sql_config": []
+  }
+}

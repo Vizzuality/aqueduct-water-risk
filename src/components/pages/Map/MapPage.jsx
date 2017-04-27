@@ -1,13 +1,12 @@
 import L from 'leaflet/dist/leaflet';
 import React from 'react';
-import { MapControls, Sidebar, SegmentedUi, Legend, SourceModal, toggleModal } from 'aqueduct-components';
+import { MapControls, Sidebar, SegmentedUi, Legend, SourceModal, ZoomControl, toggleModal } from 'aqueduct-components';
 import { dispatch } from 'main';
 import Map from 'components/map/Map';
 import { tabOptions } from 'constants/mapView';
 import { layers } from 'constants/layers';
 import MapView from './_MapView';
 import AnalyzeLocations from './_AnalyzeLocations';
-import ZoomControl from 'components/zoom/ZoomControl';
 import BtnMenu from 'components/ui/BtnMenu';
 import { sqlParamsParse } from 'utils/parsings';
 
@@ -137,11 +136,11 @@ export default class MapPage extends React.Component {
         />
 
         {/* Map controls */}
-        <MapControls
-          zoom={this.props.mapState.zoom}
-          onZoomChange={zoom => this.props.setMapParams({ zoom })}
-        >
-          <button type="button" className="btn-help">?</button>
+        <MapControls>
+          <ZoomControl
+            zoom={this.props.mapState.zoom}
+            onZoomChange={zoom => this.props.setMapParams({ zoom })}
+          />
         </MapControls>
 
         {/* Legend */}

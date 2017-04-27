@@ -103,7 +103,7 @@ if (process.env.NODE_ENV === 'production') {
     comments: false
   }));
 } else {
-  config.devtool = 'source-map';
+  config.devtool = 'eval-source-map';
 }
 
 module.exports = config;

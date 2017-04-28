@@ -1,13 +1,23 @@
 import L from 'leaflet/dist/leaflet';
 import React from 'react';
-import { MapControls, Sidebar, SegmentedUi, Legend, SourceModal, ZoomControl, toggleModal } from 'aqueduct-components';
+import {
+  MapControls,
+  Sidebar,
+  SegmentedUi,
+  ShareButton,
+  Legend,
+  SourceModal,
+  ZoomControl,
+  toggleModal
+} from 'aqueduct-components';
+
 import { dispatch } from 'main';
+import ShareModal from 'containers/modal/ShareModal';
 import Map from 'components/map/Map';
-import { tabOptions } from 'constants/mapView';
+import MapView from 'components/pages/Map/_MapView';
+import AnalyzeLocations from 'components/pages/Map/_AnalyzeLocations';
+import { SCOPE_OPTIONS } from 'constants/mapView';
 import { layers } from 'constants/layers';
-import MapView from './_MapView';
-import AnalyzeLocations from './_AnalyzeLocations';
-import BtnMenu from 'components/ui/BtnMenu';
 import { sqlParamsParse } from 'utils/parsings';
 
 export default class MapPage extends React.Component {
@@ -16,11 +26,19 @@ export default class MapPage extends React.Component {
     super(props);
 
     // BINDINGS
+    this.toggleShareModal = this.toggleShareModal.bind(this);
     this.toggleSourceModal = this.toggleSourceModal.bind(this);
   }
 
   componentWillMount() {
     this.props.updateUrl();
+  }
+
+  // MODAL EVENTS
+  toggleShareModal() {
+    dispatch(toggleModal(true, {
+      children: ShareModal
+    }));
   }
 
   toggleSourceModal(layer) {
@@ -93,7 +111,7 @@ export default class MapPage extends React.Component {
         <Sidebar setSidebarWidth={() => {}}>
           <SegmentedUi
             className="-tabs"
-            items={tabOptions}
+            items={SCOPE_OPTIONS}
             selected={this.props.scope}
             onChange={selected => this.props.setScope(selected.value)}
           />
@@ -117,11 +135,6 @@ export default class MapPage extends React.Component {
                 layersActive={this.props.mapView.layers.active}
               />
             }
-            {/* TODO: functionallity */}
-            <BtnMenu
-              className="mapview-actions-menu -stacked -theme-sand"
-              items={[{ label: 'Methodology' }, { label: 'Print / Share' }, { label: 'Download data' }]}
-            />
           </div>
         </Sidebar>
 
@@ -140,6 +153,10 @@ export default class MapPage extends React.Component {
           <ZoomControl
             zoom={this.props.mapState.zoom}
             onZoomChange={zoom => this.props.setMapParams({ zoom })}
+          />
+          {/* Share button */}
+          <ShareButton
+            onClick={this.toggleShareModal}
           />
         </MapControls>
 

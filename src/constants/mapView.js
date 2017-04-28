@@ -1,6 +1,6 @@
-const tabOptions = [
+const SCOPE_OPTIONS = [
   { label: 'map view', value: 'mapView' },
   { label: 'analyze locations', value: 'analyzeLocations' }
 ];
 
-export { tabOptions };
+export { SCOPE_OPTIONS };

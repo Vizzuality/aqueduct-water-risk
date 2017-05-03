@@ -2,11 +2,7 @@
 /* eslint import/extensions: 0 */
 
 import L from 'leaflet/dist/leaflet';
-import esri from 'esri-leaflet';
 import { get } from 'utils/request';
-
-// adding support for esri
-L.esri = esri;
 
 export default class LayerManager {
 

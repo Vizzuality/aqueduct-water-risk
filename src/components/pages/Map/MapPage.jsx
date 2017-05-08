@@ -120,8 +120,10 @@ export default class MapPage extends React.Component {
               <MapView
                 mapView={this.props.mapView}
                 layers={layers}
+                scope={this.props.scope}
                 onSelectLayer={this.props.setActiveLayers}
                 setFilters={this.props.setFilters}
+                setScope={this.props.setScope}
                 setPonderation={this.props.setPonderation}
               />
             }

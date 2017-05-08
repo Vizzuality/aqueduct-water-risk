@@ -50,7 +50,7 @@ export default class MapView extends React.Component {
         </div>
         {/* Sticky Filters */}
         <Sticky
-          className="-filter"
+          className="-full-width"
           topLimit={this.state.stickyFilterTopPosition}
           onStick={(isSticky) => { this.onSticky(isSticky); }}
           ScrollElem=".l-mapview-content"

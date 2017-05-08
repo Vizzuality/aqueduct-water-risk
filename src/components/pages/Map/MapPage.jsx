@@ -131,9 +131,11 @@ export default class MapPage extends React.Component {
               <AnalyzeLocations
                 columns={columns}
                 data={this.props.pointsCategorized}
+                scope={this.props.scope}
                 setSelectedPoints={ids => this.props.setSelectedPoints(ids)}
                 onPointRemove={id => this.props.removePoint(id)}
                 setActiveLayers={this.props.setActiveLayers}
+                setScope={this.props.setScope}
                 layersActive={this.props.mapView.layers.active}
               />
             }

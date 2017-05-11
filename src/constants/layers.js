@@ -1,12 +1,12 @@
 const layers = [
   {
     id: 'overall_water_risk',
-    name: 'Overall water risk',
+    name: 'Overall Water Risk',
     overall: true,
     children: [
       {
         id: 'physical_risk_quantity',
-        name: 'Physical risk quantity',
+        name: 'Physical Risk: QUANTITY',
         children: [
           {
             id: 'water_stress',
@@ -15,39 +15,39 @@ const layers = [
           },
           {
             id: 'interannual_variability',
-            name: 'Interannual Variability',
+            name: 'Interannual variability',
             ponderation: true
           },
           {
             id: 'seasonal_variability',
-            name: 'Seasonal Variability',
+            name: 'Seasonal variability',
             ponderation: true
           },
           {
             id: 'flood_occurrence',
-            name: 'Flood Occurrence',
+            name: 'Flood occurrence',
             ponderation: true
           },
           {
             id: 'drought_severity',
-            name: 'Drought Severity',
+            name: 'Drought severity',
+            ponderation: true
+          },
+          {
+            id: 'groundwater_stress',
+            name: 'Groundwater stress',
             ponderation: true
           },
           {
             id: 'upstream_storage',
             name: 'Upstream Storage',
             ponderation: true
-          },
-          {
-            id: 'groundwater_stress',
-            name: 'Groundwater Stress',
-            ponderation: true
           }
         ]
       },
       {
         id: 'physical_risk_quality',
-        name: 'Physical risk quality',
+        name: 'Physical Risk: QUALITY',
         children: [
           {
             id: 'return_flow_ratio',
@@ -63,7 +63,7 @@ const layers = [
       },
       {
         id: 'regulatory_and_reputational_risk',
-        name: 'Regulatory and reputational risk',
+        name: 'Regulatory & Reputational Risk',
         children: [
           {
             id: 'media_coverage',

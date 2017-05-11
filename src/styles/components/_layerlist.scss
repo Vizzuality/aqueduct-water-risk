@@ -41,7 +41,7 @@ $separation: $space-1 * 2;
   }
 
   .title {
-    display: block;
+    display: flex;
     margin-bottom: $separation;
 
     &.-upper {
@@ -81,9 +81,10 @@ $separation: $space-1 * 2;
     float: right;
     border: 1px solid palette(gray);
     border-radius: 50%;
-    width: 22px;
-    height: 22px;
+    width: 18px;
+    height: 18px;
     padding: 3px;
+    margin: 0 0 0 10px;
   }
 }
 

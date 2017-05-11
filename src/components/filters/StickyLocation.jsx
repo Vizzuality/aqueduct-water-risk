@@ -4,7 +4,7 @@ import { SegmentedUi, toggleModal } from 'aqueduct-components';
 import { SCOPE_OPTIONS } from 'constants/mapView';
 
 import BtnMenu from 'components/ui/BtnMenu';
-import ImportFile from 'components/modal/importFile';
+import ImportFileModal from 'components/modal/ImportFileModal';
 
 class StickyLocation extends React.Component {
 
@@ -30,7 +30,7 @@ class StickyLocation extends React.Component {
           {/* TODO: functionallity */}
           <BtnMenu
             className="-theme-white"
-            items={[{ label: 'Click map' }, { label: 'Coordinates' }, { label: 'Import file', cb: () => dispatch(toggleModal(true, { children: ImportFile })) }]}
+            items={[{ label: 'Click map' }, { label: 'Coordinates' }, { label: 'Import file', cb: () => dispatch(toggleModal(true, { children: ImportFileModal })) }]}
           />
         </div>
       </div>

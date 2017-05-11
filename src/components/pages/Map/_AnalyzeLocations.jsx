@@ -2,7 +2,7 @@ import React from 'react';
 import { dispatch } from 'main';
 import CustomTable from 'components/ui/Table/Table';
 import BtnMenu from 'components/ui/BtnMenu';
-import ImportFile from 'components/modal/importFile';
+import ImportFileModal from 'components/modal/ImportFileModal';
 import { layerOptions } from 'constants/analyzeLocations';
 import { Sticky, Timeline, toggleModal } from 'aqueduct-components';
 import StickyLocation from 'components/filters/StickyLocation';
@@ -50,7 +50,7 @@ export default class AnalyzeLocations extends React.Component {
           {/* TODO: functionallity */}
           <BtnMenu
             className="-theme-white"
-            items={[{ label: 'Click map' }, { label: 'Coordinates' }, { label: 'Import file', cb: () => dispatch(toggleModal(true, { children: ImportFile })) }]}
+            items={[{ label: 'Click map' }, { label: 'Coordinates' }, { label: 'Import file', cb: () => dispatch(toggleModal(true, { children: ImportFileModal })) }]}
           />
           {/* Sticky location */}
           <Sticky

@@ -1,4 +1,5 @@
 import React from 'react';
+import classnames from 'classnames';
 import { Checkbox, Timeline } from 'aqueduct-components';
 import { points } from 'constants/points';
 
@@ -15,8 +16,12 @@ export default function AdvancedListCustom(props) {
     return (
       <ul className="layerlist-list -advanced">
         {layers.map((l, index) => {
+          const cNames = classnames('layerlist-item', {
+            '-disabled': l.disabled
+          });
+
           return (
-            <li className="layerlist-item" key={index}>
+            <li className={cNames} key={index}>
               {l.ponderation ?
                 <span>
                   <Checkbox
@@ -24,8 +29,9 @@ export default function AdvancedListCustom(props) {
                     label={l.name}
                     name={l.id}
                     value={l.id}
+                    disabled={l.disabled}
                     onChange={item => setCustomValue(item.checked ? 1 : null, item.value)}
-                    defaultChecked={props.customPonderation[l.id] !== null && !l.optional}
+                    defaultChecked={props.customPonderation[l.id] !== null && !l.optional && !l.disabled}
                   />
                   <Timeline
                     className="-rate -fixed"

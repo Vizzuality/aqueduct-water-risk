@@ -34,6 +34,10 @@ $separation: $space-1 * 2;
 
   .-advanced > & {
     margin-bottom: $space-1 * 4;
+
+    &.-disabled {
+      opacity: 0.5;
+    }
   }
 
   .custom {
@@ -85,6 +89,13 @@ $separation: $space-1 * 2;
     height: 18px;
     padding: 3px;
     margin: 0 0 0 10px;
+    cursor: pointer;
+
+    &:hover {
+      fill: palette(white);
+      background: palette(blue);
+      border-color: palette(blue);
+    }
   }
 }
 

@@ -25,11 +25,12 @@ export default function AdvancedListCustom(props) {
                     name={l.id}
                     value={l.id}
                     onChange={item => setCustomValue(item.checked ? 1 : null, item.value)}
-                    checked={props.customPonderation[l.id] !== null}
+                    defaultChecked={props.customPonderation[l.id] !== null && !l.optional}
                   />
                   <Timeline
                     className="-rate -fixed"
                     items={points}
+                    disabled={!props.customPonderation[l.id]}
                     selected={{ value: props.customPonderation[l.id] }}
                     onChange={i => setCustomValue(i.value, l.id)}
                   />

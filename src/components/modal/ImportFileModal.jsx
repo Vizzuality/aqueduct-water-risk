@@ -2,7 +2,7 @@ import React from 'react';
 import Dropzone from 'react-dropzone';
 import { Spinner, post, toggleModal } from 'aqueduct-components';
 import { dispatch } from 'main';
-import { setPoints } from 'modules/analyzeLocations';
+import { setPoints, saveOnGeostore } from 'modules/analyzeLocations';
 
 export default class ImportFileModal extends React.Component {
 
@@ -14,7 +14,7 @@ export default class ImportFileModal extends React.Component {
       rejected: [],
       dropzoneActive: false,
       loading: false,
-      error: null
+      errors: []
     };
 
     this.triggerOpenDialog = this.triggerOpenDialog.bind(this);
@@ -74,7 +74,7 @@ export default class ImportFileModal extends React.Component {
     const formData = new FormData();
     formData.append('file', file);
 
-    this.setState({ loading: true, error: null });
+    this.setState({ loading: true, errors: [] });
 
     post({
       type: 'POST',
@@ -82,12 +82,52 @@ export default class ImportFileModal extends React.Component {
       body: formData,
       multipart: true,
       onSuccess: (response) => {
-        this.setState({ loading: false });
-        // dispatch(setPoints(response.data.attributes.features, {}));
-        dispatch(toggleModal(false, {}));
+        // Be sure that user upload points
+        const features = response.data.attributes.features;
+
+        // Check that features exists and they have some elements inside
+        if (features && Array.isArray(features) && features.length) {
+          // Check that every geometry exists and it's a point
+          const allPoints = features.every(p =>
+            p.geometry && p.geometry.type === 'Point'
+          );
+
+          if (allPoints) {
+            this.setState({ loading: false });
+
+            // Be careful, lat & lng are reversed
+            const points = features.map(p => (
+              { lat: p.geometry.coordinates[1], lng: p.geometry.coordinates[0] }
+            ));
+
+            dispatch(setPoints(points));
+            dispatch(saveOnGeostore(points));
+            dispatch(toggleModal(false, {}));
+          } else {
+            this.setState({
+              errors: [{
+                detail: 'Only points are allowed to be analyzed. Please check your file to be sure that you didn\'t add lines, polygons or null geometries.'
+              }],
+              loading: false
+            });
+          }
+        } else {
+          this.setState({
+            errors: [{
+              detail: 'Only points are allowed to be analyzed. Please check your file to be sure that you didn\'t add lines, polygons or null geometries.'
+            }],
+            loading: false
+          });
+        }
       },
       onError: (err) => {
-        this.setState({ error: err, loading: false });
+        console.error(err);
+        this.setState({
+          errors: [{
+            detail: 'File corrupt or incorrect file. Please check the list of supported file formats above. You can also download the different templates by clicking on them.'
+          }],
+          loading: false
+        });
       }
     });
   }
@@ -101,7 +141,7 @@ export default class ImportFileModal extends React.Component {
   }
 
   render() {
-    const { dropzoneActive, loading } = this.state;
+    const { dropzoneActive, loading, errors } = this.state;
     return (
       <div className="c-import-modal">
         <Spinner isLoading={loading} />
@@ -129,26 +169,38 @@ export default class ImportFileModal extends React.Component {
             {/* <p>Drop a file in the designated area to analyze or subscribe to it. The recommended maximum file size is 1MB. Anything larger than that may not work properly.</p>
             <p>NOTE: Only point data is supported, not polygon and line data. Please ensure that your file only contains point data.</p> */}
 
-            <p>List of supported file formats:</p>
+            <p>List of supported file formats <i>(click on any format to download the template)</i>:</p>
             <ul>
-              <li>Unzipped: .csv, .json, .geojson, .kml, .kmz (.csv files must contain a geom column that contains geographic information)</li>
-              <li>Zipped: .shp (zipped shapefiles must include .shp, .shx, .dbf, and .prj files)</li>
+              <li>Unzipped: <a download="template.csv" href="/files/points/template.csv">.csv</a>, <a download="template.geojson" href="/files/points/template.geojson">.geojson</a>, <a download="template.kml" href="/files/points/template.kml">.kml</a>, <a download="template.kmz" href="/files/points/template.kmz">.kmz</a>, <a download="template.wkt" href="/files/points/template.wkt">.wkt</a> <i>(.csv files must contain a geom column that contains geographic information)</i></li>
+              <li>Zipped: <a download="template.zip" href="/files/points/template.zip">.shp</a> <i>(zipped shapefiles must include .shp, .shx, .dbf, and .prj files)</i></li>
             </ul>
           </header>
 
           <div className="dropzone-file">
-            <div
-              className="dropzone-file-name"
-              // onClick={this.triggerOpenDialog} TODO: Yes or no?
-            >
-              {this.getFileName()}
+            <div className="dropzone-file-input">
+              <div
+                className="dropzone-file-name"
+                onClick={this.triggerOpenDialog} // TODO: Yes or no?
+              >
+                {this.getFileName()}
+              </div>
+              <button
+                className="c-btn -primary -light"
+                onClick={this.triggerOpenDialog}
+              >
+                Select file
+              </button>
             </div>
-            <button
-              className="c-btn -primary -light"
-              onClick={this.triggerOpenDialog}
-            >
-              Select file
-            </button>
+
+            {errors && Array.isArray(errors) && !!errors.length &&
+              <div className="dropzone-file-errors">
+                <ul>
+                  {errors.map(err =>
+                    <li key={err.detail}>{err.detail}</li>
+                  )}
+                </ul>
+              </div>
+            }
           </div>
         </Dropzone>
       </div>

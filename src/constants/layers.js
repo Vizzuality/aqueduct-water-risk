@@ -39,9 +39,25 @@ const layers = [
             ponderation: true
           },
           {
-            id: 'upstream_storage',
-            name: 'Upstream Storage',
-            ponderation: true
+            id: 'water_supply_trend',
+            name: 'Water supply trend',
+            ponderation: true,
+            optional: true,
+            disabled: true
+          },
+          {
+            id: 'water_demand_trend',
+            name: 'Water demand trend',
+            ponderation: true,
+            optional: true,
+            disabled: true
+          },
+          {
+            id: 'groundwater_table_decline',
+            name: 'Groundwater table decline',
+            ponderation: true,
+            optional: true,
+            disabled: true
           }
         ]
       },
@@ -50,14 +66,16 @@ const layers = [
         name: 'Physical Risk: QUALITY',
         children: [
           {
-            id: 'return_flow_ratio',
-            name: 'Return Flow Ratio',
-            ponderation: true
+            id: 'wastewater_treatment',
+            name: '% Wastewater treatment',
+            ponderation: true,
+            disabled: true
           },
           {
-            id: 'upstream_protected_land',
-            name: 'Upstream Protected Land',
-            ponderation: true
+            id: 'icep',
+            name: 'ICEP (Index of Coastal Eutrophication Potential)',
+            ponderation: true,
+            disabled: true
           }
         ]
       },
@@ -66,9 +84,10 @@ const layers = [
         name: 'Regulatory & Reputational Risk',
         children: [
           {
-            id: 'media_coverage',
-            name: 'Media Coverage',
-            ponderation: true
+            id: 'peak_reprisk_index',
+            name: 'Peak RepRisk Index',
+            ponderation: true,
+            disabled: true
           },
           {
             id: 'access_to_water',
@@ -76,9 +95,24 @@ const layers = [
             ponderation: true
           },
           {
-            id: 'threatened_amphibians',
-            name: 'Threatened Amphibians',
-            ponderation: true
+            id: 'iucn_red_list_of_threatened_freshwater_species',
+            name: 'IUCN Red List of Threatened Freshwater Species',
+            ponderation: true,
+            disabled: true
+          },
+          {
+            id: 'access_to_sanitation_facilities',
+            name: 'Access to Sanitation Facilities',
+            ponderation: true,
+            disabled: true,
+            optional: true
+          },
+          {
+            id: 'transboundary_political_tension',
+            name: 'Transboundary political tension',
+            ponderation: true,
+            disabled: true,
+            optional: true
           }
         ]
       }

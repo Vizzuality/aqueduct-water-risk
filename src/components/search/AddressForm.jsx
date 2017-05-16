@@ -105,6 +105,17 @@ export default class AddressForm extends React.Component {
                   value: address,
                   onChange: this.onChangeAdress
                 }}
+                styles={{
+                  input: {
+                    outline: 'none',
+                    border: '1px solid #ccc',
+                    boxShadow: 'none',
+                    padding: '8px',
+                    fontFamily: 'inherit',
+                    fontSize: '16px',
+                    color: '#4a596a'
+                  }
+                }}
                 onSelect={this.onSelectAddress}
                 onError={this.onErrorAddress}
                 clearItemsOnError

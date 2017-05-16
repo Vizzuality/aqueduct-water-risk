@@ -93,6 +93,15 @@ export default class AddressForm extends React.Component {
 
   render() {
     const { loading, address, error } = this.state;
+
+    const cssAddressClasses = {
+      root: 'c-address',
+      input: 'address-input',
+      autocompleteContainer: 'address-autocomplete-container',
+      autocompleteItem: 'address-autocomplete-item',
+      autocompleteItemActive: 'address-autocomplete-item-active'
+    };
+
     return (
       <form className="c-coordinates-form" onSubmit={this.onSubmit} noValidate>
         <Spinner isLoading={loading} />
@@ -105,17 +114,7 @@ export default class AddressForm extends React.Component {
                   value: address,
                   onChange: this.onChangeAdress
                 }}
-                styles={{
-                  input: {
-                    outline: 'none',
-                    border: '1px solid #ccc',
-                    boxShadow: 'none',
-                    padding: '8px',
-                    fontFamily: 'inherit',
-                    fontSize: '16px',
-                    color: '#4a596a'
-                  }
-                }}
+                classNames={cssAddressClasses}
                 onSelect={this.onSelectAddress}
                 onError={this.onErrorAddress}
                 clearItemsOnError

@@ -1,0 +1,39 @@
+.c-address {
+  position: relative;
+
+  .address-input {
+    display: inline-block;
+    border: 1px solid $border-color-2;
+    box-shadow: none;
+    outline: none;
+    font-size: 16px;
+    padding: 8px;
+    width: 100%;
+    font-family: inherit;
+    color: $color-text-1;
+    margin: 0;
+
+    &:hover {
+      border-color: darken($border-color-2, 5%);
+    }
+  }
+
+  .address-autocomplete-container {
+    position: absolute;
+    top: 100%;
+    background-color: $color-white;
+    border: 1px solid $border-color-2;
+    width: 100%;
+  }
+
+  .address-autocomplete-item {
+    background-color: $color-white;
+    padding: 10px;
+    color: $color-text-1;
+    cursor: pointer;
+  }
+
+  .address-autocomplete-item-active {
+    background-color: #fafafa;
+  }
+}

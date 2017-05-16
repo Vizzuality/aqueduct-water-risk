@@ -8,26 +8,33 @@ export default function List(props) {
       <ul className="layerlist-list">
         {layers.map((l, index) => {
           const cNames = classnames('layerlist-item', {
-            '-selected': props.activeLayers.includes(l.id)
+            '-selected': props.activeLayers.includes(l.id),
+            '-disabled': l.disabled
           });
-          return (
-            <li className={cNames} key={index}>
-              <span className={deep < 2 ? 'title -upper' : 'title'}>
-                <Radio
-                  label={l.name}
-                  onChange={i => props.onSelectLayer([i])}
-                  name="layer"
-                  value={l.id}
-                  className="-secondary"
-                  selected={props.activeLayers[0]}
-                />
-              <Icon className="item-icon" name="icon-info" />
-              </span>
-              {l.children && l.children.length &&
-                getLayers(l.children, deep + 1)
-              }
-            </li>
-          );
+
+          if (!l.optional) {
+            return (
+              <li className={cNames} key={index}>
+                <span className={deep < 2 ? 'title -upper' : 'title'}>
+                  <Radio
+                    label={l.name}
+                    onChange={i => props.onSelectLayer([i])}
+                    name="layer"
+                    value={l.id}
+                    disabled={l.disabled}
+                    className="-secondary"
+                    selected={props.activeLayers[0]}
+                  />
+                  <Icon className="item-icon" name="icon-info" />
+                </span>
+                {l.children && l.children.length &&
+                  getLayers(l.children, deep + 1)
+                }
+              </li>
+            );
+          }
+
+          return null;
         })}
       </ul>
     );

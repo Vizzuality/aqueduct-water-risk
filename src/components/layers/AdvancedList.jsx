@@ -10,36 +10,39 @@ export default function AdvancedList(props) {
       <ul className="layerlist-list -advanced">
         {layers.map((l, index) => {
           const cNames = classnames('layerlist-item', {
-            '-selected': props.activeLayers.includes(l.id)
+            '-selected': props.activeLayers.includes(l.id),
+            '-disabled': l.disabled
           });
 
-          return (
-            <li className={cNames} key={index}>
-              {l.ponderation ?
-                <span>
-                  <span className="timeline-title">{l.name}</span>
-                  <Timeline
-                    className="-rate -fixed -bloqued"
-                    items={points}
-                    selected={{ value: ponderationValues[props.ponderation][l.id] }}
-                  />
-                </span> :
-                <span className={deep < 2 ? 'title -upper' : 'title'}>
-                  <Radio
-                    label={l.name}
-                    onChange={i => props.onSelectLayer([i])}
-                    name="layer"
-                    value={l.id}
-                    selected={props.activeLayers[0]}
-                    className="-secondary"
-                  />
-                </span>
+          if (!l.optional) {
+            return (
+              <li className={cNames} key={index}>
+                {l.ponderation ?
+                  <span>
+                    <span className="timeline-title">{l.name}</span>
+                    <Timeline
+                      className="-rate -fixed -bloqued"
+                      items={points}
+                      selected={{ value: ponderationValues[props.ponderation][l.id] }}
+                    />
+                  </span> :
+                  <span className={deep < 2 ? 'title -upper' : 'title'}>
+                    <Radio
+                      label={l.name}
+                      onChange={i => props.onSelectLayer([i])}
+                      name="layer"
+                      value={l.id}
+                      selected={props.activeLayers[0]}
+                      className="-secondary"
+                    />
+                  </span>
                 }
-              {l.children && l.children.length &&
-                getLayers(l.children, deep + 1)
-              }
-            </li>
-          );
+                {l.children && l.children.length &&
+                  getLayers(l.children, deep + 1)
+                }
+              </li>
+            );
+          }
         })}
       </ul>
     );

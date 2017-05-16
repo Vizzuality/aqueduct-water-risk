@@ -26,7 +26,7 @@ export default class CustomTable extends React.Component {
     columnsKeys.forEach((key) => {
       const values = uniq(data.map(d => d[key]))
                      .sort((a, b) => a - b)
-                     .map(d => d.toString());
+                     .map(d => d && d.toString());
       columns[key] = values;
     });
 

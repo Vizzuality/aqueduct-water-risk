@@ -54,6 +54,7 @@
     "opbeat-react": "^2.1.3",
     "postcss-loader": "^1.1.0",
     "pretty-error": "^2.0.2",
+    "prop-types": "^15.5.10",
     "prunecluster": "^2.0.0-beta.3",
     "raw-loader": "^0.5.1",
     "react": "^15.0.2",

@@ -1,5 +1,6 @@
 import L from 'leaflet/dist/leaflet';
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   MapControls,
   Sidebar,
@@ -18,6 +19,7 @@ import MapView from 'components/pages/Map/_MapView';
 import AnalyzeLocations from 'components/pages/Map/_AnalyzeLocations';
 import { SCOPE_OPTIONS } from 'constants/mapView';
 import { layers } from 'constants/layers';
+import { WEIGHT_COLUMNS } from 'constants/ponderationPresetsValues';
 import { sqlParamsParse } from 'utils/parsings';
 
 export default class MapPage extends React.Component {
@@ -82,17 +84,6 @@ export default class MapPage extends React.Component {
       center: [this.props.mapState.latLng.lat, this.props.mapState.latLng.lng]
     };
 
-    const columns = [
-      {
-        label: 'Lat',
-        value: 'lat'
-      },
-      {
-        label: 'Lng',
-        value: 'lng'
-      }
-    ];
-
     const markerIcon = L.divIcon({
       className: 'c-marker',
       html: '<div class="marker-inner"></div>'
@@ -129,12 +120,16 @@ export default class MapPage extends React.Component {
             }
             { this.props.scope === 'analyzeLocations' &&
               <AnalyzeLocations
-                columns={columns}
-                data={this.props.pointsCategorized}
+                columns={WEIGHT_COLUMNS}
+                data={this.props.analyzeLocations.weights}
                 scope={this.props.scope}
+                scheme={this.props.mapView.ponderation.scheme}
+                points={this.props.analyzeLocations.points.list}
+                loading={this.props.analyzeLocations.loading}
                 setSelectedPoints={ids => this.props.setSelectedPoints(ids)}
                 onPointRemove={id => this.props.removePoint(id)}
                 setActiveLayers={this.props.setActiveLayers}
+                setAnalysis={this.props.setAnalysis}
                 setScope={this.props.setScope}
                 layersActive={this.props.mapView.layers.active}
               />
@@ -179,20 +174,22 @@ export default class MapPage extends React.Component {
 
 MapPage.propTypes = {
   // State
-  mapState: React.PropTypes.object,
-  mapView: React.PropTypes.object,
-  scope: React.PropTypes.string,
+  analyzeLocations: PropTypes.object,
+  mapState: PropTypes.object,
+  mapView: PropTypes.object,
+  scope: PropTypes.string,
   // Selector
-  layersActive: React.PropTypes.array,
-  pointsCategorized: React.PropTypes.array,
+  layersActive: PropTypes.array,
+  pointsCategorized: PropTypes.array,
   // Actions
-  setMapParams: React.PropTypes.func,
-  setScope: React.PropTypes.func,
-  updateUrl: React.PropTypes.func,
-  setFilters: React.PropTypes.func,
-  setActiveLayers: React.PropTypes.func,
-  setPonderation: React.PropTypes.func,
-  addPoint: React.PropTypes.func,
-  removePoint: React.PropTypes.func,
-  setSelectedPoints: React.PropTypes.func
+  setMapParams: PropTypes.func,
+  setScope: PropTypes.func,
+  updateUrl: PropTypes.func,
+  setFilters: PropTypes.func,
+  setActiveLayers: PropTypes.func,
+  setPonderation: PropTypes.func,
+  setAnalysis: PropTypes.func,
+  addPoint: PropTypes.func,
+  removePoint: PropTypes.func,
+  setSelectedPoints: PropTypes.func
 };

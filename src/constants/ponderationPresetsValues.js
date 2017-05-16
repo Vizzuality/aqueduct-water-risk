@@ -1,3 +1,26 @@
+const WEIGHT_SCHEME_ORDER = [
+  'water_stress', 'interannual_variability', 'seasonal_variability', 'flood_occurrence',
+  'drought_severity', 'upstream_storage', 'groundwater_stress', 'return_flow_ratio',
+  'upstream_protected_land', 'media_coverage', 'access_to_water', 'threatened_amphibians'
+];
+
+const WEIGHT_COLUMNS = [
+  { label: 'Access to Water', value: 'access_to_water' },
+  { label: 'Basin', value: 'basinid' },
+  { label: 'Drought Severity', value: 'drought_severity' },
+  { label: 'Flood Occurrence', value: 'flood_occurrence' },
+  { label: 'Groundwater Stress', value: 'groundwater_stress' },
+  { label: 'Interannual Variability', value: 'interannual_variability' },
+  { label: 'Media Coverage', value: 'media_coverage' },
+  { label: 'Return Flow Ratio', value: 'return_flow_ratio' },
+  { label: 'Seasonal Variability', value: 'seasonal_variability' },
+  { label: 'Threatened Amphibians', value: 'threatened_amphibians' },
+  { label: 'Upstream Protected Land', value: 'upstream_protected_land' },
+  { label: 'Upstream Storage', value: 'upstream_storage' },
+  { label: 'Water Risk', value: 'water_risk' },
+  { label: 'Water Stress', value: 'water_stress' }
+];
+
 const ponderationValues = {
   default: {
     media_coverage: 4,
@@ -141,4 +164,4 @@ const ponderationValues = {
   }
 };
 
-export { ponderationValues };
+export { WEIGHT_SCHEME_ORDER, WEIGHT_COLUMNS, ponderationValues };

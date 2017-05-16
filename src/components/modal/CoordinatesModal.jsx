@@ -1,11 +1,12 @@
 import React from 'react';
 import { SegmentedUi } from 'aqueduct-components';
 import CoordinatesForm from 'components/search/CoordinatesForm';
+import DecimalDegreesForm from 'components/search/DecimalDegreesForm';
 
 const TAB_OPTIONS = [
-  { value: 'coordinates', label: 'Coordinates' },
-  { value: 'address', label: 'Address' },
-  { value: 'decimal', label: 'Decimal degrees' }
+  // { value: 'address', label: 'Address' },
+  { value: 'decimal', label: 'Decimal degrees' },
+  { value: 'coordinates', label: 'Coordinates' }
 ];
 
 export default class CoordinatesModal extends React.Component {
@@ -14,7 +15,7 @@ export default class CoordinatesModal extends React.Component {
     super(props);
 
     this.state = {
-      tab: 'coordinates'
+      tab: 'decimal'
     };
 
     this.setTab = this.setTab.bind(this);
@@ -29,15 +30,25 @@ export default class CoordinatesModal extends React.Component {
   }
 
   render() {
+    const { tab } = this.state;
+
     return (
       <div className="c-coordinates-modal">
         <SegmentedUi
           className="-tabs-light"
           items={TAB_OPTIONS}
-          selected={this.state.tab}
+          selected={tab}
           onChange={selected => this.setTab(selected.value)}
         />
-        <CoordinatesForm />
+        {tab === 'address' &&
+          <h2>Address</h2>
+        }
+        {tab === 'decimal' &&
+          <DecimalDegreesForm />
+        }
+        {tab === 'coordinates' &&
+          <CoordinatesForm />
+        }
       </div>
     );
   }

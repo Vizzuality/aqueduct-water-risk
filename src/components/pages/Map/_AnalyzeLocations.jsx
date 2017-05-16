@@ -53,8 +53,8 @@ export default class AnalyzeLocations extends React.Component {
             className="-theme-white"
             items={[
               { label: 'Click map' },
-              { label: 'Coordinates', cb: () => dispatch(toggleModal(true, { children: CoordinatesModal })) },
-              { label: 'Import file', cb: () => dispatch(toggleModal(true, { children: ImportFileModal })) }
+              { label: 'Coordinates', cb: () => dispatch(toggleModal(true, { children: CoordinatesModal, size: '-auto' })) },
+              { label: 'Import file', cb: () => dispatch(toggleModal(true, { children: ImportFileModal, size: '-auto' })) }
             ]}
           />
           {/* Sticky location */}

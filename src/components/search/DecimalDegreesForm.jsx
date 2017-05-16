@@ -67,6 +67,7 @@ export default class DecimalDegreesForm extends React.Component {
         points.push(point);
         dispatch(setPoints(points));
         dispatch(saveOnGeostore(points));
+        dispatch(toggleModal(false, {}));
       }
     }, 0);
   }

@@ -88,6 +88,7 @@ export default class CoordinatesForm extends React.Component {
         points.push(point);
         dispatch(setPoints(points));
         dispatch(saveOnGeostore(points));
+        dispatch(toggleModal(false, {}));
       }
     }, 0);
   }

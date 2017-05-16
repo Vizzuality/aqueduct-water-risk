@@ -77,7 +77,7 @@ export default class MapPage extends React.Component {
     const mapOptions = {
       zoom: this.props.mapState.zoom,
       minZoom: 2,
-      maxZoom: 7,
+      maxZoom: 15,
       zoomControl: false,
       center: [this.props.mapState.latLng.lat, this.props.mapState.latLng.lng]
     };
@@ -156,6 +156,8 @@ export default class MapPage extends React.Component {
         <MapControls>
           <ZoomControl
             zoom={this.props.mapState.zoom}
+            minZoom={this.props.mapState.minZoom}
+            maxZoom={this.props.mapState.maxZoom}
             onZoomChange={zoom => this.props.setMapParams({ zoom })}
           />
           {/* Share button */}

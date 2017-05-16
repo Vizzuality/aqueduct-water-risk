@@ -1,12 +1,12 @@
 const layers = [
   {
     id: 'overall_water_risk',
-    name: 'Overall water risk',
+    name: 'Overall Water Risk',
     overall: true,
     children: [
       {
         id: 'physical_risk_quantity',
-        name: 'Physical risk quantity',
+        name: 'Physical Risk: QUANTITY',
         children: [
           {
             id: 'water_stress',
@@ -15,60 +15,79 @@ const layers = [
           },
           {
             id: 'interannual_variability',
-            name: 'Interannual Variability',
+            name: 'Interannual variability',
             ponderation: true
           },
           {
             id: 'seasonal_variability',
-            name: 'Seasonal Variability',
+            name: 'Seasonal variability',
             ponderation: true
           },
           {
             id: 'flood_occurrence',
-            name: 'Flood Occurrence',
+            name: 'Flood occurrence',
             ponderation: true
           },
           {
             id: 'drought_severity',
-            name: 'Drought Severity',
-            ponderation: true
-          },
-          {
-            id: 'upstream_storage',
-            name: 'Upstream Storage',
+            name: 'Drought severity',
             ponderation: true
           },
           {
             id: 'groundwater_stress',
-            name: 'Groundwater Stress',
+            name: 'Groundwater stress',
             ponderation: true
+          },
+          {
+            id: 'water_supply_trend',
+            name: 'Water supply trend',
+            ponderation: true,
+            optional: true,
+            disabled: true
+          },
+          {
+            id: 'water_demand_trend',
+            name: 'Water demand trend',
+            ponderation: true,
+            optional: true,
+            disabled: true
+          },
+          {
+            id: 'groundwater_table_decline',
+            name: 'Groundwater table decline',
+            ponderation: true,
+            optional: true,
+            disabled: true
           }
         ]
       },
       {
         id: 'physical_risk_quality',
-        name: 'Physical risk quality',
+        name: 'Physical Risk: QUALITY',
         children: [
           {
-            id: 'return_flow_ratio',
-            name: 'Return Flow Ratio',
-            ponderation: true
+            id: 'wastewater_treatment',
+            name: '% Wastewater treatment',
+            ponderation: true,
+            disabled: true
           },
           {
-            id: 'upstream_protected_land',
-            name: 'Upstream Protected Land',
-            ponderation: true
+            id: 'icep',
+            name: 'ICEP (Index of Coastal Eutrophication Potential)',
+            ponderation: true,
+            disabled: true
           }
         ]
       },
       {
         id: 'regulatory_and_reputational_risk',
-        name: 'Regulatory and reputational risk',
+        name: 'Regulatory & Reputational Risk',
         children: [
           {
-            id: 'media_coverage',
-            name: 'Media Coverage',
-            ponderation: true
+            id: 'peak_reprisk_index',
+            name: 'Peak RepRisk Index',
+            ponderation: true,
+            disabled: true
           },
           {
             id: 'access_to_water',
@@ -76,9 +95,24 @@ const layers = [
             ponderation: true
           },
           {
-            id: 'threatened_amphibians',
-            name: 'Threatened Amphibians',
-            ponderation: true
+            id: 'iucn_red_list_of_threatened_freshwater_species',
+            name: 'IUCN Red List of Threatened Freshwater Species',
+            ponderation: true,
+            disabled: true
+          },
+          {
+            id: 'access_to_sanitation_facilities',
+            name: 'Access to Sanitation Facilities',
+            ponderation: true,
+            disabled: true,
+            optional: true
+          },
+          {
+            id: 'transboundary_political_tension',
+            name: 'Transboundary political tension',
+            ponderation: true,
+            disabled: true,
+            optional: true
           }
         ]
       }

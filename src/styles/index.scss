@@ -28,12 +28,15 @@
 @import "~aqueduct-components/styles/share";
 @import "~aqueduct-components/styles/sidebar";
 @import "~aqueduct-components/styles/spinner";
+@import "~aqueduct-components/styles/sticky";
+@import "~aqueduct-components/styles/sticky-filters";
 @import "~aqueduct-components/styles/timeline";
 
 /* Components */
 @import "components/analyze-locations";
 @import "components/btn-menu";
 @import "components/checkbox";
+@import "components/dropzone";
 @import "components/layerlist";
 @import "components/mapview";
 @import "components/marker";

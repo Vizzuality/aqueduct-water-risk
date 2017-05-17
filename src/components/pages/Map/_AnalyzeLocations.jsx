@@ -1,10 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { dispatch } from 'main';
 import CustomTable from 'components/ui/Table/Table';
 import BtnMenu from 'components/ui/BtnMenu';
 import ImportFileModal from 'components/modal/ImportFileModal';
 import { layerOptions } from 'constants/analyzeLocations';
-import { Sticky, Timeline, toggleModal } from 'aqueduct-components';
+import { Sticky, Spinner, Timeline, toggleModal } from 'aqueduct-components';
 import StickyLocation from 'components/filters/StickyLocation';
 
 export default class AnalyzeLocations extends React.Component {
@@ -20,6 +21,19 @@ export default class AnalyzeLocations extends React.Component {
   /* lifecycle */
   componentDidMount() {
     this.setStickyFilterPosition();
+
+    if (this.props.scheme && this.props.points.length) {
+      const { scheme, points } = this.props;
+      this.props.setAnalysis(scheme, points);
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.scheme &&
+      this.props.points.length !== nextProps.points.length && nextProps.points.length) {
+      const { scheme, points } = nextProps;
+      this.props.setAnalysis(scheme, points);
+    }
   }
 
   componentDidUpdate() {
@@ -78,6 +92,7 @@ export default class AnalyzeLocations extends React.Component {
         </div>
 
         <div className="l-container -top">
+          <Spinner isLoading={this.props.loading} />
           <CustomTable
             columns={this.props.columns}
             data={this.props.data}
@@ -85,18 +100,12 @@ export default class AnalyzeLocations extends React.Component {
             actions={{
               showable: false,
               editable: false,
-              removable: true
+              removable: false
             }}
             pagination={{
               enabled: true,
               pageSize: 20,
               page: 0
-            }}
-            onToggleSelectedRow={(ids) => {
-              this.props.setSelectedPoints(ids);
-            }}
-            onRowDelete={(id) => {
-              this.props.onPointRemove(id);
             }}
           />
         </div>
@@ -107,13 +116,17 @@ export default class AnalyzeLocations extends React.Component {
 
 AnalyzeLocations.propTypes = {
   // STATE
-  data: React.PropTypes.array,
-  columns: React.PropTypes.array,
-  scope: React.PropTypes.string,
+  data: PropTypes.array,
+  columns: PropTypes.array,
+  loading: PropTypes.bool,
+  scope: PropTypes.string,
+  points: PropTypes.array,
+  scheme: PropTypes.string,
   // FUNCTIONS
-  setSelectedPoints: React.PropTypes.func,
-  setScope: React.PropTypes.func,
-  onPointRemove: React.PropTypes.func,
-  layersActive: React.PropTypes.array,
-  setActiveLayers: React.PropTypes.func
+  setSelectedPoints: PropTypes.func,
+  setScope: PropTypes.func,
+  onPointRemove: PropTypes.func,
+  layersActive: PropTypes.array,
+  setActiveLayers: PropTypes.func,
+  setAnalysis: PropTypes.func
 };

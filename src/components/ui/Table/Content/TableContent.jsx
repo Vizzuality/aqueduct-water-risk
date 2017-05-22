@@ -44,11 +44,11 @@ export default class TableContent extends React.Component {
     return (
       <tbody>
         {data.map((row, index) => {
-          const selectedClass = classnames({ '-selected': rowSelection.includes(row.id) });
+          const selectedClass = classnames({ '-selected': rowSelection.includes(row.basinid) });
           return (
             <tr
               className={`${selectedClass}`}
-              onClick={() => this.props.onToggleSelectedRow(row.id)}
+              onClick={() => this.props.onToggleSelectedRow(row.basinid)}
               key={index}
             >
               {(actions.showable || actions.editable || actions.removable) &&
@@ -57,7 +57,7 @@ export default class TableContent extends React.Component {
                     <button
                       onClick={(e) => {
                         e && e.stopPropagation();
-                        this.props.onRowDelete(row.id);
+                        this.props.onRowDelete(row.basinid)
                       }}
                     >
                       <Icon name="icon-cross" className="-small" />

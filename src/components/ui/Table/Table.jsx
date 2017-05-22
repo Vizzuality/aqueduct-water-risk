@@ -113,6 +113,7 @@ export default class CustomTable extends React.Component {
     const rowSelection = this.state.rowSelection.slice();
     const index = rowSelection.indexOf(id);
 
+
     // Toggle the active dataset
     if (index !== -1) {
       rowSelection.splice(index, 1);

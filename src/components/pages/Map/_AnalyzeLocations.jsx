@@ -114,6 +114,7 @@ export default class AnalyzeLocations extends React.Component {
               editable: false,
               removable: false
             }}
+            onToggleSelectedRow={ids => this.props.setSelectedPoints(ids)}
             pagination={{
               enabled: true,
               pageSize: 20,

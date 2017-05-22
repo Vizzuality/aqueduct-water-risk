@@ -21,7 +21,7 @@ const INDICATOR_COLUMNS = {
     { label: 'Access to Water', value: 'access_to_water' },
     { label: 'Threatened Amphibians', value: 'threatened_amphibians' }
   ],
-  // project_change
+  // projected_change
   999191: []
 };
 

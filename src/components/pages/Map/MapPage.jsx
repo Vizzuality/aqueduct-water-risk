@@ -18,9 +18,8 @@ import Map from 'components/map/Map';
 import MapView from 'components/pages/Map/_MapView';
 import AnalyzeLocations from 'components/pages/Map/_AnalyzeLocations';
 import { SCOPE_OPTIONS } from 'constants/mapView';
-import { layers } from 'constants/layers';
 import { INDICATOR_COLUMNS } from 'constants/indicators';
-import { layers } from 'constants/layers';
+import { layers, PARENT_CHILDREN_LAYER_RELATION } from 'constants/layers';
 import { sqlParamsParse } from 'utils/parsings';
 
 export default class MapPage extends React.Component {
@@ -54,9 +53,10 @@ export default class MapPage extends React.Component {
   getIndicatorColumns() {
     const activeLayer = this.props.mapView.layers.active[0];
     const defaultLayer = layers[0].id;
+    const columnIndicator = INDICATOR_COLUMNS[activeLayer] || INDICATOR_COLUMNS[PARENT_CHILDREN_LAYER_RELATION[activeLayer]];
 
     return activeLayer !== defaultLayer ?
-      [...INDICATOR_COLUMNS[defaultLayer], ...INDICATOR_COLUMNS[activeLayer]] : INDICATOR_COLUMNS[defaultLayer];
+      [...INDICATOR_COLUMNS[defaultLayer], ...columnIndicator] : INDICATOR_COLUMNS[defaultLayer];
   }
 
   render() {

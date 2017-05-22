@@ -6,7 +6,7 @@ import { setMapLocation } from 'modules/map';
 import { updateUrl } from 'modules/url';
 import { setScope } from 'modules/scope';
 import { setFilters, setActiveLayers, setPonderation } from 'modules/mapView';
-import { setPoints, setSelectedPoints, setWeigths, setAnalysis, saveOnGeostore } from 'modules/analyzeLocations';
+import { setPoints, setSelectedPoints, setAnalysis, saveOnGeostore } from 'modules/analyzeLocations';
 import { store } from 'main';
 
 const mapStateToProps = state => ({
@@ -65,7 +65,6 @@ const mapDispatchToProps = dispatch => ({
   setAnalysis(weights, points) {
     dispatch(setAnalysis(weights, points));
   }
-
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MapPage);

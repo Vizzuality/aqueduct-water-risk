@@ -19,7 +19,8 @@ import MapView from 'components/pages/Map/_MapView';
 import AnalyzeLocations from 'components/pages/Map/_AnalyzeLocations';
 import { SCOPE_OPTIONS } from 'constants/mapView';
 import { layers } from 'constants/layers';
-import { WEIGHT_COLUMNS } from 'constants/ponderationPresetsValues';
+import { INDICATOR_COLUMNS } from 'constants/indicators';
+import { layers } from 'constants/layers';
 import { sqlParamsParse } from 'utils/parsings';
 
 export default class MapPage extends React.Component {
@@ -48,6 +49,14 @@ export default class MapPage extends React.Component {
       children: SourceModal,
       childrenProps: layer
     }));
+  }
+
+  getIndicatorColumns() {
+    const activeLayer = this.props.mapView.layers.active[0];
+    const defaultLayer = layers[0].id;
+
+    return activeLayer !== defaultLayer ?
+      [...INDICATOR_COLUMNS[defaultLayer], ...INDICATOR_COLUMNS[activeLayer]] : INDICATOR_COLUMNS[defaultLayer];
   }
 
   render() {
@@ -120,7 +129,7 @@ export default class MapPage extends React.Component {
             }
             { this.props.scope === 'analyzeLocations' &&
               <AnalyzeLocations
-                columns={WEIGHT_COLUMNS}
+                columns={this.getIndicatorColumns()}
                 data={this.props.analyzeLocations.weights}
                 scope={this.props.scope}
                 scheme={this.props.mapView.ponderation.scheme}

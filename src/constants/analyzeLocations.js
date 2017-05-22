@@ -9,7 +9,7 @@ const layerOptions = [
   },
   {
     label: 'Physical risk quality',
-    value: 'physical_risk_quantity'
+    value: 'physical_risk_quality'
   },
   {
     label: 'Regulatory and reputational risk',

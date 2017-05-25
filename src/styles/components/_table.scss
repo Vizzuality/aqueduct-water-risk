@@ -1,5 +1,6 @@
 
 .c-table {
+  overflow-y: auto;
   padding: $space-1 * 3 $space-1 0;
   background-color: palette(white);
   color: palette(gray, dark);

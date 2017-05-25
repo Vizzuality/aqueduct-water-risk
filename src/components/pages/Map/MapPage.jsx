@@ -1,5 +1,6 @@
 import L from 'leaflet/dist/leaflet';
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   MapControls,
   Sidebar,
@@ -17,7 +18,8 @@ import Map from 'components/map/Map';
 import MapView from 'components/pages/Map/_MapView';
 import AnalyzeLocations from 'components/pages/Map/_AnalyzeLocations';
 import { SCOPE_OPTIONS } from 'constants/mapView';
-import { layers } from 'constants/layers';
+import { INDICATOR_COLUMNS } from 'constants/indicators';
+import { layers, PARENT_CHILDREN_LAYER_RELATION } from 'constants/layers';
 import { sqlParamsParse } from 'utils/parsings';
 
 export default class MapPage extends React.Component {
@@ -46,6 +48,15 @@ export default class MapPage extends React.Component {
       children: SourceModal,
       childrenProps: layer
     }));
+  }
+
+  getIndicatorColumns() {
+    const activeLayer = this.props.mapView.layers.active[0];
+    const defaultLayer = layers[0].id;
+    const columnIndicator = INDICATOR_COLUMNS[activeLayer] || INDICATOR_COLUMNS[PARENT_CHILDREN_LAYER_RELATION[activeLayer]];
+
+    return activeLayer !== defaultLayer ?
+      [...INDICATOR_COLUMNS[defaultLayer], ...columnIndicator] : INDICATOR_COLUMNS[defaultLayer];
   }
 
   render() {
@@ -77,21 +88,10 @@ export default class MapPage extends React.Component {
     const mapOptions = {
       zoom: this.props.mapState.zoom,
       minZoom: 2,
-      maxZoom: 7,
+      maxZoom: 15,
       zoomControl: false,
       center: [this.props.mapState.latLng.lat, this.props.mapState.latLng.lng]
     };
-
-    const columns = [
-      {
-        label: 'Lat',
-        value: 'lat'
-      },
-      {
-        label: 'Lng',
-        value: 'lng'
-      }
-    ];
 
     const markerIcon = L.divIcon({
       className: 'c-marker',
@@ -129,12 +129,16 @@ export default class MapPage extends React.Component {
             }
             { this.props.scope === 'analyzeLocations' &&
               <AnalyzeLocations
-                columns={columns}
-                data={this.props.pointsCategorized}
+                columns={this.getIndicatorColumns()}
+                data={this.props.analyzeLocations.weights}
                 scope={this.props.scope}
+                scheme={this.props.mapView.ponderation.scheme}
+                points={this.props.analyzeLocations.points.list}
+                loading={this.props.analyzeLocations.loading}
                 setSelectedPoints={ids => this.props.setSelectedPoints(ids)}
                 onPointRemove={id => this.props.removePoint(id)}
                 setActiveLayers={this.props.setActiveLayers}
+                setAnalysis={this.props.setAnalysis}
                 setScope={this.props.setScope}
                 layersActive={this.props.mapView.layers.active}
               />
@@ -156,6 +160,8 @@ export default class MapPage extends React.Component {
         <MapControls>
           <ZoomControl
             zoom={this.props.mapState.zoom}
+            minZoom={this.props.mapState.minZoom}
+            maxZoom={this.props.mapState.maxZoom}
             onZoomChange={zoom => this.props.setMapParams({ zoom })}
           />
           {/* Share button */}
@@ -179,20 +185,22 @@ export default class MapPage extends React.Component {
 
 MapPage.propTypes = {
   // State
-  mapState: React.PropTypes.object,
-  mapView: React.PropTypes.object,
-  scope: React.PropTypes.string,
+  analyzeLocations: PropTypes.object,
+  mapState: PropTypes.object,
+  mapView: PropTypes.object,
+  scope: PropTypes.string,
   // Selector
-  layersActive: React.PropTypes.array,
-  pointsCategorized: React.PropTypes.array,
+  layersActive: PropTypes.array,
+  pointsCategorized: PropTypes.array,
   // Actions
-  setMapParams: React.PropTypes.func,
-  setScope: React.PropTypes.func,
-  updateUrl: React.PropTypes.func,
-  setFilters: React.PropTypes.func,
-  setActiveLayers: React.PropTypes.func,
-  setPonderation: React.PropTypes.func,
-  addPoint: React.PropTypes.func,
-  removePoint: React.PropTypes.func,
-  setSelectedPoints: React.PropTypes.func
+  setMapParams: PropTypes.func,
+  setScope: PropTypes.func,
+  updateUrl: PropTypes.func,
+  setFilters: PropTypes.func,
+  setActiveLayers: PropTypes.func,
+  setPonderation: PropTypes.func,
+  setAnalysis: PropTypes.func,
+  addPoint: PropTypes.func,
+  removePoint: PropTypes.func,
+  setSelectedPoints: PropTypes.func
 };

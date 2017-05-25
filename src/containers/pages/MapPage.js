@@ -6,13 +6,14 @@ import { setMapLocation } from 'modules/map';
 import { updateUrl } from 'modules/url';
 import { setScope } from 'modules/scope';
 import { setFilters, setActiveLayers, setPonderation } from 'modules/mapView';
-import { setPoints, setSelectedPoints, saveOnGeostore } from 'modules/analyzeLocations';
+import { setPoints, setSelectedPoints, setAnalysis, saveOnGeostore } from 'modules/analyzeLocations';
 import { store } from 'main';
 
 const mapStateToProps = state => ({
   scope: state.scope.name,
   mapState: state.map,
   mapView: state.mapView,
+  analyzeLocations: state.analyzeLocations,
   layersActive: getActiveLayers(state),
   pointsCategorized: getCategorizedPoints(state)
 });
@@ -60,6 +61,9 @@ const mapDispatchToProps = dispatch => ({
     points.splice(pointIndex, 1);
     dispatch(setPoints(points));
     dispatch(saveOnGeostore(points));
+  },
+  setAnalysis(weights, points) {
+    dispatch(setAnalysis(weights, points));
   }
 });
 

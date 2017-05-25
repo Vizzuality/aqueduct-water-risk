@@ -1,11 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { dispatch } from 'main';
 import CustomTable from 'components/ui/Table/Table';
 import BtnMenu from 'components/ui/BtnMenu';
 import ImportFileModal from 'components/modal/ImportFileModal';
+import CoordinatesModal from 'components/modal/CoordinatesModal';
 import { layerOptions } from 'constants/analyzeLocations';
-import { Sticky, Timeline, toggleModal } from 'aqueduct-components';
+import { Sticky, Spinner, Timeline, toggleModal } from 'aqueduct-components';
 import StickyLocation from 'components/filters/StickyLocation';
+import { PARENT_CHILDREN_LAYER_RELATION } from 'constants/layers';
 
 export default class AnalyzeLocations extends React.Component {
 
@@ -20,6 +23,19 @@ export default class AnalyzeLocations extends React.Component {
   /* lifecycle */
   componentDidMount() {
     this.setStickyFilterPosition();
+
+    if (this.props.scheme && this.props.points.length) {
+      const { scheme, points } = this.props;
+      this.props.setAnalysis(scheme, points);
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.scheme &&
+      this.props.points.length !== nextProps.points.length && nextProps.points.length) {
+      const { scheme, points } = nextProps;
+      this.props.setAnalysis(scheme, points);
+    }
   }
 
   componentDidUpdate() {
@@ -42,6 +58,12 @@ export default class AnalyzeLocations extends React.Component {
     });
   }
 
+  getTimelineValue() {
+    const selectedTimelineValue = PARENT_CHILDREN_LAYER_RELATION[this.props.layersActive[0]] || this.props.layersActive[0];
+
+    return layerOptions.find(layer => layer.value === selectedTimelineValue);
+  }
+
   render() {
     return (
       <div>
@@ -50,7 +72,11 @@ export default class AnalyzeLocations extends React.Component {
           {/* TODO: functionallity */}
           <BtnMenu
             className="-theme-white"
-            items={[{ label: 'Click map' }, { label: 'Coordinates' }, { label: 'Import file', cb: () => dispatch(toggleModal(true, { children: ImportFileModal })) }]}
+            items={[
+              { label: 'Click map' },
+              { label: 'Coordinates', cb: () => dispatch(toggleModal(true, { children: CoordinatesModal, size: '-auto' })) },
+              { label: 'Import file', cb: () => dispatch(toggleModal(true, { children: ImportFileModal, size: '-auto' })) }
+            ]}
           />
           {/* Sticky location */}
           <Sticky
@@ -72,12 +98,13 @@ export default class AnalyzeLocations extends React.Component {
           <Timeline
             className="-sand"
             items={layerOptions}
-            selected={layerOptions.find(l => l.value === this.props.layersActive[0])}
+            selected={this.getTimelineValue()}
             onChange={selected => this.props.setActiveLayers([selected.value])}
           />
         </div>
 
         <div className="l-container -top">
+          <Spinner isLoading={this.props.loading} />
           <CustomTable
             columns={this.props.columns}
             data={this.props.data}
@@ -85,18 +112,12 @@ export default class AnalyzeLocations extends React.Component {
             actions={{
               showable: false,
               editable: false,
-              removable: true
+              removable: false
             }}
             pagination={{
               enabled: true,
               pageSize: 20,
               page: 0
-            }}
-            onToggleSelectedRow={(ids) => {
-              this.props.setSelectedPoints(ids);
-            }}
-            onRowDelete={(id) => {
-              this.props.onPointRemove(id);
             }}
           />
         </div>
@@ -107,13 +128,17 @@ export default class AnalyzeLocations extends React.Component {
 
 AnalyzeLocations.propTypes = {
   // STATE
-  data: React.PropTypes.array,
-  columns: React.PropTypes.array,
-  scope: React.PropTypes.string,
+  data: PropTypes.array,
+  columns: PropTypes.array,
+  loading: PropTypes.bool,
+  scope: PropTypes.string,
+  points: PropTypes.array,
+  scheme: PropTypes.string,
   // FUNCTIONS
-  setSelectedPoints: React.PropTypes.func,
-  setScope: React.PropTypes.func,
-  onPointRemove: React.PropTypes.func,
-  layersActive: React.PropTypes.array,
-  setActiveLayers: React.PropTypes.func
+  setSelectedPoints: PropTypes.func,
+  setScope: PropTypes.func,
+  onPointRemove: PropTypes.func,
+  layersActive: PropTypes.array,
+  setActiveLayers: PropTypes.func,
+  setAnalysis: PropTypes.func
 };

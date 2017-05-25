@@ -154,4 +154,24 @@ const scenarioOptions = [
   }
 ];
 
-export { layers, futureLayers, scenarioOptions };
+// relates children layers with its parent in a straight way
+const PARENT_CHILDREN_LAYER_RELATION = {
+  water_stress: 'physical_risk_quantity',
+  interannual_variability: 'physical_risk_quantity',
+  seasonal_variability: 'physical_risk_quantity',
+  flood_occurrence: 'physical_risk_quantity',
+  drought_severity: 'physical_risk_quantity',
+  groundwater_stress: 'physical_risk_quantity',
+  water_supply_trend: 'physical_risk_quantity',
+  water_demand_trend: 'physical_risk_quantity',
+  groundwater_table_decline: 'physical_risk_quantity',
+  wastewater_treatment: 'physical_risk_quality',
+  icep: 'physical_risk_quality',
+  peak_reprisk_index: 'regulatory_and_reputational_risk',
+  access_to_water: 'regulatory_and_reputational_risk',
+  iucn_red_list_of_threatened_freshwater_species: 'regulatory_and_reputational_risk',
+  access_to_sanitation_facilities: 'regulatory_and_reputational_risk',
+  transboundary_political_tension: 'regulatory_and_reputational_risk'
+};
+
+export { layers, futureLayers, scenarioOptions, PARENT_CHILDREN_LAYER_RELATION };

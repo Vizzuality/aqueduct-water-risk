@@ -8,6 +8,7 @@ import CoordinatesModal from 'components/modal/CoordinatesModal';
 import { layerOptions } from 'constants/analyzeLocations';
 import { Sticky, Spinner, Timeline, toggleModal } from 'aqueduct-components';
 import StickyLocation from 'components/filters/StickyLocation';
+import { PARENT_CHILDREN_LAYER_RELATION } from 'constants/layers';
 
 export default class AnalyzeLocations extends React.Component {
 
@@ -57,6 +58,12 @@ export default class AnalyzeLocations extends React.Component {
     });
   }
 
+  getTimelineValue() {
+    const selectedTimelineValue = PARENT_CHILDREN_LAYER_RELATION[this.props.layersActive[0]] || this.props.layersActive[0];
+
+    return layerOptions.find(layer => layer.value === selectedTimelineValue);
+  }
+
   render() {
     return (
       <div>
@@ -91,7 +98,7 @@ export default class AnalyzeLocations extends React.Component {
           <Timeline
             className="-sand"
             items={layerOptions}
-            selected={layerOptions.find(l => l.value === this.props.layersActive[0])}
+            selected={this.getTimelineValue()}
             onChange={selected => this.props.setActiveLayers([selected.value])}
           />
         </div>

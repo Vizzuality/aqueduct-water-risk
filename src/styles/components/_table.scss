@@ -9,8 +9,36 @@
     padding: 0;
   }
 
-  .table-overflow {
-    overflow-y: auto;
+  .table-content {
+    position: relative;
+
+    &::before,
+    &::after {
+      display: inline-block;
+      position: absolute;
+      top: 0;
+
+      width: $space-1;
+      height: 100%;
+
+      content: '';
+    }
+
+    &::before {
+      left: 0;
+      background: linear-gradient(to right, rgba(palette(white), 1) 0%, rgba(palette(white), 0) 100%);
+      z-index: 1;
+    }
+
+    &::after {
+      right: 0;
+      background: linear-gradient(to right, rgba(palette(white), 0) 0%, rgba(palette(white), 1) 100%);
+    }
+
+    > .table-overflow {
+      position: relative;
+      overflow-y: auto;
+    }
   }
 
   .table {

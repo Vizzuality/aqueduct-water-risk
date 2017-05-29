@@ -222,27 +222,29 @@ export default class CustomTable extends React.Component {
       <div className={tableClasses}>
         <Spinner isLoading={this.props.loading} />
         {/* Table */}
-        {!this.props.loading && <div className="table-overflow">
-          <table className="table">
-            {/* Table header */}
-            <TableHeader
-              actions={this.props.actions}
-              columns={this.props.columns}
-              columnValues={this.state.columnValues}
-              columnQueries={this.state.columnQueries}
-              filteredData={this.state.filteredData}
-              onFilter={this.onFilter}
-              onSort={this.onSort}
-            />
+        {!this.props.loading && <div className="table-content">
+          <div className="table-overflow">
+            <table className="table">
+              {/* Table header */}
+              <TableHeader
+                actions={this.props.actions}
+                columns={this.props.columns}
+                columnValues={this.state.columnValues}
+                columnQueries={this.state.columnQueries}
+                filteredData={this.state.filteredData}
+                onFilter={this.onFilter}
+                onSort={this.onSort}
+              />
 
-            {/* Table content */}
-            <TableContent
-              {...this.props}
-              {...this.state}
-              onToggleSelectedRow={this.onToggleSelectedRow}
-              onRowDelete={this.onRowDelete}
-            />
-          </table>
+              {/* Table content */}
+              <TableContent
+                {...this.props}
+                {...this.state}
+                onToggleSelectedRow={this.onToggleSelectedRow}
+                onRowDelete={this.onRowDelete}
+              />
+            </table>
+          </div>
         </div>}
         {/* Table footer */}
         {!this.props.loading && <TableFooter

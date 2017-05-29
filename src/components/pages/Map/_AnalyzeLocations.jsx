@@ -6,7 +6,7 @@ import BtnMenu from 'components/ui/BtnMenu';
 import ImportFileModal from 'components/modal/ImportFileModal';
 import CoordinatesModal from 'components/modal/CoordinatesModal';
 import { layerOptions } from 'constants/analyzeLocations';
-import { Sticky, Spinner, Timeline, toggleModal } from 'aqueduct-components';
+import { Sticky, Timeline, toggleModal } from 'aqueduct-components';
 import StickyLocation from 'components/filters/StickyLocation';
 import { PARENT_CHILDREN_LAYER_RELATION } from 'constants/layers';
 
@@ -104,10 +104,10 @@ export default class AnalyzeLocations extends React.Component {
         </div>
 
         <div className="l-container -top">
-          <Spinner isLoading={this.props.loading} />
           <CustomTable
             columns={this.props.columns}
             data={this.props.data}
+            loading={this.props.loading}
             pageSize={20}
             actions={{
               showable: false,

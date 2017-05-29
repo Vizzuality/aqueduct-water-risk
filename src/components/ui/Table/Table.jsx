@@ -1,7 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import uniq from 'lodash/uniq';
 import flatten from 'lodash/flatten';
 import isEqual from 'lodash/isEqual';
+import classnames from 'classnames';
+import { Spinner } from 'aqueduct-components';
 
 import TableHeader from './Header/TableHeader';
 import TableContent from './Content/TableContent';
@@ -212,37 +215,40 @@ export default class CustomTable extends React.Component {
 
   /* Render */
   render() {
+    const tableClasses = classnames('c-table', {
+      '-loading': this.props.loading
+    });
     return (
-      <div className="c-table">
+      <div className={tableClasses}>
+        <Spinner isLoading={this.props.loading} />
         {/* Table */}
-        <div className="table-header" />
-        <table className="table">
+        {!this.props.loading && <div className="table-overflow">
+          <table className="table">
+            {/* Table header */}
+            <TableHeader
+              actions={this.props.actions}
+              columns={this.props.columns}
+              columnValues={this.state.columnValues}
+              columnQueries={this.state.columnQueries}
+              filteredData={this.state.filteredData}
+              onFilter={this.onFilter}
+              onSort={this.onSort}
+            />
 
-          {/* Table header */}
-          <TableHeader
-            actions={this.props.actions}
-            columns={this.props.columns}
-            columnValues={this.state.columnValues}
-            columnQueries={this.state.columnQueries}
-            filteredData={this.state.filteredData}
-            onFilter={this.onFilter}
-            onSort={this.onSort}
-          />
-
-          {/* Table content */}
-          <TableContent
-            {...this.props}
-            {...this.state}
-            onToggleSelectedRow={this.onToggleSelectedRow}
-            onRowDelete={this.onRowDelete}
-          />
-
-        </table>
+            {/* Table content */}
+            <TableContent
+              {...this.props}
+              {...this.state}
+              onToggleSelectedRow={this.onToggleSelectedRow}
+              onRowDelete={this.onRowDelete}
+            />
+          </table>
+        </div>}
         {/* Table footer */}
-        <TableFooter
+        {!this.props.loading && <TableFooter
           pagination={this.state.pagination}
           onChangePage={this.onChangePage}
-        />
+        />}
       </div>
     );
   }
@@ -250,12 +256,13 @@ export default class CustomTable extends React.Component {
 
 /* Property typing */
 CustomTable.propTypes = {
-  actions: React.PropTypes.object,
-  data: React.PropTypes.array,
-  columns: React.PropTypes.array,
-  pagination: React.PropTypes.object,
-  onToggleSelectedRow: React.PropTypes.func,
-  onRowDelete: React.PropTypes.func
+  actions: PropTypes.object,
+  data: PropTypes.array,
+  loading: PropTypes.bool,
+  columns: PropTypes.array,
+  pagination: PropTypes.object,
+  onToggleSelectedRow: PropTypes.func,
+  onRowDelete: PropTypes.func
 };
 
 /* Property default values */

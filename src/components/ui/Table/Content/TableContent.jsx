@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
-import { format } from 'd3-format';
 
 import { Icon } from 'aqueduct-components';
 
@@ -68,8 +67,7 @@ export default class TableContent extends React.Component {
                 </td>
               }
               {columns.map((col, i) =>
-                <td key={i}>{typeof row[col.value] !== 'string' ?
-                  format('.2f')(row[col.value]) : row[col.value] }</td>
+                <td key={i}>{row[col.value]}</td>
               )}
             </tr>
           );

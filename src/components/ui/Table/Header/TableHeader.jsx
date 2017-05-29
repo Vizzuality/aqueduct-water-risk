@@ -1,7 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import TableHeaderActions from './TableHeaderActions';
-
 
 export default class TableHeader extends React.Component {
   render() {
@@ -36,13 +36,13 @@ export default class TableHeader extends React.Component {
 }
 
 TableHeader.propTypes = {
-  actions: React.PropTypes.object,
-  columns: React.PropTypes.array,
-  columnValues: React.PropTypes.object,
-  columnQueries: React.PropTypes.object,
-  filteredData: React.PropTypes.array,
-  onFilter: React.PropTypes.func,
-  onSort: React.PropTypes.func
+  actions: PropTypes.object,
+  columns: PropTypes.array,
+  columnValues: PropTypes.object,
+  columnQueries: PropTypes.object,
+  filteredData: PropTypes.array,
+  onFilter: PropTypes.func,
+  onSort: PropTypes.func
 };
 
 TableHeader.defaultProps = {

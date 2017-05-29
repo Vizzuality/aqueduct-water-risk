@@ -1,4 +1,4 @@
-import { get, post } from 'utils/request';
+import { get, post } from 'aqueduct-components';
 import { toGeoJsonCollection } from 'utils/geojson';
 import { parseWeights } from 'utils/weights';
 import { updateUrl } from 'modules/url';
@@ -130,6 +130,12 @@ function saveOnGeostore(points) {
   return (dispatch) => {
     post({
       url: `${config.API_URL}/geostore`,
+      headers: [
+        {
+          key: 'Content-Type',
+          value: 'application/json'
+        }
+      ],
       body: toGeoJsonCollection(points),
       onSuccess: (data) => {
         dispatch(setGeostoreId(data.data.id));
@@ -153,9 +159,15 @@ function setAnalysis(weightScheme, points) {
   }
 
   return (dispatch) => {
+    const formData = new FormData();
+    formData.append('q', query);
+
     dispatch({ type: SET_ANALYSIS_LOADING });
-    get({
-      url: `https://wri-01.carto.com/api/v2/sql?q=${query}`,
+    post({
+      type: 'POST',
+      url: 'https://wri-01.carto.com/api/v2/sql',
+      body: formData,
+      multipart: true,
       onSuccess: ({ rows }) => {
         dispatch(setAnalysisData(rows));
         dispatch({ type: SET_ANALYSIS_SUCCESS });

@@ -1,6 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
+import { format } from 'd3-format';
 
 import { Icon } from 'aqueduct-components';
 
@@ -66,7 +68,8 @@ export default class TableContent extends React.Component {
                 </td>
               }
               {columns.map((col, i) =>
-                <td key={i}>{row[col.value]}</td>
+                <td key={i}>{typeof row[col.value] !== 'string' ?
+                  format('.2f')(row[col.value]) : row[col.value] }</td>
               )}
             </tr>
           );
@@ -77,15 +80,15 @@ export default class TableContent extends React.Component {
 }
 
 TableContent.propTypes = {
-  actions: React.PropTypes.object,
-  columns: React.PropTypes.array,
-  filteredData: React.PropTypes.array,
-  pagination: React.PropTypes.object,
-  rowSelection: React.PropTypes.array,
-  sort: React.PropTypes.object,
+  actions: PropTypes.object,
+  columns: PropTypes.array,
+  filteredData: PropTypes.array,
+  pagination: PropTypes.object,
+  rowSelection: PropTypes.array,
+  sort: PropTypes.object,
   // FUNCTIONS
-  onRowDelete: React.PropTypes.func,
-  onToggleSelectedRow: React.PropTypes.func
+  onRowDelete: PropTypes.func,
+  onToggleSelectedRow: PropTypes.func
 };
 
 TableContent.defaultProps = {

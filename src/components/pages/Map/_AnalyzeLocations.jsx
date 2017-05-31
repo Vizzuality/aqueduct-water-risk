@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { dispatch } from 'main';
+import { format } from 'd3-format';
 import CustomTable from 'components/ui/Table/Table';
 import BtnMenu from 'components/ui/BtnMenu';
 import ImportFileModal from 'components/modal/ImportFileModal';
 import CoordinatesModal from 'components/modal/CoordinatesModal';
 import { layerOptions } from 'constants/analyzeLocations';
-import { Sticky, Spinner, Timeline, toggleModal } from 'aqueduct-components';
+import { Sticky, Timeline, toggleModal } from 'aqueduct-components';
 import StickyLocation from 'components/filters/StickyLocation';
 import { PARENT_CHILDREN_LAYER_RELATION } from 'constants/layers';
 
@@ -64,7 +65,18 @@ export default class AnalyzeLocations extends React.Component {
     return layerOptions.find(layer => layer.value === selectedTimelineValue);
   }
 
+  formatData(data) {
+    return data.map((d) => {
+      const parseObject = {}
+      Object.keys(d).forEach((key) => {
+        parseObject[key] = isNaN(d[key]) ? d[key] : format('.2f')(d[key])
+      });
+      return parseObject;
+    });
+  }
+
   render() {
+    const formattedData = this.formatData(this.props.data);
     return (
       <div>
         <div className="l-container analyze-locations-header" ref={(elem) => { this.analyzeHeader = elem; }}>
@@ -104,10 +116,10 @@ export default class AnalyzeLocations extends React.Component {
         </div>
 
         <div className="l-container -top">
-          <Spinner isLoading={this.props.loading} />
           <CustomTable
             columns={this.props.columns}
-            data={this.props.data}
+            data={formattedData}
+            loading={this.props.loading}
             pageSize={20}
             actions={{
               showable: false,

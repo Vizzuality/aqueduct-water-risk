@@ -2,7 +2,7 @@
 /* eslint import/extensions: 0 */
 
 import L from 'leaflet/dist/leaflet';
-import { get } from 'utils/request';
+import { get } from 'aqueduct-components';
 
 export default class LayerManager {
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import TetherComponent from 'react-tether';
 import { Icon } from 'aqueduct-components';
 
@@ -93,8 +94,8 @@ export default class TableFilters extends React.Component {
 }
 
 TableFilters.propTypes = {
-  field: React.PropTypes.string.isRequired,
-  onSort: React.PropTypes.func
+  field: PropTypes.string.isRequired,
+  onSort: PropTypes.func
 };
 
 TableFilters.defaultProps = {

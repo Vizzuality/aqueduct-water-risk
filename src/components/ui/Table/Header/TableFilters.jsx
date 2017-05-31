@@ -1,9 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import TetherComponent from 'react-tether';
 import classnames from 'classnames';
-import isEqual from 'lodash/isEqual';
-import { CheckboxGroup, Icon } from 'aqueduct-components';
 
+import { CheckboxGroup, Icon } from 'aqueduct-components';
 
 export default class TableFilters extends React.Component {
   constructor(props) {
@@ -13,8 +13,8 @@ export default class TableFilters extends React.Component {
       closed: true,
       input: '',
       sort: 1,
-      values: props.values || [],
-      selected: props.selected || []
+      values: props.values,
+      selected: props.selected
     };
 
     // Bindings
@@ -33,7 +33,7 @@ export default class TableFilters extends React.Component {
   componentWillReceiveProps(nextProps) {
     const selected = (nextProps.selected) ? nextProps.selected : nextProps.values;
     this.setState({
-      selected: (nextProps.selected) ? nextProps.selected : nextProps.values,
+      selected,
       values: nextProps.values
     });
   }
@@ -94,7 +94,7 @@ export default class TableFilters extends React.Component {
 
   onFilterSelect(selected) {
     this.setState({ selected }, () => {
-      const { selected, values } = this.state;
+      const { values } = this.state;
       this.props.onFilter && this.props.onFilter({
         field: this.props.field,
         value: (selected.length !== values.length) ? selected : null
@@ -133,6 +133,7 @@ export default class TableFilters extends React.Component {
       }
       return true;
     });
+
     return filteredValues.map(v => ({ label: v, value: v }));
   }
 
@@ -140,7 +141,7 @@ export default class TableFilters extends React.Component {
     const { field } = this.props;
     const { selected, input, values } = this.state;
 
-    const btnClass = classnames({
+    const btnClass = classnames('table-header-btn', {
       '-active': values && selected && values.length !== selected.length
     });
 
@@ -159,7 +160,7 @@ export default class TableFilters extends React.Component {
           <button
             ref={node => this.btnToggle = node}
             onClick={this.onToggle}
-            className={`table-header-btn ${btnClass}`}
+            className={btnClass}
           >
             <Icon name="icon-filter" className="-small" />
           </button>
@@ -233,13 +234,14 @@ export default class TableFilters extends React.Component {
 }
 
 TableFilters.propTypes = {
-  field: React.PropTypes.string.isRequired,
-  values: React.PropTypes.array,
-  selected: React.PropTypes.array,
-  onFilter: React.PropTypes.func
+  field: PropTypes.string.isRequired,
+  values: PropTypes.array,
+  selected: PropTypes.array,
+  onFilter: PropTypes.func
 };
 
 TableFilters.defaultProps = {
   onChange: null,
-  selected: null
+  selected: null,
+  values: []
 };

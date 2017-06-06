@@ -2,6 +2,7 @@ import { get, post } from 'aqueduct-components';
 import { toGeoJsonCollection } from 'utils/geojson';
 import { parseWeights } from 'utils/weights';
 import { updateUrl } from 'modules/url';
+import * as queryString from 'query-string';
 
 /* Constants */
 const SET_POINTS = 'SET_POINTS';
@@ -145,31 +146,16 @@ function saveOnGeostore(points) {
   };
 }
 
-function setAnalysis(weightScheme, points) {
+function setAnalysis(weightScheme, geoStore) {
   const parsedWeights = parseWeights(weightScheme);
-  let parsedPoints = [];
-  let query = '';
-
-  if (points.length) {
-    parsedPoints = points.map(point => `''POINT(${point.lng} ${point.lat})''`);
-  }
-
-  if (parsedWeights) {
-    query = `select * from get_aqpoints('[${parsedWeights.toString()}]', '[${parsedPoints.toString()}]')`;
-  }
+  const paramsQuery = `geostore=${geoStore}&wscheme=[${parsedWeights}]`;
 
   return (dispatch) => {
-    const formData = new FormData();
-    formData.append('q', query);
-
     dispatch({ type: SET_ANALYSIS_LOADING });
-    post({
-      type: 'POST',
-      url: 'https://wri-01.carto.com/api/v2/sql',
-      body: formData,
-      multipart: true,
-      onSuccess: ({ rows }) => {
-        dispatch(setAnalysisData(rows));
+    get({
+      url: `${config.API_URL}/aqueduct/analysis?${paramsQuery}`,
+      onSuccess: ({ data }) => {
+        dispatch(setAnalysisData(data));
         dispatch({ type: SET_ANALYSIS_SUCCESS });
       }
     });

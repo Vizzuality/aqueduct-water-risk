@@ -133,8 +133,10 @@ export default class MapPage extends React.Component {
                 data={this.props.analyzeLocations.weights}
                 scope={this.props.scope}
                 scheme={this.props.mapView.ponderation.scheme}
+                geoStore={this.props.analyzeLocations.points.geoStore}
                 points={this.props.analyzeLocations.points.list}
                 loading={this.props.analyzeLocations.loading}
+                setPoints={this.props.setPoints}
                 setSelectedPoints={ids => this.props.setSelectedPoints(ids)}
                 onPointRemove={id => this.props.removePoint(id)}
                 setActiveLayers={this.props.setActiveLayers}

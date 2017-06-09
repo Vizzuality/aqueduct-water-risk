@@ -10,6 +10,7 @@ import { layerOptions } from 'constants/analyzeLocations';
 import { Sticky, Timeline, toggleModal } from 'aqueduct-components';
 import StickyLocation from 'components/filters/StickyLocation';
 import { PARENT_CHILDREN_LAYER_RELATION } from 'constants/layers';
+import isEqual from 'lodash/isEqual';
 
 export default class AnalyzeLocations extends React.Component {
 
@@ -23,19 +24,27 @@ export default class AnalyzeLocations extends React.Component {
 
   /* lifecycle */
   componentDidMount() {
+    const { scheme, geoStore, points } = this.props;
     this.setStickyFilterPosition();
 
-    if (this.props.scheme && this.props.points.length) {
-      const { scheme, points } = this.props;
-      this.props.setAnalysis(scheme, points);
+    if (geoStore && scheme) {
+      this.props.setAnalysis(scheme, geoStore);
+    }
+
+    if (!geoStore && points.length) {
+      this.props.setPoints(points);
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.scheme &&
-      this.props.points.length !== nextProps.points.length && nextProps.points.length) {
-      const { scheme, points } = nextProps;
-      this.props.setAnalysis(scheme, points);
+    const { scheme, geoStore, points } = nextProps;
+
+    if (!geoStore && !isEqual(this.props.points, points)) {
+      this.props.setPoints(points);
+    }
+
+    if (this.props.geoStore !== geoStore && scheme) {
+      this.props.setAnalysis(scheme, geoStore);
     }
   }
 
@@ -142,6 +151,7 @@ AnalyzeLocations.propTypes = {
   // STATE
   data: PropTypes.array,
   columns: PropTypes.array,
+  geoStore: PropTypes.string,
   loading: PropTypes.bool,
   scope: PropTypes.string,
   points: PropTypes.array,
@@ -149,6 +159,7 @@ AnalyzeLocations.propTypes = {
   // FUNCTIONS
   setSelectedPoints: PropTypes.func,
   setScope: PropTypes.func,
+  setPoints: PropTypes.func,
   onPointRemove: PropTypes.func,
   layersActive: PropTypes.array,
   setActiveLayers: PropTypes.func,

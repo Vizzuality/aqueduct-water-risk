@@ -12,14 +12,14 @@
     "type": "git",
     "url": "git+https://github.com/Vizzuality/aqueduct-water-risk.git"
   },
-  "author": "Óscar Ferrándiz <oscar.ferrandiz@vizzuality.com>",
+  "author": "Vizzuality",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Vizzuality/aqueduct-water-risk/issues"
   },
   "homepage": "https://github.com/Vizzuality/aqueduct-water-risk#readme",
   "dependencies": {
-    "aqueduct-components": "git+https://github.com/Vizzuality/aqueduct-components.git",
+    "aqueduct-components": "git+https://github.com/Vizzuality/aqueduct-components.git#version/0.x.x",
     "babel-core": "^6.18.2",
     "babel-loader": "^6.2.7",
     "babel-plugin-add-react-displayname": "0.0.4",
@@ -91,6 +91,6 @@
     "webpack-bundle-analyzer": "^2.4.0"
   },
   "engines": {
-    "node": "7.2.0"
+    "node": "8.11.2"
   }
 }

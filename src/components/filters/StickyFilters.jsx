@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { CustomSelect, SegmentedUi } from 'aqueduct-components';
 import { SCOPE_OPTIONS } from 'constants/mapView';
 import { timeScaleOptions, spaceScaleOptions } from 'constants/filters';
@@ -56,12 +57,11 @@ class StickyFilters extends React.Component {
 }
 
 StickyFilters.propTypes = {
-  filters: React.PropTypes.object,
-  scope: React.PropTypes.string,
-  withScope: React.PropTypes.bool,
-  /* actions */
-  setFilters: React.PropTypes.func,
-  setScope: React.PropTypes.func
+  filters: PropTypes.object,
+  scope: PropTypes.string,
+  withScope: PropTypes.bool,
+  setFilters: PropTypes.func,
+  setScope: PropTypes.func
 };
 
 export default StickyFilters;

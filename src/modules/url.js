@@ -1,6 +1,6 @@
 import { dispatch } from 'main';
 import { replace } from 'react-router-redux';
-import { setMapLocation } from 'modules/map';
+import { setMapLocation } from 'modules/map/actions';
 import { setFilters, setActiveLayers, setPonderation } from 'modules/mapView';
 import { setScope } from 'modules/scope';
 import { fetchFromGeostore, setGeostoreId } from 'modules/analyzeLocations';
@@ -15,8 +15,8 @@ function updateUrl() {
     const locationDescriptor = {
       pathname: '/',
       query: {
-        lat: map.latLng.lat.toFixed(2),
-        lng: map.latLng.lng.toFixed(2),
+        lat: map.center.lat.toFixed(2),
+        lng: map.center.lng.toFixed(2),
         zoom: map.zoom,
         year,
         scenario,
@@ -39,9 +39,11 @@ function onEnterMapPage({ location }, replaceUrl, done) {
   if (location.query.zoom) {
     const map = {
       zoom: +location.query.zoom,
-      latLng: {
-        lat: +location.query.lat,
-        lng: +location.query.lng
+      ...(location.query.lat && location.query.lng) && {
+        center: {
+          lat: +location.query.lat,
+          lng: +location.query.lng
+        }
       }
     };
     dispatch(setMapLocation(map));

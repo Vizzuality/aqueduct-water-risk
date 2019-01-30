@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { dispatch } from 'main';
 
 // AQ COMPONENTS
@@ -126,6 +127,6 @@ export default class Filters extends React.Component {
 }
 
 Filters.propTypes = {
-  filters: React.PropTypes.object,
-  setFilters: React.PropTypes.func
+  filters: PropTypes.object,
+  setFilters: PropTypes.func
 };

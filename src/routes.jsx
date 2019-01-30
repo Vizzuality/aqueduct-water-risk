@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { IndexRoute, Router, Route } from 'react-router';
 import { onEnterMapPage } from 'modules/url';
@@ -16,7 +17,7 @@ const Routes = ({ history }) => (
 );
 
 Routes.propTypes = {
-  history: React.PropTypes.object
+  history: PropTypes.object
 };
 
 export default connect()(Routes);

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { Checkbox, Timeline } from 'aqueduct-components';
 import { points } from 'constants/points';
@@ -60,10 +61,10 @@ export default function AdvancedListCustom(props) {
 }
 
 AdvancedListCustom.propTypes = {
-  layers: React.PropTypes.array,
-  activeLayers: React.PropTypes.array,
-  onSelectLayer: React.PropTypes.func,
-  customPonderation: React.PropTypes.object
+  layers: PropTypes.array,
+  activeLayers: PropTypes.array,
+  onSelectLayer: PropTypes.func,
+  customPonderation: PropTypes.object
 };
 
 AdvancedListCustom.defaultProps = {

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { CustomSelect } from 'aqueduct-components';
 import { presetOptions } from 'constants/presets';
 
@@ -17,6 +18,6 @@ export default function Presets(props) {
 }
 
 Presets.propTypes = {
-  onChange: React.PropTypes.func,
-  ponderation: React.PropTypes.string
+  onChange: PropTypes.func,
+  ponderation: PropTypes.string
 };

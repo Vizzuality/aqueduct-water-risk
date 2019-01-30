@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Checkbox, Icon } from 'aqueduct-components';
 import { futureLayers, scenarioOptions } from 'constants/layers';
 import Presets from 'components/presets/Presets';
@@ -88,14 +89,12 @@ export default class LayerList extends React.Component {
 }
 
 LayerList.propTypes = {
-  // State
-  layers: React.PropTypes.array,
-  activeLayers: React.PropTypes.array,
-  year: React.PropTypes.string,
-  scenario: React.PropTypes.string,
-  ponderation: React.PropTypes.object,
-  // Actions
-  onSelectLayer: React.PropTypes.func,
-  setFilters: React.PropTypes.func,
-  setPonderation: React.PropTypes.func
+  layers: PropTypes.array,
+  activeLayers: PropTypes.array,
+  year: PropTypes.string,
+  scenario: PropTypes.string,
+  ponderation: PropTypes.object,
+  onSelectLayer: PropTypes.func,
+  setFilters: PropTypes.func,
+  setPonderation: PropTypes.func
 };

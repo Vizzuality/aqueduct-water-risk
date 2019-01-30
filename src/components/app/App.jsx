@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Header } from 'aqueduct-components';
 
 import Modal from 'containers/ui/Modal';
@@ -23,6 +24,6 @@ export default class App extends React.Component {
 }
 
 App.propTypes = {
-  children: React.PropTypes.object,
-  getDatasets: React.PropTypes.func
+  children: PropTypes.object,
+  getDatasets: PropTypes.func
 };

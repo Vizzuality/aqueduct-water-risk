@@ -1,55 +1,21 @@
-import L from 'leaflet/dist/leaflet';
-import React from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import {
-  MapControls,
-  Sidebar,
-  SegmentedUi,
-  ShareButton,
-  Legend,
-  SourceModal,
-  ZoomControl,
-  toggleModal
-} from 'aqueduct-components';
+import { Sidebar, SegmentedUi } from 'aqueduct-components';
 
-import { dispatch } from 'main';
-import ShareModal from 'containers/modal/ShareModal';
-import Map from 'components/map/Map';
+// components
 import MapView from 'components/pages/Map/_MapView';
+import MapComponent from 'components/map';
 import AnalyzeLocations from 'components/pages/Map/_AnalyzeLocations';
 import { SCOPE_OPTIONS } from 'constants/mapView';
 import { INDICATOR_COLUMNS } from 'constants/indicators';
 import { layers, PARENT_CHILDREN_LAYER_RELATION } from 'constants/layers';
-import { sqlParamsParse } from 'utils/parsings';
 
-export default class MapPage extends React.Component {
-
-  constructor(props) {
-    super(props);
-
-    // BINDINGS
-    this.toggleShareModal = this.toggleShareModal.bind(this);
-    this.toggleSourceModal = this.toggleSourceModal.bind(this);
-  }
-
+export default class MapPage extends PureComponent {
   componentWillMount() {
     this.props.updateUrl();
   }
 
-  // MODAL EVENTS
-  toggleShareModal() {
-    dispatch(toggleModal(true, {
-      children: ShareModal
-    }));
-  }
-
-  toggleSourceModal(layer) {
-    dispatch(toggleModal(true, {
-      children: SourceModal,
-      childrenProps: layer
-    }));
-  }
-
+  // TO-DO: move this to analyzeLocation component
   getIndicatorColumns() {
     const activeLayer = this.props.mapView.layers.active[0];
     const defaultLayer = layers[0].id;
@@ -60,52 +26,6 @@ export default class MapPage extends React.Component {
   }
 
   render() {
-    /* Map config */
-    const updateMap = (map) => {
-      this.props.setMapParams({
-        zoom: map.getZoom(),
-        latLng: map.getCenter()
-      });
-    };
-
-    const addPoint = (map, opts) => {
-      this.props.addPoint(opts.latlng);
-    };
-
-    const listeners = {
-      moveend: updateMap,
-      click: addPoint
-    };
-
-    const mapMethods = {
-      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>',
-      tileLayers: [
-        { url: config.BASEMAP_LABEL_URL, zIndex: 1000 },
-        { url: config.BASEMAP_TILE_URL, zIndex: 0 }
-      ]
-    };
-
-    const mapOptions = {
-      zoom: this.props.mapState.zoom,
-      minZoom: 2,
-      maxZoom: 15,
-      zoomControl: false,
-      center: [this.props.mapState.latLng.lat, this.props.mapState.latLng.lng]
-    };
-
-    const markerIcon = L.divIcon({
-      className: 'c-marker',
-      html: '<div class="marker-inner"></div>'
-    });
-
-    // Layers sql parsing
-    const layer = this.props.layersActive.length ? this.props.layersActive[0] : null;
-    let parsedLayer = null;
-
-    if (layer) {
-      parsedLayer = sqlParamsParse(layer, this.props.mapView);
-    }
-
     return (
       <div className="c-map-page l-map-page">
         <Sidebar setSidebarWidth={() => {}}>
@@ -148,38 +68,7 @@ export default class MapPage extends React.Component {
           </div>
         </Sidebar>
 
-        {/* Map */}
-        <Map
-          mapOptions={mapOptions}
-          mapMethods={mapMethods}
-          listeners={listeners}
-          layers={parsedLayer ? [parsedLayer] : []}
-          markers={this.props.scope === 'analyzeLocations' ? this.props.pointsCategorized : []}
-          markerIcon={markerIcon}
-        />
-
-        {/* Map controls */}
-        <MapControls>
-          <ZoomControl
-            zoom={this.props.mapState.zoom}
-            minZoom={this.props.mapState.minZoom}
-            maxZoom={this.props.mapState.maxZoom}
-            onZoomChange={zoom => this.props.setMapParams({ zoom })}
-          />
-          {/* Share button */}
-          <ShareButton
-            onClick={this.toggleShareModal}
-          />
-        </MapControls>
-
-        {/* Legend */}
-        <Legend
-          className="-map"
-          expanded
-          layers={this.props.layersActive}
-          filters={{}}
-          onToggleInfo={this.toggleSourceModal}
-        />
+        <MapComponent />
       </div>
     );
   }
@@ -188,21 +77,17 @@ export default class MapPage extends React.Component {
 MapPage.propTypes = {
   // State
   analyzeLocations: PropTypes.object,
-  mapState: PropTypes.object,
   mapView: PropTypes.object,
   scope: PropTypes.string,
   // Selector
   layersActive: PropTypes.array,
-  pointsCategorized: PropTypes.array,
   // Actions
-  setMapParams: PropTypes.func,
   setScope: PropTypes.func,
   updateUrl: PropTypes.func,
   setFilters: PropTypes.func,
   setActiveLayers: PropTypes.func,
   setPonderation: PropTypes.func,
   setAnalysis: PropTypes.func,
-  addPoint: PropTypes.func,
   removePoint: PropTypes.func,
   setSelectedPoints: PropTypes.func
 };

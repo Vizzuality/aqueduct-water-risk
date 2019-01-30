@@ -1,20 +1,19 @@
-import React from 'react';
+import React, { PureComponent, Fragment } from 'react';
+import PropTypes from 'prop-types';
 import { Sticky } from 'aqueduct-components';
+
+// components
 import StickyFilters from 'components/filters/StickyFilters';
 import Filters from 'components/filters/Filters';
 import LayerList from 'components/layers/LayerList';
 
-export default class MapView extends React.Component {
-
+class MapView extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.state = {
-      showStickyFilters: false
-    };
+    this.state = { showStickyFilters: false };
   }
 
-  /* lifecycle */
   componentDidMount() {
     this.setStickyFilterPosition();
   }
@@ -24,9 +23,7 @@ export default class MapView extends React.Component {
   }
 
   onSticky(isSticky) {
-    this.setState({
-      showStickyFilters: isSticky
-    });
+    this.setState({ showStickyFilters: isSticky });
   }
 
   setStickyFilterPosition() {
@@ -34,14 +31,12 @@ export default class MapView extends React.Component {
 
     if (this.state.stickyFilterTopPosition === stickyFilterTopPosition) return;
 
-    this.setState({
-      stickyFilterTopPosition
-    });
+    this.setState({ stickyFilterTopPosition });
   }
 
   render() {
     return (
-      <div>
+      <Fragment>
         <div className="l-filters" ref={(elem) => { this.filtersElem = elem; }}>
           <Filters
             filters={this.props.mapView.filters}
@@ -74,19 +69,19 @@ export default class MapView extends React.Component {
           setFilters={this.props.setFilters}
           setPonderation={this.props.setPonderation}
         />
-      </div>
+      </Fragment>
     );
   }
 }
 
 MapView.propTypes = {
-  // State
-  mapView: React.PropTypes.object,
-  layers: React.PropTypes.array,
-  scope: React.PropTypes.string,
-  // Actions
-  setFilters: React.PropTypes.func,
-  setScope: React.PropTypes.func,
-  onSelectLayer: React.PropTypes.func,
-  setPonderation: React.PropTypes.func
+  mapView: PropTypes.object,
+  layers: PropTypes.array,
+  scope: PropTypes.string,
+  setFilters: PropTypes.func,
+  setScope: PropTypes.func,
+  onSelectLayer: PropTypes.func,
+  setPonderation: PropTypes.func
 };
+
+export default MapView;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ChoroplethItem from './ChoroplethItem';
 import startCase from 'lodash/startCase';
 import upperFirst from 'lodash/upperFirst';
@@ -57,6 +58,6 @@ export default class Legend extends React.Component {
 }
 
 Legend.propTypes = {
-  layers: React.PropTypes.array,
-  config: React.PropTypes.object
+  layers: PropTypes.array,
+  config: PropTypes.object
 };

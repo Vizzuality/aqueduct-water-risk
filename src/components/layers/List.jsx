@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Radio, Icon } from 'aqueduct-components';
 import classnames from 'classnames';
 
@@ -43,8 +44,8 @@ export default function List(props) {
   return getLayers(props.layers, 0);
 }
 
-React.propTypes = {
-  activeLayers: React.PropTypes.array,
-  layers: React.PropTypes.array,
-  onSelectLayer: React.PropTypes.func
+List.propTypes = {
+  activeLayers: PropTypes.array,
+  layers: PropTypes.array,
+  onSelectLayer: PropTypes.func
 };

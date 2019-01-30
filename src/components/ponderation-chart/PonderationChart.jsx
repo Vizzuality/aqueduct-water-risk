@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { ponderationChart } from 'utils/ponderationChart';
 import { ponderationValues } from 'constants/ponderationPresetsValues';
 import VegaChart from 'components/vega-chart/VegaChart';
@@ -47,5 +48,5 @@ export default function PonderationChart({ ponderation }) {
 }
 
 PonderationChart.propTypes = {
-  ponderation: React.PropTypes.object
+  ponderation: PropTypes.object
 };

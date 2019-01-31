@@ -3,9 +3,10 @@ import MapPage from 'components/pages/Map/MapPage';
 import getActiveLayers from 'selectors/layers_active';
 import getCategorizedPoints from 'selectors/points_categorized';
 import { setMapLocation } from 'modules/map/actions';
+import { getLayers } from 'modules/layers/actions';
 import { updateUrl } from 'modules/url';
 import { setScope } from 'modules/scope';
-import { setFilters, setActiveLayers, setPonderation } from 'modules/mapView';
+import { setFilters, setPonderation } from 'modules/mapView';
 import { setPoints, setSelectedPoints, setAnalysis, saveOnGeostore } from 'modules/analyzeLocations';
 import { store } from 'main';
 
@@ -13,6 +14,8 @@ const mapStateToProps = state => ({
   scope: state.scope.name,
   mapState: state.map,
   mapView: state.mapView,
+  filters: state.mapView.filters,
+  ponderation: state.mapView.ponderation,
   analyzeLocations: state.analyzeLocations,
   layersActive: [] || getActiveLayers(state),
   pointsCategorized: getCategorizedPoints(state)
@@ -32,10 +35,6 @@ const mapDispatchToProps = dispatch => ({
   },
   setFilters(filter) {
     dispatch(setFilters(filter));
-    dispatch(updateUrl());
-  },
-  setActiveLayers(layers) {
-    dispatch(setActiveLayers(layers));
     dispatch(updateUrl());
   },
   setPonderation(ponderation) {
@@ -64,7 +63,8 @@ const mapDispatchToProps = dispatch => ({
   },
   setAnalysis(weights, points) {
     dispatch(setAnalysis(weights, points));
-  }
+  },
+  getLayers() { dispatch(getLayers()); }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MapPage);

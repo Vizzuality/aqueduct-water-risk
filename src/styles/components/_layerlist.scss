@@ -34,9 +34,11 @@ $separation: $space-1 * 2;
 
   .-advanced > & {
     margin-bottom: $space-1 * 4;
+    color: palette(gray, dark);
 
     &.-disabled {
-      opacity: 0.5;
+      // opacity: 0.5;
+      color: rgba(palette(gray, dark), .5)
     }
   }
 

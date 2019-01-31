@@ -1,15 +1,10 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Header } from 'aqueduct-components';
 
 import Modal from 'containers/ui/Modal';
 
-export default class App extends React.Component {
-
-  componentWillMount() {
-    this.props.getDatasets();
-  }
-
+class App extends PureComponent {
   render() {
     return (
       <div className="l-app">
@@ -23,7 +18,6 @@ export default class App extends React.Component {
   }
 }
 
-App.propTypes = {
-  children: PropTypes.object,
-  getDatasets: PropTypes.func
-};
+App.propTypes = { children: PropTypes.object.isRequired };
+
+export default App;

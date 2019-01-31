@@ -9,7 +9,7 @@ import CoordinatesModal from 'components/modal/CoordinatesModal';
 import { layerOptions } from 'constants/analyzeLocations';
 import { Sticky, Timeline, toggleModal } from 'aqueduct-components';
 import StickyLocation from 'components/filters/StickyLocation';
-import { PARENT_CHILDREN_LAYER_RELATION } from 'constants/layers';
+import { PARENT_CHILDREN_LAYER_RELATION } from 'constants/indicators';
 import isEqual from 'lodash/isEqual';
 
 export default class AnalyzeLocations extends React.Component {
@@ -68,6 +68,12 @@ export default class AnalyzeLocations extends React.Component {
     });
   }
 
+  onChangeTimeline({ value }) {
+    const { setFilters } = this.props;
+
+    setFilters({ indicator: value });
+  }
+
   getTimelineValue() {
     const selectedTimelineValue = PARENT_CHILDREN_LAYER_RELATION[this.props.layersActive[0]] || this.props.layersActive[0];
 
@@ -120,7 +126,7 @@ export default class AnalyzeLocations extends React.Component {
             className="-sand"
             items={layerOptions}
             selected={this.getTimelineValue()}
-            onChange={selected => this.props.setActiveLayers([selected.value])}
+            onChange={this.onChangeTimeline}
           />
         </div>
 
@@ -148,7 +154,6 @@ export default class AnalyzeLocations extends React.Component {
 }
 
 AnalyzeLocations.propTypes = {
-  // STATE
   data: PropTypes.array,
   columns: PropTypes.array,
   geoStore: PropTypes.string,
@@ -156,12 +161,11 @@ AnalyzeLocations.propTypes = {
   scope: PropTypes.string,
   points: PropTypes.array,
   scheme: PropTypes.string,
-  // FUNCTIONS
   setSelectedPoints: PropTypes.func,
   setScope: PropTypes.func,
   setPoints: PropTypes.func,
   onPointRemove: PropTypes.func,
   layersActive: PropTypes.array,
-  setActiveLayers: PropTypes.func,
+  setFilters: PropTypes.func.isRequired,
   setAnalysis: PropTypes.func
 };

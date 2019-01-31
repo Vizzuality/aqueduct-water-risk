@@ -46,7 +46,6 @@ class MapComponent extends PureComponent {
       toggleShareModal
     } = this.props;
     const { zoom, minZoom, maxZoom } = map;
-
     const events = {
       moveend: this._updateMap,
       click: this._addPoint

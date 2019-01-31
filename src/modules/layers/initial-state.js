@@ -1,5 +1,6 @@
 export default {
-  list: [],
+  list: {},
   loading: true,
-  error: null
+  error: null,
+  dataset: null
 };

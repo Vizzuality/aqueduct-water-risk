@@ -6,7 +6,7 @@ import { setMapLocation } from 'modules/map/actions';
 import { updateUrl } from 'modules/url';
 
 // selectors
-import { parseMapState } from './selectors';
+import { parseMapState, getUpdatedLayers } from './selectors';
 
 // component
 import MapComponent from './component';
@@ -14,7 +14,7 @@ import MapComponent from './component';
 export default connect(
   state => ({
     map: parseMapState(state),
-    layers: [] || state.layers.list
+    layers: getUpdatedLayers(state)
   }),
   dispatch => ({
     setMapParams: (params) => {

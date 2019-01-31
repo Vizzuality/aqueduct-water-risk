@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default function ChoroplethItem({ layer, name }) {
   return (
@@ -20,6 +21,6 @@ export default function ChoroplethItem({ layer, name }) {
 }
 
 ChoroplethItem.propTypes = {
-  layer: React.PropTypes.object,
-  name: React.PropTypes.string
+  layer: PropTypes.object,
+  name: PropTypes.string
 };

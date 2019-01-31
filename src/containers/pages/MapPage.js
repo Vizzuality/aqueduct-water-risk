@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import MapPage from 'components/pages/Map/MapPage';
 import getActiveLayers from 'selectors/layers_active';
 import getCategorizedPoints from 'selectors/points_categorized';
-import { setMapLocation } from 'modules/map';
+import { setMapLocation } from 'modules/map/actions';
 import { updateUrl } from 'modules/url';
 import { setScope } from 'modules/scope';
 import { setFilters, setActiveLayers, setPonderation } from 'modules/mapView';
@@ -14,7 +14,7 @@ const mapStateToProps = state => ({
   mapState: state.map,
   mapView: state.mapView,
   analyzeLocations: state.analyzeLocations,
-  layersActive: getActiveLayers(state),
+  layersActive: [] || getActiveLayers(state),
   pointsCategorized: getCategorizedPoints(state)
 });
 

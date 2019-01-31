@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { dispatch } from 'main';
 import { SegmentedUi, toggleModal } from 'aqueduct-components';
 import { SCOPE_OPTIONS } from 'constants/mapView';
@@ -39,10 +40,9 @@ class StickyLocation extends React.Component {
 }
 
 StickyLocation.propTypes = {
-  scope: React.PropTypes.string,
-  withScope: React.PropTypes.bool,
-  /* actions */
-  setScope: React.PropTypes.func
+  scope: PropTypes.string,
+  withScope: PropTypes.bool,
+  setScope: PropTypes.func
 };
 
 export default StickyLocation;

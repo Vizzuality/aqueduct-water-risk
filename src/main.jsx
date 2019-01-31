@@ -2,28 +2,17 @@ import React from 'react';
 import { render } from 'react-dom';
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
+import { handleModule } from 'redux-tools';
 import { browserHistory } from 'react-router';
 import thunk from 'redux-thunk';
 import { syncHistoryWithStore, routerReducer, routerMiddleware } from 'react-router-redux';
-import initOpbeat from 'opbeat-react';
-import 'opbeat-react/router';
-import { createOpbeatMiddleware } from 'opbeat-react/redux';
 
 import * as reducers from './modules';
+import * as layersModule from './modules/layers';
+import * as mapModule from './modules/map';
 import Routes from './routes';
 
-import 'leaflet/dist/leaflet.css';
 import './styles/index.scss';
-
-/**
- * Monitoring
- */
-if (config.opbeatOrgId && config.opbeatAppId) {
-  initOpbeat({
-    orgId: config.opbeatOrgId,
-    appId: config.opbeatAppId
-  });
-}
 
 /**
  * Reducers
@@ -32,6 +21,8 @@ if (config.opbeatOrgId && config.opbeatAppId) {
  */
 const reducer = combineReducers({
   ...reducers,
+  layers: handleModule(layersModule),
+  map: handleModule(mapModule),
   routing: routerReducer
 });
 
@@ -46,11 +37,11 @@ const store = createStore(
   compose(
     /* The router middleware MUST be before thunk otherwise the URL changes
     * inside a thunk function won't work properly */
-    applyMiddleware(middlewareRouter, thunk, createOpbeatMiddleware()),
+    applyMiddleware(middlewareRouter, thunk),
     /* Redux dev tool, install chrome extension in
      * https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en */
     typeof window === 'object' &&
-      typeof window.devToolsExtension !== 'undefined' ? window.devToolsExtension() : f => f
+      typeof window.__REDUX_DEVTOOLS_EXTENSION__ !== 'undefined' ? window.__REDUX_DEVTOOLS_EXTENSION__() : f => f
   )
 );
 

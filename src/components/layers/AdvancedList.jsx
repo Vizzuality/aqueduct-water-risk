@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { Timeline, Radio } from 'aqueduct-components';
 import { points } from 'constants/points';
@@ -52,10 +53,10 @@ export default function AdvancedList(props) {
 }
 
 AdvancedList.propTypes = {
-  layers: React.PropTypes.array,
-  activeLayers: React.PropTypes.array,
-  onSelectLayer: React.PropTypes.func,
-  ponderation: React.PropTypes.string
+  layers: PropTypes.array,
+  activeLayers: PropTypes.array,
+  onSelectLayer: PropTypes.func,
+  ponderation: PropTypes.string
 };
 
 AdvancedList.defaultProps = {

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Radio, RadioGroup } from 'aqueduct-components';
 
 export default function Future(props) {
@@ -30,10 +31,10 @@ export default function Future(props) {
 }
 
 Future.propTypes = {
-  layers: React.PropTypes.array,
-  scenarioOptions: React.PropTypes.array,
-  activeLayers: React.PropTypes.array,
-  onSelectLayer: React.PropTypes.func,
-  setFilters: React.PropTypes.func,
-  scenario: React.PropTypes.string
+  layers: PropTypes.array,
+  scenarioOptions: PropTypes.array,
+  activeLayers: PropTypes.array,
+  onSelectLayer: PropTypes.func,
+  setFilters: PropTypes.func,
+  scenario: PropTypes.string
 };

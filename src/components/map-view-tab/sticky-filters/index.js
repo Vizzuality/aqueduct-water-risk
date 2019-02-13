@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
 
 // actions
-import { updateUrl } from 'modules/url';
 import { setFilters } from 'modules/mapView';
 import { setScope } from 'modules/scope';
 
@@ -14,11 +13,7 @@ export default connect(
     filters: state.mapView.filters
   }),
   dispatch => ({
-    setFilters: (filter) => {
-      dispatch(setFilters(filter));
-      // TO-DO: remove updating url from here
-      dispatch(updateUrl());
-    },
+    setFilters: (filter) => { dispatch(setFilters(filter)); },
     setScope: (scope) => { dispatch(setScope(scope)); }
   })
 )(StickyFilters);

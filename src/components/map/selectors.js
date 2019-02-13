@@ -2,10 +2,7 @@ import { createSelector } from 'reselect';
 
 // utils
 import {
-  getAnnualParametrization,
-  getMonthlyParametrization,
-  getProjectedParametrization,
-  getCustomPonderationParametrization,
+  getLayerParametrization,
   reduceParams
 } from 'utils/layers';
 
@@ -28,15 +25,17 @@ const getFilteredLayers = createSelector(
 
     if (ponderationScheme === 'custom') return _layers.custom;
 
-    if (ponderationScheme !== 'custom' && ponderationScheme !== 'DEF') return _layers.custom_weights;
+    if (year === 'baseline' && timeScale === 'monthly' && ponderationScheme === 'DEF') return _layers.monthly;
 
+    if (year === 'baseline' && timeScale === 'annual' && ponderationScheme === 'DEF') return _layers.annual;
+
+    // predefined weights
+    if (timeScale === 'annual' && ponderationScheme !== 'custom' && ponderationScheme !== 'DEF') return _layers.weights;
+
+    // future
     if (year !== 'baseline') return _layers.projected.filter(_layer => _layer.id === indicator);
 
-    // if (timeScale === 'annual') return _layers[timeScale];
-
-    // if (timeScale === 'monthly') return _layers[timeScale];
-
-    return _layers[timeScale];
+    return _layers.annual;
   }
 );
 
@@ -45,18 +44,7 @@ export const getUpdatedLayers = createSelector(
   (_activeLayers, _parametrization, _ponderation) => {
     if (!_activeLayers.length) return _activeLayers;
 
-    const { year, timeScale } = _parametrization;
-    const {
-      scheme: ponderationScheme,
-      custom: customPonderation
-    } = _ponderation;
-
-    let params = {};
-
-    if (year !== 'baseline') params = getProjectedParametrization(_parametrization);
-    if (timeScale === 'annual' && year === 'baseline') params = getAnnualParametrization(_parametrization);
-    if (timeScale === 'monthly' && year === 'baseline') params = getMonthlyParametrization(_parametrization);
-    if (ponderationScheme === 'custom') params = getCustomPonderationParametrization(customPonderation);
+    const params = getLayerParametrization(_parametrization, _ponderation);
 
     return _activeLayers.map(_activeLayer => ({
       ..._activeLayer,

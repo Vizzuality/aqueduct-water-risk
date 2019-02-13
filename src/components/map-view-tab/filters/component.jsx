@@ -15,27 +15,42 @@ import {
   projectionOptions,
   MONTH_OPTIONS
 } from 'constants/filters';
-import { FUTURE_INDICATORS } from 'constants/indicators';
+import { INDICATORS, FUTURE_INDICATORS } from 'constants/indicators';
 
 class Filters extends PureComponent {
-  onSelectTimeframe(value) {
-    const { setFilters } = this.props;
+  onSelectTimeframe(year) {
+    const {
+      filters: { year: prevYear, projection, timeScale },
+      setFilters,
+      setPonderation
+    } = this.props;
 
     setFilters({
-      year: value,
-      ...value !== 'baseline' && { indicator: FUTURE_INDICATORS.absolute[0].id }
+      year,
+      ...(year !== 'baseline' && (!['2030', '2040'].includes(prevYear))) && { indicator: FUTURE_INDICATORS[projection][0].id },
+      ...(year === 'baseline' && timeScale === 'annual') && { indicator: INDICATORS[0].id },
+      ...(year === 'baseline' && timeScale === 'monthly') && { indicator: 'bws_cat' }
     });
+
+    if (year !== 'baseline') setPonderation({ scheme: 'DEF' });
   }
 
   onSelectTimeScale(value) {
-    const { setFilters } = this.props;
+    const {
+      setFilters,
+      setPonderation
+    } = this.props;
+
     setFilters({
       timeScale: value,
       ...value === 'monthly' && {
         indicator: 'bws_cat',
         month: '1'
-      }
+      },
+      ...value === 'annual' && { indicator: 'w_awr_def_tot_cat' }
     });
+
+    if (value === 'monthly') setPonderation({ scheme: 'DEF' });
   }
 
   onSelectProjection(projection) {
@@ -151,6 +166,7 @@ class Filters extends PureComponent {
 Filters.propTypes = {
   filters: PropTypes.object.isRequired,
   setFilters: PropTypes.func.isRequired,
+  setPonderation: PropTypes.func.isRequired,
   openModal: PropTypes.func.isRequired
 };
 

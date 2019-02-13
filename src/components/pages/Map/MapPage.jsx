@@ -3,22 +3,45 @@ import PropTypes from 'prop-types';
 import { Sidebar, SegmentedUi } from 'aqueduct-components';
 
 // components
-import MapView from 'components/pages/Map/_MapView';
+import MapView from 'components/pages/Map/map-view';
 import MapComponent from 'components/map';
 import AnalyzeLocations from 'components/pages/Map/_AnalyzeLocations';
 import { SCOPE_OPTIONS } from 'constants/mapView';
-import { INDICATOR_COLUMNS } from 'constants/indicators';
-import { layers, PARENT_CHILDREN_LAYER_RELATION } from 'constants/layers';
+import { INDICATORS, INDICATOR_COLUMNS, PARENT_CHILDREN_LAYER_RELATION } from 'constants/indicators';
 
 export default class MapPage extends PureComponent {
   componentWillMount() {
-    this.props.updateUrl();
+    const { getLayers, updateUrl } = this.props;
+
+    getLayers();
+    updateUrl();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const {
+      filters: { year, timeScale },
+      ponderation: { scheme },
+      getLayers
+    } = this.props;
+    const {
+      filters: nextFilters,
+      ponderation: { scheme: nextScheme }
+    } = nextProps;
+    const { year: nextYear, timeScale: nextTimeScale } = nextFilters;
+
+    if (
+      (year === 'baseline' && nextYear !== 'baseline') ||
+      (year !== 'baseline' && nextYear === 'baseline') ||
+      (timeScale !== nextTimeScale) ||
+      (scheme !== nextScheme)) {
+      getLayers();
+    }
   }
 
   // TO-DO: move this to analyzeLocation component
   getIndicatorColumns() {
     const activeLayer = this.props.mapView.layers.active[0];
-    const defaultLayer = layers[0].id;
+    const defaultLayer = INDICATORS[0].id;
     const columnIndicator = INDICATOR_COLUMNS[activeLayer] || INDICATOR_COLUMNS[PARENT_CHILDREN_LAYER_RELATION[activeLayer]];
 
     return activeLayer !== defaultLayer ?
@@ -26,32 +49,24 @@ export default class MapPage extends PureComponent {
   }
 
   render() {
+    const { scope } = this.props;
+
     return (
       <div className="c-map-page l-map-page">
         <Sidebar setSidebarWidth={() => {}}>
           <SegmentedUi
             className="-tabs"
             items={SCOPE_OPTIONS}
-            selected={this.props.scope}
-            onChange={selected => this.props.setScope(selected.value)}
+            selected={scope}
+            onChange={({ value }) => { this.props.setScope(value); }}
           />
           <div className="l-mapview-content">
-            { this.props.scope === 'mapView' &&
-              <MapView
-                mapView={this.props.mapView}
-                layers={layers}
-                scope={this.props.scope}
-                onSelectLayer={this.props.setActiveLayers}
-                setFilters={this.props.setFilters}
-                setScope={this.props.setScope}
-                setPonderation={this.props.setPonderation}
-              />
-            }
-            { this.props.scope === 'analyzeLocations' &&
-              <AnalyzeLocations
+            {scope === 'mapView' && (<MapView />)}
+            {scope === 'analyzeLocations' &&
+              (<AnalyzeLocations
                 columns={this.getIndicatorColumns()}
                 data={this.props.analyzeLocations.weights}
-                scope={this.props.scope}
+                scope={scope}
                 scheme={this.props.mapView.ponderation.scheme}
                 geoStore={this.props.analyzeLocations.points.geoStore}
                 points={this.props.analyzeLocations.points.list}
@@ -63,11 +78,10 @@ export default class MapPage extends PureComponent {
                 setAnalysis={this.props.setAnalysis}
                 setScope={this.props.setScope}
                 layersActive={this.props.mapView.layers.active}
-              />
+              />)
             }
           </div>
         </Sidebar>
-
         <MapComponent />
       </div>
     );
@@ -75,19 +89,16 @@ export default class MapPage extends PureComponent {
 }
 
 MapPage.propTypes = {
-  // State
   analyzeLocations: PropTypes.object,
   mapView: PropTypes.object,
+  filters: PropTypes.object.isRequired,
+  ponderation: PropTypes.object.isRequired,
   scope: PropTypes.string,
-  // Selector
-  layersActive: PropTypes.array,
-  // Actions
   setScope: PropTypes.func,
   updateUrl: PropTypes.func,
-  setFilters: PropTypes.func,
   setActiveLayers: PropTypes.func,
-  setPonderation: PropTypes.func,
   setAnalysis: PropTypes.func,
   removePoint: PropTypes.func,
-  setSelectedPoints: PropTypes.func
+  setSelectedPoints: PropTypes.func,
+  getLayers: PropTypes.func.isRequired
 };

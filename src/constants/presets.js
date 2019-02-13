@@ -1,48 +1,195 @@
-const presetOptions = [
-  {
-    label: 'Custom',
-    value: 'custom'
-  },
-  {
-    label: 'Default',
-    value: 'default'
-  },
-  {
-    label: 'Argiculture',
-    value: 'w_agr'
-  },
-  {
-    label: 'Power',
-    value: 'w_power'
-  },
-  {
-    label: 'Semiconductor',
-    value: 'w_semico'
-  },
-  {
-    label: 'Oil and gas',
-    value: 'w_oilgas'
-  },
-  {
-    label: 'Chemical',
-    value: 'w_chem'
-  },
-  {
-    label: 'Mining',
-    value: 'w_mine'
-  },
-  {
-    label: 'Food and beverage',
-    value: 'w_foodbv'
-  },
-  {
-    label: 'Construction materials',
-    value: 'w_constr'
-  },
-  {
-    label: 'Textile',
-    value: 'w_tex'
-  }
+export const PRESET_OPTIONS = [
+  { label: 'Custom', value: 'custom' },
+  { label: 'Default', value: 'DEF' },
+  { label: 'Argiculture', value: 'AGR' },
+  { label: 'Electric Power', value: 'ELP' },
+  { label: 'Semiconductor', value: 'SMC' },
+  { label: 'Oil and gas', value: 'ONG' },
+  { label: 'Chemical', value: 'CHE' },
+  { label: 'Mining', value: 'MIN' },
+  { label: 'Food and beverage', value: 'FNB' },
+  { label: 'Construction materials', value: 'CON' },
+  { label: 'Textile', value: 'TEX' }
 ];
 
-export { presetOptions };
+export const PRESET_VALUES = {
+  DEF: {
+    bws_cat: 4,
+    bwd_cat: 4,
+    iav_cat: 0.5,
+    sev_cat: 0.5,
+    gtd_cat: 4,
+    drr_cat: 2,
+    rfr_cat: 1,
+    cfr_cat: 1,
+    ucw_cat: 2,
+    cep_cat: 1,
+    udw_cat: 2,
+    usa_cat: 2,
+    rri_cat: 0.5
+  },
+  AGR: {
+    bws_cat: 4,
+    bwd_cat: 4,
+    iav_cat: 2,
+    sev_cat: 0.5,
+    gtd_cat: 4,
+    drr_cat: 4,
+    rfr_cat: 1,
+    cfr_cat: 1,
+    ucw_cat: 1,
+    cep_cat: 4,
+    udw_cat: 2,
+    usa_cat: 2,
+    rri_cat: 0.25
+  },
+  ELP: {
+    bws_cat: 4,
+    bwd_cat: 4,
+    iav_cat: 1,
+    sev_cat: 2,
+    gtd_cat: 0.5,
+    drr_cat: 4,
+    rfr_cat: 2,
+    cfr_cat: 4,
+    ucw_cat: 0.25,
+    cep_cat: 1,
+    udw_cat: 0.25,
+    usa_cat: 0.25,
+    rri_cat: 0.25
+  },
+  SMC: {
+    bws_cat: 2,
+    bwd_cat: 2,
+    iav_cat: 1,
+    sev_cat: 1,
+    gtd_cat: 2,
+    drr_cat: 1,
+    rfr_cat: 1,
+    cfr_cat: 1,
+    ucw_cat: 4,
+    cep_cat: 2,
+    udw_cat: 1,
+    usa_cat: 1,
+    rri_cat: 2
+  },
+  ONG: {
+    bws_cat: 1,
+    bwd_cat: 1,
+    iav_cat: 0.5,
+    sev_cat: 0.5,
+    gtd_cat: 1,
+    drr_cat: 0.5,
+    rfr_cat: 1,
+    cfr_cat: 4,
+    ucw_cat: 4,
+    cep_cat: 0,
+    udw_cat: 4,
+    usa_cat: 4,
+    rri_cat: 4
+  },
+  CHE: {
+    bws_cat: 2,
+    bwd_cat: 2,
+    iav_cat: 1,
+    sev_cat: 1,
+    gtd_cat: 2,
+    drr_cat: 2,
+    rfr_cat: 4,
+    cfr_cat: 4,
+    ucw_cat: 2,
+    cep_cat: 0.25,
+    udw_cat: 2,
+    usa_cat: 2,
+    rri_cat: 2
+  },
+  MIN: {
+    bws_cat: 2,
+    bwd_cat: 2,
+    iav_cat: 1,
+    sev_cat: 1,
+    gtd_cat: 2,
+    drr_cat: 4,
+    rfr_cat: 4,
+    cfr_cat: 4,
+    ucw_cat: 4,
+    cep_cat: 0.25,
+    udw_cat: 4,
+    usa_cat: 4,
+    rri_cat: 4
+  },
+  FNB: {
+    bws_cat: 4,
+    bwd_cat: 4,
+    iav_cat: 1,
+    sev_cat: 0.5,
+    gtd_cat: 4,
+    drr_cat: 2,
+    rfr_cat: 0.5,
+    cfr_cat: 0.5,
+    ucw_cat: 1,
+    cep_cat: 2,
+    udw_cat: 1,
+    usa_cat: 1,
+    rri_cat: 2
+  },
+  CON: {
+    bws_cat: 2,
+    bwd_cat: 2,
+    iav_cat: 0.5,
+    sev_cat: 0.5,
+    gtd_cat: 2,
+    drr_cat: 1,
+    rfr_cat: 1,
+    cfr_cat: 1,
+    ucw_cat: 1,
+    cep_cat: 0.5,
+    udw_cat: 1,
+    usa_cat: 1,
+    rri_cat: 0.5
+  },
+  TEX: {
+    bws_cat: 2,
+    bwd_cat: 2,
+    iav_cat: 1,
+    sev_cat: 0.5,
+    gtd_cat: 2,
+    drr_cat: 1,
+    rfr_cat: 1,
+    cfr_cat: 2,
+    ucw_cat: 2,
+    cep_cat: 1,
+    udw_cat: 2,
+    usa_cat: 2,
+    rri_cat: 4
+  },
+  custom: {
+    bws_cat: 1,
+    bwd_cat: 1,
+    iav_cat: 1,
+    sev_cat: 1,
+    gtd_cat: 1,
+    drr_cat: 1,
+    rfr_cat: 1,
+    cfr_cat: 1,
+    ucw_cat: 1,
+    cep_cat: 1,
+    udw_cat: 1,
+    usa_cat: 1,
+    rri_cat: 1
+  }
+};
+
+export const PRESET_POINTS = [
+  { label: '', value: 0.25 },
+  { label: '', value: 0.5 },
+  { label: '', value: 1 },
+  { label: '', value: 2 },
+  { label: '', value: 4 }
+];
+
+export default {
+  PRESET_OPTIONS,
+  PRESET_VALUES,
+  PRESET_POINTS
+};

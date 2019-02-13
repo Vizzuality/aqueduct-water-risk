@@ -2,6 +2,22 @@
   "presets": ["env", "react"],
   "plugins": [
     "add-react-displayname",
-    "transform-object-rest-spread"
+    "transform-object-rest-spread",
+    [
+      "module-resolver",
+      {
+        "root": ["."],
+        "alias": {
+          "styles": "./src/styles",
+          "components": "./src/components",
+          "modules": "./src/modules",
+          "utils": "./src/utils",
+          "selectors": "./src/selectors",
+          "services": "./src/services",
+          "constants": "./src/constants"
+        },
+        "cwd": "babelrc"
+      }
+    ]
   ]
 }

@@ -1,15 +1,15 @@
 import { dispatch } from 'main';
 import { replace } from 'react-router-redux';
 import { setMapLocation } from 'modules/map/actions';
-import { setFilters, setActiveLayers, setPonderation } from 'modules/mapView';
+import { setFilters, setPonderation } from 'modules/mapView';
 import { setScope } from 'modules/scope';
 import { fetchFromGeostore, setGeostoreId } from 'modules/analyzeLocations';
 
 function updateUrl() {
   return (storeDispatch, getState) => {
     const { map, mapView, scope, analyzeLocations } = getState();
-    const { year, scenario, timeScale, geoScale, projection } = mapView.filters;
-    const { layers, ponderation } = mapView;
+    const { year, scenario, timeScale, projection, month, indicator } = mapView.filters;
+    const { ponderation } = mapView;
     const { points } = analyzeLocations;
 
     const locationDescriptor = {
@@ -21,9 +21,10 @@ function updateUrl() {
         year,
         scenario,
         timeScale,
-        geoScale,
+        month,
         projection,
-        layers: (Array.isArray(layers.active)) ? layers.active.join(',') : layers.active,
+        indicator,
+        // layers: (Array.isArray(layers.active)) ? layers.active.join(',') : layers.active,
         ponderation: ponderation.scheme,
         scope: scope.name,
         geoStore: points.geoStore
@@ -49,18 +50,17 @@ function onEnterMapPage({ location }, replaceUrl, done) {
     dispatch(setMapLocation(map));
   }
   if (location.query.year) {
-    const { year, scenario, timeScale, geoScale, projection } = location.query;
+    const { year, scenario, timeScale, projection, month, indicator } = location.query;
     dispatch(setFilters({
       year,
       scenario,
       timeScale,
-      geoScale,
-      projection
+      month,
+      projection,
+      indicator
     }));
   }
-  if (location.query.layers) {
-    dispatch(setActiveLayers(location.query.layers.split(',')));
-  }
+
   if (location.query.ponderation) {
     dispatch(setPonderation({ scheme: location.query.ponderation }));
   }

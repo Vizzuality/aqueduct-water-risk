@@ -12,8 +12,8 @@ export default connect(
     customPonderation: state.mapView.ponderation.custom
   }),
   dispatch => ({
-    setCustomValue(customPonderation) {
-      dispatch(setPonderation({ custom: customPonderation }));
+    setPonderation(ponderation) {
+      dispatch(setPonderation(ponderation));
     }
   })
 )(CustomAdvancedIndicatorList);

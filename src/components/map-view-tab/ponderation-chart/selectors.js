@@ -12,11 +12,12 @@ const getPonderation = state => state.mapView.ponderation;
 export const getData = createSelector(
   [getPonderation],
   (ponderation) => {
-    const source = PRESET_VALUES[ponderation.scheme];
-    const quantityTotal = source.bws_cat + source.bwd_cat + source.gtd_cat +
-      source.iav_cat + source.sev_cat + source.drr_cat + source.rfr_cat + source.cfr_cat;
-    const qualityTotal = source.ucw_cat + source.cep_cat;
-    const regulatoryTotal = source.udw_cat + source.usa_cat + source.rri_cat;
+    const { scheme, custom } = ponderation;
+    const source = scheme === 'custom' ? custom : PRESET_VALUES[scheme];
+    const quantityTotal = (+source.bws_cat || 0) + (+source.bwd_cat || 0) + (+source.gtd_cat || 0) +
+      (+source.iav_cat || 0) + (+source.sev_cat || 0) + (+source.drr_cat || 0) + (+source.rfr_cat || 0) + (+source.cfr_cat || 0);
+    const qualityTotal = (+source.ucw_cat || 0) + (+source.cep_cat || 0);
+    const regulatoryTotal = (+source.udw_cat || 0) + (+source.usa_cat || 0) + (+source.rri_cat || 0);
     const total = quantityTotal + qualityTotal + regulatoryTotal;
     const values = {
       quantity: (quantityTotal / total) * 100,

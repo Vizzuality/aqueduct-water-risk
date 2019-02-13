@@ -41,14 +41,12 @@ export const INDICATORS = [
           {
             id: 'rfr_cat',
             name: 'Riverine Flood Risk',
-            ponderation: true,
-            optional: true
+            ponderation: true
           },
           {
             id: 'cfr_cat',
             name: 'Coastal Flood Risk',
-            ponderation: true,
-            optional: true
+            ponderation: true
           }
         ]
       },

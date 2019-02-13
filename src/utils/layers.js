@@ -6,18 +6,61 @@ import moment from 'moment';
 import { INDICATOR_SCHEME_ORDER } from 'constants/indicators';
 
 
-export const getAnnualParametrization = ({ indicator }) => ({ indicator });
-export const getMonthlyParametrization = ({ indicator, month }) => ({
+const getAnnualParametrization = ({ indicator }) => ({ indicator });
+
+const getMonthlyParametrization = ({ indicator, month }) => ({
   indicator,
   month
 });
-export const getProjectedParametrization = ({ year, scenario }) => ({
+
+const getProjectedParametrization = ({ year, scenario }) => ({
   year,
   scenario
 });
-export const getCustomPonderationParametrization = customPonderation => (
-  { custom_weights: INDICATOR_SCHEME_ORDER.map(_key => customPonderation[_key]) }
+
+const getCustomPonderationParametrization = customPonderation => (
+  { custom_weights: `'[${INDICATOR_SCHEME_ORDER.map(_key => customPonderation[_key])}]'` }
 );
+
+const getDefaultPonderationParametrization = ({ indicator }, customPonderation) => (
+  { indicator: indicator.replace('def', customPonderation) }
+);
+
+export const getLayerParametrization = (parametrization, ponderation) => {
+  const { year, timeScale } = parametrization;
+  const {
+    scheme: ponderationScheme,
+    custom: customPonderation
+  } = ponderation;
+  let params = {};
+
+  switch (true) {
+    // future layers
+    case (year !== 'baseline'):
+      params = getProjectedParametrization(parametrization);
+      break;
+    // annual
+    case (timeScale === 'annual' && year === 'baseline'):
+      params = getAnnualParametrization(parametrization);
+      break;
+    // monthly
+    case (timeScale === 'monthly' && year === 'baseline'):
+      params = getMonthlyParametrization(parametrization);
+      break;
+    // custom ponderation
+    case (ponderationScheme === 'custom'):
+      params = getCustomPonderationParametrization(customPonderation);
+      break;
+    // predefined ponderation
+    case (ponderationScheme !== 'custom' && ponderationScheme !== 'DEF'):
+      params = getDefaultPonderationParametrization(parametrization, ponderationScheme);
+      break;
+    default:
+      return params;
+  }
+
+  return params;
+};
 
 export const reduceParams = (params) => {
   if (!params) return null;
@@ -61,8 +104,5 @@ export const reduceSqlParams = (params) => {
 export default {
   reduceParams,
   reduceSqlParams,
-  getAnnualParametrization,
-  getMonthlyParametrization,
-  getProjectedParametrization,
-  getCustomPonderationParametrization
+  getLayerParametrization
 };

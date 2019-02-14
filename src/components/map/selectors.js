@@ -60,6 +60,7 @@ export const getUpdatedLayers = createSelector(
 
     return _activeLayers.map(_activeLayer => ({
       ..._activeLayer,
+      active: true,
       ...(_activeLayer.layerConfig.params_config && _activeLayer.layerConfig.params_config.length > 0) && {
         params: {
           ...reduceParams(_activeLayer.layerConfig.params_config),
@@ -69,6 +70,15 @@ export const getUpdatedLayers = createSelector(
       }
     }));
   }
+);
+
+export const getLayerGroup = createSelector(
+  [getUpdatedLayers],
+  _layers => ([{
+    dataset: 'random_id',
+    visibility: true,
+    layers: _layers
+  }])
 );
 
 export const parseMapState = createSelector(

@@ -6,7 +6,11 @@ import { setMapLocation } from 'modules/map/actions';
 import { updateUrl } from 'modules/url';
 
 // selectors
-import { parseMapState, getUpdatedLayers } from './selectors';
+import {
+  parseMapState,
+  getUpdatedLayers,
+  getLayerGroup
+} from './selectors';
 
 // component
 import MapComponent from './component';
@@ -14,7 +18,8 @@ import MapComponent from './component';
 export default connect(
   state => ({
     map: parseMapState(state),
-    layers: getUpdatedLayers(state)
+    layers: getUpdatedLayers(state),
+    layerGroup: getLayerGroup(state)
   }),
   dispatch => ({
     setMapParams: (params) => {
@@ -32,7 +37,7 @@ export default connect(
     toggleSourceModal: (layer) => {
       dispatch(toggleModal(true, {
         children: SourceModal,
-        childrenProps: layer
+        childrenProps: { layer }
       }));
     }
   })

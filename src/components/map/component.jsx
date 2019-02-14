@@ -2,12 +2,18 @@ import React, { PureComponent, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { PluginLeaflet } from 'layer-manager/dist/layer-manager';
 import { LayerManager, Layer } from 'layer-manager/dist/components';
-import { Map as WRIMap } from 'wri-api-components/dist/bundle';
+import {
+  Map as WRIMap,
+  Legend,
+  LegendItemToolbar,
+  LegendListItem,
+  LegendItemTypes,
+  LegendItemButtonInfo
+} from 'wri-api-components/dist/bundle';
 import {
   MapControls,
   ShareButton,
-  ZoomControl,
-  Legend
+  ZoomControl
 } from 'aqueduct-components';
 
 // constants
@@ -43,7 +49,8 @@ class MapComponent extends PureComponent {
       layers,
       setMapParams,
       toggleSourceModal,
-      toggleShareModal
+      toggleShareModal,
+      layerGroup
     } = this.props;
     const { zoom, minZoom, maxZoom } = map;
     const events = {
@@ -89,14 +96,26 @@ class MapComponent extends PureComponent {
                 <ShareButton onClick={toggleShareModal} />
               </MapControls>
 
-              <Legend
-                className="-map"
-                expanded
-                // TO-DO: determine active layers
-                layers={[]}
-                filters={{}}
-                onToggleInfo={toggleSourceModal}
-              />
+              {layers.length && (
+                <div className="l-map-legend">
+                  <Legend sortable={false}>
+                    {layerGroup.map((_layerGroup, i) => (
+                      <LegendListItem
+                        index={i}
+                        key={_layerGroup.dataset}
+                        onChangeInfo={(_layer) => { toggleSourceModal(_layer); }}
+                        layerGroup={_layerGroup}
+                        toolbar={(
+                          <LegendItemToolbar>
+                            <LegendItemButtonInfo />
+                          </LegendItemToolbar>
+                        )}
+                      >
+                        <LegendItemTypes />
+                      </LegendListItem>
+                    ))}
+                  </Legend>
+                </div>)}
             </Fragment>
           }
         </WRIMap>
@@ -108,6 +127,7 @@ class MapComponent extends PureComponent {
 MapComponent.propTypes = {
   map: PropTypes.object.isRequired,
   layers: PropTypes.array.isRequired,
+  layerGroup: PropTypes.array.isRequired,
   setMapParams: PropTypes.func.isRequired,
   addPoint: PropTypes.func.isRequired,
   toggleSourceModal: PropTypes.func.isRequired,

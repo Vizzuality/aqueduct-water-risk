@@ -35,6 +35,7 @@
 
 /* WRI components */
 @import "~wri-api-components/dist/map";
+@import "~wri-api-components/dist/legend";
 
 /* Components */
 @import "components/address";
@@ -45,6 +46,7 @@
 @import "components/dropzone";
 @import "components/layerlist";
 @import "components/mapview";
+@import "components/map-legend";
 @import "components/marker";
 @import "components/presets";
 @import "components/ponderation-chart";

@@ -5,8 +5,9 @@ import { IndexRoute, Router, Route } from 'react-router';
 import { onEnterMapPage } from 'modules/url';
 
 // Components
-import MapPage from 'containers/pages/MapPage';
-import App from 'containers/app/App';
+import App from 'components/app';
+import MapPage from 'components/pages/map';
+
 
 const Routes = ({ history }) => (
   <Router history={history}>

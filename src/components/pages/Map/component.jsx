@@ -1,17 +1,23 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { Sidebar, SegmentedUi } from 'aqueduct-components';
+import { Sidebar, SegmentedUi, Spinner } from 'aqueduct-components';
+import isEqual from 'lodash/isEqual';
 
 // components
-import MapView from 'components/pages/Map/map-view';
+import MapView from 'components/pages/map/map-view';
+import AnalyzeLocations from 'components/pages/map/_AnalyzeLocations';
 import MapComponent from 'components/map';
-import AnalyzeLocations from 'components/pages/Map/_AnalyzeLocations';
+
+// constants
 import { SCOPE_OPTIONS } from 'constants/mapView';
 import { INDICATORS, INDICATOR_COLUMNS, PARENT_CHILDREN_LAYER_RELATION } from 'constants/indicators';
 
-export default class MapPage extends PureComponent {
+class MapPage extends PureComponent {
   componentWillMount() {
-    const { getLayers, updateUrl } = this.props;
+    const {
+      getLayers,
+      updateUrl
+    } = this.props;
 
     getLayers();
     updateUrl();
@@ -19,23 +25,26 @@ export default class MapPage extends PureComponent {
 
   componentWillReceiveProps(nextProps) {
     const {
-      filters: { year, timeScale },
-      ponderation: { scheme },
-      getLayers
+      filters,
+      ponderation,
+      scope,
+      mapState,
+      updateUrl
     } = this.props;
     const {
       filters: nextFilters,
-      ponderation: { scheme: nextScheme }
+      ponderation: nextPonderation,
+      scope: nextScope,
+      mapState: nextMapState
     } = nextProps;
-    const { year: nextYear, timeScale: nextTimeScale } = nextFilters;
 
-    if (
-      (year === 'baseline' && nextYear !== 'baseline') ||
-      (year !== 'baseline' && nextYear === 'baseline') ||
-      (timeScale !== nextTimeScale) ||
-      (scheme !== nextScheme)) {
-      getLayers();
-    }
+    const filtersChanged = !isEqual(filters, nextFilters);
+    const mapStateChanged = !isEqual(mapState, nextMapState);
+    const ponderationChanged = ponderation.scheme !== nextPonderation.scheme;
+    const scopeChanged = scope.name !== nextScope.name;
+
+    // updates URL if any of these params change
+    if (filtersChanged || ponderationChanged || scopeChanged || mapStateChanged) updateUrl();
   }
 
   // TO-DO: move this to analyzeLocation component
@@ -49,7 +58,7 @@ export default class MapPage extends PureComponent {
   }
 
   render() {
-    const { scope } = this.props;
+    const { scope, loading } = this.props;
 
     return (
       <div className="c-map-page l-map-page">
@@ -83,6 +92,12 @@ export default class MapPage extends PureComponent {
           </div>
         </Sidebar>
         <MapComponent />
+        {loading && (
+          <Spinner
+            isLoading={loading}
+            className="-map"
+          />
+        )}
       </div>
     );
   }
@@ -94,6 +109,8 @@ MapPage.propTypes = {
   filters: PropTypes.object.isRequired,
   ponderation: PropTypes.object.isRequired,
   scope: PropTypes.string,
+  loading: PropTypes.bool.isRequired,
+  mapState: PropTypes.object.isRequired,
   setScope: PropTypes.func,
   updateUrl: PropTypes.func,
   setActiveLayers: PropTypes.func,
@@ -102,3 +119,5 @@ MapPage.propTypes = {
   setSelectedPoints: PropTypes.func,
   getLayers: PropTypes.func.isRequired
 };
+
+export default MapPage;

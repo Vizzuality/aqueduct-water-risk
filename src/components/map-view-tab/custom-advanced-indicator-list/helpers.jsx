@@ -9,7 +9,8 @@ export const renderList = (properties = {}, deep = 0) => {
   const {
     indicators,
     customPonderation,
-    setCustomValue
+    setPonderation,
+    onCheckIndicator
   } = properties;
 
   return (
@@ -18,6 +19,10 @@ export const renderList = (properties = {}, deep = 0) => {
         const itemClass = classnames(
           'layerlist-item',
           { '-disabled': _indicator.disabled }
+        );
+        const titleClass = classnames(
+          'title',
+          { '-upper': deep < 2 }
         );
 
         return (
@@ -33,18 +38,20 @@ export const renderList = (properties = {}, deep = 0) => {
                   name={_indicator.id}
                   value={_indicator.id}
                   disabled={_indicator.disabled}
-                  onChange={({ checked, value }) => { setCustomValue(checked ? 1 : null, value); }}
-                  defaultChecked={customPonderation[_indicator.id] !== null && !_indicator.optional && !_indicator.disabled}
+                  onChange={({ checked, value }) => { onCheckIndicator(checked, value); }}
+                  defaultChecked={customPonderation[_indicator.id] !== 'null' && !_indicator.optional && !_indicator.disabled}
                 />
                 <Timeline
                   className="-rate -fixed"
                   items={PRESET_POINTS}
-                  disabled={!customPonderation[_indicator.id]}
+                  disabled={customPonderation[_indicator.id] === 'null'}
                   selected={{ value: customPonderation[_indicator.id] }}
-                  onChange={({ value }) => { setCustomValue(({ [_indicator.id]: value })); }}
+                  onChange={({ value }) => { setPonderation({ custom: { [_indicator.id]: value } }); }}
                 />
               </span> :
-              <span className={deep < 2 ? 'title -upper' : 'title'}>{_indicator.name}</span>
+              <span className={titleClass}>
+                {_indicator.name}
+              </span>
               }
             {(_indicator.children && _indicator.children.length) &&
               renderList({ ...properties, indicators: _indicator.children }, deep + 1)

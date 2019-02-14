@@ -7,14 +7,26 @@ import { SCOPE_OPTIONS } from 'constants/mapView';
 import { timeScaleOptions } from 'constants/filters';
 
 class StickyFilters extends PureComponent {
+  onSelectTimeScale(value) {
+    const { setFilters } = this.props;
+    setFilters({
+      timeScale: value,
+      ...value === 'monthly' && {
+        indicator: 'bws_cat',
+        month: '1'
+      },
+      ...value === 'annual' && { indicator: 'w_awr_def_tot_cat' }
+    });
+  }
+
   render() {
     const {
       scope,
       withScope,
       filters: { timeScale },
-      setFilters,
       setScope
     } = this.props;
+
     return (
       <div className="c-sticky-filters">
         {withScope &&
@@ -25,7 +37,7 @@ class StickyFilters extends PureComponent {
                   className="-tabs"
                   items={SCOPE_OPTIONS}
                   selected={scope}
-                  onChange={(selected) => { setScope(selected.value); }}
+                  onChange={({ value }) => { setScope(value); }}
                 />
               </div>
             </div>
@@ -38,7 +50,7 @@ class StickyFilters extends PureComponent {
               className="-gray"
               options={timeScaleOptions}
               value={timeScale}
-              onValueChange={(selected) => { selected && setFilters({ timeScale: selected.value }); }}
+              onValueChange={({ value }) => { this.onSelectTimeScale(value); }}
             />
           </div>
         </div>

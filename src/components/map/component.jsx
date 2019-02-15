@@ -20,18 +20,10 @@ import {
 import { BASEMAP_CONFIG, LABEL_LAYER_CONFIG } from './constants';
 
 class MapComponent extends PureComponent {
-  constructor(props) {
-    super(props);
-
-    this._updateMap = this.updateMap.bind(this);
-    this._addPoint = this.addPoint.bind(this);
-  }
-
-  // TO-DO
   addPoint(event) {
-    console.log(event);
-    const { addPoint } = this.props;
-    // this.props.addPoint(opts.latlng);
+    const { latlng } = event;
+    const { onAddPoint } = this.props;
+    onAddPoint(latlng);
   }
 
   updateMap(event, map) {
@@ -47,6 +39,7 @@ class MapComponent extends PureComponent {
     const {
       map,
       layers,
+      scope,
       setMapParams,
       toggleSourceModal,
       toggleShareModal,
@@ -54,8 +47,8 @@ class MapComponent extends PureComponent {
     } = this.props;
     const { zoom, minZoom, maxZoom } = map;
     const events = {
-      moveend: this._updateMap,
-      click: this._addPoint
+      moveend: (e, _map) => { this.updateMap(e, _map); },
+      ...scope === 'analyzeLocations' && { click: (e) => { this.addPoint(e); } }
     };
 
     return (
@@ -128,8 +121,9 @@ MapComponent.propTypes = {
   map: PropTypes.object.isRequired,
   layers: PropTypes.array.isRequired,
   layerGroup: PropTypes.array.isRequired,
+  scope: PropTypes.string.isRequired,
   setMapParams: PropTypes.func.isRequired,
-  addPoint: PropTypes.func.isRequired,
+  onAddPoint: PropTypes.func.isRequired,
   toggleSourceModal: PropTypes.func.isRequired,
   toggleShareModal: PropTypes.func.isRequired
 };

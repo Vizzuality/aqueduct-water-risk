@@ -8,7 +8,6 @@ import { setScope, updateUrl } from 'modules/app/actions';
 import { setPoints, setSelectedPoints, setAnalysis, saveOnGeostore } from 'modules/analyzeLocations';
 
 // selectors
-import getActiveLayers from 'selectors/layers_active';
 import getCategorizedPoints from 'selectors/points_categorized';
 
 // component
@@ -23,7 +22,6 @@ export default connect(
     filters: state.mapView.filters,
     ponderation: state.mapView.ponderation,
     analyzeLocations: state.analyzeLocations,
-    layersActive: [] || getActiveLayers(state),
     pointsCategorized: getCategorizedPoints(state)
   }),
   dispatch => ({

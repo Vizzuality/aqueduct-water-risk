@@ -14,6 +14,17 @@ export const LABEL_LAYER_CONFIG = {
   options: { attribution: '&copy; <a href="http://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a>' }
 };
 
+export const MARKER_LAYER = {
+  id: 'analysis-points',
+  provider: 'leaflet',
+  layerConfig: {
+    body: [],
+    parse: false,
+    type: 'featureGroup'
+  },
+  legendConfig: {}
+};
+
 export default {
   MAP_OPTIONS,
   BASEMAP_CONFIG,

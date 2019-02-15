@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import Dropzone from 'react-dropzone';
-import { Spinner, post, toggleModal } from 'aqueduct-components';
-import { dispatch } from 'main';
-import { setPoints, saveOnGeostore } from 'modules/analyzeLocations';
 
-export default class ImportFileModal extends React.Component {
+// components
+import { Spinner, post } from 'aqueduct-components';
 
+class ImportFileModal extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -23,22 +23,12 @@ export default class ImportFileModal extends React.Component {
     this.onDrop = this.onDrop.bind(this);
   }
 
-  /**
-   * DROPZONE EVENTS
-   * - onDragEnter
-   * - onDragLeave
-   * - onDrop
-  */
   onDragEnter() {
-    this.setState({
-      dropzoneActive: true
-    });
+    this.setState({ dropzoneActive: true });
   }
 
   onDragLeave() {
-    this.setState({
-      dropzoneActive: false
-    });
+    this.setState({ dropzoneActive: false });
   }
 
   onDrop(accepted, rejected) {
@@ -53,12 +43,6 @@ export default class ImportFileModal extends React.Component {
     });
   }
 
-  /**
-   * HELPERS
-   * - getFileName
-   * - convertFile
-  */
-
   getFileName() {
     const { accepted } = this.state;
 
@@ -71,6 +55,12 @@ export default class ImportFileModal extends React.Component {
   }
 
   convertFile(file) {
+    const {
+      onAddPoint,
+      onSaveGeostore,
+      toggleModal
+    } = this.props;
+
     const formData = new FormData();
     formData.append('file', file);
 
@@ -88,21 +78,16 @@ export default class ImportFileModal extends React.Component {
         // Check that features exists and they have some elements inside
         if (features && Array.isArray(features) && features.length) {
           // Check that every geometry exists and it's a point
-          const allPoints = features.every(p =>
-            p.geometry && p.geometry.type === 'Point'
-          );
+          const allPoints = features.every(p => p.geometry && p.geometry.type === 'Point');
 
           if (allPoints) {
             this.setState({ loading: false });
 
-            // Be careful, lat & lng are reversed
-            const points = features.map(p => (
-              { lat: p.geometry.coordinates[1], lng: p.geometry.coordinates[0] }
-            ));
+            const points = features.map(p => ({ lat: p.geometry.coordinates[0], lng: p.geometry.coordinates[1] }));
 
-            dispatch(setPoints(points));
-            dispatch(saveOnGeostore(points));
-            dispatch(toggleModal(false, {}));
+            onAddPoint(points);
+            onSaveGeostore();
+            toggleModal(false, {});
           } else {
             this.setState({
               errors: [{
@@ -132,20 +117,18 @@ export default class ImportFileModal extends React.Component {
     });
   }
 
-  /**
-   * UI EVENTS
-   * - triggerOpenDialog
-  */
-  triggerOpenDialog() {
-    this.dropzone.open();
-  }
+  triggerOpenDialog() { this.dropzone.open(); }
 
   render() {
-    const { dropzoneActive, loading, errors } = this.state;
+    const {
+      dropzoneActive,
+      loading,
+      errors
+    } = this.state;
+
     return (
       <div className="c-import-modal">
         <Spinner isLoading={loading} />
-
         <Dropzone
           ref={(node) => { this.dropzone = node; }}
           className="c-dropzone"
@@ -180,7 +163,7 @@ export default class ImportFileModal extends React.Component {
             <div className="dropzone-file-input">
               <div
                 className="dropzone-file-name"
-                onClick={this.triggerOpenDialog} // TODO: Yes or no?
+                onClick={this.triggerOpenDialog}
               >
                 {this.getFileName()}
               </div>
@@ -195,9 +178,7 @@ export default class ImportFileModal extends React.Component {
             {errors && Array.isArray(errors) && !!errors.length &&
               <div className="dropzone-file-errors">
                 <ul>
-                  {errors.map(err =>
-                    <li key={err.detail}>{err.detail}</li>
-                  )}
+                  {errors.map(err => (<li key={err.detail}>{err.detail}</li>))}
                 </ul>
               </div>
             }
@@ -207,3 +188,11 @@ export default class ImportFileModal extends React.Component {
     );
   }
 }
+
+ImportFileModal.propTypes = {
+  onAddPoint: PropTypes.func.isRequired,
+  onSaveGeostore: PropTypes.func.isRequired,
+  toggleModal: PropTypes.func.isRequired
+};
+
+export default ImportFileModal;

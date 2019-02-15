@@ -4,7 +4,7 @@ import { replace } from 'react-router-redux';
 // actions
 import { setMapLocation } from 'modules/map/actions';
 import { setFilters, setPonderation } from 'modules/map-view-tab/actions';
-import { fetchFromGeostore, setGeostoreId } from 'modules/analyzeLocations';
+import { setGeostore, getGeostore } from 'modules/analyze-locations-tab/actions';
 
 export const setScope = createAction('APP__SET-SCOPE');
 
@@ -14,11 +14,10 @@ export const updateUrl = createThunkAction('APP__UPDATE-URL', () =>
       map,
       mapView,
       app: { scope },
-      analyzeLocations
+      analyzeLocations: { geostore: { id } }
     } = getState();
     const { year, scenario, timeScale, projection, month, indicator } = mapView.filters;
     const { ponderation } = mapView;
-    const { points } = analyzeLocations;
 
     const locationDescriptor = {
       pathname: '/',
@@ -34,7 +33,7 @@ export const updateUrl = createThunkAction('APP__UPDATE-URL', () =>
         indicator,
         ponderation: ponderation.scheme,
         scope,
-        geoStore: points.geoStore
+        ...id && { geoStore: id }
       }
     };
 
@@ -72,8 +71,8 @@ export const onEnterMapPage = createThunkAction('APP__MAP-PAGE-HOOK', ({ params,
     if (location.query.ponderation) dispatch(setPonderation({ scheme: location.query.ponderation }));
     if (location.query.scope) dispatch(setScope(location.query.scope));
     if (location.query.geoStore) {
-      dispatch(setGeostoreId(location.query.geoStore));
-      dispatch(fetchFromGeostore(location.query.geoStore));
+      dispatch(setGeostore(location.query.geoStore));
+      dispatch(getGeostore(location.query.geoStore));
     }
 
     done();

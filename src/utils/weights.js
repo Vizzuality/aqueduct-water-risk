@@ -1,12 +1,11 @@
 import { INDICATOR_SCHEME_ORDER } from 'constants/indicators';
 import { PRESET_VALUES } from 'constants/presets';
-import { store } from 'main';
 
-function parseWeights(weightScheme) {
-  const schemeValues = weightScheme === 'custom' ?
-    store.getState().mapView.ponderation.custom : PRESET_VALUES[weightScheme];
+function parseWeights(ponderation) {
+  const { scheme, custom } = ponderation;
+  const source = scheme === 'custom' ? custom : PRESET_VALUES[scheme];
 
-  return INDICATOR_SCHEME_ORDER.map(weightOrder => schemeValues[weightOrder]);
+  return INDICATOR_SCHEME_ORDER.map(weightOrder => source[weightOrder]);
 }
 
 export { parseWeights };

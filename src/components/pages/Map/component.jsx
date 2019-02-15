@@ -5,12 +5,11 @@ import isEqual from 'lodash/isEqual';
 
 // components
 import MapView from 'components/pages/map/map-view-tab';
-import AnalyzeLocations from 'components/pages/map/_AnalyzeLocations';
+import AnalyzeLocations from 'components/pages/map/analyze-locations-tab';
 import MapComponent from 'components/map';
 
 // constants
 import { SCOPE_OPTIONS } from 'constants/app';
-import { INDICATORS, INDICATOR_COLUMNS, PARENT_CHILDREN_LAYER_RELATION } from 'constants/indicators';
 
 class MapPage extends PureComponent {
   componentWillMount() {
@@ -29,7 +28,8 @@ class MapPage extends PureComponent {
       ponderation,
       scope,
       mapState,
-      updateUrl
+      updateUrl,
+      analyzeLocations: { }
     } = this.props;
     const {
       filters: nextFilters,
@@ -45,16 +45,6 @@ class MapPage extends PureComponent {
 
     // updates URL if any of these params change
     if (filtersChanged || ponderationChanged || scopeChanged || mapStateChanged) updateUrl();
-  }
-
-  // TO-DO: move this to analyzeLocation component
-  getIndicatorColumns() {
-    const activeLayer = this.props.mapView.layers.active[0];
-    const defaultLayer = INDICATORS[0].id;
-    const columnIndicator = INDICATOR_COLUMNS[activeLayer] || INDICATOR_COLUMNS[PARENT_CHILDREN_LAYER_RELATION[activeLayer]];
-
-    return activeLayer !== defaultLayer ?
-      [...INDICATOR_COLUMNS[defaultLayer], ...columnIndicator] : INDICATOR_COLUMNS[defaultLayer];
   }
 
   render() {
@@ -77,20 +67,16 @@ class MapPage extends PureComponent {
             {scope === 'mapView' && (<MapView />)}
             {scope === 'analyzeLocations' &&
               (<AnalyzeLocations
-                columns={this.getIndicatorColumns()}
-                data={this.props.analyzeLocations.weights}
                 scope={scope}
                 scheme={this.props.mapView.ponderation.scheme}
                 geoStore={this.props.analyzeLocations.points.geoStore}
                 points={this.props.analyzeLocations.points.list}
-                loading={this.props.analyzeLocations.loading}
                 setPoints={this.props.setPoints}
                 setSelectedPoints={ids => this.props.setSelectedPoints(ids)}
                 onPointRemove={id => this.props.removePoint(id)}
                 setActiveLayers={this.props.setActiveLayers}
                 setAnalysis={this.props.setAnalysis}
                 setScope={this.props.setScope}
-                layersActive={this.props.mapView.layers.active}
               />)
             }
           </div>

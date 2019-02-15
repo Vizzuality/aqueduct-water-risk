@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { dispatch } from 'main';
 import { SegmentedUi, toggleModal } from 'aqueduct-components';
-import { SCOPE_OPTIONS } from 'constants/mapView';
+import { SCOPE_OPTIONS } from 'constants/app';
 
 import BtnMenu from 'components/ui/BtnMenu';
-import ImportFileModal from 'components/modal/ImportFileModal';
+import ImportFileModal from 'components/modal/import-file';
 
 class StickyLocation extends React.Component {
 

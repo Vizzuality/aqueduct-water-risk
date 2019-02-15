@@ -2,29 +2,22 @@ import React from 'react';
 import { render } from 'react-dom';
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
-import { handleModule } from 'redux-tools';
 import { browserHistory } from 'react-router';
 import thunk from 'redux-thunk';
-import { syncHistoryWithStore, routerReducer, routerMiddleware } from 'react-router-redux';
+import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux';
 
-import * as reducers from './modules';
-import * as layersModule from './modules/layers';
-import * as mapModule from './modules/map';
+// reducers
+import reducers from 'modules';
+
+// components
 import Routes from './routes';
-
-import './styles/index.scss';
 
 /**
  * Reducers
  * @info(http://redux.js.org/docs/basics/Reducers.html)
  * @type {Object}
  */
-const reducer = combineReducers({
-  ...reducers,
-  layers: handleModule(layersModule),
-  map: handleModule(mapModule),
-  routing: routerReducer
-});
+const reducer = combineReducers({ ...reducers });
 
 /**
  * Global state
@@ -45,10 +38,6 @@ const store = createStore(
   )
 );
 
-// Export dispatch funcion for dispatching actions outside connect
-function dispatch(action) {
-  store.dispatch(action);
-}
 
 /**
  * HTML5 History API managed by React Router module
@@ -57,14 +46,16 @@ function dispatch(action) {
  */
 const history = syncHistoryWithStore(browserHistory, store);
 
-export { store, history, dispatch };
+// TO-DO: remove this once there are no components import it.
+function dispatch(action) {
+  store.dispatch(action);
+}
 
-// Google Analytics
-// process.env.NODE_ENV === 'production' && ReactGA.initialize(process.env.GA);
+// TO-DO: remove this once there are no components import it.
+export { store, dispatch };
 
 render(
   <Provider store={store}>
-    {/* Tell the Router to use our enhanced history */}
     <Routes history={history} />
   </Provider>,
   document.getElementById('app')

@@ -4,8 +4,7 @@ import { store } from 'main';
 
 // actions
 import { getLayers } from 'modules/layers/actions';
-import { updateUrl } from 'modules/url';
-import { setScope } from 'modules/scope';
+import { setScope, updateUrl } from 'modules/app/actions';
 import { setPoints, setSelectedPoints, setAnalysis, saveOnGeostore } from 'modules/analyzeLocations';
 
 // selectors
@@ -17,7 +16,7 @@ import MapPage from './component';
 
 export default connect(
   state => ({
-    scope: state.scope.name,
+    scope: state.app.scope,
     mapState: state.map,
     loading: state.layers.loading,
     mapView: state.mapView,

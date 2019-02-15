@@ -1,9 +1,10 @@
 import { connect } from 'react-redux';
 
 // actions
-import { toggleModal, SourceModal, ShareModal } from 'aqueduct-components';
+import { toggleModal, SourceModal } from 'aqueduct-components';
+import ShareModal from 'components/modal/share';
 import { setMapLocation } from 'modules/map/actions';
-import { updateUrl } from 'modules/url';
+import { updateUrl } from 'modules/app/actions';
 
 // selectors
 import {

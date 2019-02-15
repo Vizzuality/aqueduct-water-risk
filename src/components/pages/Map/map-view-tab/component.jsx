@@ -4,7 +4,7 @@ import { Sticky } from 'aqueduct-components';
 // components
 import Filters from 'components/map-view-tab/filters';
 import StickyFilters from 'components/map-view-tab/sticky-filters';
-import Indicators from 'components/pages/map/map-view/indicators';
+import Indicators from 'components/pages/map/map-view-tab/indicators';
 
 class MapView extends PureComponent {
   constructor(props) {

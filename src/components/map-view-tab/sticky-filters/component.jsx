@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { CustomSelect, SegmentedUi } from 'aqueduct-components';
 
 // constants
-import { SCOPE_OPTIONS } from 'constants/mapView';
+import { SCOPE_OPTIONS } from 'constants/app';
 import { timeScaleOptions } from 'constants/filters';
 
 class StickyFilters extends PureComponent {

@@ -4,11 +4,10 @@ import axios from 'axios';
 // service
 import { fetchLayersfromDataset } from 'services/dataset';
 
-// utils
-import { DATASET_DICTIONARY } from 'utils/dataset';
+// constants
+import { DATASET_DICTIONARY } from 'constants/dataset';
 
 export const setList = createAction('LAYERS__SET-LIST');
-export const setDataset = createAction('LAYERS__SET-DATASET');
 export const setLoading = createAction('LAYERS__SET-LOADING');
 export const setError = createAction('LAYERS__SET-ERROR');
 
@@ -42,7 +41,6 @@ export const getLayers = createThunkAction('LAYERS__GET-LAYERS',
 
 export default {
   setList,
-  setDataset,
   setLoading,
   setError,
   getLayers

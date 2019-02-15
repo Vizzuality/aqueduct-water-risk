@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 // actions
-import { setPonderation } from 'modules/mapView';
+import { setPonderation } from 'modules/map-view-tab/actions';
 
 // component
 import CustomAdvancedIndicatorList from './component';

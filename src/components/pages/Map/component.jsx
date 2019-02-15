@@ -4,12 +4,12 @@ import { Sidebar, SegmentedUi, Spinner } from 'aqueduct-components';
 import isEqual from 'lodash/isEqual';
 
 // components
-import MapView from 'components/pages/map/map-view';
+import MapView from 'components/pages/map/map-view-tab';
 import AnalyzeLocations from 'components/pages/map/_AnalyzeLocations';
 import MapComponent from 'components/map';
 
 // constants
-import { SCOPE_OPTIONS } from 'constants/mapView';
+import { SCOPE_OPTIONS } from 'constants/app';
 import { INDICATORS, INDICATOR_COLUMNS, PARENT_CHILDREN_LAYER_RELATION } from 'constants/indicators';
 
 class MapPage extends PureComponent {
@@ -41,7 +41,7 @@ class MapPage extends PureComponent {
     const filtersChanged = !isEqual(filters, nextFilters);
     const mapStateChanged = !isEqual(mapState, nextMapState);
     const ponderationChanged = ponderation.scheme !== nextPonderation.scheme;
-    const scopeChanged = scope.name !== nextScope.name;
+    const scopeChanged = scope !== nextScope;
 
     // updates URL if any of these params change
     if (filtersChanged || ponderationChanged || scopeChanged || mapStateChanged) updateUrl();
@@ -58,7 +58,11 @@ class MapPage extends PureComponent {
   }
 
   render() {
-    const { scope, loading } = this.props;
+    const {
+      scope,
+      loading,
+      setScope
+    } = this.props;
 
     return (
       <div className="c-map-page l-map-page">
@@ -67,7 +71,7 @@ class MapPage extends PureComponent {
             className="-tabs"
             items={SCOPE_OPTIONS}
             selected={scope}
-            onChange={({ value }) => { this.props.setScope(value); }}
+            onChange={({ value }) => { setScope(value); }}
           />
           <div className="l-mapview-content">
             {scope === 'mapView' && (<MapView />)}
@@ -104,15 +108,15 @@ class MapPage extends PureComponent {
 }
 
 MapPage.propTypes = {
-  analyzeLocations: PropTypes.object,
-  mapView: PropTypes.object,
+  analyzeLocations: PropTypes.object.isRequired,
+  mapView: PropTypes.object.isRequired,
   filters: PropTypes.object.isRequired,
   ponderation: PropTypes.object.isRequired,
-  scope: PropTypes.string,
+  scope: PropTypes.string.isRequired,
   loading: PropTypes.bool.isRequired,
   mapState: PropTypes.object.isRequired,
-  setScope: PropTypes.func,
-  updateUrl: PropTypes.func,
+  setScope: PropTypes.func.isRequired,
+  updateUrl: PropTypes.func.isRequired,
   setActiveLayers: PropTypes.func,
   setAnalysis: PropTypes.func,
   removePoint: PropTypes.func,

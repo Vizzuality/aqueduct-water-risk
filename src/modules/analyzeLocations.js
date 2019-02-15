@@ -1,7 +1,9 @@
+
+// TO-DO: move to a module
 import { get, post } from 'aqueduct-components';
 import { toGeoJsonCollection } from 'utils/geojson';
 import { parseWeights } from 'utils/weights';
-import { updateUrl } from 'modules/url';
+import { updateUrl } from 'modules/app/actions';
 
 /* Constants */
 const SET_POINTS = 'SET_POINTS';

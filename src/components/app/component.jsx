@@ -3,7 +3,11 @@ import PropTypes from 'prop-types';
 import { Header } from 'aqueduct-components';
 import Icons from 'wri-api-components/dist/icons';
 
-import Modal from 'containers/ui/Modal';
+// components
+import Modal from 'components/modal';
+
+// app styles
+import 'styles/index.scss';
 
 class App extends PureComponent {
   render() {

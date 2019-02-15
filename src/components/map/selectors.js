@@ -7,35 +7,64 @@ import {
 } from 'utils/layers';
 
 // constants
-import { MAP_OPTIONS } from './constants';
+import { MAP_OPTIONS, MARKER_LAYER } from './constants';
 
 // states
+const getScope = state => state.app.scope;
 const getMap = state => state.map;
 const getLayers = state => state.layers.list;
 const getParametrization = state => state.mapView.filters;
 const getPonderation = state => state.mapView.ponderation;
+const getPoints = state => state.analyzeLocations.points.list;
+
+const getMarkerLayer = createSelector(
+  [getPoints],
+  _points => ({
+    ...MARKER_LAYER,
+    layerConfig: {
+      ...MARKER_LAYER.layerConfig,
+      body: _points.map(m => L.marker(
+        [m.lat, m.lng],
+        { icon: L.divIcon({
+          className: 'c-marker',
+          html: '<div class="marker-inner"></div>'
+        })
+        }
+      ))
+    }
+  })
+);
 
 const getFilteredLayers = createSelector(
-  [getLayers, getParametrization, getPonderation],
-  (_layers, _parametrization, _ponderation) => {
+  [getLayers, getMarkerLayer, getParametrization, getPonderation, getScope],
+  (_layers, _markerLayer, _parametrization, _ponderation, _scope) => {
     if (!Object.keys(_layers).length) return [];
 
     const { scheme: ponderationScheme } = _ponderation;
     const { year, timeScale, indicator } = _parametrization;
+    let layers = [];
 
-    if (ponderationScheme === 'custom') return _layers.custom;
+    switch (true) {
+      case (ponderationScheme === 'custom'):
+        layers = _layers.custom;
+        break;
+      case (year === 'baseline' && timeScale === 'monthly' && ponderationScheme === 'DEF'):
+        layers = _layers.monthly;
+        break;
+      case (year === 'baseline' && timeScale === 'annual' && ponderationScheme === 'DEF'):
+        layers = _layers.annual;
+        break;
+      case (timeScale === 'annual' && ponderationScheme !== 'custom' && ponderationScheme !== 'DEF'):
+        layers = _layers.weights;
+        break;
+      case (year !== 'baseline'):
+        layers = _layers.projected.filter(_layer => _layer.id === indicator);
+        break;
+      default:
+        layers = _layers.annual;
+    }
 
-    if (year === 'baseline' && timeScale === 'monthly' && ponderationScheme === 'DEF') return _layers.monthly;
-
-    if (year === 'baseline' && timeScale === 'annual' && ponderationScheme === 'DEF') return _layers.annual;
-
-    // predefined weights
-    if (timeScale === 'annual' && ponderationScheme !== 'custom' && ponderationScheme !== 'DEF') return _layers.weights;
-
-    // future
-    if (year !== 'baseline') return _layers.projected.filter(_layer => _layer.id === indicator);
-
-    return _layers.annual;
+    return _scope === 'analyzeLocations' ? [...[_markerLayer], ...layers] : layers;
   }
 );
 
@@ -65,7 +94,7 @@ export const getLayerGroup = createSelector(
   _layers => ([{
     dataset: 'random_id',
     visibility: true,
-    layers: _layers
+    layers: _layers.filter(_layer => _layer.id !== MARKER_LAYER.id)
   }])
 );
 

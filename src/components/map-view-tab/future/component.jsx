@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { RadioGroup } from 'aqueduct-components';
 
 // constants
-import { SCENARIO_OPTIONS } from './constants';
+import { SCENARIO_OPTIONS } from 'constants/app';
 
 class Future extends PureComponent {
   render() {

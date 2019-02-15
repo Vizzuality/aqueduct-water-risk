@@ -70,7 +70,8 @@ const config = {
     new HtmlWebpackPlugin({
       template: 'src/index.html',
       inject: 'body',
-      filename: 'index.html'
+      filename: 'index.html',
+      GOOGLE_PLACES_API_KEY: process.env.GOOGLE_PLACES_API_KEY
     }),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
@@ -79,7 +80,8 @@ const config = {
       'process.env': {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
         BASEMAP_TILE_URL: JSON.stringify(process.env.BASEMAP_TILE_URL),
-        BASEMAP_LABEL_URL: JSON.stringify(process.env.BASEMAP_LABEL_URL)
+        BASEMAP_LABEL_URL: JSON.stringify(process.env.BASEMAP_LABEL_URL),
+        GOOGLE_PLACES_API_KEY: JSON.stringify(process.env.GOOGLE_PLACES_API_KEY)
       },
       config: {
         API_URL: JSON.stringify(process.env.API_URL),

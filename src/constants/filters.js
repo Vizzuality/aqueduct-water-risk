@@ -1,5 +1,5 @@
 
-export const yearOptions = [
+export const TIMEFRAME_OPTIONS = [
   { value: 'baseline', label: 'Baseline' },
   { value: '2030', label: '2030' },
   { value: '2040', label: '2040' }
@@ -31,7 +31,7 @@ export const projectionOptions = [
 ];
 
 export default {
-  yearOptions,
+  TIMEFRAME_OPTIONS,
   timeScaleOptions,
   MONTH_OPTIONS,
   projectionOptions

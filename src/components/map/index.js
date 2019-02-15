@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { toggleModal, SourceModal } from 'aqueduct-components';
 import ShareModal from 'components/modal/share';
 import { setMapLocation } from 'modules/map/actions';
-import { updateUrl } from 'modules/app/actions';
+import { onAddPoint } from 'modules/analyze-locations-tab/actions';
 
 // selectors
 import {
@@ -18,22 +18,14 @@ import MapComponent from './component';
 
 export default connect(
   state => ({
+    scope: state.app.scope,
     map: parseMapState(state),
     layers: getUpdatedLayers(state),
     layerGroup: getLayerGroup(state)
   }),
   dispatch => ({
-    setMapParams: (params) => {
-      dispatch(setMapLocation(params));
-      dispatch(updateUrl());
-    },
-    // addPoint(point) {
-    //   const points = store.getState().analyzeLocations.points.list.slice();
-    //   points.push(point);
-    //   dispatch(setPoints(points));
-    //   dispatch(saveOnGeostore(points));
-    // },
-    addPoint: () => {},
+    setMapParams: (params) => { dispatch(setMapLocation(params)); },
+    onAddPoint: (point) => { dispatch(onAddPoint(point)); },
     toggleShareModal: () => { dispatch(toggleModal(true, { children: ShareModal })); },
     toggleSourceModal: (layer) => {
       dispatch(toggleModal(true, {

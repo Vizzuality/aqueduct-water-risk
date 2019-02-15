@@ -8,6 +8,7 @@ import {
 
 // actions
 import { setFilters, setPonderation } from 'modules/map-view-tab/actions';
+
 // component
 import Filters from './component';
 

@@ -5,7 +5,7 @@ import { toggleModal } from 'aqueduct-components';
 import { onAddPoint, onSaveGeostore } from 'modules/analyze-locations-tab/actions';
 
 // component
-import ImportFileModal from './component';
+import AddressForm from './component';
 
 export default connect(
   null,
@@ -14,4 +14,4 @@ export default connect(
     onSaveGeostore,
     toggleModal
   }
-)(ImportFileModal);
+)(AddressForm);

@@ -155,18 +155,23 @@ export const PARENT_CHILDREN_LAYER_RELATION = {
   // Regulatory and Reputational
   udw_cat: 'w_awr_def_rrr_cat',
   usa_cat: 'w_awr_def_rrr_cat',
-  rri_cat: 'w_awr_def_rrr_cat'
+  rri_cat: 'w_awr_def_rrr_cat',
+  // monthly exclusive
 };
 
 export const INDICATOR_COLUMNS = {
-  overall_water_risk: [
-    { label: 'Basin', value: 'basinid' },
-    { label: 'Water Risk', value: 'water_risk' }
+  // common columns for all indicators
+  common: [
+    { label: 'Name', value: '' },
+    { label: 'Country', value: '' },
+    { label: 'River Basin', value: '' }
   ],
+  // Overall Water Risk
+  w_awr_def_tot_cat: [{ label: 'Overall Water Risk', value: 'w_awr_def_tot_cat' }],
   // Water Quantity Risk
   w_awr_def_qan_cat: [
-    { label: 'Baseline Water Stress', value: 'bws_cat' },
-    { label: 'Baseline Water Depletion', value: 'bwd_cat' },
+    { label: 'Water Quantity Risk', value: 'bws_cat' },
+    { label: 'Baseline Water Stress', value: 'bwd_cat' },
     { label: 'Groundwater Table Decline', value: 'gtd_cat' },
     { label: 'Interannual Variability', value: 'iav_cat' },
     { label: 'Seasonal Variability', value: 'sev_cat' },
@@ -176,15 +181,26 @@ export const INDICATOR_COLUMNS = {
   ],
   // Water Quality Risk
   w_awr_def_qal_cat: [
+    { label: 'Water Quality Risk', value: 'w_awr_def_qal_cat' },
     { label: 'Untreated Collected Wastewater', value: 'ucw_cat' },
     { label: 'Coastal Eutrophication Potential', value: 'cep_cat' }
   ],
   // Regulatory and Reputational
   w_awr_def_rrr_cat: [
+    { label: 'Regulatory and Reputational', value: 'w_awr_def_rrr_cat' },
     { label: 'Unimproved/no drinking water', value: 'udw_cat' },
     { label: 'Unimproved/no sanitation', value: 'usa_cat' },
     { label: 'RepRisk Index', value: 'rri_cat' }
-  ]
+  ],
+  projected_change: [
+    { label: 'Projected Change In {{indicator}} ({{projection}} To {{year}} {{scenario}} )', value: 'rri_cat' }
+  ],
+  // monthly exclusive
+  monthly: {
+    bws_cat: [{ label: 'Water Quantity Risk', value: 'bws_cat' }],
+    bwd_cat: [{ label: 'Baseline Water Stress', value: 'bwd_cat' }],
+    iav_cat: [{ label: 'Interannual Variability', value: 'iav_cat' }]
+  }
 };
 
 export const INDICATOR_SCHEME_ORDER = [
@@ -195,11 +211,35 @@ export const INDICATOR_SCHEME_ORDER = [
 
 export const EXCLUSIVE_MONTHLY_INDICATORS = ['bws_cat', 'bwd_cat', 'iav_cat'];
 
+export const DEFAULT_FUTURE_INDICATOR = {
+  bs: '5aafeab1-4b48-40b0-9042-f654f1531aaf',
+  absolute: 'd5c8316c-de80-4be3-a973-d3fbafc7eaca'
+};
+
+export const DEFAULT_FUTURE_YEAR = '2030';
+
+export const FUTURE_INDICATORS_IDS = [...FUTURE_INDICATORS.bs, ...FUTURE_INDICATORS.absolute].map(_indicator => _indicator.id);
+
+export const ANALYZER_LOCATION_INDICATORS = [
+  INDICATORS[0],
+  ...INDICATORS[0].children,
+  {
+    name: 'Projected change',
+    isFuture: true,
+    // this id will change based on user's selection
+    id: DEFAULT_FUTURE_INDICATOR.bs
+  }
+];
+
 export default {
   INDICATORS,
   FUTURE_INDICATORS,
   PARENT_CHILDREN_LAYER_RELATION,
   INDICATOR_COLUMNS,
   INDICATOR_SCHEME_ORDER,
-  EXCLUSIVE_MONTHLY_INDICATORS
+  EXCLUSIVE_MONTHLY_INDICATORS,
+  DEFAULT_FUTURE_INDICATOR,
+  DEFAULT_FUTURE_YEAR,
+  FUTURE_INDICATORS_IDS,
+  ANALYZER_LOCATION_INDICATORS
 };

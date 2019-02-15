@@ -101,8 +101,11 @@ export const reduceSqlParams = (params) => {
   }, {});
 };
 
+export const getMarker = () => {};
+
 export default {
   reduceParams,
   reduceSqlParams,
-  getLayerParametrization
+  getLayerParametrization,
+  getMarker
 };

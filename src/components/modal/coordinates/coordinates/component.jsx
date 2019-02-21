@@ -1,36 +1,16 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
+
+// components
 import { Field, Input, RadioGroup } from 'aqueduct-components';
-import { store, dispatch } from 'main';
-import { setPoints, saveOnGeostore } from 'modules/analyzeLocations';
 
+// utils
+import { convertDMSToDD } from './utils';
 
-export const FORM_ELEMENTS = {
-  elements: {
-  },
-  validate() {
-    const elements = this.elements;
-    Object.keys(elements).forEach((k) => {
-      elements[k].validate();
-    });
-  },
-  isValid() {
-    const elements = this.elements;
-    const valid = Object.keys(elements)
-      .map(k => elements[k].isValid())
-      .filter(v => v !== null)
-      .every(element => element);
+// constants
+import { FORM_ELEMENTS } from './constants';
 
-    return valid;
-  }
-};
-
-export default class CoordinatesForm extends React.Component {
-
-  static convertDMSToDD({ degrees, minutes, seconds, cardinal }) {
-    const dd = +degrees + (+minutes / 60) + (+seconds / (60 * 60));
-    return (cardinal === 's' || cardinal === 'w') ? dd * -1 : dd;
-  }
-
+class CoordinatesForm extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -50,10 +30,6 @@ export default class CoordinatesForm extends React.Component {
         }
       }
     };
-
-    // BINDINGS
-    this.onSetForm = this.onSetForm.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
   }
 
   onSetForm(obj, field) {
@@ -71,6 +47,12 @@ export default class CoordinatesForm extends React.Component {
   }
 
   onSubmit(e) {
+    const {
+      onAddPoint,
+      onSaveGeostore,
+      toggleModal
+    } = this.props;
+
     e.preventDefault();
 
     // Validate the form
@@ -78,28 +60,36 @@ export default class CoordinatesForm extends React.Component {
 
     // Set a timeout due to the setState function of react
     setTimeout(() => {
+      const { form: { lat, lng } } = this.state;
       const valid = FORM_ELEMENTS.isValid();
       if (valid) {
         const point = {
-          lat: CoordinatesForm.convertDMSToDD(this.state.form.lat),
-          lng: CoordinatesForm.convertDMSToDD(this.state.form.lng)
+          lat: convertDMSToDD(lat),
+          lng: convertDMSToDD(lng)
         };
-        const points = store.getState().analyzeLocations.points.list.slice();
-        points.push(point);
-        dispatch(setPoints(points));
-        dispatch(saveOnGeostore(points));
-        dispatch(toggleModal(false, {}));
+
+        onAddPoint(point);
+        onSaveGeostore();
+        toggleModal(false, {});
       }
     }, 0);
   }
 
   render() {
+    const { form: { lat, lng } } = this.state;
+
     return (
-      <form className="c-coordinates-form" onSubmit={this.onSubmit} noValidate>
+      <form
+        className="c-coordinates-form"
+        onSubmit={(e) => { this.onSubmit(e); }}
+        noValidate
+      >
         <div className="row">
           <div className="column small-12 medium-6">
             <div className="c-field">
-              <div className="label">GPS (North/South) <abbr title="required">*</abbr></div>
+              <div className="label">
+                GPS (North/South) <abbr title="required">*</abbr>
+              </div>
             </div>
             <div className="c-field-container -inline">
               {/* Degrees */}
@@ -107,7 +97,7 @@ export default class CoordinatesForm extends React.Component {
                 ref={(c) => { if (c) FORM_ELEMENTS.elements.lat_degrees = c; }}
                 className="-inline"
                 sufix="º"
-                onChange={value => this.onSetForm({ degrees: value }, 'lat')}
+                onChange={(value) => { this.onSetForm({ degrees: value }, 'lat'); }}
                 validations={[
                   'required',
                   {
@@ -121,7 +111,7 @@ export default class CoordinatesForm extends React.Component {
                   max: 90,
                   min: 0,
                   required: true,
-                  default: this.state.form.lat.degrees
+                  default: lat.degrees
                 }}
               >
                 {Input}
@@ -132,7 +122,7 @@ export default class CoordinatesForm extends React.Component {
                 ref={(c) => { if (c) FORM_ELEMENTS.elements.lat_minutes = c; }}
                 className="-inline"
                 sufix="'"
-                onChange={value => this.onSetForm({ minutes: value }, 'lat')}
+                onChange={(value) => { this.onSetForm({ minutes: value }, 'lat'); }}
                 validations={[
                   'required',
                   {
@@ -146,7 +136,7 @@ export default class CoordinatesForm extends React.Component {
                   max: 60,
                   min: 0,
                   required: true,
-                  default: this.state.form.lat.minutes
+                  default: lat.minutes
                 }}
               >
                 {Input}
@@ -157,7 +147,7 @@ export default class CoordinatesForm extends React.Component {
                 ref={(c) => { if (c) FORM_ELEMENTS.elements.lat_seconds = c; }}
                 className="-inline"
                 sufix="''"
-                onChange={value => this.onSetForm({ seconds: value }, 'lat')}
+                onChange={(value) => { this.onSetForm({ seconds: value }, 'lat'); }}
                 validations={[
                   'required',
                   {
@@ -171,7 +161,7 @@ export default class CoordinatesForm extends React.Component {
                   max: 60,
                   min: 0,
                   required: true,
-                  default: this.state.form.lat.seconds
+                  default: lat.seconds
                 }}
               >
                 {Input}
@@ -183,8 +173,8 @@ export default class CoordinatesForm extends React.Component {
                   { label: 'N', value: 'n' },
                   { label: 'S', value: 's' }
                 ]}
-                onChange={selected => this.onSetForm({ cardinal: selected.value }, 'lat')}
-                defaultValue={this.state.form.lat.cardinal}
+                onChange={({ value }) => { this.onSetForm({ cardinal: value }, 'lat'); }}
+                selected={lat.cardinal}
                 className="-secondary -small"
               />
             </div>
@@ -199,7 +189,7 @@ export default class CoordinatesForm extends React.Component {
                 ref={(c) => { if (c) FORM_ELEMENTS.elements.lng_degrees = c; }}
                 className="-inline"
                 sufix="º"
-                onChange={value => this.onSetForm({ degrees: value }, 'lng')}
+                onChange={(value) => { this.onSetForm({ degrees: value }, 'lng'); }}
                 validations={[
                   'required',
                   {
@@ -213,7 +203,7 @@ export default class CoordinatesForm extends React.Component {
                   max: 90,
                   min: 0,
                   required: true,
-                  default: this.state.form.lng.degrees
+                  default: lng.degrees
                 }}
               >
                 {Input}
@@ -224,7 +214,7 @@ export default class CoordinatesForm extends React.Component {
                 ref={(c) => { if (c) FORM_ELEMENTS.elements.lng_minutes = c; }}
                 className="-inline"
                 sufix="'"
-                onChange={value => this.onSetForm({ minutes: value }, 'lng')}
+                onChange={(value) => { this.onSetForm({ minutes: value }, 'lng'); }}
                 validations={[
                   'required',
                   {
@@ -238,7 +228,7 @@ export default class CoordinatesForm extends React.Component {
                   max: 60,
                   min: 0,
                   required: true,
-                  default: this.state.form.lng.minutes
+                  default: lng.minutes
                 }}
               >
                 {Input}
@@ -248,7 +238,7 @@ export default class CoordinatesForm extends React.Component {
               <Field
                 ref={(c) => { if (c) FORM_ELEMENTS.elements.lng_seconds = c; }}
                 className="-inline"
-                onChange={value => this.onSetForm({ seconds: value }, 'lng')}
+                onChange={(value) => { this.onSetForm({ seconds: value }, 'lng'); }}
                 sufix="''"
                 validations={[
                   'required',
@@ -263,7 +253,7 @@ export default class CoordinatesForm extends React.Component {
                   max: 60,
                   min: 0,
                   required: true,
-                  default: this.state.form.lng.seconds
+                  default: lng.seconds
                 }}
               >
                 {Input}
@@ -275,8 +265,8 @@ export default class CoordinatesForm extends React.Component {
                   { label: 'W', value: 'w' },
                   { label: 'E', value: 'e' }
                 ]}
-                onChange={selected => this.onSetForm({ cardinal: selected.value }, 'lng')}
-                defaultValue={this.state.form.lng.cardinal}
+                onChange={({ value }) => { this.onSetForm({ cardinal: value }, 'lng'); }}
+                selected={lng.cardinal}
                 className="-secondary -small"
               />
             </div>
@@ -298,3 +288,11 @@ export default class CoordinatesForm extends React.Component {
     );
   }
 }
+
+CoordinatesForm.propTypes = {
+  onAddPoint: PropTypes.func.isRequired,
+  onSaveGeostore: PropTypes.func.isRequired,
+  toggleModal: PropTypes.func.isRequired
+};
+
+export default CoordinatesForm;

@@ -10,7 +10,7 @@ import {
 
 // constants
 import {
-  yearOptions,
+  TIMEFRAME_OPTIONS,
   timeScaleOptions,
   projectionOptions,
   MONTH_OPTIONS
@@ -94,8 +94,9 @@ class Filters extends PureComponent {
                       </button>
                     </div>
                     <Timeline
-                      items={yearOptions}
-                      selected={yearOptions.find(i => i.value === year)}
+                      items={TIMEFRAME_OPTIONS}
+                      disabled={timeScale === 'monthly'}
+                      selected={TIMEFRAME_OPTIONS.find(i => i.value === year)}
                       onChange={({ value }) => { this.onSelectTimeframe(value); }}
                     />
                     {year !== 'baseline' &&

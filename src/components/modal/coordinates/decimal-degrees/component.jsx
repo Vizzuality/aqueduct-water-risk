@@ -1,30 +1,11 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import { Field, Input } from 'aqueduct-components';
-import { store, dispatch } from 'main';
-import { setPoints, saveOnGeostore } from 'modules/analyzeLocations';
 
+// constants
+import { FORM_ELEMENTS } from './constants';
 
-export const FORM_ELEMENTS = {
-  elements: {},
-  validate() {
-    const elements = this.elements;
-    Object.keys(elements).forEach((k) => {
-      elements[k].validate();
-    });
-  },
-  isValid() {
-    const elements = this.elements;
-    const valid = Object.keys(elements)
-      .map(k => elements[k].isValid())
-      .filter(v => v !== null)
-      .every(element => element);
-
-    return valid;
-  }
-};
-
-export default class DecimalDegreesForm extends React.Component {
-
+class DecimalDegreesForm extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -34,10 +15,6 @@ export default class DecimalDegreesForm extends React.Component {
         lng: ''
       }
     };
-
-    // BINDINGS
-    this.onSetForm = this.onSetForm.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
   }
 
   onSetForm(obj) {
@@ -50,6 +27,11 @@ export default class DecimalDegreesForm extends React.Component {
   }
 
   onSubmit(e) {
+    const {
+      onAddPoint,
+      onSaveGeostore,
+      toggleModal
+    } = this.props;
     e.preventDefault();
 
     // Validate the form
@@ -63,23 +45,27 @@ export default class DecimalDegreesForm extends React.Component {
           lat: +this.state.form.lat,
           lng: +this.state.form.lng
         };
-        const points = store.getState().analyzeLocations.points.list.slice();
-        points.push(point);
-        dispatch(setPoints(points));
-        dispatch(saveOnGeostore(points));
-        dispatch(toggleModal(false, {}));
+        onAddPoint(point);
+        onSaveGeostore();
+        toggleModal(false, {});
       }
     }, 0);
   }
 
   render() {
+    const { form: { lat, lng } } = this.state;
+
     return (
-      <form className="c-coordinates-form" onSubmit={this.onSubmit} noValidate>
+      <form
+        className="c-coordinates-form"
+        onSubmit={(e) => { this.onSubmit(e); }}
+        noValidate
+      >
         <div className="row">
           <div className="column small-12 medium-6">
             <Field
               ref={(c) => { if (c) FORM_ELEMENTS.elements.lat = c; }}
-              onChange={value => this.onSetForm({ lat: value })}
+              onChange={(value) => { this.onSetForm({ lat: value }); }}
               validations={[
                 'required',
                 {
@@ -94,7 +80,7 @@ export default class DecimalDegreesForm extends React.Component {
                 max: 90,
                 min: -90,
                 required: true,
-                default: this.state.form.lat
+                default: lat
               }}
             >
               {Input}
@@ -118,7 +104,7 @@ export default class DecimalDegreesForm extends React.Component {
                 max: 180,
                 min: -180,
                 required: true,
-                default: this.state.form.lng
+                default: lng
               }}
             >
               {Input}
@@ -128,10 +114,7 @@ export default class DecimalDegreesForm extends React.Component {
         <div className="row align-right">
           <div className="column shrink">
             <div className="navigation">
-              <button
-                type="submit"
-                className="c-btn -primary -light"
-              >
+              <button className="c-btn -primary -light">
                 Add to map
               </button>
             </div>
@@ -141,3 +124,11 @@ export default class DecimalDegreesForm extends React.Component {
     );
   }
 }
+
+DecimalDegreesForm.propTypes = {
+  onAddPoint: PropTypes.func.isRequired,
+  onSaveGeostore: PropTypes.func.isRequired,
+  toggleModal: PropTypes.func.isRequired
+};
+
+export default DecimalDegreesForm;

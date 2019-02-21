@@ -3,5 +3,6 @@ export default {
   center: {
     lat: 30,
     lng: -120
-  }
+  },
+  layerParametrization: { opacity: 1 }
 };

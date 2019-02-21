@@ -16,6 +16,7 @@ const getLayers = state => state.layers.list;
 const getParametrization = state => state.mapView.filters;
 const getPonderation = state => state.mapView.ponderation;
 const getPoints = state => state.analyzeLocations.points.list;
+const getLayerUpdatedParams = state => state.map.layerParametrization;
 
 const getMarkerLayer = createSelector(
   [getPoints],
@@ -69,8 +70,8 @@ const getFilteredLayers = createSelector(
 );
 
 export const getUpdatedLayers = createSelector(
-  [getFilteredLayers, getParametrization, getPonderation],
-  (_activeLayers, _parametrization, _ponderation) => {
+  [getFilteredLayers, getParametrization, getPonderation, getLayerUpdatedParams],
+  (_activeLayers, _parametrization, _ponderation, _updatedLayerParams) => {
     if (!_activeLayers.length) return _activeLayers;
 
     const params = getLayerParametrization(_parametrization, _ponderation);
@@ -78,6 +79,7 @@ export const getUpdatedLayers = createSelector(
     return _activeLayers.map(_activeLayer => ({
       ..._activeLayer,
       active: true,
+      ..._updatedLayerParams,
       ...(_activeLayer.layerConfig.params_config && _activeLayer.layerConfig.params_config.length > 0) && {
         params: {
           ...reduceParams(_activeLayer.layerConfig.params_config),

@@ -8,7 +8,8 @@ import {
   LegendItemToolbar,
   LegendListItem,
   LegendItemTypes,
-  LegendItemButtonInfo
+  LegendItemButtonInfo,
+  LegendItemButtonOpacity
 } from 'wri-api-components/dist/bundle';
 import {
   MapControls,
@@ -24,6 +25,12 @@ class MapComponent extends PureComponent {
     const { latlng } = event;
     const { onAddPoint } = this.props;
     onAddPoint(latlng);
+  }
+
+  handleLayerOpacity(layer, opacity) {
+    const { setLayerParametrization } = this.props;
+
+    setLayerParametrization({ opacity });
   }
 
   updateMap(event, map) {
@@ -97,9 +104,14 @@ class MapComponent extends PureComponent {
                         index={i}
                         key={_layerGroup.dataset}
                         onChangeInfo={(_layer) => { toggleSourceModal(_layer); }}
+                        onChangeOpacity={(_layer, _opacity) => { this.handleLayerOpacity(_layer, _opacity); }}
                         layerGroup={_layerGroup}
                         toolbar={(
                           <LegendItemToolbar>
+                            <LegendItemButtonOpacity
+                              trackStyle={{ backgroundColor: '#2E57B8' }}
+                              handleStyle={{ backgroundColor: '#2E57B8' }}
+                            />
                             <LegendItemButtonInfo />
                           </LegendItemToolbar>
                         )}
@@ -123,6 +135,7 @@ MapComponent.propTypes = {
   layerGroup: PropTypes.array.isRequired,
   scope: PropTypes.string.isRequired,
   setMapParams: PropTypes.func.isRequired,
+  setLayerParametrization: PropTypes.func.isRequired,
   onAddPoint: PropTypes.func.isRequired,
   toggleSourceModal: PropTypes.func.isRequired,
   toggleShareModal: PropTypes.func.isRequired

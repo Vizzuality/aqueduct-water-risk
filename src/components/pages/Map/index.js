@@ -5,7 +5,7 @@ import { store } from 'main';
 // actions
 import { getLayers } from 'modules/layers/actions';
 import { setScope, updateUrl } from 'modules/app/actions';
-import { setPoints, setSelectedPoints, setAnalysis, saveOnGeostore } from 'modules/analyzeLocations';
+import { setPoints, setSelectedPoints, setAnalysis, saveOnGeostore } from 'modules/analyze-locations-tab/actions';
 
 // selectors
 import getCategorizedPoints from 'selectors/points_categorized';

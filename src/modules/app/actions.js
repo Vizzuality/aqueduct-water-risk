@@ -2,7 +2,7 @@ import { createAction, createThunkAction } from 'redux-tools';
 import { replace } from 'react-router-redux';
 
 // actions
-import { setMapLocation } from 'modules/map/actions';
+import { setMapLocation, setLayerParametrization } from 'modules/map/actions';
 import { setFilters, setPonderation } from 'modules/map-view-tab/actions';
 import { setGeostore, getGeostore } from 'modules/analyze-locations-tab/actions';
 
@@ -18,13 +18,19 @@ export const updateUrl = createThunkAction('APP__UPDATE-URL', () =>
     } = getState();
     const { year, scenario, timeScale, projection, month, indicator } = mapView.filters;
     const { ponderation } = mapView;
+    const {
+      center: { lat, lng },
+      zoom,
+      layerParametrization: { opacity }
+    } = map;
 
     const locationDescriptor = {
       pathname: '/',
       query: {
-        lat: map.center.lat.toFixed(2),
-        lng: map.center.lng.toFixed(2),
-        zoom: map.zoom,
+        lat: lat.toFixed(2),
+        lng: lng.toFixed(2),
+        zoom,
+        opacity,
         year,
         scenario,
         timeScale,
@@ -55,6 +61,9 @@ export const onEnterMapPage = createThunkAction('APP__MAP-PAGE-HOOK', ({ params,
         }
       };
       dispatch(setMapLocation(map));
+      dispatch(setLayerParametrization({
+        ...location.query.opacity && { opacity: location.query.opacity }
+      }));
     }
     if (location.query.year) {
       const { year, scenario, timeScale, projection, month, indicator } = location.query;

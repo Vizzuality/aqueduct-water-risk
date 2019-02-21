@@ -19,6 +19,7 @@ export const updateUrl = createThunkAction('APP__UPDATE-URL', () =>
     const { year, scenario, timeScale, projection, month, indicator } = mapView.filters;
     const { ponderation } = mapView;
     const {
+      basemap,
       center: { lat, lng },
       zoom,
       layerParametrization: { opacity }
@@ -27,6 +28,7 @@ export const updateUrl = createThunkAction('APP__UPDATE-URL', () =>
     const locationDescriptor = {
       pathname: '/',
       query: {
+        basemap,
         lat: lat.toFixed(2),
         lng: lng.toFixed(2),
         zoom,
@@ -52,6 +54,7 @@ export const onEnterMapPage = createThunkAction('APP__MAP-PAGE-HOOK', ({ params,
 
     if (location.query.zoom) {
       const map = {
+        basemap: location.query.basemap,
         zoom: +location.query.zoom,
         ...(location.query.lat && location.query.lng) && {
           center: {

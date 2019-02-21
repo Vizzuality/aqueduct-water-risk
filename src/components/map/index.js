@@ -9,6 +9,7 @@ import { onAddPoint } from 'modules/analyze-locations-tab/actions';
 // selectors
 import {
   parseMapState,
+  parseBasemap,
   getUpdatedLayers,
   getLayerGroup
 } from './selectors';
@@ -20,6 +21,7 @@ export default connect(
   state => ({
     scope: state.app.scope,
     map: parseMapState(state),
+    basemap: parseBasemap(state),
     layers: getUpdatedLayers(state),
     layerGroup: getLayerGroup(state)
   }),

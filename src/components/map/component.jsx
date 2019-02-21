@@ -17,8 +17,11 @@ import {
   ZoomControl
 } from 'aqueduct-components';
 
+// components
+import BasemapControl from './basemap-control';
+
 // constants
-import { BASEMAP_CONFIG, LABEL_LAYER_CONFIG } from './constants';
+import { LABEL_LAYER_CONFIG } from './constants';
 
 class MapComponent extends PureComponent {
   addPoint(event) {
@@ -45,6 +48,7 @@ class MapComponent extends PureComponent {
   render() {
     const {
       map,
+      basemap,
       layers,
       scope,
       setMapParams,
@@ -63,7 +67,7 @@ class MapComponent extends PureComponent {
         <WRIMap
           mapOptions={map}
           events={events}
-          basemap={BASEMAP_CONFIG}
+          basemap={basemap}
           label={LABEL_LAYER_CONFIG}
         >
           {_map =>
@@ -92,7 +96,7 @@ class MapComponent extends PureComponent {
                   maxZoom={maxZoom}
                   onZoomChange={(_zoom) => { setMapParams({ zoom: _zoom }); }}
                 />
-                {/* TO-DO: this has never worked. Fix. */}
+                <BasemapControl />
                 <ShareButton onClick={toggleShareModal} />
               </MapControls>
 
@@ -131,6 +135,7 @@ class MapComponent extends PureComponent {
 
 MapComponent.propTypes = {
   map: PropTypes.object.isRequired,
+  basemap: PropTypes.object.isRequired,
   layers: PropTypes.array.isRequired,
   layerGroup: PropTypes.array.isRequired,
   scope: PropTypes.string.isRequired,

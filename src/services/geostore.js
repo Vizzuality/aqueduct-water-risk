@@ -26,7 +26,7 @@ export const fetchGeostore = id =>
  * @returns {Object} serialized geostore.
  */
 
-export const saveGeostore = points => console.log(toGeoJsonCollection(points)) ||
+export const saveGeostore = points =>
   WRIAPI.post('/geostore', toGeoJsonCollection(points))
     .then((response) => {
       const { status, statusText, data } = response;

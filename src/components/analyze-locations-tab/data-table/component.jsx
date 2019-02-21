@@ -12,8 +12,6 @@ class DataTable extends PureComponent {
       loading
     } = this.props;
 
-    console.log(columns)
-
     return (
       <CustomTable
         columns={columns}

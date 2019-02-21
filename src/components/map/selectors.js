@@ -7,11 +7,16 @@ import {
 } from 'utils/layers';
 
 // constants
-import { MAP_OPTIONS, MARKER_LAYER } from './constants';
+import {
+  MAP_OPTIONS,
+  BASEMAPS,
+  MARKER_LAYER
+} from './constants';
 
 // states
 const getScope = state => state.app.scope;
 const getMap = state => state.map;
+const getBasemap = state => state.map.basemap;
 const getLayers = state => state.layers.list;
 const getParametrization = state => state.mapView.filters;
 const getPonderation = state => state.mapView.ponderation;
@@ -109,7 +114,21 @@ export const parseMapState = createSelector(
   })
 );
 
+export const parseBasemap = createSelector(
+  [getBasemap],
+  (_basemap) => {
+    const currentBasemap = BASEMAPS[_basemap] || {};
+    const { value, options } = currentBasemap;
+
+    return ({
+      url: value,
+      options
+    });
+  }
+);
+
 export default {
   parseMapState,
-  getUpdatedLayers
+  getUpdatedLayers,
+  parseBasemap
 };

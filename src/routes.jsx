@@ -6,6 +6,7 @@ import { IndexRoute, Router, Route } from 'react-router';
 // actions
 import { onEnterMapPage } from 'modules/app/actions';
 
+
 // components
 import App from 'components/app';
 import MapPage from 'components/pages/map';

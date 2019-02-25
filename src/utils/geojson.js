@@ -1,5 +1,5 @@
 
-function toGeoJson({ lat, lng }) {
+export const toGeoJson = ({ lat, lng }) => {
   return {
     type: 'Feature',
     properties: {},
@@ -8,19 +8,19 @@ function toGeoJson({ lat, lng }) {
       coordinates: [lat, lng]
     }
   };
-}
+};
 
-function toGeoJsonCollection(points) {
+export const toGeoJsonCollection = (points) => {
   return {
     geojson: {
       type: 'FeatureCollection',
       features: points.map(p => toGeoJson(p))
     }
   };
-}
+};
 
 // TO-DO: this function will replace toGeoJsonCollection function when service is ready
-function futureToGeoJsonCollection(points) {
+export const futureToGeoJsonCollection = (points) => {
   return {
     geojson: {
       type: 'FeatureCollection',
@@ -34,7 +34,7 @@ function futureToGeoJsonCollection(points) {
       }
     }
   };
-}
+};
 
 export default {
   toGeoJson,

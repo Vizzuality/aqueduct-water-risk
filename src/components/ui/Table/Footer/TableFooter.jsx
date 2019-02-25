@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default class TableFooter extends React.Component {
 
@@ -50,8 +51,8 @@ export default class TableFooter extends React.Component {
 }
 
 TableFooter.propTypes = {
-  pagination: React.PropTypes.object,
-  onChangePage: React.PropTypes.func
+  pagination: PropTypes.object,
+  onChangePage: PropTypes.func
 };
 
 TableFooter.defaultProps = {

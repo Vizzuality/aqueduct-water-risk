@@ -4,37 +4,21 @@ import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import { browserHistory } from 'react-router';
 import thunk from 'redux-thunk';
-import { syncHistoryWithStore, routerReducer, routerMiddleware } from 'react-router-redux';
-import initOpbeat from 'opbeat-react';
-import 'opbeat-react/router';
-import { createOpbeatMiddleware } from 'opbeat-react/redux';
+import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux';
 
-import * as reducers from './modules';
+// reducers
+import reducers from 'modules';
+
+// components
 import Routes from './routes';
 
-import 'leaflet/dist/leaflet.css';
-import './styles/index.scss';
-
-
-/**
- * Monitoring
- */
-if (config.opbeatOrgId && config.opbeatAppId) {
-  initOpbeat({
-    orgId: config.opbeatOrgId,
-    appId: config.opbeatAppId
-  });
-}
 
 /**
  * Reducers
  * @info(http://redux.js.org/docs/basics/Reducers.html)
  * @type {Object}
  */
-const reducer = combineReducers({
-  ...reducers,
-  routing: routerReducer
-});
+const reducer = combineReducers({ ...reducers });
 
 /**
  * Global state
@@ -47,18 +31,14 @@ const store = createStore(
   compose(
     /* The router middleware MUST be before thunk otherwise the URL changes
     * inside a thunk function won't work properly */
-    applyMiddleware(middlewareRouter, thunk, createOpbeatMiddleware()),
+    applyMiddleware(middlewareRouter, thunk),
     /* Redux dev tool, install chrome extension in
      * https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en */
     typeof window === 'object' &&
-      typeof window.devToolsExtension !== 'undefined' ? window.devToolsExtension() : f => f
+      typeof window.__REDUX_DEVTOOLS_EXTENSION__ !== 'undefined' ? window.__REDUX_DEVTOOLS_EXTENSION__() : f => f
   )
 );
 
-// Export dispatch funcion for dispatching actions outside connect
-function dispatch(action) {
-  store.dispatch(action);
-}
 
 /**
  * HTML5 History API managed by React Router module
@@ -67,14 +47,16 @@ function dispatch(action) {
  */
 const history = syncHistoryWithStore(browserHistory, store);
 
-export { store, history, dispatch };
+// TO-DO: remove this once there are no components import it.
+function dispatch(action) {
+  store.dispatch(action);
+}
 
-// Google Analytics
-// process.env.NODE_ENV === 'production' && ReactGA.initialize(process.env.GA);
+// TO-DO: remove this once there are no components import it.
+export { store, dispatch };
 
 render(
   <Provider store={store}>
-    {/* Tell the Router to use our enhanced history */}
     <Routes history={history} />
   </Provider>,
   document.getElementById('app')

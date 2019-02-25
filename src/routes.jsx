@@ -1,22 +1,32 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { IndexRoute, Router, Route } from 'react-router';
-import { onEnterMapPage } from 'modules/url';
 
-// Components
-import MapPage from 'containers/pages/MapPage';
-import App from 'containers/app/App';
+// actions
+import { onEnterMapPage } from 'modules/app/actions';
 
-const Routes = ({ history }) => (
+// components
+import App from 'components/app';
+import MapPage from 'components/pages/map';
+
+const Routes = ({ history, onEnterMapPage: mapPageHook }) => (
   <Router history={history}>
     <Route path="/" component={App}>
-      <IndexRoute component={MapPage} onEnter={onEnterMapPage} />
+      <IndexRoute component={MapPage} onEnter={mapPageHook} />
     </Route>
   </Router>
 );
 
 Routes.propTypes = {
-  history: React.PropTypes.object
+  history: PropTypes.object.isRequired,
+  onEnterMapPage: PropTypes.func.isRequired
 };
 
-export default connect()(Routes);
+export default connect(
+  null,
+  dispatch => ({ onEnterMapPage: (params, replaceUrl, done) => {
+    dispatch(onEnterMapPage({ params, done }));
+  }
+  })
+)(Routes);

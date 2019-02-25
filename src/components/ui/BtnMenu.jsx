@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 export default function BtnMenu(props) {
@@ -18,6 +19,6 @@ export default function BtnMenu(props) {
 }
 
 BtnMenu.propTypes = {
-  items: React.PropTypes.array.isRequired,
-  className: React.PropTypes.string
+  items: PropTypes.array.isRequired,
+  className: PropTypes.string
 };

@@ -70,23 +70,23 @@ const config = {
     new HtmlWebpackPlugin({
       template: 'src/index.html',
       inject: 'body',
-      filename: 'index.html'
+      filename: 'index.html',
+      GOOGLE_PLACES_API_KEY: process.env.GOOGLE_PLACES_API_KEY
     }),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify(process.env.NODE_ENV)
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+        BASEMAP_TILE_URL: JSON.stringify(process.env.BASEMAP_TILE_URL),
+        BASEMAP_LABEL_URL: JSON.stringify(process.env.BASEMAP_LABEL_URL),
+        GOOGLE_PLACES_API_KEY: JSON.stringify(process.env.GOOGLE_PLACES_API_KEY)
       },
       config: {
         API_URL: JSON.stringify(process.env.API_URL),
-        BASEMAP_TILE_URL: JSON.stringify(process.env.BASEMAP_TILE_URL),
-        BASEMAP_LABEL_URL: JSON.stringify(process.env.BASEMAP_LABEL_URL),
         BITLY_LOGIN: JSON.stringify(process.env.BITLY_LOGIN),
-        BITLY_KEY: JSON.stringify(process.env.BITLY_KEY),
-        opbeatOrgId: JSON.stringify(process.env.OPBEAT_ORGID),
-        opbeatAppId: JSON.stringify(process.env.OPBEAT_APPID)
+        BITLY_KEY: JSON.stringify(process.env.BITLY_KEY)
       }
     })
   ]

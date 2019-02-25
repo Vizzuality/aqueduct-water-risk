@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import vega from 'vega';
 import isEqual from 'lodash/isEqual';
 
@@ -55,9 +56,9 @@ export default class VegaChart extends React.Component {
 
 VegaChart.propTypes = {
   // Define the chart data
-  data: React.PropTypes.any.isRequired,
-  toggleLoading: React.PropTypes.func,
-  theme: React.PropTypes.object
+  data: PropTypes.any.isRequired,
+  toggleLoading: PropTypes.func,
+  theme: PropTypes.object
 };
 
 VegaChart.defaultProps = {

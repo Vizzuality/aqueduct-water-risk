@@ -7,6 +7,13 @@
     <meta name="viewport" content="width=device-width">
     <link rel="icon" href="/images/favicon.ico?v=2" type="image/x-icon" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
+
+    <!-- leaflet dependencies -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/esri-leaflet/dist/esri-leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-utfgrid/L.UTFGrid-min.js"></script>
   </head>
   <body>
     <%= require('raw!../node_modules/aqueduct-components/lib/icons/icons.html') %>
@@ -14,5 +21,5 @@
     <div id="app"></div>
   </body>
 
-  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyCJoVK8Q0Ix4eyTAkMFwfGD1mWREDH6h6I"></script>
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places&key=<%= process.env.GOOGLE_PLACES_API_KEY %>"></script>
 </html>

@@ -4,6 +4,10 @@
     pointer-events: none;
   }
 
+  &.-disabled {
+    color: rgba(palette(gray, dark), .5);
+  }
+
   &.-sand {
     padding-left: 60px;
     padding-right: 60px;

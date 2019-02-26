@@ -7,13 +7,14 @@ import { setFilters, setPonderation } from 'modules/map-view-tab/actions';
 import { setGeostore, getGeostore } from 'modules/analyze-locations-tab/actions';
 
 export const setScope = createAction('APP__SET-SCOPE');
+export const setAdvancedMode = createAction('APP__SET-ADVANCED-MODE');
 
 export const updateUrl = createThunkAction('APP__UPDATE-URL', () =>
   (dispatch, getState) => {
     const {
       map,
       mapView,
-      app: { scope },
+      app: { scope, advanced },
       analyzeLocations: { geostore: { id } }
     } = getState();
     const { year, scenario, timeScale, projection, month, indicator } = mapView.filters;
@@ -41,6 +42,7 @@ export const updateUrl = createThunkAction('APP__UPDATE-URL', () =>
         indicator,
         ponderation: ponderation.scheme,
         scope,
+        advanced,
         ...id && { geoStore: id }
       }
     };
@@ -81,6 +83,7 @@ export const onEnterMapPage = createThunkAction('APP__MAP-PAGE-HOOK', ({ params,
     }
 
     if (location.query.ponderation) dispatch(setPonderation({ scheme: location.query.ponderation }));
+    if (location.query.advanced) dispatch(setAdvancedMode(location.query.advanced === 'true'));
     if (location.query.scope) dispatch(setScope(location.query.scope));
     if (location.query.geoStore) {
       dispatch(setGeostore(location.query.geoStore));
@@ -92,6 +95,7 @@ export const onEnterMapPage = createThunkAction('APP__MAP-PAGE-HOOK', ({ params,
 
 export default {
   setScope,
+  setAdvancedMode,
   updateUrl,
   onEnterMapPage
 };

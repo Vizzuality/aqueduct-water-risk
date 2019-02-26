@@ -11,29 +11,41 @@ import Future from 'components/map-view-tab/future';
 import Presets from 'components/map-view-tab/presets';
 import PonderationChart from 'components/map-view-tab/ponderation-chart';
 
+// constants
+import { PARENT_CHILDREN_LAYER_RELATION } from 'constants/indicators';
+
 class Indicators extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = { advanced: false };
+  handleAdvancedMode(advanced) {
+    const {
+      currentIndicator,
+      setAdvancedMode,
+      setPonderation,
+      setFilters
+    } = this.props;
+
+    setAdvancedMode(advanced);
+
+    setPonderation({ ...!advanced && { scheme: 'DEF' } });
+
+    setFilters({ ...PARENT_CHILDREN_LAYER_RELATION[currentIndicator] && { indicator: PARENT_CHILDREN_LAYER_RELATION[currentIndicator] } });
   }
 
   renderIndicatorList() {
-    const { advanced } = this.state;
+    const { advancedMode } = this.props;
     const {
       ponderation: { scheme },
       timeScale
     } = this.props;
 
-    if (advanced && scheme === 'custom' && timeScale !== 'monthly') return (<CustomAdvancedIndicatorList />);
+    if (advancedMode && scheme === 'custom' && timeScale !== 'monthly') return (<CustomAdvancedIndicatorList />);
 
-    if (advanced && timeScale !== 'monthly') return (<AdvancedIndicatorList />);
+    if (advancedMode && timeScale !== 'monthly') return (<AdvancedIndicatorList />);
 
     return (<IndicatorList />);
   }
 
   renderCurrent() {
-    const { timeScale } = this.props;
-    const { advanced } = this.state;
+    const { timeScale, advancedMode } = this.props;
     const checkboxClass = classnames(
       '-reverse',
       { '-disabled': timeScale !== 'annual' }
@@ -50,11 +62,12 @@ class Indicators extends PureComponent {
                 label="Change Indicators and Weightings"
                 name="advanced"
                 value="advanced"
-                onChange={({ checked }) => { this.setState({ advanced: checked }); }}
+                defaultChecked={advancedMode}
+                onChange={({ checked }) => { this.handleAdvancedMode(checked); }}
               />
             </span>)}
         </div>
-        {(advanced && timeScale !== 'monthly') &&
+        {(advancedMode && timeScale !== 'monthly') &&
           (<Fragment>
             <Presets />
             <PonderationChart />
@@ -76,9 +89,14 @@ class Indicators extends PureComponent {
 }
 
 Indicators.propTypes = {
+  advancedMode: PropTypes.bool.isRequired,
+  currentIndicator: PropTypes.string.isRequired,
   year: PropTypes.string.isRequired,
   timeScale: PropTypes.string.isRequired,
-  ponderation: PropTypes.object.isRequired
+  ponderation: PropTypes.object.isRequired,
+  setAdvancedMode: PropTypes.func.isRequired,
+  setFilters: PropTypes.func.isRequired,
+  setPonderation: PropTypes.func.isRequired
 };
 
 export default Indicators;

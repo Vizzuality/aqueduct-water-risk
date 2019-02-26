@@ -1,12 +1,21 @@
 import { connect } from 'react-redux';
 
 // actions
-import { setPonderation } from 'modules/map-view-tab/actions';
+import {
+  setPonderation,
+  setFilters
+} from 'modules/map-view-tab/actions';
 
 // component
 import Presets from './component';
 
 export default connect(
-  state => ({ ponderation: state.mapView.ponderation.scheme }),
-  dispatch => ({ setPonderation: (ponderation) => { dispatch(setPonderation(ponderation)); } })
+  state => ({
+    ponderation: state.mapView.ponderation.scheme,
+    currentIndicator: state.mapView.filters.indicator
+  }),
+  {
+    setPonderation,
+    setFilters
+  }
 )(Presets);

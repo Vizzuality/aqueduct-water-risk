@@ -16,6 +16,7 @@ import MapPage from './component';
 export default connect(
   state => ({
     scope: state.app.scope,
+    advanced: state.app.advanced,
     mapState: state.map,
     loading: state.layers.loading,
     mapView: state.mapView,

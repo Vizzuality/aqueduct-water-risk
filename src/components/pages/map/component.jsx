@@ -27,14 +27,15 @@ class MapPage extends PureComponent {
       filters,
       ponderation,
       scope,
+      advanced,
       mapState,
-      updateUrl,
-      analyzeLocations: { }
+      updateUrl
     } = this.props;
     const {
       filters: nextFilters,
       ponderation: nextPonderation,
       scope: nextScope,
+      advanced: nextAdvanced,
       mapState: nextMapState
     } = nextProps;
 
@@ -42,9 +43,10 @@ class MapPage extends PureComponent {
     const mapStateChanged = !isEqual(mapState, nextMapState);
     const ponderationChanged = ponderation.scheme !== nextPonderation.scheme;
     const scopeChanged = scope !== nextScope;
+    const advancedModeChanged = advanced !== nextAdvanced;
 
     // updates URL if any of these params change
-    if (filtersChanged || ponderationChanged || scopeChanged || mapStateChanged) updateUrl();
+    if (filtersChanged || ponderationChanged || scopeChanged || mapStateChanged || advancedModeChanged) updateUrl();
   }
 
   render() {
@@ -99,6 +101,7 @@ MapPage.propTypes = {
   filters: PropTypes.object.isRequired,
   ponderation: PropTypes.object.isRequired,
   scope: PropTypes.string.isRequired,
+  advanced: PropTypes.bool.isRequired,
   loading: PropTypes.bool.isRequired,
   mapState: PropTypes.object.isRequired,
   setScope: PropTypes.func.isRequired,

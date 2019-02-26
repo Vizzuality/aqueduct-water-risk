@@ -1,1 +1,4 @@
-export default { scope: 'mapView' };
+export default {
+  scope: 'mapView',
+  advanced: false
+};

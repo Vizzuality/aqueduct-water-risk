@@ -155,8 +155,7 @@ export const PARENT_CHILDREN_LAYER_RELATION = {
   // Regulatory and Reputational
   udw_cat: 'w_awr_def_rrr_cat',
   usa_cat: 'w_awr_def_rrr_cat',
-  rri_cat: 'w_awr_def_rrr_cat',
-  // monthly exclusive
+  rri_cat: 'w_awr_def_rrr_cat'
 };
 
 export const INDICATOR_COLUMNS = {

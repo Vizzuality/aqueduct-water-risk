@@ -11,16 +11,17 @@ class Future extends PureComponent {
       indicators,
       currentIndicator,
       scenario,
-      projection,
       setFilters
     } = this.props;
 
     return (
       <div className="c-future">
         <div className="future-group">
-          <span className="future-title">
-            {projection === 'absolute' ? 'Projected in...' : 'Projected changes in...'}
-          </span>
+          <div className="layerlist-header">
+            <span className="future-title">
+              Indicators
+            </span>
+          </div>
           <RadioGroup
             name="indicator"
             items={indicators}
@@ -47,7 +48,6 @@ class Future extends PureComponent {
 
 Future.propTypes = {
   scenario: PropTypes.string.isRequired,
-  projection: PropTypes.string.isRequired,
   indicators: PropTypes.array.isRequired,
   currentIndicator: PropTypes.string.isRequired,
   setFilters: PropTypes.func.isRequired

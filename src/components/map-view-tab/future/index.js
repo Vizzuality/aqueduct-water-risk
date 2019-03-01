@@ -13,8 +13,7 @@ export default connect(
   state => ({
     indicators: getIndicators(state),
     currentIndicator: state.mapView.filters.indicator,
-    scenario: state.mapView.filters.scenario,
-    projection: state.mapView.filters.projection
+    scenario: state.mapView.filters.scenario
   }),
   dispatch => ({ setFilters: (filter) => { dispatch(setFilters(filter)); } })
 )(Future);

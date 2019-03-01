@@ -50,6 +50,7 @@
     "node-gyp": "^3.4.0",
     "node-sass": "^4.11.0",
     "normalize.css": "^5.0.0",
+    "numeral": "^2.0.6",
     "postcss-loader": "^1.1.0",
     "pretty-error": "^2.0.2",
     "prop-types": "^15.6.2",

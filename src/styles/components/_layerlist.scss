@@ -14,7 +14,8 @@ $separation: $space-1 * 2;
   margin-bottom: $separation;
 }
 
-.layerlist-title {
+.layerlist-title,
+.future-title {
   display: block;
   font-size: $font-size-extrabig;
 }
@@ -107,17 +108,8 @@ $separation: $space-1 * 2;
   }
 }
 
-/* Future */
-.future-title {
-  display: block;
-  text-transform: uppercase;
-  margin-bottom: $space-1 * 2;
-  margin-left: $space-1 * -2;
-}
-
 .future-group {
   margin-bottom: $space-1 * 4;
-  padding-left: $space-1 * 2;
 
   &:last-child {
     margin-bottom: 0;

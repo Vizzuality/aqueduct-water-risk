@@ -1,10 +1,10 @@
 import { BASEMAPS } from 'components/map/constants';
 
 export default {
-  zoom: 2,
+  zoom: 3,
   center: {
     lat: 30,
-    lng: -120
+    lng: -80
   },
   basemap: BASEMAPS.osm.id,
   layerParametrization: { opacity: 1 }

@@ -131,12 +131,15 @@ class Filters extends PureComponent {
                             />
                           </button>
                         </div>
-                        <CustomSelect
-                          className="-fixed"
-                          options={timeScaleOptions}
-                          value={timeScale}
-                          onValueChange={({ value }) => { this.onSelectTimeScale(value); }}
-                        />
+                        <div className="time-scale-container">
+                          <RadioGroup
+                            name="time-scale"
+                            className="-inline"
+                            items={timeScaleOptions}
+                            selected={timeScale}
+                            onChange={({ value }) => { this.onSelectTimeScale(value); }}
+                          />
+                        </div>
                       </div>
                     </div>
                     {timeScale === 'monthly' && (

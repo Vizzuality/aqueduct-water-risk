@@ -55,6 +55,10 @@
 .l-mapview-content {
   flex: 1;
   overflow-y: auto;
+
+  .time-scale-container {
+    margin: 16px 0 0;
+  }
 }
 
 .l-container {

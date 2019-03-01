@@ -123,7 +123,7 @@ class Filters extends PureComponent {
                       {/* time scale */}
                       <div className="c-filters-item">
                         <div className="filter-item-header">
-                          <span className="title">Time scale</span>
+                          <span className="title">Temporal resolution</span>
                           <button type="button" className="icon-container">
                             <Icon
                               name="icon-question"

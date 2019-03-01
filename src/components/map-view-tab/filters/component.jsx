@@ -10,9 +10,8 @@ import {
 
 // constants
 import {
-  TIMEFRAME_OPTIONS,
-  timeScaleOptions,
   projectionOptions,
+  timeScaleOptions,
   MONTH_OPTIONS
 } from 'constants/filters';
 import { INDICATORS, FUTURE_INDICATORS } from 'constants/indicators';
@@ -66,7 +65,8 @@ class Filters extends PureComponent {
     const {
       setFilters,
       openModal,
-      filters: { year, projection, timeScale, month }
+      filters: { year, projection, timeScale, month },
+      timeframeOptions
     } = this.props;
 
     return (
@@ -94,9 +94,9 @@ class Filters extends PureComponent {
                       </button>
                     </div>
                     <Timeline
-                      items={TIMEFRAME_OPTIONS}
-                      disabled={timeScale === 'monthly'}
-                      selected={TIMEFRAME_OPTIONS.find(i => i.value === year)}
+                      items={timeframeOptions}
+                      // disabled={timeScale === 'monthly'}
+                      selected={timeframeOptions.find(i => i.value === year)}
                       onChange={({ value }) => { this.onSelectTimeframe(value); }}
                     />
                     {year !== 'baseline' &&
@@ -169,6 +169,7 @@ class Filters extends PureComponent {
 
 Filters.propTypes = {
   filters: PropTypes.object.isRequired,
+  timeframeOptions: PropTypes.array.isRequired,
   setFilters: PropTypes.func.isRequired,
   setPonderation: PropTypes.func.isRequired,
   openModal: PropTypes.func.isRequired

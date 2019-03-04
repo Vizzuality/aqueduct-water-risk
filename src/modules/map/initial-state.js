@@ -7,5 +7,9 @@ export default {
     lng: -80
   },
   basemap: BASEMAPS.osm.id,
-  layerParametrization: { opacity: 1 }
+  layerParametrization: { opacity: 1 },
+  popup: {
+    latlng: null,
+    data: null
+  }
 };

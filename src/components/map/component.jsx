@@ -4,6 +4,7 @@ import { PluginLeaflet } from 'layer-manager/dist/layer-manager';
 import { LayerManager, Layer } from 'layer-manager/dist/components';
 import {
   Map as WRIMap,
+  MapPopup,
   Legend,
   LegendItemToolbar,
   LegendListItem,
@@ -19,6 +20,7 @@ import {
 
 // components
 import BasemapControl from './basemap-control';
+import Popup from './popup';
 
 // constants
 import { LABEL_LAYER_CONFIG } from './constants';
@@ -34,6 +36,16 @@ class MapComponent extends PureComponent {
     const { setLayerParametrization } = this.props;
 
     setLayerParametrization({ opacity });
+  }
+
+  handleClickMap(e) {
+    const { setPopup } = this.props;
+    const { latlng } = e;
+
+    setPopup({
+      latlng,
+      data: Date.now()
+    });
   }
 
   updateMap(event, map) {
@@ -54,12 +66,14 @@ class MapComponent extends PureComponent {
       setMapParams,
       toggleSourceModal,
       toggleShareModal,
-      layerGroup
+      layerGroup,
+      popup
     } = this.props;
     const { zoom, minZoom, maxZoom } = map;
     const events = {
       moveend: (e, _map) => { this.updateMap(e, _map); },
-      ...scope === 'analyzeLocations' && { click: (e) => { this.addPoint(e); } }
+      ...scope === 'analyzeLocations' && { click: (e) => { this.addPoint(e); } },
+      ...scope === 'mapView' && { click: (e) => { this.handleClickMap(e); } }
     };
 
     return (
@@ -100,6 +114,17 @@ class MapComponent extends PureComponent {
                 <ShareButton onClick={toggleShareModal} />
               </MapControls>
 
+              <MapPopup
+                map={_map}
+                latlng={popup.latlng}
+                data={{
+                  layers,
+                  data: popup.data
+                }}
+              >
+                <Popup />
+              </MapPopup>
+
               {layers.length && (
                 <div className="l-map-legend">
                   <Legend sortable={false}>
@@ -138,9 +163,11 @@ MapComponent.propTypes = {
   basemap: PropTypes.object.isRequired,
   layers: PropTypes.array.isRequired,
   layerGroup: PropTypes.array.isRequired,
+  popup: PropTypes.object.isRequired,
   scope: PropTypes.string.isRequired,
   setMapParams: PropTypes.func.isRequired,
   setLayerParametrization: PropTypes.func.isRequired,
+  setPopup: PropTypes.func.isRequired,
   onAddPoint: PropTypes.func.isRequired,
   toggleSourceModal: PropTypes.func.isRequired,
   toggleShareModal: PropTypes.func.isRequired

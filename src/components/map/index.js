@@ -3,7 +3,11 @@ import { connect } from 'react-redux';
 // actions
 import { toggleModal, SourceModal } from 'aqueduct-components';
 import ShareModal from 'components/modal/share';
-import { setMapLocation, setLayerParametrization } from 'modules/map/actions';
+import {
+  setMapLocation,
+  setLayerParametrization,
+  setPopup
+} from 'modules/map/actions';
 import { onAddPoint } from 'modules/analyze-locations-tab/actions';
 
 // selectors
@@ -23,7 +27,8 @@ export default connect(
     map: parseMapState(state),
     basemap: parseBasemap(state),
     layers: getUpdatedLayers(state),
-    layerGroup: getLayerGroup(state)
+    layerGroup: getLayerGroup(state),
+    popup: state.map.popup
   }),
   dispatch => ({
     setMapParams: (params) => { dispatch(setMapLocation(params)); },
@@ -35,6 +40,7 @@ export default connect(
         children: SourceModal,
         childrenProps: { layer }
       }));
-    }
+    },
+    setPopup: (popup) => { dispatch(setPopup(popup)); }
   })
 )(MapComponent);

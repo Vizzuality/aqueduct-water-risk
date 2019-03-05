@@ -7,6 +7,7 @@ import {
 } from 'utils/layers';
 
 // constants
+import { INDICATOR_NAMES_RELATION } from 'constants/indicators';
 import {
   MAP_OPTIONS,
   BASEMAPS,
@@ -79,10 +80,13 @@ export const getUpdatedLayers = createSelector(
   (_activeLayers, _parametrization, _ponderation, _updatedLayerParams) => {
     if (!_activeLayers.length) return _activeLayers;
 
+    const { indicator } = _parametrization;
+
     const params = getLayerParametrization(_parametrization, _ponderation);
 
     return _activeLayers.map(_activeLayer => ({
       ..._activeLayer,
+      name: INDICATOR_NAMES_RELATION[indicator],
       active: true,
       ..._updatedLayerParams,
       ...(_activeLayer.layerConfig.params_config && _activeLayer.layerConfig.params_config.length > 0) && {

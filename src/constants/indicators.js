@@ -138,6 +138,38 @@ export const FUTURE_INDICATORS = {
   ]
 };
 
+export const INDICATOR_NAMES_RELATION = {
+  w_awr_def_tot_cat: 'Overall Water Risk',
+  w_awr_def_qan_cat: 'Water Quantity Risk',
+  w_awr_def_qal_cat: 'Water Quality Risk',
+  w_awr_def_rrr_cat: 'Regulatory and Reputational',
+  // Water Quantity Risk
+  bws_cat: 'Baseline Water Stress',
+  bwd_cat: 'Baseline Water Depletion',
+  gtd_cat: 'Groundwater Table Decline',
+  iav_cat: 'Interannual Variability',
+  sev_cat: 'Seasonal Variability',
+  drr_cat: 'Drought Risk',
+  rfr_cat: 'Riverine Flood Risk',
+  cfr_cat: 'Coastal Flood Risk',
+  // Water Quality Risk
+  ucw_cat: 'Untreated Collected Wastewater',
+  cep_cat: 'Coastal Eutrophication Potential',
+  // Regulatory and Reputational
+  udw_cat: 'Unimproved/no drinking water',
+  usa_cat: 'Unimproved/no sanitation',
+  rri_cat: 'RepRisk Index',
+  // future
+  '5aafeab1-4b48-40b0-9042-f654f1531aaf': 'Water Stress',
+  '45a1f9c5-7b0b-4705-978f-1e98dc8b3277': 'Seasonal Variability',
+  'c124cfce-0414-4cf3-ba2d-e63634199b04': 'Water Supply',
+  'a3795c06-d2eb-4aa3-8e24-62965b69e5ce': 'Water Demand',
+  'd5c8316c-de80-4be3-a973-d3fbafc7eaca': 'Water Stress',
+  'd7d5fd18-e8e4-4654-b595-7accbb582992': 'Seasonal Variability',
+  'a045b21a-c2ff-4ec5-b7fa-2c1f206b8911': 'Water Supply',
+  'cf7e6a51-3366-42d7-a8ae-ef0f1f11a5f1': 'Water Demand'
+};
+
 // relates children layers with its parent in a straight way
 export const PARENT_CHILDREN_LAYER_RELATION = {
   // Water Quantity Risk

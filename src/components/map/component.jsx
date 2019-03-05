@@ -17,6 +17,7 @@ import {
   ShareButton,
   ZoomControl
 } from 'aqueduct-components';
+import isEqual from 'lodash/isEqual';
 
 // components
 import BasemapControl from './basemap-control';
@@ -26,6 +27,22 @@ import Popup from './popup';
 import { LABEL_LAYER_CONFIG } from './constants';
 
 class MapComponent extends PureComponent {
+  componentWillReceiveProps(nextProps) {
+    const {
+      layers,
+      indicator,
+      clearPopup
+    } = this.props;
+    const {
+      layers: nextLayers,
+      indicator: nextIndicator
+    } = nextProps;
+    const layersChanged = !isEqual(layers, nextLayers);
+    const indicatorChanged = !isEqual(indicator, nextIndicator);
+
+    if (layersChanged || indicatorChanged) clearPopup();
+  }
+
   addPoint(event) {
     const { latlng } = event;
     const { onAddPoint } = this.props;
@@ -40,11 +57,11 @@ class MapComponent extends PureComponent {
 
   handleClickMap(e) {
     const { setPopup } = this.props;
-    const { latlng } = e;
+    const { latlng, data } = e;
 
     setPopup({
       latlng,
-      data: Date.now()
+      data
     });
   }
 
@@ -72,12 +89,11 @@ class MapComponent extends PureComponent {
     const { zoom, minZoom, maxZoom } = map;
     const events = {
       moveend: (e, _map) => { this.updateMap(e, _map); },
-      ...scope === 'analyzeLocations' && { click: (e) => { this.addPoint(e); } },
-      ...scope === 'mapView' && { click: (e) => { this.handleClickMap(e); } }
+      ...scope === 'analyzeLocations' && { click: (e) => { this.addPoint(e); } }
     };
 
     return (
-      <div className="c-map">
+      <div className="l-map">
         <WRIMap
           mapOptions={map}
           events={events}
@@ -99,6 +115,15 @@ class MapComponent extends PureComponent {
                     {...l.params && { params: l.params }}
                     {...l.sqlParams && { sqlParams: l.sqlParams }}
                     {...l.decodeParams && { decodeParams: l.decodeParams }}
+                    {... l.interactionConfig && {
+                      interactivity: ['carto', 'cartodb'].includes(l.provider)
+                        ? (l.interactionConfig.output || []).map(o => o.column)
+                        : true
+                    }}
+                    events={{
+                      click: (e) => { this.handleClickMap(e); },
+                      dblclick: () => {}
+                    }}
                   />
                   ))}
               </LayerManager>
@@ -163,11 +188,13 @@ MapComponent.propTypes = {
   basemap: PropTypes.object.isRequired,
   layers: PropTypes.array.isRequired,
   layerGroup: PropTypes.array.isRequired,
+  indicator: PropTypes.string.isRequired,
   popup: PropTypes.object.isRequired,
   scope: PropTypes.string.isRequired,
   setMapParams: PropTypes.func.isRequired,
   setLayerParametrization: PropTypes.func.isRequired,
   setPopup: PropTypes.func.isRequired,
+  clearPopup: PropTypes.func.isRequired,
   onAddPoint: PropTypes.func.isRequired,
   toggleSourceModal: PropTypes.func.isRequired,
   toggleShareModal: PropTypes.func.isRequired

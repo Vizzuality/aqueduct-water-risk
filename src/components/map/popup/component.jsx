@@ -24,11 +24,14 @@ class Popup extends PureComponent {
       return null;
     }
 
-    const { interactionConfig } = layer;
+    const { name, interactionConfig } = layer;
     const { output } = interactionConfig || {};
 
     return (
       <div className="c-map-popup">
+        <header className="popup-header">
+          <span className="layer-name">{name}</span>
+        </header>
         <div className="popup-content">
           {_data &&
             <table className="popup-table">

@@ -21,10 +21,6 @@ const config = {
     publicPath: '/'
   },
 
-  externals: {
-    leaflet: 'L'
-  },
-
   module: {
     loaders: [
       {

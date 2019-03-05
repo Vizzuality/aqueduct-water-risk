@@ -1,0 +1,40 @@
+
+
+.leaflet-popup-content-wrapper {
+  border-radius: 0;
+
+  > .leaflet-popup-content {
+    line-height: 1.6;
+
+    .c-map-popup {
+
+      .popup-header {
+        padding: 0 0 #{$space-1 / 2};
+        border-bottom: 1px solid palette(gray, lightest);
+        > .layer-name {
+          font-size: $font-size-default;
+          font-weight: 700;
+        }
+      }
+
+      .popup-content {
+        margin: $space-1 0 0 0;
+      }
+
+      .popup-table {
+
+        .dc {
+          vertical-align: initial;
+        }
+        .dt {
+          font-weight: 700;
+        }
+        .dd {
+          width: 100%;
+          padding: 0 0 0 $space-1;
+          text-align: center;
+        }
+      }
+    }
+  }
+}

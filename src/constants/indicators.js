@@ -138,6 +138,255 @@ export const FUTURE_INDICATORS = {
   ]
 };
 
+export const INDICATOR_NAMES_RELATION = {
+  w_awr_def_tot_cat: 'Overall Water Risk',
+  w_awr_def_qan_cat: 'Water Quantity Risk',
+  w_awr_def_qal_cat: 'Water Quality Risk',
+  w_awr_def_rrr_cat: 'Regulatory and Reputational',
+  // Water Quantity Risk
+  bws_cat: 'Baseline Water Stress',
+  bwd_cat: 'Baseline Water Depletion',
+  gtd_cat: 'Groundwater Table Decline',
+  iav_cat: 'Interannual Variability',
+  sev_cat: 'Seasonal Variability',
+  drr_cat: 'Drought Risk',
+  rfr_cat: 'Riverine Flood Risk',
+  cfr_cat: 'Coastal Flood Risk',
+  // Water Quality Risk
+  ucw_cat: 'Untreated Collected Wastewater',
+  cep_cat: 'Coastal Eutrophication Potential',
+  // Regulatory and Reputational
+  udw_cat: 'Unimproved/no drinking water',
+  usa_cat: 'Unimproved/no sanitation',
+  rri_cat: 'RepRisk Index',
+  // future
+  '5aafeab1-4b48-40b0-9042-f654f1531aaf': 'Water Stress',
+  '45a1f9c5-7b0b-4705-978f-1e98dc8b3277': 'Seasonal Variability',
+  'c124cfce-0414-4cf3-ba2d-e63634199b04': 'Water Supply',
+  'a3795c06-d2eb-4aa3-8e24-62965b69e5ce': 'Water Demand',
+  'd5c8316c-de80-4be3-a973-d3fbafc7eaca': 'Water Stress',
+  'd7d5fd18-e8e4-4654-b595-7accbb582992': 'Seasonal Variability',
+  'a045b21a-c2ff-4ec5-b7fa-2c1f206b8911': 'Water Supply',
+  'cf7e6a51-3366-42d7-a8ae-ef0f1f11a5f1': 'Water Demand'
+};
+
+export const INDICATOR_DESCRIPTIONS = {
+  w_awr_def_tot_cat: {
+    name: INDICATOR_NAMES_RELATION.w_awr_def_tot_cat,
+    description: `Overall water risk identifies areas with higher exposure to water-related risks
+      and is an aggregated measure of all selected indicators from the Physical Quantity, Quality and
+      Regulatory & Reputational Risk categories.`,
+    sources: [{
+      name: 'WRI Aqueduct 2014',
+      link: 'https://www.wri.org/publication/aqueduct-global-maps-21-indicators'
+    }]
+  },
+  w_awr_def_qan_cat: {
+    name: INDICATOR_NAMES_RELATION.w_awr_def_qan_cat,
+    description: `Physical risks related to quantity identify areas of concern regarding water quantity
+    (e.g. droughts or floods) that may impact short or long term water availability.`,
+    sources: [{
+      name: 'WRI Aqueduct 2014',
+      link: 'https://www.wri.org/publication/aqueduct-global-maps-21-indicators'
+    }]
+  },
+  w_awr_def_qal_cat: {
+    name: INDICATOR_NAMES_RELATION.w_awr_def_qal_cat,
+    description: `Physical risks related to quality identify areas of concern regarding water quality
+      that may impact short or long term water availability.`,
+    sources: [{
+      name: 'WRI Aqueduct 2014',
+      link: 'https://www.wri.org/publication/aqueduct-global-maps-21-indicators'
+    }]
+  },
+  w_awr_def_rrr_cat: {
+    name: INDICATOR_NAMES_RELATION.w_awr_def_rrr_cat,
+    description: `Regulatory and reputational risks identify areas of concern regarding uncertainty
+      in regulatory change, as well as conflicts with the public regarding water issues.`,
+    sources: [{
+      name: 'WRI Aqueduct 2014',
+      link: 'https://www.wri.org/publication/aqueduct-global-maps-21-indicators'
+    }]
+  },
+  // Water Quantity Risk
+  bws_cat: {
+    name: INDICATOR_NAMES_RELATION.bws_cat,
+    description: `Baseline water stress measures the ratio of total annual water withdrawals to total available
+      annual renewable supply, accounting for upstream consumptive use. Higher values indicate more competition among users.`,
+    sources: [{
+      name: 'WRI Aqueduct 2014',
+      link: 'https://www.wri.org/publication/aqueduct-global-maps-21-indicators'
+    },
+    { name: 'FAO AQUASTAT 2008-2012' },
+    { name: 'NASA GLDAS-2 2012' },
+    { name: 'Shiklomanov and Rodda 2004' },
+    { name: 'Flörke et al. 2012' },
+    { name: 'Matsutomi et al. 2009' }
+    ]
+  },
+  bwd_cat: {
+    name: INDICATOR_NAMES_RELATION.bwd_cat,
+    description: 'TBD',
+    sources: []
+  },
+  gtd_cat: {
+    name: INDICATOR_NAMES_RELATION.gtd_cat,
+    description: `Groundwater stress measures the relative ratio of groundwater withdrawal to recharge rate.
+      Values above one indicate where unsustainable groundwater consumption could affect groundwater availability
+      and groundwater-dependent ecosystems.`,
+    sources: [
+      { name: 'Gleeson' },
+      { name: 'Wada' },
+      { name: 'Bierkens' },
+      { name: 'van Beek 2012' }
+    ]
+  },
+  iav_cat: {
+    name: INDICATOR_NAMES_RELATION.iav_cat,
+    description: 'Inter-annual variability measures the variation in water supply from year-to-year.',
+    sources: [{
+      name: 'WRI Aqueduct 2014',
+      link: 'https://www.wri.org/publication/aqueduct-global-maps-21-indicators'
+    },
+    { name: 'NASA GLDAS-2 2012' }
+    ]
+  },
+  sev_cat: {
+    name: INDICATOR_NAMES_RELATION.sev_cat,
+    description: 'Seasonal variability measures variation in water supply between months of the year.',
+    sources: [{
+      name: 'WRI Aqueduct 2014',
+      link: 'https://www.wri.org/publication/aqueduct-global-maps-21-indicators'
+    },
+    { name: 'NASA GLDAS-2 2012' }
+    ]
+  },
+  drr_cat: {
+    name: INDICATOR_NAMES_RELATION.drr_cat,
+    description: `Drought severity estimates the average of the length times the dryness of droughts
+      from 1901 to 2008. Drought is defined as a continuous period where soil moisture remains below the
+      20th percentile, length is measured in months, and dryness is the number of percentage points
+      below the 20th percentile.`,
+    sources: [{ name: 'Sheffield and Wood 2007' }]
+  },
+  rfr_cat: {
+    name: INDICATOR_NAMES_RELATION.rfr_cat,
+    description: 'TBD',
+    sources: []
+  },
+  cfr_cat: {
+    name: INDICATOR_NAMES_RELATION.gtd_cat,
+    description: 'TBD',
+    sources: []
+  },
+  // Water Quality Risk
+  ucw_cat: {
+    name: INDICATOR_NAMES_RELATION.ucw_cat,
+    description: 'TBD',
+    sources: []
+  },
+  cep_cat: {
+    name: INDICATOR_NAMES_RELATION.cep_cat,
+    description: 'TBD',
+    sources: []
+  },
+  // Regulatory and Reputational
+  udw_cat: {
+    name: INDICATOR_NAMES_RELATION.udw_cat,
+    description: 'TBD',
+    sources: []
+  },
+  usa_cat: {
+    name: INDICATOR_NAMES_RELATION.usa_cat,
+    description: 'TBD',
+    sources: []
+  },
+  rri_cat: {
+    name: INDICATOR_NAMES_RELATION.rri_cat,
+    description: 'TBD',
+    sources: []
+  },
+  // future
+  '5aafeab1-4b48-40b0-9042-f654f1531aaf': {
+    name: INDICATOR_NAMES_RELATION['5aafeab1-4b48-40b0-9042-f654f1531aaf'],
+    description: `Projected change in water stress shows how development and/or climate change are expected to
+      affect water stress, the ratio of water use to supply. The "business as usual" scenario (SSP2 RCP8.5) represents
+      a world with stable economic development and steadily rising global carbon emissions.`,
+    sources: [{
+      name: 'WRI 2015',
+      link: 'https://www.wri.org/publication/aqueduct-water-stress-projections-decadal-projections-water-supply-and-demand-using'
+    }]
+  },
+  '45a1f9c5-7b0b-4705-978f-1e98dc8b3277': {
+    name: INDICATOR_NAMES_RELATION['45a1f9c5-7b0b-4705-978f-1e98dc8b3277'],
+    description: `Projected change in seasonal variability shows how climate change is expected to affect the variability of water supply
+      between the months of the year. The "business as usual" scenario (SSP2 RCP8.5) represents a world with stable economic development and
+      steadily rising global carbon emissions.`,
+    sources: [{
+      name: 'WRI 2015',
+      link: 'https://www.wri.org/publication/aqueduct-water-stress-projections-decadal-projections-water-supply-and-demand-using'
+    }]
+  },
+  'c124cfce-0414-4cf3-ba2d-e63634199b04': {
+    name: INDICATOR_NAMES_RELATION['c124cfce-0414-4cf3-ba2d-e63634199b04'],
+    description: `Projected change in water supply shows how climate change is expected to affect water supply.
+      The "business as usual" scenario (SSP2 RCP8.5) represents a world with stable economic development and steadily
+      rising global carbon emissions.`,
+    sources: [{
+      name: 'WRI 2015',
+      link: 'https://www.wri.org/publication/aqueduct-water-stress-projections-decadal-projections-water-supply-and-demand-using'
+    }]
+  },
+  'a3795c06-d2eb-4aa3-8e24-62965b69e5ce': {
+    name: INDICATOR_NAMES_RELATION['a3795c06-d2eb-4aa3-8e24-62965b69e5ce'],
+    description: `Projected change in water demand shows how development and/or climate change are expected to affect water demand.
+      The "business as usual" scenario (SSP2 RCP8.5) represents a world with stable economic development and steadily rising global carbon emissions.`,
+    sources: [{
+      name: 'WRI 2015',
+      link: 'https://www.wri.org/publication/aqueduct-water-stress-projections-decadal-projections-water-supply-and-demand-using'
+    }]
+  },
+  'd5c8316c-de80-4be3-a973-d3fbafc7eaca': {
+    name: INDICATOR_NAMES_RELATION['d5c8316c-de80-4be3-a973-d3fbafc7eaca'],
+    description: `Projected change in water stress shows how development and/or climate change are expected to
+      affect water stress, the ratio of water use to supply. The "business as usual" scenario (SSP2 RCP8.5) represents
+      a world with stable economic development and steadily rising global carbon emissions.`,
+    sources: [{
+      name: 'WRI 2015',
+      link: 'https://www.wri.org/publication/aqueduct-water-stress-projections-decadal-projections-water-supply-and-demand-using'
+    }]
+  },
+  'd7d5fd18-e8e4-4654-b595-7accbb582992': {
+    name: INDICATOR_NAMES_RELATION['d7d5fd18-e8e4-4654-b595-7accbb582992'],
+    description: `Projected change in seasonal variability shows how climate change is expected to affect the variability of water supply
+      between the months of the year. The "business as usual" scenario (SSP2 RCP8.5) represents a world with stable economic development and
+      steadily rising global carbon emissions.`,
+    sources: [{
+      name: 'WRI 2015',
+      link: 'https://www.wri.org/publication/aqueduct-water-stress-projections-decadal-projections-water-supply-and-demand-using'
+    }]
+  },
+  'a045b21a-c2ff-4ec5-b7fa-2c1f206b8911': {
+    name: INDICATOR_NAMES_RELATION['a045b21a-c2ff-4ec5-b7fa-2c1f206b8911'],
+    description: `Projected change in water supply shows how climate change is expected to affect water supply.
+      The "business as usual" scenario (SSP2 RCP8.5) represents a world with stable economic development and steadily
+      rising global carbon emissions.`,
+    sources: [{
+      name: 'WRI 2015',
+      link: 'https://www.wri.org/publication/aqueduct-water-stress-projections-decadal-projections-water-supply-and-demand-using'
+    }]
+  },
+  'cf7e6a51-3366-42d7-a8ae-ef0f1f11a5f1': {
+    name: INDICATOR_NAMES_RELATION.rri_cat,
+    description: `Projected change in water demand shows how development and/or climate change are expected to affect water demand.
+      The "business as usual" scenario (SSP2 RCP8.5) represents a world with stable economic development and steadily rising global carbon emissions.`,
+    sources: [{
+      name: 'WRI 2015',
+      link: 'https://www.wri.org/publication/aqueduct-water-stress-projections-decadal-projections-water-supply-and-demand-using'
+    }]
+  }
+};
+
 // relates children layers with its parent in a straight way
 export const PARENT_CHILDREN_LAYER_RELATION = {
   // Water Quantity Risk
@@ -235,6 +484,8 @@ export default {
   FUTURE_INDICATORS,
   PARENT_CHILDREN_LAYER_RELATION,
   INDICATOR_COLUMNS,
+  INDICATOR_NAMES_RELATION,
+  INDICATOR_DESCRIPTIONS,
   INDICATOR_SCHEME_ORDER,
   EXCLUSIVE_MONTHLY_INDICATORS,
   DEFAULT_FUTURE_INDICATOR,

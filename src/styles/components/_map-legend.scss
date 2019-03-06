@@ -7,6 +7,12 @@
   border-radius: 4px;
   box-shadow: 0 0 2px rgba(palette(black), .25);
 
+  .wri_api__c-legend-type-choropleth {
+    > li {
+      flex: 1;
+    }
+  }
+
   .wri_api__close-legend {
     background-color: rgba(245, 243, 240, .9);
 

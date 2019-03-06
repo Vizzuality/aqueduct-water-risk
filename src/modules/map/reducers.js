@@ -9,5 +9,12 @@ export default {
       ...state.layerParametrization,
       ...payload
     }
+  }),
+  [actions.setPopup]: (state, { payload }) => ({
+    ...state,
+    popup: {
+      ...state.popup,
+      ...payload
+    }
   })
 };

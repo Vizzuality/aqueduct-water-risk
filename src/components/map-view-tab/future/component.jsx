@@ -6,27 +6,36 @@ import { RadioGroup } from 'aqueduct-components';
 import { SCENARIO_OPTIONS } from 'constants/app';
 
 class Future extends PureComponent {
+  handleModal({ value }) {
+    const { openModal } = this.props;
+
+    openModal(value);
+  }
+
   render() {
     const {
       indicators,
       currentIndicator,
       scenario,
-      projection,
       setFilters
     } = this.props;
 
     return (
       <div className="c-future">
         <div className="future-group">
-          <span className="future-title">
-            {projection === 'absolute' ? 'Projected in...' : 'Projected changes in...'}
-          </span>
+          <div className="layerlist-header">
+            <span className="future-title">
+              Indicators
+            </span>
+          </div>
           <RadioGroup
             name="indicator"
             items={indicators}
             onChange={({ value }) => { setFilters({ indicator: value }); }}
             selected={currentIndicator}
             className="-secondary"
+            onInfo={(item) => { this.handleModal(item); }}
+            iconClass="-secondary"
           />
         </div>
         <div className="future-group">
@@ -47,10 +56,10 @@ class Future extends PureComponent {
 
 Future.propTypes = {
   scenario: PropTypes.string.isRequired,
-  projection: PropTypes.string.isRequired,
   indicators: PropTypes.array.isRequired,
   currentIndicator: PropTypes.string.isRequired,
-  setFilters: PropTypes.func.isRequired
+  setFilters: PropTypes.func.isRequired,
+  openModal: PropTypes.func.isRequired
 };
 
 export default Future;

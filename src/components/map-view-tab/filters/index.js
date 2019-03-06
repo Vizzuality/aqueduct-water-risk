@@ -9,11 +9,17 @@ import {
 // actions
 import { setFilters, setPonderation } from 'modules/map-view-tab/actions';
 
+// selectors
+import { getTimeFrameOptions } from './selectors';
+
 // component
 import Filters from './component';
 
 export default connect(
-  state => ({ filters: state.mapView.filters }),
+  state => ({
+    filters: state.mapView.filters,
+    timeframeOptions: getTimeFrameOptions(state)
+  }),
   dispatch => ({
     setFilters: (filter) => { dispatch(setFilters(filter)); },
     setPonderation: (filter) => { dispatch(setPonderation(filter)); },

@@ -49,12 +49,20 @@
 /* Map page */
 .l-map-page {
   height: 100%;
+
+  .l-map {
+    height: 100%;
+  }
 }
 
 /* MapView content */
 .l-mapview-content {
   flex: 1;
   overflow-y: auto;
+
+  .time-scale-container {
+    margin: 16px 0 0;
+  }
 }
 
 .l-container {

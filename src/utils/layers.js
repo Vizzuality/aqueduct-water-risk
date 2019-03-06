@@ -6,7 +6,10 @@ import moment from 'moment';
 import { INDICATOR_SCHEME_ORDER } from 'constants/indicators';
 
 
-const getAnnualParametrization = ({ indicator }) => ({ indicator });
+const getAnnualParametrization = ({ indicator }) => ({
+  indicator,
+  label: indicator.replace('cat', 'label')
+});
 
 const getMonthlyParametrization = ({ indicator, month }) => ({
   indicator,

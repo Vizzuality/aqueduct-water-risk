@@ -10,9 +10,8 @@ import {
 
 // constants
 import {
-  TIMEFRAME_OPTIONS,
-  timeScaleOptions,
   projectionOptions,
+  timeScaleOptions,
   MONTH_OPTIONS
 } from 'constants/filters';
 import { INDICATORS, FUTURE_INDICATORS } from 'constants/indicators';
@@ -66,7 +65,8 @@ class Filters extends PureComponent {
     const {
       setFilters,
       openModal,
-      filters: { year, projection, timeScale, month }
+      filters: { year, projection, timeScale, month },
+      timeframeOptions
     } = this.props;
 
     return (
@@ -94,9 +94,9 @@ class Filters extends PureComponent {
                       </button>
                     </div>
                     <Timeline
-                      items={TIMEFRAME_OPTIONS}
-                      disabled={timeScale === 'monthly'}
-                      selected={TIMEFRAME_OPTIONS.find(i => i.value === year)}
+                      items={timeframeOptions}
+                      // disabled={timeScale === 'monthly'}
+                      selected={timeframeOptions.find(i => i.value === year)}
                       onChange={({ value }) => { this.onSelectTimeframe(value); }}
                     />
                     {year !== 'baseline' &&
@@ -123,7 +123,7 @@ class Filters extends PureComponent {
                       {/* time scale */}
                       <div className="c-filters-item">
                         <div className="filter-item-header">
-                          <span className="title">Time scale</span>
+                          <span className="title">Temporal resolution</span>
                           <button type="button" className="icon-container">
                             <Icon
                               name="icon-question"
@@ -131,12 +131,15 @@ class Filters extends PureComponent {
                             />
                           </button>
                         </div>
-                        <CustomSelect
-                          className="-fixed"
-                          options={timeScaleOptions}
-                          value={timeScale}
-                          onValueChange={({ value }) => { this.onSelectTimeScale(value); }}
-                        />
+                        <div className="time-scale-container">
+                          <RadioGroup
+                            name="time-scale"
+                            className="-inline"
+                            items={timeScaleOptions}
+                            selected={timeScale}
+                            onChange={({ value }) => { this.onSelectTimeScale(value); }}
+                          />
+                        </div>
                       </div>
                     </div>
                     {timeScale === 'monthly' && (
@@ -166,6 +169,7 @@ class Filters extends PureComponent {
 
 Filters.propTypes = {
   filters: PropTypes.object.isRequired,
+  timeframeOptions: PropTypes.array.isRequired,
   setFilters: PropTypes.func.isRequired,
   setPonderation: PropTypes.func.isRequired,
   openModal: PropTypes.func.isRequired

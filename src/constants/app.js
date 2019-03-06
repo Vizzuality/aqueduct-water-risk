@@ -1,5 +1,5 @@
 export const SCOPE_OPTIONS = [
-  { label: 'map view', value: 'mapView' },
+  { label: 'settings', value: 'mapView' },
   { label: 'analyze locations', value: 'analyzeLocations' }
 ];
 

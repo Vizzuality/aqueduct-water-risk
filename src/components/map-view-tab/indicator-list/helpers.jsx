@@ -6,7 +6,8 @@ export const renderList = (properties = {}, deep = 0) => {
   const {
     indicators,
     currentIndicator,
-    setFilters
+    setFilters,
+    openModal
   } = properties;
 
   return (
@@ -39,10 +40,13 @@ export const renderList = (properties = {}, deep = 0) => {
                   className="-secondary"
                   selected={currentIndicator}
                 />
-                <Icon
-                  className="item-icon"
-                  name="icon-info"
-                />
+                <button
+                  type="button"
+                  className="icon-container"
+                  onClick={() => openModal(_indicator.id)}
+                >
+                  <Icon name="icon-question" className="title-icon" />
+                </button>
               </span>
               {(_indicator.children && _indicator.children.length) &&
                 renderList({ ...properties, indicators: _indicator.children }, deep + 1)

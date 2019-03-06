@@ -1,6 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
-import { Timeline, Radio } from 'aqueduct-components';
+import { Timeline, Radio, Icon } from 'aqueduct-components';
 
 // constants
 import { PRESET_VALUES, PRESET_POINTS } from 'constants/presets';
@@ -10,7 +10,8 @@ export const renderList = (properties = {}, deep = 0) => {
     indicators,
     currentIndicator,
     ponderation,
-    setFilters
+    setFilters,
+    openModal
   } = properties;
 
   return (
@@ -40,7 +41,17 @@ export const renderList = (properties = {}, deep = 0) => {
             >
               {_indicator.ponderation ?
                 <span>
-                  <span className="timeline-title">{_indicator.name}</span>
+                  <div className="ponderation-header -no-radio">
+                    <span className="timeline-title">{_indicator.name}</span>
+                    <button
+                      type="button"
+                      className="icon-container"
+                      onClick={() => { openModal(_indicator.id); }}
+                    >
+                      <Icon name="icon-question" className="title-icon" />
+                    </button>
+
+                  </div>
                   <Timeline
                     className={timelineClass}
                     items={PRESET_POINTS}
@@ -56,6 +67,13 @@ export const renderList = (properties = {}, deep = 0) => {
                     selected={currentIndicator}
                     className="-secondary"
                   />
+                  <button
+                    type="button"
+                    className="icon-container"
+                    onClick={() => { openModal(_indicator.id); }}
+                  >
+                    <Icon name="icon-question" className="title-icon" />
+                  </button>
                 </span>
               }
               {(_indicator.children && _indicator.children.length) &&

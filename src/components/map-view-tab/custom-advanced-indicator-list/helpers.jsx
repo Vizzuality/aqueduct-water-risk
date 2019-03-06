@@ -1,6 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
-import { Checkbox, Timeline } from 'aqueduct-components';
+import { Checkbox, Timeline, Icon } from 'aqueduct-components';
 
 // constants
 import { PRESET_POINTS } from 'constants/presets';
@@ -10,7 +10,8 @@ export const renderList = (properties = {}, deep = 0) => {
     indicators,
     customPonderation,
     setPonderation,
-    onCheckIndicator
+    onCheckIndicator,
+    openModal
   } = properties;
 
   return (
@@ -32,15 +33,24 @@ export const renderList = (properties = {}, deep = 0) => {
           >
             {_indicator.ponderation ?
               <span>
-                <Checkbox
-                  className="layerlist-cbox"
-                  label={_indicator.name}
-                  name={_indicator.id}
-                  value={_indicator.id}
-                  disabled={_indicator.disabled}
-                  onChange={({ checked, value }) => { onCheckIndicator(checked, value); }}
-                  defaultChecked={customPonderation[_indicator.id] !== 'null' && !_indicator.optional && !_indicator.disabled}
-                />
+                <div className="ponderation-header">
+                  <Checkbox
+                    className="layerlist-cbox"
+                    label={_indicator.name}
+                    name={_indicator.id}
+                    value={_indicator.id}
+                    disabled={_indicator.disabled}
+                    onChange={({ checked, value }) => { onCheckIndicator(checked, value); }}
+                    defaultChecked={customPonderation[_indicator.id] !== 'null' && !_indicator.optional && !_indicator.disabled}
+                  />
+                  <button
+                    type="button"
+                    className="icon-container"
+                    onClick={() => { openModal(_indicator.id); }}
+                  >
+                    <Icon name="icon-question" className="title-icon" />
+                  </button>
+                </div>
                 <Timeline
                   className="-rate -fixed"
                   items={PRESET_POINTS}
@@ -51,6 +61,13 @@ export const renderList = (properties = {}, deep = 0) => {
               </span> :
               <span className={titleClass}>
                 {_indicator.name}
+                <button
+                  type="button"
+                  className="icon-container"
+                  onClick={() => { openModal(_indicator.id); }}
+                >
+                  <Icon name="icon-question" className="title-icon" />
+                </button>
               </span>
               }
             {(_indicator.children && _indicator.children.length) &&

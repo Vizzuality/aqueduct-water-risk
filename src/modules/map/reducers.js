@@ -1,5 +1,4 @@
 import * as actions from './actions';
-import initialState from './initial-state';
 
 export default {
   [actions.setMapLocation]: (state, { payload }) => ({ ...state, ...payload }),
@@ -17,6 +16,5 @@ export default {
       ...state.popup,
       ...payload
     }
-  }),
-  [actions.clearPopup]: state => ({ ...state, popup: initialState.popup })
+  })
 };

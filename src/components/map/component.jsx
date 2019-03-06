@@ -30,8 +30,7 @@ class MapComponent extends PureComponent {
   componentWillReceiveProps(nextProps) {
     const {
       layers,
-      indicator,
-      clearPopup
+      indicator
     } = this.props;
     const {
       layers: nextLayers,
@@ -40,7 +39,7 @@ class MapComponent extends PureComponent {
     const layersChanged = !isEqual(layers, nextLayers);
     const indicatorChanged = !isEqual(indicator, nextIndicator);
 
-    if (layersChanged || indicatorChanged) clearPopup();
+    if ((layersChanged || indicatorChanged) && this.popup) this.popup._close();
   }
 
   addPoint(event) {
@@ -79,6 +78,7 @@ class MapComponent extends PureComponent {
       map,
       basemap,
       layers,
+      indicator,
       scope,
       setMapParams,
       toggleSourceModal,
@@ -146,6 +146,7 @@ class MapComponent extends PureComponent {
                   layers,
                   data: popup.data
                 }}
+                onReady={(_popup) => { this.popup = _popup; }}
               >
                 <Popup />
               </MapPopup>
@@ -157,7 +158,7 @@ class MapComponent extends PureComponent {
                       <LegendListItem
                         index={i}
                         key={_layerGroup.dataset}
-                        onChangeInfo={(_layer) => { toggleSourceModal(_layer); }}
+                        onChangeInfo={() => { toggleSourceModal(indicator); }}
                         onChangeOpacity={(_layer, _opacity) => { this.handleLayerOpacity(_layer, _opacity); }}
                         layerGroup={_layerGroup}
                         toolbar={(
@@ -194,7 +195,6 @@ MapComponent.propTypes = {
   setMapParams: PropTypes.func.isRequired,
   setLayerParametrization: PropTypes.func.isRequired,
   setPopup: PropTypes.func.isRequired,
-  clearPopup: PropTypes.func.isRequired,
   onAddPoint: PropTypes.func.isRequired,
   toggleSourceModal: PropTypes.func.isRequired,
   toggleShareModal: PropTypes.func.isRequired

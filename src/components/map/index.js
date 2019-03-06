@@ -1,15 +1,19 @@
 import { connect } from 'react-redux';
 
 // actions
-import { toggleModal, SourceModal } from 'aqueduct-components';
+import { toggleModal } from 'aqueduct-components';
 import ShareModal from 'components/modal/share';
 import {
   setMapLocation,
   setLayerParametrization,
-  setPopup,
-  clearPopup
+  setPopup
 } from 'modules/map/actions';
 import { onAddPoint } from 'modules/analyze-locations-tab/actions';
+
+import IndicatorModal from 'components/ui/modal/indicator';
+
+// constants
+import { INDICATOR_DESCRIPTIONS } from 'constants/indicators';
 
 // selectors
 import {
@@ -18,6 +22,7 @@ import {
   getUpdatedLayers,
   getLayerGroup
 } from './selectors';
+
 
 // component
 import MapComponent from './component';
@@ -37,13 +42,12 @@ export default connect(
     setLayerParametrization: (params) => { dispatch(setLayerParametrization(params)); },
     onAddPoint: (point) => { dispatch(onAddPoint(point)); },
     toggleShareModal: () => { dispatch(toggleModal(true, { children: ShareModal })); },
-    toggleSourceModal: (layer) => {
+    toggleSourceModal: (indicator) => {
       dispatch(toggleModal(true, {
-        children: SourceModal,
-        childrenProps: { layer }
+        children: IndicatorModal,
+        childrenProps: { info: INDICATOR_DESCRIPTIONS[indicator] }
       }));
     },
-    setPopup: (popup) => { dispatch(setPopup(popup)); },
-    clearPopup: () => { dispatch(clearPopup()); }
+    setPopup: (popup) => { dispatch(setPopup(popup)); }
   })
 )(MapComponent);

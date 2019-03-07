@@ -3,7 +3,8 @@ import { createSelector } from 'reselect';
 // utils
 import {
   getLayerParametrization,
-  reduceParams
+  reduceParams,
+  getLayerLegend
 } from 'utils/layers';
 
 // constants
@@ -95,7 +96,8 @@ export const getUpdatedLayers = createSelector(
           ...!!_activeLayer.layerConfig.body.url && { url: _activeLayers.layerConfig.body.url },
           ...params
         }
-      }
+      },
+      legendConfig: getLayerLegend(indicator)
     }));
   }
 );

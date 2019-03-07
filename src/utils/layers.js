@@ -4,6 +4,7 @@ import moment from 'moment';
 
 // utils
 import { INDICATOR_SCHEME_ORDER } from 'constants/indicators';
+import { LEGENDS } from 'components/map/constants';
 
 
 const getAnnualParametrization = ({ indicator }) => ({
@@ -13,7 +14,8 @@ const getAnnualParametrization = ({ indicator }) => ({
 
 const getMonthlyParametrization = ({ indicator, month }) => ({
   indicator,
-  month
+  month,
+  label: indicator.replace('cat', 'label')
 });
 
 const getProjectedParametrization = ({ year, scenario }) => ({
@@ -106,9 +108,23 @@ export const reduceSqlParams = (params) => {
 
 export const getMarker = () => {};
 
+export const getLayerLegend = (indicator) => {
+  const isParent = [
+    'w_awr_def_tot_cat',
+    'w_awr_def_qan_cat',
+    'w_awr_def_qal_cat',
+    'w_awr_def_rrr_cat'
+  ].includes(indicator);
+
+  if (isParent) return LEGENDS.parent;
+
+  return LEGENDS.child;
+};
+
 export default {
   reduceParams,
   reduceSqlParams,
   getLayerParametrization,
-  getMarker
+  getMarker,
+  getLayerLegend
 };

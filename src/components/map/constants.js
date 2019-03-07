@@ -47,8 +47,78 @@ export const MARKER_LAYER = {
   legendConfig: {}
 };
 
+export const LEGENDS = {
+  parent: {
+    items: [
+      {
+        color: '#FFFF99',
+        name: 'Low'
+      },
+      {
+        color: '#FFE600',
+        name: 'Low to medium'
+      },
+      {
+        color: '#FF9900',
+        name: 'Medium'
+      },
+      {
+        color: '#FF1900',
+        name: 'Medium to high'
+      },
+      {
+        color: '#990000',
+        name: 'High'
+      },
+      {
+        color: '#808080',
+        name: 'Arid & low water use'
+      },
+      {
+        color: '#4E4E4E',
+        name: 'No data'
+      }
+    ],
+    type: 'choropleth'
+  },
+  child: {
+    items: [
+      {
+        color: '#FFFF99',
+        name: 'Low'
+      },
+      {
+        color: '#FFE600',
+        name: 'Low to medium'
+      },
+      {
+        color: '#FF9900',
+        name: 'Medium to high'
+      },
+      {
+        color: '#FF1900',
+        name: 'High'
+      },
+      {
+        color: '#990000',
+        name: 'Extremely high'
+      },
+      {
+        color: '#808080',
+        name: 'Arid & low water use'
+      },
+      {
+        color: '#4E4E4E',
+        name: 'No data'
+      }
+    ],
+    type: 'choropleth'
+  }
+};
+
 export default {
   MAP_OPTIONS,
   BASEMAP_CONFIG,
-  LABEL_LAYER_CONFIG
+  LABEL_LAYER_CONFIG,
+  LEGENDS
 };

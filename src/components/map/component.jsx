@@ -87,16 +87,13 @@ class MapComponent extends PureComponent {
       popup
     } = this.props;
     const { zoom, minZoom, maxZoom } = map;
-    const events = {
-      moveend: (e, _map) => { this.updateMap(e, _map); },
-      ...scope === 'analyzeLocations' && { click: (e) => { this.addPoint(e); } }
-    };
+    const mapEvents = { moveend: (e, _map) => { this.updateMap(e, _map); } };
 
     return (
       <div className="l-map">
         <WRIMap
           mapOptions={map}
-          events={events}
+          events={mapEvents}
           basemap={basemap}
           label={LABEL_LAYER_CONFIG}
         >
@@ -121,8 +118,8 @@ class MapComponent extends PureComponent {
                         : true
                     }}
                     events={{
-                      click: (e) => { this.handleClickMap(e); },
-                      dblclick: () => {}
+                      ...scope === 'analyzeLocations' && { click: (e) => { this.addPoint(e); } },
+                      ...scope === 'mapView' && { click: (e) => { this.handleClickMap(e); } }
                     }}
                   />
                   ))}

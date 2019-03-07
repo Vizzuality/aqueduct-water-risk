@@ -28,7 +28,10 @@ const getCustomPonderationParametrization = customPonderation => (
 );
 
 const getDefaultPonderationParametrization = ({ indicator }, customPonderation) => (
-  { indicator: indicator.replace('def', customPonderation) }
+  {
+    indicator: indicator.replace('def', customPonderation),
+    label: indicator.replace('def', customPonderation).replace('cat', 'label')
+  }
 );
 
 export const getLayerParametrization = (parametrization, ponderation) => {

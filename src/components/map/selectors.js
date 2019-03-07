@@ -63,7 +63,7 @@ const getFilteredLayers = createSelector(
         layers = _layers.annual;
         break;
       case (timeScale === 'annual' && ponderationScheme !== 'custom' && ponderationScheme !== 'DEF'):
-        layers = _layers.weights;
+        layers = _layers.annual;
         break;
       case (year !== 'baseline'):
         layers = _layers.projected.filter(_layer => _layer.id === indicator);

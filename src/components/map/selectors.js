@@ -8,7 +8,7 @@ import {
 } from 'utils/layers';
 
 // constants
-import { INDICATOR_NAMES_RELATION } from 'constants/indicators';
+import { INDICATOR_NAMES_RELATION, FUTURE_INDICATORS_IDS } from 'constants/indicators';
 import {
   MAP_OPTIONS,
   BASEMAPS,
@@ -97,7 +97,7 @@ export const getUpdatedLayers = createSelector(
           ...params
         }
       },
-      legendConfig: getLayerLegend(indicator)
+      ...!FUTURE_INDICATORS_IDS.includes(_activeLayer.id) && { legendConfig: getLayerLegend(indicator) }
     }));
   }
 );

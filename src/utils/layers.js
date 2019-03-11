@@ -118,10 +118,28 @@ export const getLayerLegend = (indicator) => {
     'w_awr_def_qal_cat',
     'w_awr_def_rrr_cat'
   ].includes(indicator);
+  const isFlood = ['rfr_cat', 'cfr_cat'].includes(indicator);
+  const isArid = ['bws_cat', 'bwd_cat'].includes(indicator);
+  let legend = LEGENDS.common;
 
-  if (isParent) return LEGENDS.parent;
+  switch (true) {
+    case !!LEGENDS[indicator]:
+      legend = LEGENDS[indicator];
+      break;
+    case isFlood:
+      legend = LEGENDS.flood;
+      break;
+    case isArid:
+      legend = LEGENDS.arid;
+      break;
+    case isParent:
+      legend = LEGENDS.parent;
+      break;
+    default:
+      legend = LEGENDS.common;
+  }
 
-  return LEGENDS.child;
+  return legend;
 };
 
 export default {

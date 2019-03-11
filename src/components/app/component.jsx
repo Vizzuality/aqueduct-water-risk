@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Header } from 'aqueduct-components';
-import Icons from 'wri-api-components/dist/icons';
+import Icons from 'vizzuality-components/dist/icons';
 
 // components
 import Modal from 'components/modal';

@@ -15,7 +15,8 @@ export default connect(
     mapState: state.map,
     loading: state.layers.loading,
     filters: state.mapView.filters,
-    ponderation: state.mapView.ponderation
+    ponderation: state.mapView.ponderation,
+    geostore: state.analyzeLocations.geostore.id
   }),
   {
     updateUrl,

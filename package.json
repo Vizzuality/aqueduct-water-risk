@@ -76,11 +76,11 @@
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
     "vega-lib": "^3.3.1",
+    "vizzuality-components": "^1.0.0",
     "webpack": "^1.13.3",
     "webpack-bundle-analyzer": "^2.4.0",
     "webpack-dev-middleware": "^1.8.4",
     "whatwg-fetch": "^2.0.1",
-    "wri-api-components": "^2.3.1",
     "wri-json-api-serializer": "^1.0.1"
   },
   "devDependencies": {

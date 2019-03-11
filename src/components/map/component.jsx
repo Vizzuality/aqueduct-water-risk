@@ -11,7 +11,7 @@ import {
   LegendItemTypes,
   LegendItemButtonInfo,
   LegendItemButtonOpacity
-} from 'wri-api-components/dist/bundle';
+} from 'vizzuality-components/dist/bundle';
 import {
   MapControls,
   ShareButton,

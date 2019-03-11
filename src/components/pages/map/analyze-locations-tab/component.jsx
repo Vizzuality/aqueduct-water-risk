@@ -25,18 +25,22 @@ class AnalyzeLocations extends PureComponent {
   }
 
   componentDidMount() {
-    const {
-      scheme,
-      geoStore,
-      points,
-      setAnalysis,
-      setPoints
-    } = this.props;
+    // const {
+    //   scheme,
+    //   geoStore,
+    //   points,
+    //   setAnalysis,
+    //   setPoints,
+    //   onSaveGeostore
+    // } = this.props;
 
     this.setStickyFilterPosition();
 
-    if (geoStore && scheme) setAnalysis(scheme, geoStore);
-    if (!geoStore && points.length) setPoints(points);
+    // if (geoStore && scheme) setAnalysis(scheme, geoStore);
+    // if (!geoStore && points.length) {
+    //   setPoints(points);
+    //   onSaveGeostore();
+    // }
   }
 
   // componentWillReceiveProps(nextProps) {
@@ -171,12 +175,14 @@ class AnalyzeLocations extends PureComponent {
 
 AnalyzeLocations.propTypes = {
   timelineOptions: PropTypes.array.isRequired,
-  geoStore: PropTypes.string,
+  // geoStore: PropTypes.string,
+  timeScale: PropTypes.string.isRequired,
   points: PropTypes.array.isRequired,
-  scheme: PropTypes.string,
-  setPoints: PropTypes.func,
+  // scheme: PropTypes.string.isRequired,
+  // setPoints: PropTypes.func.isRequired,
   setFilters: PropTypes.func.isRequired,
-  setAnalysis: PropTypes.func,
+  // setAnalysis: PropTypes.func.isRequired,
+  // onSaveGeostore: PropTypes.func.isRequired,
   onApplyAnalysis: PropTypes.func.isRequired,
   onClearAnalysis: PropTypes.func.isRequired,
   toggleModal: PropTypes.func.isRequired

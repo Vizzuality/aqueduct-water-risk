@@ -3,11 +3,12 @@ import { createSelector } from 'reselect';
 // utils
 import {
   getLayerParametrization,
-  reduceParams
+  reduceParams,
+  getLayerLegend
 } from 'utils/layers';
 
 // constants
-import { INDICATOR_NAMES_RELATION } from 'constants/indicators';
+import { INDICATOR_NAMES_RELATION, FUTURE_INDICATORS_IDS } from 'constants/indicators';
 import {
   MAP_OPTIONS,
   BASEMAPS,
@@ -62,7 +63,7 @@ const getFilteredLayers = createSelector(
         layers = _layers.annual;
         break;
       case (timeScale === 'annual' && ponderationScheme !== 'custom' && ponderationScheme !== 'DEF'):
-        layers = _layers.weights;
+        layers = _layers.annual;
         break;
       case (year !== 'baseline'):
         layers = _layers.projected.filter(_layer => _layer.id === indicator);
@@ -95,7 +96,8 @@ export const getUpdatedLayers = createSelector(
           ...!!_activeLayer.layerConfig.body.url && { url: _activeLayers.layerConfig.body.url },
           ...params
         }
-      }
+      },
+      ...!FUTURE_INDICATORS_IDS.includes(_activeLayer.id) && { legendConfig: getLayerLegend(indicator) }
     }));
   }
 );

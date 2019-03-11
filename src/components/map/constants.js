@@ -47,8 +47,109 @@ export const MARKER_LAYER = {
   legendConfig: {}
 };
 
+const COMMON_LEGEND_ITEMS = [
+  {
+    color: '#FFFF99',
+    name: 'Low'
+  },
+  {
+    color: '#FFE600',
+    name: 'Low - Medium'
+  },
+  {
+    color: '#FF9900',
+    name: 'Medium - High'
+  },
+  {
+    color: '#FF1900',
+    name: 'High'
+  },
+  {
+    color: '#990000',
+    name: 'Extremely High'
+  }
+];
+
+const NO_DATA_LEGEND_ITEM = {
+  color: '#4E4E4E',
+  name: 'No data'
+};
+
+export const LEGENDS = {
+  parent: {
+    items: [
+      {
+        color: '#FFFF99',
+        name: 'Low'
+      },
+      {
+        color: '#FFE600',
+        name: 'Low - Medium'
+      },
+      {
+        color: '#FF9900',
+        name: 'Medium'
+      },
+      {
+        color: '#FF1900',
+        name: 'Medium - High'
+      },
+      {
+        color: '#990000',
+        name: 'High'
+      },
+      NO_DATA_LEGEND_ITEM
+    ],
+    type: 'choropleth'
+  },
+  arid: {
+    items: [
+      ...COMMON_LEGEND_ITEMS,
+      {
+        color: '#808080',
+        name: 'Arid & Low Water Use'
+      },
+      NO_DATA_LEGEND_ITEM
+    ],
+    type: 'choropleth'
+  },
+  gtd_cat: {
+    items: [
+      ...COMMON_LEGEND_ITEMS,
+      {
+        color: '#4E4E4E',
+        name: 'Insignificant Trend'
+      }
+    ],
+    type: 'choropleth'
+  },
+  ucw_cat: {
+    items: [
+      ...COMMON_LEGEND_ITEMS,
+      {
+        color: '#808080',
+        name: 'Low - No Wastewater Collected'
+      },
+      NO_DATA_LEGEND_ITEM
+    ],
+    type: 'choropleth'
+  },
+  flood: {
+    items: COMMON_LEGEND_ITEMS,
+    type: 'choropleth'
+  },
+  common: {
+    items: [
+      ...COMMON_LEGEND_ITEMS,
+      NO_DATA_LEGEND_ITEM
+    ],
+    type: 'choropleth'
+  }
+};
+
 export default {
   MAP_OPTIONS,
   BASEMAP_CONFIG,
-  LABEL_LAYER_CONFIG
+  LABEL_LAYER_CONFIG,
+  LEGENDS
 };

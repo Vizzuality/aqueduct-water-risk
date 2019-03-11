@@ -67,20 +67,7 @@ class MapPage extends PureComponent {
           />
           <div className="l-mapview-content">
             {scope === 'mapView' && (<MapView />)}
-            {scope === 'analyzeLocations' &&
-              (<AnalyzeLocations
-                scope={scope}
-                scheme={this.props.mapView.ponderation.scheme}
-                geoStore={this.props.analyzeLocations.points.geoStore}
-                points={this.props.analyzeLocations.points.list}
-                setPoints={this.props.setPoints}
-                setSelectedPoints={ids => this.props.setSelectedPoints(ids)}
-                onPointRemove={id => this.props.removePoint(id)}
-                setActiveLayers={this.props.setActiveLayers}
-                setAnalysis={this.props.setAnalysis}
-                setScope={this.props.setScope}
-              />)
-            }
+            {scope === 'analyzeLocations' && (<AnalyzeLocations />)}
           </div>
         </Sidebar>
         <MapComponent />
@@ -96,8 +83,6 @@ class MapPage extends PureComponent {
 }
 
 MapPage.propTypes = {
-  analyzeLocations: PropTypes.object.isRequired,
-  mapView: PropTypes.object.isRequired,
   filters: PropTypes.object.isRequired,
   ponderation: PropTypes.object.isRequired,
   scope: PropTypes.string.isRequired,
@@ -106,10 +91,6 @@ MapPage.propTypes = {
   mapState: PropTypes.object.isRequired,
   setScope: PropTypes.func.isRequired,
   updateUrl: PropTypes.func.isRequired,
-  setActiveLayers: PropTypes.func,
-  setAnalysis: PropTypes.func,
-  removePoint: PropTypes.func,
-  setSelectedPoints: PropTypes.func,
   getLayers: PropTypes.func.isRequired
 };
 

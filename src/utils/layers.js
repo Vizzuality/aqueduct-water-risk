@@ -4,6 +4,7 @@ import moment from 'moment';
 
 // utils
 import { INDICATOR_SCHEME_ORDER } from 'constants/indicators';
+import { LEGENDS } from 'components/map/constants';
 
 
 const getAnnualParametrization = ({ indicator }) => ({
@@ -13,7 +14,8 @@ const getAnnualParametrization = ({ indicator }) => ({
 
 const getMonthlyParametrization = ({ indicator, month }) => ({
   indicator,
-  month
+  month,
+  label: indicator.replace('cat', 'label')
 });
 
 const getProjectedParametrization = ({ year, scenario }) => ({
@@ -26,7 +28,10 @@ const getCustomPonderationParametrization = customPonderation => (
 );
 
 const getDefaultPonderationParametrization = ({ indicator }, customPonderation) => (
-  { indicator: indicator.replace('def', customPonderation) }
+  {
+    indicator: indicator.replace('def', customPonderation),
+    label: indicator.replace('def', customPonderation).replace('cat', 'label')
+  }
 );
 
 export const getLayerParametrization = (parametrization, ponderation) => {
@@ -106,9 +111,41 @@ export const reduceSqlParams = (params) => {
 
 export const getMarker = () => {};
 
+export const getLayerLegend = (indicator) => {
+  const isParent = [
+    'w_awr_def_tot_cat',
+    'w_awr_def_qan_cat',
+    'w_awr_def_qal_cat',
+    'w_awr_def_rrr_cat'
+  ].includes(indicator);
+  const isFlood = ['rfr_cat', 'cfr_cat'].includes(indicator);
+  const isArid = ['bws_cat', 'bwd_cat'].includes(indicator);
+  let legend = LEGENDS.common;
+
+  switch (true) {
+    case !!LEGENDS[indicator]:
+      legend = LEGENDS[indicator];
+      break;
+    case isFlood:
+      legend = LEGENDS.flood;
+      break;
+    case isArid:
+      legend = LEGENDS.arid;
+      break;
+    case isParent:
+      legend = LEGENDS.parent;
+      break;
+    default:
+      legend = LEGENDS.common;
+  }
+
+  return legend;
+};
+
 export default {
   reduceParams,
   reduceSqlParams,
   getLayerParametrization,
-  getMarker
+  getMarker,
+  getLayerLegend
 };

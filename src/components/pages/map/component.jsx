@@ -29,6 +29,7 @@ class MapPage extends PureComponent {
       scope,
       advanced,
       mapState,
+      geostore,
       updateUrl
     } = this.props;
     const {
@@ -36,7 +37,8 @@ class MapPage extends PureComponent {
       ponderation: nextPonderation,
       scope: nextScope,
       advanced: nextAdvanced,
-      mapState: nextMapState
+      mapState: nextMapState,
+      geostore: nextGeostore
     } = nextProps;
 
     const filtersChanged = !isEqual(filters, nextFilters);
@@ -44,9 +46,12 @@ class MapPage extends PureComponent {
     const ponderationChanged = ponderation.scheme !== nextPonderation.scheme;
     const scopeChanged = scope !== nextScope;
     const advancedModeChanged = advanced !== nextAdvanced;
+    const geostoreChanged = geostore !== nextGeostore;
 
     // updates URL if any of these params change
-    if (filtersChanged || ponderationChanged || scopeChanged || mapStateChanged || advancedModeChanged) updateUrl();
+    if (filtersChanged || ponderationChanged
+      || scopeChanged || mapStateChanged
+      || advancedModeChanged || geostoreChanged) updateUrl();
   }
 
   render() {
@@ -89,9 +94,12 @@ MapPage.propTypes = {
   advanced: PropTypes.bool.isRequired,
   loading: PropTypes.bool.isRequired,
   mapState: PropTypes.object.isRequired,
+  geostore: PropTypes.any,
   setScope: PropTypes.func.isRequired,
   updateUrl: PropTypes.func.isRequired,
   getLayers: PropTypes.func.isRequired
 };
+
+MapPage.defaultProps = { geostore: null };
 
 export default MapPage;

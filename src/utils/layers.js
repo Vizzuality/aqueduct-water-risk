@@ -116,7 +116,8 @@ export const getLayerLegend = (indicator) => {
     'w_awr_def_tot_cat',
     'w_awr_def_qan_cat',
     'w_awr_def_qal_cat',
-    'w_awr_def_rrr_cat'
+    'w_awr_def_rrr_cat',
+    'drr_cat'
   ].includes(indicator);
   const isFlood = ['rfr_cat', 'cfr_cat'].includes(indicator);
   const isArid = ['bws_cat', 'bwd_cat'].includes(indicator);

@@ -1,4 +1,5 @@
 import * as actions from './actions';
+import initialState from './initial-state';
 
 export default {
   // points
@@ -37,6 +38,11 @@ export default {
       ...state.analysis,
       error: payload
     }
+  }),
+  [actions.clearAnalysis]: state => ({
+    ...state,
+    points: initialState.points,
+    geostore: initialState.geostore
   }),
   // geostore
   [actions.setGeostore]: (state, { payload }) => ({

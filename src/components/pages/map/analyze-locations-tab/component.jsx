@@ -97,7 +97,7 @@ class AnalyzeLocations extends PureComponent {
       points,
       timeScale,
       onApplyAnalysis,
-      onClearAnalysis
+      clearAnalysis
     } = this.props;
     const applyButtonClass = classnames(
       'c-btn -primary -light',
@@ -161,7 +161,7 @@ class AnalyzeLocations extends PureComponent {
             <button
               type="button"
               className={clearButtonClass}
-              onClick={() => { onClearAnalysis(); }}
+              onClick={() => { clearAnalysis(); }}
               {...!points.length && { disabled: true }}
             >
               Clear analysis
@@ -184,7 +184,7 @@ AnalyzeLocations.propTypes = {
   // setAnalysis: PropTypes.func.isRequired,
   // onSaveGeostore: PropTypes.func.isRequired,
   onApplyAnalysis: PropTypes.func.isRequired,
-  onClearAnalysis: PropTypes.func.isRequired,
+  clearAnalysis: PropTypes.func.isRequired,
   toggleModal: PropTypes.func.isRequired
 };
 

@@ -7,8 +7,6 @@ import { fetchAnalysis } from 'services/analysis';
 // utils
 import { parseWeights } from 'utils/weights';
 
-import initialState from './initial-state';
-
 // points
 export const setPoints = createAction('ANALYZE-LOCATIONS-TAB__SET-POINTS');
 export const setSelectedPoints = createAction('ANALYZE-LOCATIONS-TAB__SET-SELECTED-POINTS');
@@ -16,6 +14,7 @@ export const setSelectedPoints = createAction('ANALYZE-LOCATIONS-TAB__SET-SELECT
 export const setAnalysis = createAction('ANALYZE-LOCATIONS-TAB__SET-ANALYSIS');
 export const setAnalysisLoading = createAction('ANALYZE-LOCATIONS-TAB__SET-ANALYSIS-LOADING');
 export const setAnalysisError = createAction('ANALYZE-LOCATIONS-TAB__SET-ANALYSIS-ERROR');
+export const clearAnalysis = createAction('ANALYZE-LOCATIONS-TAB__CLEAR-ANALYSIS');
 // geostore
 export const setGeostore = createAction('ANALYZE-LOCATIONS-TAB__SET-GEOSTORE');
 export const setGeostoreLoading = createAction('ANALYZE-LOCATIONS-TAB__SET-GEOSTORE-LOADING');
@@ -32,19 +31,17 @@ export const getGeostore = createThunkAction('ANALYZE-LOCATIONS-TAB__GET-GEOSTOR
       .then((geoStore) => {
         const { geojson: { features } } = geoStore;
 
-        const points = features.map(p => ({
-          lat: p.geometry.coordinates[0],
-          lng: p.geometry.coordinates[1]
-        }));
-        // TO-DO: remove sample data when we can retrieve points from geostore
-        const samplePoints = [
-          { lat: 14.26438308756265, lng: 14.062500000000002 },
-          { lat: 5.266007882805498, lng: 2.8125 },
-          { lat: 44.84029065139799, lng: 16.523437500000004 },
-          { lat: -7.362466865535738, lng: -3.1640625000000004 }
-        ];
+        if (!features[0]) {
+          dispatch(setGeostoreError('Error: there are no geometries in this geostore'));
+          dispatch(setGeostoreLoading(false));
+        }
 
-        dispatch(setPoints(samplePoints));
+        const points = features[0].geometry.coordinates.map(_coordinate => ({
+          lat: _coordinate[0],
+          lng: _coordinate[1]
+        }));
+
+        dispatch(setPoints(points));
       })
       .catch((err) => {
         dispatch(setGeostoreError(err));
@@ -59,11 +56,10 @@ export const onSaveGeostore = createThunkAction('ANALYZE-LOCATIONS-TAB__SAVE-GEO
     dispatch(setGeostoreLoading(true));
     dispatch(setGeostoreError(null));
 
-    saveGeostore(list)
+    return saveGeostore(list)
       .then((data) => {
         dispatch(setGeostore(data.id));
         dispatch(setGeostoreLoading(false));
-        // dispatch(updateUrl());
       })
       .catch((err) => {
         dispatch(setGeostoreError(err));
@@ -74,11 +70,11 @@ export const onSaveGeostore = createThunkAction('ANALYZE-LOCATIONS-TAB__SAVE-GEO
 export const onFetchAnalysis = createThunkAction('ANALYZE-LOCATIONS-TAB__FETCH-ANALYSIS', () =>
   (dispatch, getState) => {
     const {
-      points: { geostore },
+      analyzeLocations: { geostore: { id } },
       mapView: { ponderation }
     } = getState();
     const params = {
-      geostore,
+      geostore: id,
       wscheme: `[${parseWeights(ponderation)}]`
     };
 
@@ -89,7 +85,6 @@ export const onFetchAnalysis = createThunkAction('ANALYZE-LOCATIONS-TAB__FETCH-A
       .then((data) => {
         dispatch(setAnalysis(data));
         dispatch(setAnalysisLoading(false));
-        // dispatch(updateUrl());
       })
       .catch((err) => {
         dispatch(setAnalysisError(err));
@@ -100,9 +95,9 @@ export const onFetchAnalysis = createThunkAction('ANALYZE-LOCATIONS-TAB__FETCH-A
 export const onAddPoint = createThunkAction('ANALYZE-LOCATIONS-TAB__ADD-POINT', point =>
   (dispatch, getState) => {
     const { analyzeLocations: { points: { list } } } = getState();
-
     const points = Array.isArray(point) ?
       [...list, ...point] : [...list, point];
+
     dispatch(setPoints(points));
   });
 
@@ -118,17 +113,6 @@ export const onApplyAnalysis = createThunkAction('ANALYZE-LOCATIONS-TAB__APPLY-A
   });
 
 
-export const onClearAnalysis = createThunkAction('ANALYZE-LOCATIONS-TAB__CLEAR-ANALYSIS', () =>
-  (dispatch) => {
-    const {
-      points: { list },
-      geostore: { id }
-    } = initialState;
-
-    dispatch(setPoints(list));
-    dispatch(setGeostore(id));
-  });
-
 export default {
   setPoints,
   setSelectedPoints,
@@ -136,9 +120,9 @@ export default {
   setAnalysis,
   setAnalysisLoading,
   setAnalysisError,
+  clearAnalysis,
   getGeostore,
   onSaveGeostore,
   onAddPoint,
-  onApplyAnalysis,
-  onClearAnalysis
+  onApplyAnalysis
 };

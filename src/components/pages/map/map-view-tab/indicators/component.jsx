@@ -8,8 +8,7 @@ import IndicatorList from 'components/map-view-tab/indicator-list';
 import AdvancedIndicatorList from 'components/map-view-tab/advanced-indicator-list';
 import CustomAdvancedIndicatorList from 'components/map-view-tab/custom-advanced-indicator-list';
 import Future from 'components/map-view-tab/future';
-import Presets from 'components/map-view-tab/presets';
-import PonderationChart from 'components/map-view-tab/ponderation-chart';
+import WeightSelector from 'components/map-view-tab/weight-selector';
 
 // constants
 import { PARENT_CHILDREN_LAYER_RELATION } from 'constants/indicators';
@@ -67,12 +66,7 @@ class Indicators extends PureComponent {
               />
             </span>)}
         </div>
-        {(advancedMode && timeScale !== 'monthly') &&
-          (<Fragment>
-            <Presets />
-            <PonderationChart />
-          </Fragment>)
-        }
+        {(advancedMode && timeScale !== 'monthly') && (<WeightSelector />)}
         {this.renderIndicatorList()}
       </Fragment>
     );

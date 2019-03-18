@@ -1,3 +1,5 @@
+
+
 import { connect } from 'react-redux';
 
 // actions
@@ -6,16 +8,19 @@ import {
   setFilters
 } from 'modules/map-view-tab/actions';
 
+// selectors
+import { getPonderationLabel } from './selector';
+
 // component
-import Presets from './component';
+import WeightSelector from './component';
 
 export default connect(
   state => ({
-    ponderation: state.mapView.ponderation.scheme,
+    ponderationLabel: getPonderationLabel(state),
     currentIndicator: state.mapView.filters.indicator
   }),
   {
     setPonderation,
     setFilters
   }
-)(Presets);
+)(WeightSelector);

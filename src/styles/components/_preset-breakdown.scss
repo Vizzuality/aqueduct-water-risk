@@ -1,0 +1,18 @@
+.c-preset-breakdown {
+  display: flex;
+  height: 12px;
+
+  > .bar {
+    height: 100%;
+
+    &.-quantity { background: palette(blue, lightest); }
+
+    &.-quality { background: palette(blue, secondary); }
+
+    &.-regulatory { background: palette(blue, dark); }
+
+    &:not(:first-child) {
+      border-left: 1px solid palette(white);
+    }
+  }
+}

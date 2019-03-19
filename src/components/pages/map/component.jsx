@@ -76,12 +76,10 @@ class MapPage extends PureComponent {
           </div>
         </Sidebar>
         <MapComponent />
-        {loading && (
-          <Spinner
-            isLoading={loading}
-            className="-map"
-          />
-        )}
+        <Spinner
+          isLoading={loading}
+          className="-map"
+        />
       </div>
     );
   }

@@ -1,6 +1,7 @@
 import { BASEMAPS } from 'components/map/constants';
 
 export default {
+  loading: true,
   zoom: 3,
   center: {
     lat: 30,

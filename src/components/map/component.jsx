@@ -30,7 +30,8 @@ class MapComponent extends PureComponent {
   componentWillReceiveProps(nextProps) {
     const {
       layers,
-      indicator
+      indicator,
+      setLoading
     } = this.props;
     const {
       layers: nextLayers,
@@ -39,7 +40,10 @@ class MapComponent extends PureComponent {
     const layersChanged = !isEqual(layers, nextLayers);
     const indicatorChanged = !isEqual(indicator, nextIndicator);
 
-    if ((layersChanged || indicatorChanged) && this.popup) this.popup._close();
+    if ((layersChanged || indicatorChanged)) {
+      setLoading(true);
+      if (this.popup) this.popup._close();
+    }
   }
 
   addPoint(event) {
@@ -78,13 +82,15 @@ class MapComponent extends PureComponent {
       map,
       basemap,
       layers,
+      loading,
       indicator,
       scope,
       setMapParams,
       toggleSourceModal,
       toggleShareModal,
       layerGroup,
-      popup
+      popup,
+      setLoading
     } = this.props;
     const { zoom, minZoom, maxZoom } = map;
     const mapEvents = { moveend: (e, _map) => { this.updateMap(e, _map); } };
@@ -102,6 +108,7 @@ class MapComponent extends PureComponent {
               <LayerManager
                 map={_map}
                 plugin={PluginLeaflet}
+                onReady={() => { if (loading) setLoading(false); }}
               >
                 {layers.map((l, i) => (
                   <Layer
@@ -184,6 +191,7 @@ class MapComponent extends PureComponent {
 MapComponent.propTypes = {
   map: PropTypes.object.isRequired,
   basemap: PropTypes.object.isRequired,
+  loading: PropTypes.bool.isRequired,
   layers: PropTypes.array.isRequired,
   layerGroup: PropTypes.array.isRequired,
   indicator: PropTypes.string.isRequired,
@@ -194,7 +202,8 @@ MapComponent.propTypes = {
   setPopup: PropTypes.func.isRequired,
   onAddPoint: PropTypes.func.isRequired,
   toggleSourceModal: PropTypes.func.isRequired,
-  toggleShareModal: PropTypes.func.isRequired
+  toggleShareModal: PropTypes.func.isRequired,
+  setLoading: PropTypes.func.isRequired
 };
 
 export default MapComponent;

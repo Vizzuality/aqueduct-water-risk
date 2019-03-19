@@ -13,7 +13,7 @@ export default connect(
     scope: state.app.scope,
     advanced: state.app.advanced,
     mapState: state.map,
-    loading: state.layers.loading,
+    loading: state.layers.loading || state.map.loading,
     filters: state.mapView.filters,
     ponderation: state.mapView.ponderation,
     geostore: state.analyzeLocations.geostore.id

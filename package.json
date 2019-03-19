@@ -41,7 +41,7 @@
     "html-webpack-plugin": "^2.24.1",
     "json-loader": "^0.5.4",
     "jsonapi-serializer": "^3.4.1",
-    "layer-manager": "^1.14.7",
+    "layer-manager": "^1.15.2",
     "lodash": "^4.17.11",
     "mocha": "^3.0.0",
     "moment": "^2.24.0",

@@ -5,18 +5,42 @@ import {
   Timeline,
   Icon,
   CustomSelect,
-  RadioGroup
+  RadioGroup,
+  APP_DEFINITIONS,
+  InfoModal
 } from 'aqueduct-components';
 
 // constants
 import {
   projectionOptions,
   timeScaleOptions,
-  MONTH_OPTIONS
+  MONTH_OPTIONS,
+  TIMEFRAME_MODAL_DESCRIPTION
 } from 'constants/filters';
 import { INDICATORS, FUTURE_INDICATORS } from 'constants/indicators';
 
 class Filters extends PureComponent {
+
+  onClickInfoFilters(slug) {
+    const { toggleModal } = this.props;
+
+    if (slug === 'timeframe') {
+      return toggleModal(true, {
+        children: InfoModal,
+        childrenProps: {
+          info: TIMEFRAME_MODAL_DESCRIPTION
+        }
+      });
+    }
+
+    return toggleModal(true, {
+      children: InfoModal,
+      childrenProps: {
+        info: APP_DEFINITIONS[slug]
+      }
+    });
+  }
+
   onSelectTimeframe(year) {
     const {
       filters: { year: prevYear, projection, timeScale },
@@ -64,7 +88,6 @@ class Filters extends PureComponent {
   render() {
     const {
       setFilters,
-      openModal,
       filters: { year, projection, timeScale, month },
       timeframeOptions
     } = this.props;
@@ -88,7 +111,7 @@ class Filters extends PureComponent {
                       <button
                         type="button"
                         className="icon-container"
-                        onClick={() => openModal('timeframe')}
+                        onClick={() => this.onClickInfoFilters('timeframe')}
                       >
                         <Icon name="icon-question" className="title-icon" />
                       </button>
@@ -172,7 +195,7 @@ Filters.propTypes = {
   timeframeOptions: PropTypes.array.isRequired,
   setFilters: PropTypes.func.isRequired,
   setPonderation: PropTypes.func.isRequired,
-  openModal: PropTypes.func.isRequired
+  toggleModal: PropTypes.func.isRequired
 };
 
 export default Filters;

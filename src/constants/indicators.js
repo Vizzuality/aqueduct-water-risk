@@ -173,9 +173,9 @@ export const INDICATOR_NAMES_RELATION = {
 export const INDICATOR_DESCRIPTIONS = {
   w_awr_def_tot_cat: {
     name: INDICATOR_NAMES_RELATION.w_awr_def_tot_cat,
-    description: `Overall water risk identifies areas with higher exposure to water-related risks
-      and is an aggregated measure of all selected indicators from the Physical Quantity, Quality and
-      Regulatory & Reputational Risk categories.`,
+    description: `Overall water risk measures all water-related risks, by aggregating all selected indicators
+    from the Physical Quantity, Quality and Regulatory & Reputational Risk categories. Higher values
+    indicate higher water risk.`,
     sources: [{
       name: 'WRI Aqueduct 2014',
       link: 'https://www.wri.org/publication/aqueduct-global-maps-21-indicators'
@@ -183,8 +183,8 @@ export const INDICATOR_DESCRIPTIONS = {
   },
   w_awr_def_qan_cat: {
     name: INDICATOR_NAMES_RELATION.w_awr_def_qan_cat,
-    description: `Physical risks related to quantity identify areas of concern regarding water quantity
-    (e.g. droughts or floods) that may impact short or long term water availability.`,
+    description: `Physical risks quantity measures risk related to too little or too much water,
+    by aggregating all selected indicators from the Physical Risk Quantity category. Higher values indicate higher water quantity risks.`,
     sources: [{
       name: 'WRI Aqueduct 2014',
       link: 'https://www.wri.org/publication/aqueduct-global-maps-21-indicators'
@@ -192,8 +192,8 @@ export const INDICATOR_DESCRIPTIONS = {
   },
   w_awr_def_qal_cat: {
     name: INDICATOR_NAMES_RELATION.w_awr_def_qal_cat,
-    description: `Physical risks related to quality identify areas of concern regarding water quality
-      that may impact short or long term water availability.`,
+    description: `Physical risks quality measures risk related to water that is unfit for use,
+    by aggregating all selected indicators from the Physical Risk Quality category. Higher values indicate higher water quality risks.`,
     sources: [{
       name: 'WRI Aqueduct 2014',
       link: 'https://www.wri.org/publication/aqueduct-global-maps-21-indicators'
@@ -201,8 +201,9 @@ export const INDICATOR_DESCRIPTIONS = {
   },
   w_awr_def_rrr_cat: {
     name: INDICATOR_NAMES_RELATION.w_awr_def_rrr_cat,
-    description: `Regulatory and reputational risks identify areas of concern regarding uncertainty
-      in regulatory change, as well as conflicts with the public regarding water issues.`,
+    description: `Regulatory and reputational risks measures risk related to uncertainty in regulatory change,
+    as well as conflicts with the public regarding water issues. Higher values indicate higher regulatory and
+    reputational water risks.`,
     sources: [{
       name: 'WRI Aqueduct 2014',
       link: 'https://www.wri.org/publication/aqueduct-global-maps-21-indicators'

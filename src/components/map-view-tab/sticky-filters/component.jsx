@@ -5,6 +5,7 @@ import { CustomSelect, SegmentedUi } from 'aqueduct-components';
 // constants
 import { SCOPE_OPTIONS } from 'constants/app';
 import { timeScaleOptions } from 'constants/filters';
+import { INDICATOR_NAMES_RELATION } from 'constants/indicators';
 
 class StickyFilters extends PureComponent {
   onSelectTimeScale(value) {
@@ -23,7 +24,10 @@ class StickyFilters extends PureComponent {
     const {
       scope,
       withScope,
-      filters: { timeScale },
+      filters: {
+        timeScale,
+        indicator
+      },
       setScope
     } = this.props;
 
@@ -44,6 +48,10 @@ class StickyFilters extends PureComponent {
           </div>
         }
         <div className="global-filters">
+          <div>
+            <span className="title">Indicator</span>
+            <span className="value">{INDICATOR_NAMES_RELATION[indicator]}</span>
+          </div>
           <div>
             <span className="title">Time Scale</span>
             <CustomSelect

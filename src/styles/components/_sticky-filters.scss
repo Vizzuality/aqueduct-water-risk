@@ -1,0 +1,20 @@
+.c-sticky-filters {
+
+  .global-filters {
+    > div {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      justify-content: space-around;
+      max-width: initial;
+
+      &:last-of-type {
+        max-width: initial;
+      }
+    }
+  }
+  .value {
+    font-weight: 500;
+    color: palette(gray, dark);
+  }
+}

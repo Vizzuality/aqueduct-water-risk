@@ -58,14 +58,12 @@ class MapComponent extends PureComponent {
     setLayerParametrization({ opacity });
   }
 
-  handleClickMap(e) {
-    const { setPopup } = this.props;
+  handleClickMap(e, layer) {
+    const { setPopupLocation, setPopupData } = this.props;
     const { latlng, data } = e;
 
-    setPopup({
-      latlng,
-      data
-    });
+    setPopupLocation(latlng);
+    setPopupData({ [layer.id]: data });
   }
 
   updateMap(event, map) {
@@ -126,7 +124,7 @@ class MapComponent extends PureComponent {
                     }}
                     events={{
                       ...scope === 'analyzeLocations' && { click: (e) => { this.addPoint(e); } },
-                      ...scope === 'mapView' && { click: (e) => { this.handleClickMap(e); } }
+                      ...scope === 'mapView' && { click: (e) => { this.handleClickMap(e, l); } }
                     }}
                   />
                   ))}
@@ -199,7 +197,8 @@ MapComponent.propTypes = {
   scope: PropTypes.string.isRequired,
   setMapParams: PropTypes.func.isRequired,
   setLayerParametrization: PropTypes.func.isRequired,
-  setPopup: PropTypes.func.isRequired,
+  setPopupLocation: PropTypes.func.isRequired,
+  setPopupData: PropTypes.func.isRequired,
   onAddPoint: PropTypes.func.isRequired,
   toggleSourceModal: PropTypes.func.isRequired,
   toggleShareModal: PropTypes.func.isRequired,

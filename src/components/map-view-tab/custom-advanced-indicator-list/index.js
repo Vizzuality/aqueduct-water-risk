@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import { toggleModal } from 'aqueduct-components';
 
 // actions
+import { updateUrl } from 'modules/app/actions';
 import { setPonderation } from 'modules/map-view-tab/actions';
 
 // constants
@@ -17,9 +18,8 @@ export default connect(
     customPonderation: state.mapView.ponderation.custom
   }),
   dispatch => ({
-    setPonderation(ponderation) {
-      dispatch(setPonderation(ponderation));
-    },
+    setPonderation(ponderation) { dispatch(setPonderation(ponderation)); },
+    updateUrl() { dispatch(updateUrl()); },
     openModal: (indicator) => {
       dispatch(toggleModal(true, {
         children: IndicatorModal,

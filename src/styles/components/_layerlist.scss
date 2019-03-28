@@ -34,7 +34,7 @@ $separation: $space-1 * 2;
 .layerlist-item {
   .ponderation-header {
     display: flex;
-    margin: 0 0 $space-1;
+    margin: 0 0 $space-1 * 2;
 
     > .icon-container {
       position: relative;

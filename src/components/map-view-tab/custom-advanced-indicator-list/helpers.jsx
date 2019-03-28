@@ -11,6 +11,7 @@ export const renderList = (properties = {}, deep = 0) => {
     customPonderation,
     setPonderation,
     onCheckIndicator,
+    onClickPonderation,
     openModal
   } = properties;
 
@@ -56,7 +57,7 @@ export const renderList = (properties = {}, deep = 0) => {
                   items={PRESET_POINTS}
                   disabled={customPonderation[_indicator.id] === 'null'}
                   selected={{ value: customPonderation[_indicator.id] }}
-                  onChange={({ value }) => { setPonderation({ custom: { [_indicator.id]: value } }); }}
+                  onChange={({ value }) => { onClickPonderation(_indicator, value); }}
                 />
               </span> :
               <span className={titleClass}>

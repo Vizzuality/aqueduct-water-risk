@@ -166,9 +166,9 @@ export const PRESET_VALUES = {
   custom: {
     bws_cat: '1.0',
     bwd_cat: '1.0',
+    gtd_cat: '1.0',
     iav_cat: '1.0',
     sev_cat: '1.0',
-    gtd_cat: '1.0',
     drr_cat: '1.0',
     rfr_cat: '1.0',
     cfr_cat: '1.0',

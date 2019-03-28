@@ -24,7 +24,7 @@ class Filters extends PureComponent {
   onClickInfoFilters(slug) {
     const { toggleModal } = this.props;
 
-    if (slug === 'timeframe') {
+    if (slug === 'temporal-resolution') {
       return toggleModal(true, {
         children: InfoModal,
         childrenProps: {
@@ -118,7 +118,6 @@ class Filters extends PureComponent {
                     </div>
                     <Timeline
                       items={timeframeOptions}
-                      // disabled={timeScale === 'monthly'}
                       selected={timeframeOptions.find(i => i.value === year)}
                       onChange={({ value }) => { this.onSelectTimeframe(value); }}
                     />
@@ -147,7 +146,11 @@ class Filters extends PureComponent {
                       <div className="c-filters-item">
                         <div className="filter-item-header">
                           <span className="title">Temporal resolution</span>
-                          <button type="button" className="icon-container">
+                          <button
+                            type="button"
+                            className="icon-container"
+                            onClick={() => this.onClickInfoFilters('temporal-resolution')}
+                          >
                             <Icon
                               name="icon-question"
                               className="title-icon"

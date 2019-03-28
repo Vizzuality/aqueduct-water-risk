@@ -1,7 +1,11 @@
 import React, { PureComponent, Fragment } from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
-import { Checkbox } from 'aqueduct-components';
+import {
+  Checkbox,
+  Icon,
+  InfoModal
+} from 'aqueduct-components';
 
 // components
 import IndicatorList from 'components/map-view-tab/indicator-list';
@@ -11,9 +15,20 @@ import Future from 'components/map-view-tab/future';
 import WeightSelector from 'components/map-view-tab/weight-selector';
 
 // constants
-import { PARENT_CHILDREN_LAYER_RELATION } from 'constants/indicators';
+import { PARENT_CHILDREN_LAYER_RELATION, INDICATORS_MODAL_DEFINITION } from 'constants/indicators';
 
 class Indicators extends PureComponent {
+  handleClickModal() {
+    const { toggleModal } = this.props;
+
+    toggleModal(true, {
+      children: InfoModal,
+      childrenProps: {
+        info: INDICATORS_MODAL_DEFINITION
+      }
+    });
+  }
+
   handleAdvancedMode(advanced) {
     const {
       currentIndicator,
@@ -53,7 +68,16 @@ class Indicators extends PureComponent {
     return (
       <Fragment>
         <div className="layerlist-header">
-          <span className="layerlist-title">Indicators</span>
+          <div className="indicator-header">
+            <span className="layerlist-title">Indicators</span>
+            <button
+              type="button"
+              className="icon-container"
+              onClick={() => { this.handleClickModal(); }}
+            >
+              <Icon name="icon-question" className="title-icon" />
+            </button>
+          </div>
           {timeScale === 'annual' && (
             <span className="advanced">
               <Checkbox
@@ -90,7 +114,8 @@ Indicators.propTypes = {
   ponderation: PropTypes.object.isRequired,
   setAdvancedMode: PropTypes.func.isRequired,
   setFilters: PropTypes.func.isRequired,
-  setPonderation: PropTypes.func.isRequired
+  setPonderation: PropTypes.func.isRequired,
+  toggleModal: PropTypes.func.isRequired
 };
 
 export default Indicators;

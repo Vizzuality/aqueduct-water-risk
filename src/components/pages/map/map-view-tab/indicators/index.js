@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { toggleModal } from 'aqueduct-components';
 
 // actions
 import { setAdvancedMode } from 'modules/app/actions';
@@ -18,6 +19,7 @@ export default connect(
   {
     setAdvancedMode,
     setFilters,
-    setPonderation
+    setPonderation,
+    toggleModal
   }
 )(Indicators);

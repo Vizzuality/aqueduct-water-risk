@@ -212,8 +212,10 @@ export const INDICATOR_DESCRIPTIONS = {
   // Water Quantity Risk
   bws_cat: {
     name: INDICATOR_NAMES_RELATION.bws_cat,
-    description: `Baseline water stress measures the ratio of total annual water withdrawals to total available
-      annual renewable supply, accounting for upstream consumptive use. Higher values indicate more competition among users.`,
+    description: `Baseline water stress measures the ratio of total water withdrawals to available renewable water supplies.
+    Water withdrawals include domestic, industrial, irrigation and livestock consumptive and non-consumptive uses. Available renewable
+    water supplies include surface and groundwater supplies and considers the impact of upstream consumptive water users and large dams
+    on downstream water availability. Higher values indicate more competition among users.`,
     sources: [{
       name: 'WRI Aqueduct 2014',
       link: 'https://www.wri.org/publication/aqueduct-global-maps-21-indicators'
@@ -227,14 +229,17 @@ export const INDICATOR_DESCRIPTIONS = {
   },
   bwd_cat: {
     name: INDICATOR_NAMES_RELATION.bwd_cat,
-    description: 'TBD',
+    description: `Baseline water depletion measures the ratio of total water consumption to available renewable
+    water supplies. Total water consumption includes domestic, industrial, irrigation and livestock consumptive uses.
+    Available renewable water supplies include surface and groundwater supplies and considers the impact of upstream consumptive
+    water users and large dams on downstream water availability. Higher values indicate larger impact on the local water supply
+    and decreased water availability for downstream users.`,
     sources: []
   },
   gtd_cat: {
     name: INDICATOR_NAMES_RELATION.gtd_cat,
-    description: `Groundwater stress measures the relative ratio of groundwater withdrawal to recharge rate.
-      Values above one indicate where unsustainable groundwater consumption could affect groundwater availability
-      and groundwater-dependent ecosystems.`,
+    description: `Groundwater table decline measures the average annual decline of the groundwater table.
+    Higher values indicate higher levels of unsustainable groundwater withdrawals.`,
     sources: [
       { name: 'Gleeson' },
       { name: 'Wada' },
@@ -244,7 +249,8 @@ export const INDICATOR_DESCRIPTIONS = {
   },
   iav_cat: {
     name: INDICATOR_NAMES_RELATION.iav_cat,
-    description: 'Inter-annual variability measures the variation in water supply from year-to-year.',
+    description: `Interannual variability measures the average between-year variability of available water supply,
+    including both renewable surface and groundwater supplies. Higher values indicate wider variations in available supply from year to year.`,
     sources: [{
       name: 'WRI Aqueduct 2014',
       link: 'https://www.wri.org/publication/aqueduct-global-maps-21-indicators'
@@ -254,7 +260,8 @@ export const INDICATOR_DESCRIPTIONS = {
   },
   sev_cat: {
     name: INDICATOR_NAMES_RELATION.sev_cat,
-    description: 'Seasonal variability measures variation in water supply between months of the year.',
+    description: `Seasonal variability measures the average within-year variability of available water supply, including both renewable surface and groundwater supplies.
+    Higher values indicate wider variations of available supply within a year.`,
     sources: [{
       name: 'WRI Aqueduct 2014',
       link: 'https://www.wri.org/publication/aqueduct-global-maps-21-indicators'
@@ -264,47 +271,56 @@ export const INDICATOR_DESCRIPTIONS = {
   },
   drr_cat: {
     name: INDICATOR_NAMES_RELATION.drr_cat,
-    description: `Drought severity estimates the average of the length times the dryness of droughts
-      from 1901 to 2008. Drought is defined as a continuous period where soil moisture remains below the
-      20th percentile, length is measured in months, and dryness is the number of percentage points
-      below the 20th percentile.`,
+    description: `Drought risk measures where droughts are likely to occur, the population and assets exposed, and the
+    vulnerability of the population and assets to suffering adverse effects. <strong>Higher values indicate higher risk of drought.</strong>`,
     sources: [{ name: 'Sheffield and Wood 2007' }]
   },
   rfr_cat: {
     name: INDICATOR_NAMES_RELATION.rfr_cat,
-    description: 'TBD',
+    description: `Riverine flood risk measures the percentage of population expected to be affected by riverine
+    flooding in an average year, accounting for existing flood protection standards.
+    Higher values indicate greater proportion of the population is expected to be impacted by riverine floods.`,
     sources: []
   },
   cfr_cat: {
     name: INDICATOR_NAMES_RELATION.gtd_cat,
-    description: 'TBD',
+    description: `Coastal flood risk measures the percentage of population expected to be affected by coastal flooding in
+    an average year, accounting for existing flood protection standards. Higher values indicate greater proportion of the
+    population is expected to be impacted by coastal floods.`,
     sources: []
   },
   // Water Quality Risk
   ucw_cat: {
     name: INDICATOR_NAMES_RELATION.ucw_cat,
-    description: 'TBD',
+    description: `Untreated connected wastewater measures the percentage of domestic wastewater that is connected through a
+    sewerage system and not treated to at least a primary treatment level.
+    Higher values indicate higher percentages of point source wastewater discharged without treatment.`,
     sources: []
   },
   cep_cat: {
     name: INDICATOR_NAMES_RELATION.cep_cat,
-    description: 'TBD',
+    description: `Coastal Eutrophication Potential measures the potential for riverine loadings of nitrogen, phosphorus and
+    silica to stimulate harmful algal blooms in coastal waters. Higher values indicate higher levels of excess nutrients with
+    respect to silica, creating more favorable conditions for harmful algal growth and eutrophication in coastal waters downstream.`,
     sources: []
   },
   // Regulatory and Reputational
   udw_cat: {
     name: INDICATOR_NAMES_RELATION.udw_cat,
-    description: 'TBD',
+    description: `Unimproved/ no drinking water measures the percentage of the population that relies on drinking water from an unprotected dug well
+    or spring, or direct surface water. Higher values indicate areas where people have less access to safe drinking water supplies.`,
     sources: []
   },
   usa_cat: {
     name: INDICATOR_NAMES_RELATION.usa_cat,
-    description: 'TBD',
+    description: `Unimproved/ no sanitation measures the percentage of population using pit latrines without a slab or platform, or a hanging
+    or bucket latrine. Higher values indicate areas where people have less access to improved sanitation services.`,
     sources: []
   },
   rri_cat: {
     name: INDICATOR_NAMES_RELATION.rri_cat,
-    description: 'TBD',
+    description: `The RepRisk Index measures environmental, social, and governance (ESG)-related reputational risk. Peak RepRisk Index equals
+    the highest level of the RepRisk Index in a given country over the last two years. Higher values indicate higher overall ESG-related risks.`,
     sources: []
   },
   // future
@@ -480,6 +496,19 @@ export const ANALYZER_LOCATION_INDICATORS = [
   }
 ];
 
+export const INDICATORS_MODAL_DEFINITION = {
+  title: 'Relevance to Industry',
+  description: `
+  <ul>
+    <li>No weight 0 Not relevant</li>
+    <li>Very Low 0.25 Represents very low relevance to the industry</li>
+    <li>Low 0.5 Represents low relevance to the industry</li>
+    <li>Medium 1 Represents medium relevance to the industry</li>
+    <li>High 2 Represents high relevance to the industry</li>
+    <li>Very High 4 Represents very high relevance to the industry</li>
+  </ul>`
+};
+
 export default {
   INDICATORS,
   FUTURE_INDICATORS,
@@ -492,5 +521,6 @@ export default {
   DEFAULT_FUTURE_INDICATOR,
   DEFAULT_FUTURE_YEAR,
   FUTURE_INDICATORS_IDS,
-  ANALYZER_LOCATION_INDICATORS
+  ANALYZER_LOCATION_INDICATORS,
+  INDICATORS_MODAL_DEFINITION
 };

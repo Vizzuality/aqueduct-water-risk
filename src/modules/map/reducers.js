@@ -11,11 +11,21 @@ export default {
       ...payload
     }
   }),
-  [actions.setPopup]: (state, { payload }) => ({
+  [actions.setPopupLocation]: (state, { payload }) => ({
     ...state,
     popup: {
       ...state.popup,
-      ...payload
+      latlng: payload
+    }
+  }),
+  [actions.setPopupData]: (state, { payload }) => ({
+    ...state,
+    popup: {
+      ...state.popup,
+      data: {
+        ...state.popup.data,
+        ...payload
+      }
     }
   })
 };

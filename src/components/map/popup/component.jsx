@@ -17,15 +17,19 @@ class Popup extends PureComponent {
       data: _data
     } = data;
 
-    const layer = layers[0];
-
-    if (!layer || !_data || !Object.keys(_data).length) {
+    if (!layers || !_data || !Object.keys(_data).length) {
       popup.remove();
       return null;
     }
 
-    const { name, interactionConfig } = layer;
-    const { output } = interactionConfig || {};
+    const mergedData = Object.values(_data).reduce((acc, v) => ({ ...acc, ...v }), {});
+    let output = [];
+
+    layers.forEach((_layer) => {
+      if (_layer.interactionConfig) output = [...output, ..._layer.interactionConfig.output];
+    });
+
+    const { name } = layers[0];
 
     return (
       <div className="c-map-popup">
@@ -33,13 +37,13 @@ class Popup extends PureComponent {
           <span className="layer-name">{name}</span>
         </header>
         <div className="popup-content">
-          {_data &&
+          {mergedData &&
             <table className="popup-table">
               <tbody>
                 {output && output.map((outputItem) => {
                   const { column } = outputItem;
                   const columnArray = column.split('.');
-                  const value = columnArray.reduce((acc, c) => acc[c], _data);
+                  const value = columnArray.reduce((acc, c) => acc[c], mergedData);
                   return (
                     <tr
                       key={outputItem.property || outputItem.column}

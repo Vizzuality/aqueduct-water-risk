@@ -272,7 +272,7 @@ export const INDICATOR_DESCRIPTIONS = {
   drr_cat: {
     name: INDICATOR_NAMES_RELATION.drr_cat,
     description: `Drought risk measures where droughts are likely to occur, the population and assets exposed, and the
-    vulnerability of the population and assets to suffering adverse effects. <strong>Higher values indicate higher risk of drought.</strong>`,
+    vulnerability of the population and assets to suffering adverse effects. Higher values indicate higher risk of drought.`,
     sources: [{ name: 'Sheffield and Wood 2007' }]
   },
   rfr_cat: {

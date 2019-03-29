@@ -6,7 +6,8 @@ import ShareModal from 'components/modal/share';
 import {
   setMapLocation,
   setLayerParametrization,
-  setPopup,
+  setPopupLocation,
+  setPopupData,
   setLoading
 } from 'modules/map/actions';
 import { onAddPoint } from 'modules/analyze-locations-tab/actions';
@@ -50,7 +51,8 @@ export default connect(
         childrenProps: { info: INDICATOR_DESCRIPTIONS[indicator] }
       }));
     },
-    setPopup: (popup) => { dispatch(setPopup(popup)); },
-    setLoading: (loading) => { dispatch(setLoading(loading)); }
+    setLoading: (loading) => { dispatch(setLoading(loading)); },
+    setPopupData: (data) => { dispatch(setPopupData(data)); },
+    setPopupLocation: (location) => { dispatch(setPopupLocation(location)); }
   })
 )(MapComponent);

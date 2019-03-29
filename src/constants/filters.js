@@ -30,9 +30,15 @@ export const projectionOptions = [
   { value: 'bs', label: 'Change from baseline' }
 ];
 
+export const TIMEFRAME_MODAL_DESCRIPTION = {
+  title: 'Time Scale',
+  description: 'Depending on the time scale selection, different indicators will be available.'
+};
+
 export default {
   TIMEFRAME_OPTIONS,
   timeScaleOptions,
   MONTH_OPTIONS,
-  projectionOptions
+  projectionOptions,
+  TIMEFRAME_MODAL_DESCRIPTION
 };

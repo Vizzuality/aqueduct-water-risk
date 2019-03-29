@@ -12,6 +12,10 @@ $separation: $space-1 * 2;
   align-items: center;
   justify-content: space-between;
   margin-bottom: $separation;
+
+  > .indicator-header {
+    display: flex;
+  }
 }
 
 .layerlist-title,
@@ -28,29 +32,9 @@ $separation: $space-1 * 2;
 }
 
 .layerlist-item {
-
-  .icon-container {
-    margin: 0 0 0 $space-1;
-
-    > svg {
-      width: 20px;
-      height: 20px;
-      border: 1px solid palette(gray, dark);
-      border-radius: 50%;
-      fill: palette(gray, dark);
-      transition: background-color .1s linear;
-      cursor: pointer;
-
-      &:hover {
-        fill: palette(sand);
-        background-color: palette(gray, dark);
-      }
-    }
-  }
-
   .ponderation-header {
     display: flex;
-    margin: 0 0 $space-1;
+    margin: 0 0 $space-1 * 2;
 
     > .icon-container {
       position: relative;
@@ -147,5 +131,25 @@ $separation: $space-1 * 2;
 
   p {
     margin-bottom: $space-1 * 3;
+  }
+}
+
+.icon-container {
+  display: inline-flex;
+  margin: 0 0 0 $space-1;
+
+  > svg {
+    width: 20px;
+    height: 20px;
+    border: 1px solid palette(gray, dark);
+    border-radius: 50%;
+    fill: palette(gray, dark);
+    transition: background-color .1s linear;
+    cursor: pointer;
+
+    &:hover {
+      fill: palette(sand);
+      background-color: palette(gray, dark);
+    }
   }
 }

@@ -21,12 +21,13 @@ export const getLayers = createThunkAction('LAYERS__GET-LAYERS',
 
     // waits for all fetchs to finish
     axios.all(fetchs)
-      .then(axios.spread((annual, monthly, projected, custom) => {
+      .then(axios.spread((annual, monthly, projected, custom, hydrobasins) => {
         const layers = {
           annual,
           monthly,
           projected,
-          custom
+          custom,
+          hydrobasins
         };
 
         dispatch(setList(layers));

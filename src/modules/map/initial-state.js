@@ -11,6 +11,6 @@ export default {
   layerParametrization: { opacity: 1 },
   popup: {
     latlng: null,
-    data: null
+    data: {}
   }
 };

@@ -6,6 +6,9 @@ import { setMapLocation, setLayerParametrization } from 'modules/map/actions';
 import { setFilters, setPonderation } from 'modules/map-view-tab/actions';
 import { setGeostore, getGeostore } from 'modules/analyze-locations-tab/actions';
 
+// constants
+import { INDICATOR_SCHEME_ORDER } from 'constants/indicators';
+
 export const setScope = createAction('APP__SET-SCOPE');
 export const setAdvancedMode = createAction('APP__SET-ADVANCED-MODE');
 
@@ -18,7 +21,7 @@ export const updateUrl = createThunkAction('APP__UPDATE-URL', () =>
       analyzeLocations: { geostore: { id } }
     } = getState();
     const { year, scenario, timeScale, projection, month, indicator } = mapView.filters;
-    const { ponderation } = mapView;
+    const { ponderation: { scheme, custom } } = mapView;
     const {
       basemap,
       center: { lat, lng },
@@ -40,7 +43,8 @@ export const updateUrl = createThunkAction('APP__UPDATE-URL', () =>
         month,
         projection,
         indicator,
-        ponderation: ponderation.scheme,
+        ponderation: scheme,
+        ...scheme === 'custom' && { ponderation_values: `[${Object.values(custom).toString()}]` },
         scope,
         advanced,
         ...id && { geoStore: id }
@@ -83,6 +87,15 @@ export const onEnterMapPage = createThunkAction('APP__MAP-PAGE-HOOK', ({ params,
     }
 
     if (location.query.ponderation) dispatch(setPonderation({ scheme: location.query.ponderation }));
+    if (location.query.ponderation_values) {
+      const parsedValues = decodeURIComponent(location.query.ponderation_values).slice(1, location.query.ponderation_values.length - 1).split(',');
+      const custom = parsedValues.reduce((acc, value, index) => {
+        const indicator = INDICATOR_SCHEME_ORDER[index];
+        return ({ ...acc, [indicator]: value });
+      }, {});
+
+      dispatch(setPonderation({ custom }));
+    }
     if (location.query.advanced) dispatch(setAdvancedMode(location.query.advanced === 'true'));
     if (location.query.scope) dispatch(setScope(location.query.scope));
     if (location.query.geoStore) {

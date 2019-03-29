@@ -72,7 +72,7 @@ const getFilteredLayers = createSelector(
         layers = _layers.annual;
     }
 
-    return _scope === 'analyzeLocations' ? [...[_markerLayer], _layers.hydrobasins, ...layers] : [..._layers.hydrobasins, ...layers];
+    return _scope === 'analyzeLocations' ? [...[_markerLayer], ...layers] : [..._layers.hydrobasins, ...layers];
   }
 );
 

@@ -6,6 +6,7 @@ import { fetchAnalysis } from 'services/analysis';
 
 // utils
 import { parseWeights } from 'utils/weights';
+import { getAnalysisType, filterData } from 'utils/analysis';
 
 // points
 export const setPoints = createAction('ANALYZE-LOCATIONS-TAB__SET-POINTS');
@@ -71,19 +72,36 @@ export const onFetchAnalysis = createThunkAction('ANALYZE-LOCATIONS-TAB__FETCH-A
   (dispatch, getState) => {
     const {
       analyzeLocations: { geostore: { id } },
-      mapView: { ponderation }
+      mapView: {
+        filters: { month, year, projection, indicator, timeScale },
+        ponderation
+      }
     } = getState();
+    const { scheme } = ponderation;
+    const analysis_type = getAnalysisType(timeScale, scheme, year);
     const params = {
       geostore: id,
+      analysis_type,
+      month,
+      year,
+      change_type: projection === 'absolute' ? 'future_value' : 'change_from_baseline',
+      indicator,
       wscheme: `[${parseWeights(ponderation)}]`
     };
 
     dispatch(setAnalysisLoading(true));
     dispatch(setAnalysisError(null));
 
+    console.log(params)
+
     return fetchAnalysis(params)
-      .then((data) => {
-        dispatch(setAnalysis(data));
+      .then((analysis) => {
+        const { data } = analysis;
+        console.log(data)
+        const filteredData = filterData(data, indicator);
+        console.log(filteredData)
+
+        dispatch(setAnalysis(filteredData));
         dispatch(setAnalysisLoading(false));
       })
       .catch((err) => {

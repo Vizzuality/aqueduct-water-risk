@@ -26,17 +26,17 @@ export const getColumns = createSelector(
       [...INDICATOR_COLUMNS[_currentIndicator] || [...INDICATOR_COLUMNS.monthly[_currentIndicator]] || INDICATOR_COLUMNS[PARENT_CHILDREN_LAYER_RELATION[_currentIndicator]]]
   ]);
 
-export const parseData = createSelector(
-  [getAnalysisData],
-  _data => _data.map((d) => {
-    const parseObject = {};
-    Object.keys(d).forEach((key) => {
-      parseObject[key] = isNaN(d[key]) ? d[key] : format('.2f')(d[key]);
-    });
-    return parseObject;
-  }));
+// export const parseData = createSelector(
+//   [getAnalysisData],
+//   _data => _data.map((d) => {
+//     const parseObject = {};
+//     Object.keys(d).forEach((key) => {
+//       parseObject[key] = isNaN(d[key]) ? d[key] : format('.2f')(d[key]);
+//     });
+//     return parseObject;
+//   }));
 
 export default {
   getColumns,
-  parseData
+  // parseData
 };

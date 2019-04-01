@@ -18,7 +18,7 @@ export default {
     }
   }),
   // analysis
-  [actions.setAnalysisData]: (state, { payload }) => ({
+  [actions.setAnalysis]: (state, { payload }) => ({
     ...state,
     analysis: {
       ...state.analysis,

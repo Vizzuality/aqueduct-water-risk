@@ -427,38 +427,39 @@ export const PARENT_CHILDREN_LAYER_RELATION = {
 export const INDICATOR_COLUMNS = {
   // common columns for all indicators
   common: [
-    { label: 'Name', value: '' },
-    { label: 'Country', value: '' },
-    { label: 'River Basin', value: '' }
+    { label: 'Country', value: 'country' },
+    { label: 'Province', value: 'province' },
+    { label: 'Major Basin', value: 'major_basin' },
+    { label: 'Minor Basin', value: 'minor_basin' }
   ],
   // Overall Water Risk
-  w_awr_def_tot_cat: [{ label: 'Overall Water Risk', value: 'w_awr_def_tot_cat' }],
+  w_awr_def_tot_cat: [{ label: 'Overall Water Risk', value: 'w_awr_def_tot_label' }],
   // Water Quantity Risk
   w_awr_def_qan_cat: [
-    { label: 'Water Quantity Risk', value: 'bws_cat' },
-    { label: 'Baseline Water Stress', value: 'bwd_cat' },
-    { label: 'Groundwater Table Decline', value: 'gtd_cat' },
-    { label: 'Interannual Variability', value: 'iav_cat' },
-    { label: 'Seasonal Variability', value: 'sev_cat' },
-    { label: 'Drought Risk', value: 'drr_cat' },
-    { label: 'Riverine Flood Risk Stress', value: 'rfr_cat' },
-    { label: 'Coastal Flood Risk', value: 'cfr_cat' }
+    { label: 'Water Quantity Risk', value: 'w_awr_def_qan_label' },
+    { label: 'Baseline Water Stress', value: 'bwd_label' },
+    { label: 'Groundwater Table Decline', value: 'gtd_label' },
+    { label: 'Interannual Variability', value: 'iav_label' },
+    { label: 'Seasonal Variability', value: 'sev_label' },
+    { label: 'Drought Risk', value: 'drr_label' },
+    { label: 'Riverine Flood Risk Stress', value: 'rfr_label' },
+    { label: 'Coastal Flood Risk', value: 'cfr_label' }
   ],
   // Water Quality Risk
   w_awr_def_qal_cat: [
-    { label: 'Water Quality Risk', value: 'w_awr_def_qal_cat' },
-    { label: 'Untreated Collected Wastewater', value: 'ucw_cat' },
-    { label: 'Coastal Eutrophication Potential', value: 'cep_cat' }
+    { label: 'Water Quality Risk', value: 'w_awr_def_qal_label' },
+    { label: 'Untreated Collected Wastewater', value: 'ucw_label' },
+    { label: 'Coastal Eutrophication Potential', value: 'cep_label' }
   ],
   // Regulatory and Reputational
   w_awr_def_rrr_cat: [
-    { label: 'Regulatory and Reputational', value: 'w_awr_def_rrr_cat' },
-    { label: 'Unimproved/no drinking water', value: 'udw_cat' },
-    { label: 'Unimproved/no sanitation', value: 'usa_cat' },
-    { label: 'RepRisk Index', value: 'rri_cat' }
+    { label: 'Regulatory and Reputational', value: 'w_awr_def_rrr_label' },
+    { label: 'Unimproved/no drinking water', value: 'udw_label' },
+    { label: 'Unimproved/no sanitation', value: 'usa_label' },
+    { label: 'RepRisk Index', value: 'rri_label' }
   ],
   projected_change: [
-    { label: 'Projected Change In {{indicator}} ({{projection}} To {{year}} {{scenario}} )', value: 'rri_cat' }
+    { label: 'Projected Change In {{indicator}} ({{projection}} To {{year}} {{scenario}} )', value: 'rri_label' }
   ],
   // monthly exclusive
   monthly: {

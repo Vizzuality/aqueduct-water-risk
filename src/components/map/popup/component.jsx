@@ -31,16 +31,19 @@ class Popup extends PureComponent {
 
     const { name } = layers[0];
 
+    const category = (mergedData || {}).label || '-';
+    const _output = output.filter(o => o.property !== 'Category');
+
     return (
       <div className="c-map-popup">
         <header className="popup-header">
-          <span className="layer-name">{name}</span>
+          <span className="layer-name">{name}: {category}</span>
         </header>
         <div className="popup-content">
           {mergedData &&
             <table className="popup-table">
               <tbody>
-                {output && output.map((outputItem) => {
+                {_output && _output.map((outputItem) => {
                   const { column } = outputItem;
                   const columnArray = column.split('.');
                   const value = columnArray.reduce((acc, c) => acc[c], mergedData);

@@ -7,7 +7,7 @@ export const toGeoJsonCollection = (points) => {
         properties: {},
         geometry: {
           type: 'MultiPoint',
-          coordinates: points.map(({ lat, lng }) => ([lat, lng]))
+          coordinates: points.map(({ lat, lng }) => ([lng, lat]))
         }
       }]
     }

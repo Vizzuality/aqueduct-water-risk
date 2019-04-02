@@ -8,6 +8,9 @@ import { fetchAnalysis } from 'services/analysis';
 import { parseWeights } from 'utils/weights';
 import { getAnalysisType, filterData } from 'utils/analysis';
 
+// constants
+import { FUTURE_LAYERS_GROUPS } from 'constants/analysis';
+
 // points
 export const setPoints = createAction('ANALYZE-LOCATIONS-TAB__SET-POINTS');
 export const setSelectedPoints = createAction('ANALYZE-LOCATIONS-TAB__SET-SELECTED-POINTS');
@@ -37,10 +40,8 @@ export const getGeostore = createThunkAction('ANALYZE-LOCATIONS-TAB__GET-GEOSTOR
           dispatch(setGeostoreLoading(false));
         }
 
-        const points = features[0].geometry.coordinates.map(_coordinate => ({
-          lat: _coordinate[0],
-          lng: _coordinate[1]
-        }));
+        const points = features[0].geometry.coordinates.map(_coordinate =>
+          L.latLng(_coordinate[1], _coordinate[0]));
 
         dispatch(setPoints(points));
       })
@@ -73,7 +74,7 @@ export const onFetchAnalysis = createThunkAction('ANALYZE-LOCATIONS-TAB__FETCH-A
     const {
       analyzeLocations: { geostore: { id } },
       mapView: {
-        filters: { month, year, projection, indicator, timeScale },
+        filters: { month, year, projection, indicator, timeScale, scenario },
         ponderation
       }
     } = getState();
@@ -84,24 +85,24 @@ export const onFetchAnalysis = createThunkAction('ANALYZE-LOCATIONS-TAB__FETCH-A
       analysis_type,
       month,
       year,
+      scenario,
       change_type: projection === 'absolute' ? 'future_value' : 'change_from_baseline',
-      indicator,
-      wscheme: `[${parseWeights(ponderation)}]`
+      indicator: analysis_type === 'projected' ? FUTURE_LAYERS_GROUPS[indicator] : indicator,
+      wscheme: `'[${parseWeights(ponderation)}]'`
     };
 
     dispatch(setAnalysisLoading(true));
     dispatch(setAnalysisError(null));
 
-    console.log(params)
-
     return fetchAnalysis(params)
       .then((analysis) => {
-        const { data } = analysis;
-        console.log(data)
-        const filteredData = filterData(data, indicator);
-        console.log(filteredData)
-
-        dispatch(setAnalysis(filteredData));
+        const { data, analysis_type: analysisType } = analysis;
+        if (['annual', 'monthly'].includes(analysisType) && (scheme === 'DEF')) {
+          const filteredData = filterData(data, indicator, scheme);
+          dispatch(setAnalysis(filteredData));
+        } else {
+          dispatch(setAnalysis(data));
+        }
         dispatch(setAnalysisLoading(false));
       })
       .catch((err) => {

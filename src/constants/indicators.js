@@ -459,13 +459,24 @@ export const INDICATOR_COLUMNS = {
     { label: 'RepRisk Index', value: 'rri_label' }
   ],
   projected_change: [
-    { label: 'Projected Change In {{indicator}} ({{projection}} To {{year}} {{scenario}} )', value: 'rri_label' }
+    { label: 'Projected Change In {{indicator}} ({{projection}} To {{year}} {{scenario}} )', value: 'label' }
   ],
   // monthly exclusive
   monthly: {
-    bws_cat: [{ label: 'Water Quantity Risk', value: 'bws_cat' }],
-    bwd_cat: [{ label: 'Baseline Water Stress', value: 'bwd_cat' }],
-    iav_cat: [{ label: 'Interannual Variability', value: 'iav_cat' }]
+    bws_cat: [{ label: 'Baseline Water Stress', value: 'bws_label' }],
+    bwd_cat: [{ label: 'Baseline Water Depletion', value: 'bwd_label' }],
+    iav_cat: [{ label: 'Interannual Variability', value: 'iav_label' }]
+  },
+  preset: {
+    w_awr_def_tot_cat: [
+      { label: 'Overall Water Risk', value: 'w_awr_def_tot_label' },
+      // { label: 'Water Quantity Risk', value: 'w_awr_def_qan_label' },
+      // { label: 'Water Quality Risk', value: 'w_awr_def_qal_label' },
+      // { label: 'Regulatory and Reputational', value: 'w_awr_def_rrr_label' }
+    ],
+    w_awr_def_qan_cat: [{ label: 'Water Quantity Risk', value: 'w_awr_def_qan_label' }],
+    w_awr_def_qal_cat: [{ label: 'Water Quality Risk', value: 'w_awr_def_qal_label' }],
+    w_awr_def_rrr_cat: [{ label: 'Regulatory and Reputational', value: 'w_awr_def_rrr_label' }]
   }
 };
 

@@ -13,7 +13,8 @@ import {
   MAP_OPTIONS,
   BASEMAPS,
   MARKER_LAYER,
-  HYDRO_LAYER
+  HYDRO_LAYER,
+  AQUIFER_LAYER
 } from './constants';
 
 // states
@@ -73,7 +74,7 @@ const getFilteredLayers = createSelector(
         layers = _layers.annual;
     }
 
-    return _scope === 'analyzeLocations' ? [...[_markerLayer], ...layers] : [..._layers.hydrobasins, ...layers];
+    return _scope === 'analyzeLocations' ? [...[_markerLayer], ...layers] : [..._layers.hydrobasins, ..._layers.aquifers, ...layers];
   }
 );
 
@@ -108,7 +109,7 @@ export const getLayerGroup = createSelector(
   _layers => ([{
     dataset: 'random_id',
     visibility: true,
-    layers: _layers.filter(_layer => ![MARKER_LAYER.id, HYDRO_LAYER].includes(_layer.id))
+    layers: _layers.filter(_layer => ![MARKER_LAYER.id, HYDRO_LAYER, AQUIFER_LAYER].includes(_layer.id))
   }])
 );
 

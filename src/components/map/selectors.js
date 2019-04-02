@@ -12,7 +12,9 @@ import { INDICATOR_NAMES_RELATION, FUTURE_INDICATORS_IDS } from 'constants/indic
 import {
   MAP_OPTIONS,
   BASEMAPS,
-  MARKER_LAYER
+  MARKER_LAYER,
+  HYDRO_LAYER,
+  AQUIFER_LAYER
 } from './constants';
 
 // states
@@ -72,7 +74,7 @@ const getFilteredLayers = createSelector(
         layers = _layers.annual;
     }
 
-    return _scope === 'analyzeLocations' ? [...[_markerLayer], ...layers] : [..._layers.hydrobasins, ...layers];
+    return _scope === 'analyzeLocations' ? [...[_markerLayer], ...layers] : [..._layers.hydrobasins, ..._layers.aquifers, ...layers];
   }
 );
 
@@ -82,14 +84,14 @@ export const getUpdatedLayers = createSelector(
     if (!_activeLayers.length) return _activeLayers;
 
     const { indicator } = _parametrization;
-
     const params = getLayerParametrization(_parametrization, _ponderation);
 
-    return _activeLayers.map(_activeLayer => ({
+    return _activeLayers.map((_activeLayer, index) => ({
       ..._activeLayer,
       name: INDICATOR_NAMES_RELATION[indicator],
       active: true,
-      ..._updatedLayerParams,
+      // only applies opacity to the last layer (the higher one)
+      ...(index === _activeLayers.length - 1) && { ..._updatedLayerParams },
       ...(_activeLayer.layerConfig.params_config && _activeLayer.layerConfig.params_config.length > 0) && {
         params: {
           ...reduceParams(_activeLayer.layerConfig.params_config),
@@ -107,7 +109,7 @@ export const getLayerGroup = createSelector(
   _layers => ([{
     dataset: 'random_id',
     visibility: true,
-    layers: _layers.filter(_layer => _layer.id !== MARKER_LAYER.id)
+    layers: _layers.filter(_layer => ![MARKER_LAYER.id, HYDRO_LAYER, AQUIFER_LAYER].includes(_layer.id))
   }])
 );
 

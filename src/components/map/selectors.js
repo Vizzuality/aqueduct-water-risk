@@ -83,14 +83,14 @@ export const getUpdatedLayers = createSelector(
     if (!_activeLayers.length) return _activeLayers;
 
     const { indicator } = _parametrization;
-
     const params = getLayerParametrization(_parametrization, _ponderation);
 
-    return _activeLayers.map(_activeLayer => ({
+    return _activeLayers.map((_activeLayer, index) => ({
       ..._activeLayer,
       name: INDICATOR_NAMES_RELATION[indicator],
       active: true,
-      ..._updatedLayerParams,
+      // only applies opacity to the last layer (the higher one)
+      ...(index === _activeLayers.length - 1) && { ..._updatedLayerParams },
       ...(_activeLayer.layerConfig.params_config && _activeLayer.layerConfig.params_config.length > 0) && {
         params: {
           ...reduceParams(_activeLayer.layerConfig.params_config),

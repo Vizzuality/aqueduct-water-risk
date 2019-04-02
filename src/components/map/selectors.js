@@ -12,7 +12,8 @@ import { INDICATOR_NAMES_RELATION, FUTURE_INDICATORS_IDS } from 'constants/indic
 import {
   MAP_OPTIONS,
   BASEMAPS,
-  MARKER_LAYER
+  MARKER_LAYER,
+  HYDRO_LAYER
 } from './constants';
 
 // states
@@ -107,7 +108,7 @@ export const getLayerGroup = createSelector(
   _layers => ([{
     dataset: 'random_id',
     visibility: true,
-    layers: _layers.filter(_layer => _layer.id !== MARKER_LAYER.id)
+    layers: _layers.filter(_layer => ![MARKER_LAYER.id, HYDRO_LAYER].includes(_layer.id))
   }])
 );
 

@@ -153,9 +153,12 @@ export const LEGENDS = {
   }
 };
 
+export const HYDRO_LAYER = '0f573be8-71a9-46c1-bee4-a3909212cecc';
+
 export default {
   MAP_OPTIONS,
   BASEMAP_CONFIG,
   LABEL_LAYER_CONFIG,
-  LEGENDS
+  LEGENDS,
+  HYDRO_LAYER
 };

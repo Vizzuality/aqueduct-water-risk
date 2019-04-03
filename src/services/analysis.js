@@ -2,17 +2,17 @@
 import { WRIAPI } from 'utils/axios';
 
 /**
- * fetchs layers for a specific dataset.
+ * fetchs analysis based on certain params.
  *
- * @param {String} id - dataset id.
- * @returns {Object} serialized layers.
+ * @param {Object} id - params sent to the endpoint.
+ * @returns [Object] - array with analysis results.
  */
 
 export const fetchAnalysis = params =>
   WRIAPI.get('/aqueduct/analysis', { params })
     .then((response) => {
       const { status, statusText, data } = response;
-      if (status >= 400) throw new Error(statusText);
+      if (status >= 300) throw new Error(statusText);
       return data;
     });
 

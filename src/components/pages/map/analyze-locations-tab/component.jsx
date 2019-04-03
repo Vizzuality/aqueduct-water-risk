@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import isEqual from 'lodash/isEqual';
 
 // components
 import { Sticky, Timeline } from 'aqueduct-components';
@@ -21,38 +22,32 @@ class AnalyzeLocations extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.state = { showStickyFilters: false };
+    this.state = {
+      showStickyFilters: false,
+      analysis: false
+    };
   }
 
   componentDidMount() {
-    // const {
-    //   scheme,
-    //   geoStore,
-    //   points,
-    //   setAnalysis,
-    //   setPoints,
-    //   onSaveGeostore
-    // } = this.props;
+    const {
+      geoStore,
+      onFetchAnalysis
+    } = this.props;
 
     this.setStickyFilterPosition();
 
-    // if (geoStore && scheme) setAnalysis(scheme, geoStore);
-    // if (!geoStore && points.length) {
-    //   setPoints(points);
-    //   onSaveGeostore();
-    // }
+    if (geoStore) onFetchAnalysis();
   }
 
   // componentWillReceiveProps(nextProps) {
-  //   const { scheme, geoStore, points } = nextProps;
+  //   const { points } = this.props;
+  //   const {
+  //     points: nextPoints,
+  //     geoStore
+  //   } = nextProps;
+  //   const pointsChanged = !isEqual(points, nextPoints);
 
-  //   if (!geoStore && !isEqual(this.props.points, points)) {
-  //     this.props.setPoints(points);
-  //   }
-
-  //   if (this.props.geoStore !== geoStore && scheme) {
-  //     this.props.setAnalysis(scheme, geoStore);
-  //   }
+  //   this.setState({ analysis: (pointsChanged && !geoStore) });
   // }
 
   componentDidUpdate() {
@@ -62,12 +57,14 @@ class AnalyzeLocations extends PureComponent {
   onSticky(isSticky) { this.setState({ showStickyFilters: isSticky }); }
 
   onChangeTimeline({ value }) {
-    const { setFilters } = this.props;
+    const { setFilters, geoStore, onFetchAnalysis } = this.props;
 
     setFilters({
       indicator: value,
       year: FUTURE_INDICATORS_IDS.includes(value) ? DEFAULT_FUTURE_YEAR : 'baseline'
     });
+
+    if (geoStore) onFetchAnalysis();
   }
 
   setStickyFilterPosition() {
@@ -91,6 +88,7 @@ class AnalyzeLocations extends PureComponent {
     const {
       stickyFilterTopPosition,
       showStickyFilters
+      // analysis
     } = this.state;
     const {
       timelineOptions,
@@ -175,17 +173,16 @@ class AnalyzeLocations extends PureComponent {
 
 AnalyzeLocations.propTypes = {
   timelineOptions: PropTypes.array.isRequired,
-  // geoStore: PropTypes.string,
   timeScale: PropTypes.string.isRequired,
   points: PropTypes.array.isRequired,
-  // scheme: PropTypes.string.isRequired,
-  // setPoints: PropTypes.func.isRequired,
+  geoStore: PropTypes.string,
   setFilters: PropTypes.func.isRequired,
-  // setAnalysis: PropTypes.func.isRequired,
-  // onSaveGeostore: PropTypes.func.isRequired,
   onApplyAnalysis: PropTypes.func.isRequired,
   clearAnalysis: PropTypes.func.isRequired,
+  onFetchAnalysis: PropTypes.func.isRequired,
   toggleModal: PropTypes.func.isRequired
 };
+
+AnalyzeLocations.defaultProps = { geoStore: null };
 
 export default AnalyzeLocations;

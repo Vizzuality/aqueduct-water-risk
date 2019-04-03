@@ -11,6 +11,7 @@ import {
 // states
 const getCurrentIndicator = state => state.mapView.filters.indicator;
 const getProjection = state => state.mapView.filters.projection;
+const getPonderationScheme = state => state.mapView.ponderation.scheme;
 
 const updatesFutureIndicators = createSelector(
   [getCurrentIndicator, getProjection],
@@ -25,9 +26,18 @@ const updatesFutureIndicators = createSelector(
 
 
 export const parseTimelineOptions = createSelector(
-  [updatesFutureIndicators, getCurrentIndicator, getProjection],
-  (_updatedIndicators, _currentIndicator, _projection) =>
-    _updatedIndicators.map(_indicator => ({
+  [updatesFutureIndicators, getCurrentIndicator, getProjection, getPonderationScheme],
+  (_updatedIndicators, _currentIndicator, _projection, _ponderationScheme) => {
+    if (_ponderationScheme === 'custom') {
+      return ANALYZER_LOCATION_INDICATORS.map((_indicator, index) => ({
+        label: _indicator.name,
+        value: _indicator.id,
+        selected: index === 0,
+        disabled: index !== 0
+      }));
+    }
+
+    return _updatedIndicators.map(_indicator => ({
       label: _indicator.name,
       ...!_indicator.isFuture && {
         value: _indicator.id,
@@ -37,7 +47,9 @@ export const parseTimelineOptions = createSelector(
         value: FUTURE_INDICATORS_IDS.includes(_currentIndicator) ? _currentIndicator : DEFAULT_FUTURE_INDICATOR[_projection],
         selected: _indicator.id === _currentIndicator
       }
-    }))
+    }));
+  }
+
 );
 
 export default { parseTimelineOptions };

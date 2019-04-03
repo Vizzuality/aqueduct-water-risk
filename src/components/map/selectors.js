@@ -64,7 +64,7 @@ const getFilteredLayers = createSelector(
       case (year === 'baseline' && timeScale === 'annual' && ponderationScheme === 'DEF'):
         layers = _layers.annual;
         break;
-      case (timeScale === 'annual' && ponderationScheme !== 'custom' && ponderationScheme !== 'DEF'):
+      case (year === 'baseline' && timeScale === 'annual' && ponderationScheme !== 'custom' && ponderationScheme !== 'DEF'):
         layers = _layers.annual;
         break;
       case (year !== 'baseline'):

@@ -18,7 +18,7 @@ export default {
     }
   }),
   // analysis
-  [actions.setAnalysisData]: (state, { payload }) => ({
+  [actions.setAnalysis]: (state, { payload }) => ({
     ...state,
     analysis: {
       ...state.analysis,
@@ -42,7 +42,8 @@ export default {
   [actions.clearAnalysis]: state => ({
     ...state,
     points: initialState.points,
-    geostore: initialState.geostore
+    geostore: initialState.geostore,
+    analysis: initialState.analysis
   }),
   // geostore
   [actions.setGeostore]: (state, { payload }) => ({

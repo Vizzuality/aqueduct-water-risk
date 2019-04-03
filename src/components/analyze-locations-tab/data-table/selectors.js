@@ -19,10 +19,11 @@ export const getColumns = createSelector(
   [getCurrentIndicator, getFilters, getCurrentPonderation],
   (_currentIndicator, _filters, _ponderationScheme) => {
     let additionalColumns = [];
+    const { timeScale } = _filters;
 
     if (INDICATOR_COLUMNS[_currentIndicator]) additionalColumns = [...additionalColumns, ...INDICATOR_COLUMNS[_currentIndicator]];
-    if (INDICATOR_COLUMNS.monthly[_currentIndicator]) additionalColumns = [...additionalColumns, ...INDICATOR_COLUMNS.monthly[_currentIndicator]];
-    if (INDICATOR_COLUMNS[PARENT_CHILDREN_LAYER_RELATION[_currentIndicator]]) additionalColumns = [...additionalColumns, ...INDICATOR_COLUMNS[PARENT_CHILDREN_LAYER_RELATION[_currentIndicator]]];
+    if (timeScale === 'monthly' && INDICATOR_COLUMNS.monthly[_currentIndicator]) additionalColumns = [...additionalColumns, ...INDICATOR_COLUMNS.monthly[_currentIndicator]];
+    // if (INDICATOR_COLUMNS[PARENT_CHILDREN_LAYER_RELATION[_currentIndicator]]) additionalColumns = [...additionalColumns, ...INDICATOR_COLUMNS[PARENT_CHILDREN_LAYER_RELATION[_currentIndicator]]];
     if (FUTURE_INDICATORS_IDS.includes(_currentIndicator)) additionalColumns = [...getProjectChangeColumn(_filters)];
 
     if (_ponderationScheme === 'custom') {

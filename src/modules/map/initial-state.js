@@ -7,8 +7,8 @@ export default {
     lat: 30,
     lng: -80
   },
-  basemap: BASEMAPS.osm.id,
-  layerParametrization: { opacity: 1 },
+  basemap: BASEMAPS.hydro.id,
+  layerParametrization: { opacity: 0.5 },
   popup: {
     latlng: null,
     data: {}

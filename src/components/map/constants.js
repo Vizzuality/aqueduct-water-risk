@@ -9,7 +9,7 @@ export const BASEMAPS = {
   osm: {
     id: 'osm',
     value: process.env.BASEMAP_TILE_URL,
-    label: 'Default',
+    label: 'Light',
     options: { attribution: '&copy; <a href="http://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a>' }
   },
   satellite: {

@@ -6,6 +6,10 @@ import { fetchAnalysis } from 'services/analysis';
 
 // utils
 import { parseWeights } from 'utils/weights';
+import { getAnalysisType, filterData } from 'utils/analysis';
+
+// constants
+import { FUTURE_LAYERS_GROUPS } from 'constants/analysis';
 
 // points
 export const setPoints = createAction('ANALYZE-LOCATIONS-TAB__SET-POINTS');
@@ -36,10 +40,8 @@ export const getGeostore = createThunkAction('ANALYZE-LOCATIONS-TAB__GET-GEOSTOR
           dispatch(setGeostoreLoading(false));
         }
 
-        const points = features[0].geometry.coordinates.map(_coordinate => ({
-          lat: _coordinate[0],
-          lng: _coordinate[1]
-        }));
+        const points = features[0].geometry.coordinates.map(_coordinate =>
+          L.latLng(_coordinate[1], _coordinate[0]));
 
         dispatch(setPoints(points));
       })
@@ -71,19 +73,36 @@ export const onFetchAnalysis = createThunkAction('ANALYZE-LOCATIONS-TAB__FETCH-A
   (dispatch, getState) => {
     const {
       analyzeLocations: { geostore: { id } },
-      mapView: { ponderation }
+      mapView: {
+        filters: { month, year, projection, indicator, timeScale, scenario },
+        ponderation
+      }
     } = getState();
+    const { scheme } = ponderation;
+    const analysis_type = getAnalysisType(timeScale, scheme, year);
     const params = {
       geostore: id,
-      wscheme: `[${parseWeights(ponderation)}]`
+      analysis_type,
+      month,
+      year,
+      scenario,
+      change_type: projection === 'absolute' ? 'future_value' : 'change_from_baseline',
+      indicator: analysis_type === 'projected' ? FUTURE_LAYERS_GROUPS[indicator] : indicator,
+      wscheme: `'[${parseWeights(ponderation)}]'`
     };
 
     dispatch(setAnalysisLoading(true));
     dispatch(setAnalysisError(null));
 
     return fetchAnalysis(params)
-      .then((data) => {
-        dispatch(setAnalysis(data));
+      .then((analysis) => {
+        const { data, analysis_type: analysisType } = analysis;
+        if (['annual', 'monthly'].includes(analysisType) && (scheme === 'DEF')) {
+          const filteredData = filterData(data, indicator, scheme);
+          dispatch(setAnalysis(filteredData));
+        } else {
+          dispatch(setAnalysis(data));
+        }
         dispatch(setAnalysisLoading(false));
       })
       .catch((err) => {

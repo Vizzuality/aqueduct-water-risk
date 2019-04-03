@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import uniq from 'lodash/uniq';
 import flatten from 'lodash/flatten';
@@ -10,7 +10,7 @@ import TableHeader from './Header/TableHeader';
 import TableContent from './Content/TableContent';
 import TableFooter from './Footer/TableFooter';
 
-export default class CustomTable extends React.Component {
+class CustomTable extends PureComponent {
 
   /**
    * STATIC METHODS
@@ -78,17 +78,16 @@ export default class CustomTable extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const currentLength = this.state.data.length;
+    const currentData = this.props.data;
     const currentColumnsKeys = CustomTable.getColumnKeys(this.state.data).sort();
-
-    const nextLength = nextProps.data.length;
+    const nextData = nextProps.data;
     const nextColumnsKeys = CustomTable.getColumnKeys(nextProps.data).sort();
 
-    if (currentLength !== nextLength) {
+    const dataChanged = !isEqual(currentData, nextData);
+
+    if (dataChanged) {
       // TODO: check if the data has changed to reload all the data or only to filter it
-      this.setState(CustomTable.setTableData(nextProps), () => {
-        this.filter();
-      });
+      this.setState(CustomTable.setTableData(nextProps), () => { this.filter(); });
     }
 
     if (!isEqual(currentColumnsKeys, nextColumnsKeys)) {
@@ -256,7 +255,6 @@ export default class CustomTable extends React.Component {
   }
 }
 
-/* Property typing */
 CustomTable.propTypes = {
   actions: PropTypes.object,
   data: PropTypes.array,
@@ -267,7 +265,6 @@ CustomTable.propTypes = {
   onRowDelete: PropTypes.func
 };
 
-/* Property default values */
 CustomTable.defaultProps = {
   actions: {},
   data: [],
@@ -281,3 +278,5 @@ CustomTable.defaultProps = {
   onToggleSelectedRow: null,
   onRowDelete: null
 };
+
+export default CustomTable;

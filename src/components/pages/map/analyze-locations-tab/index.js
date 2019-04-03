@@ -3,7 +3,13 @@ import { connect } from 'react-redux';
 // actions
 import { toggleModal } from 'aqueduct-components';
 import { setFilters } from 'modules/map-view-tab/actions';
-import { onApplyAnalysis, clearAnalysis, setPoints, onSaveGeostore } from 'modules/analyze-locations-tab/actions';
+import {
+  onApplyAnalysis,
+  clearAnalysis,
+  setPoints,
+  onSaveGeostore,
+  onFetchAnalysis
+} from 'modules/analyze-locations-tab/actions';
 
 // seleectors
 import { parseTimelineOptions } from './selectors';
@@ -25,6 +31,7 @@ export default connect(
     onApplyAnalysis,
     clearAnalysis,
     setPoints,
-    onSaveGeostore
+    onSaveGeostore,
+    onFetchAnalysis
   }
 )(AnalyzeLocations);

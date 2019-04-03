@@ -6,9 +6,10 @@ import { Timeline } from 'aqueduct-components';
 
 class MonthlyIndicators extends PureComponent {
   onChangeTimeline({ value }) {
-    const { setFilters } = this.props;
+    const { setFilters, onFetchAnalysis } = this.props;
 
     setFilters({ indicator: value });
+    onFetchAnalysis();
   }
 
   render() {
@@ -27,7 +28,8 @@ class MonthlyIndicators extends PureComponent {
 
 MonthlyIndicators.propTypes = {
   timelineOptions: PropTypes.array.isRequired,
-  setFilters: PropTypes.func.isRequired
+  setFilters: PropTypes.func.isRequired,
+  onFetchAnalysis: PropTypes.func.isRequired
 };
 
 export default MonthlyIndicators;

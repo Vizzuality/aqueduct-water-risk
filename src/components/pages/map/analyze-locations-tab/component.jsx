@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import isEqual from 'lodash/isEqual';
 
 // components
 import { Sticky, Timeline } from 'aqueduct-components';
@@ -94,6 +93,7 @@ class AnalyzeLocations extends PureComponent {
       timelineOptions,
       points,
       timeScale,
+      downloadUrl,
       onApplyAnalysis,
       clearAnalysis
     } = this.props;
@@ -146,6 +146,18 @@ class AnalyzeLocations extends PureComponent {
 
         <div className="l-container -top">
           <DataTable />
+          {downloadUrl &&
+            (<div className="download-options">
+             Download as
+             <ul>
+               <li><a href={`${downloadUrl}&format=csv`}>CSV</a>,</li>
+               <li><a href={`${downloadUrl}&format=shp`}>SHP</a>,</li>
+               <li><a href={`${downloadUrl}&format=kml`}>KML</a>,</li>
+               <li><a href={`${downloadUrl}&format=geojson`}>GeoJSON</a>,</li>
+               <li><a href={`${downloadUrl}&format=svg`}>SVG</a>,</li>
+               <li><a href={`${downloadUrl}&format=gpkg`}>GPKG</a></li>
+             </ul>
+            </div>)}
           <div className="apply-analysis-container">
             <button
               type="button"
@@ -176,6 +188,7 @@ AnalyzeLocations.propTypes = {
   timeScale: PropTypes.string.isRequired,
   points: PropTypes.array.isRequired,
   geoStore: PropTypes.string,
+  downloadUrl: PropTypes.string,
   setFilters: PropTypes.func.isRequired,
   onApplyAnalysis: PropTypes.func.isRequired,
   clearAnalysis: PropTypes.func.isRequired,
@@ -183,6 +196,9 @@ AnalyzeLocations.propTypes = {
   toggleModal: PropTypes.func.isRequired
 };
 
-AnalyzeLocations.defaultProps = { geoStore: null };
+AnalyzeLocations.defaultProps = {
+  geoStore: null,
+  downloadUrl: null
+};
 
 export default AnalyzeLocations;

@@ -1,6 +1,7 @@
 export default {
   analysis: {
     data: [],
+    downloadUrl: null,
     loading: false,
     error: null
   },

@@ -45,6 +45,13 @@ export default {
     geostore: initialState.geostore,
     analysis: initialState.analysis
   }),
+  [actions.setDownloadUrl]: (state, { payload }) => ({
+    ...state,
+    analysis: {
+      ...state.analysis,
+      downloadUrl: payload
+    }
+  }),
   // geostore
   [actions.setGeostore]: (state, { payload }) => ({
     ...state,

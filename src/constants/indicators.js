@@ -430,7 +430,8 @@ export const INDICATOR_COLUMNS = {
     { label: 'Country', value: 'country' },
     { label: 'Province', value: 'province' },
     { label: 'Major Basin', value: 'major_basin' },
-    { label: 'Minor Basin', value: 'minor_basin' }
+    { label: 'Minor Basin', value: 'minor_basin' },
+    { label: 'Aquifer', value: 'major_aquifer_system' }
   ],
   // Overall Water Risk
   w_awr_def_tot_cat: [{ label: 'Overall Water Risk', value: 'w_awr_def_tot_label' }],

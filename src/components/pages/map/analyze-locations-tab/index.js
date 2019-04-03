@@ -23,7 +23,8 @@ export default connect(
     points: state.analyzeLocations.points.list,
     timeScale: state.mapView.filters.timeScale,
     scheme: state.mapView.ponderation.scheme,
-    geoStore: state.analyzeLocations.geostore.id
+    geoStore: state.analyzeLocations.geostore.id,
+    downloadUrl: state.analyzeLocations.analysis.downloadUrl
   }),
   {
     toggleModal,

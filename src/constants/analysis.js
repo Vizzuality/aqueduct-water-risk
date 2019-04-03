@@ -2,11 +2,7 @@ export const TABLE_INDICATOR_VALUES = {
   w_awr_def_tot_cat: 'w_awr_def_tot_label',
   w_awr_def_qan_cat: 'w_awr_def_qan_label',
   w_awr_def_qal_cat: 'w_awr_def_qal_label',
-  w_awr_def_rrr_cat: 'w_awr_def_rrr_label',
-  bws_cat: 'bws_label',
-  bwd_cat: 'bwd_label',
-  iav_cat: 'iav_label',
-  usa_cat: 'w_awr_def_rrr_label'
+  w_awr_def_rrr_cat: 'w_awr_def_rrr_label'
 };
 
 export const FUTURE_LAYERS_GROUPS = {

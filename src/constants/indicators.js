@@ -430,14 +430,15 @@ export const INDICATOR_COLUMNS = {
     { label: 'Country', value: 'country' },
     { label: 'Province', value: 'province' },
     { label: 'Major Basin', value: 'major_basin' },
-    { label: 'Minor Basin', value: 'minor_basin' }
+    { label: 'Minor Basin', value: 'minor_basin' },
+    { label: 'Aquifer', value: 'major_aquifer_system' }
   ],
   // Overall Water Risk
   w_awr_def_tot_cat: [{ label: 'Overall Water Risk', value: 'w_awr_def_tot_label' }],
   // Water Quantity Risk
   w_awr_def_qan_cat: [
     { label: 'Water Quantity Risk', value: 'w_awr_def_qan_label' },
-    { label: 'Baseline Water Stress', value: 'bwd_label' },
+    { label: 'Baseline Water Stress', value: 'bws_label' },
     { label: 'Groundwater Table Decline', value: 'gtd_label' },
     { label: 'Interannual Variability', value: 'iav_label' },
     { label: 'Seasonal Variability', value: 'sev_label' },
@@ -445,12 +446,21 @@ export const INDICATOR_COLUMNS = {
     { label: 'Riverine Flood Risk Stress', value: 'rfr_label' },
     { label: 'Coastal Flood Risk', value: 'cfr_label' }
   ],
+  bws_cat: [{ label: 'Baseline Water Stress', value: 'bws_label' }],
+  iav_cat: [{ label: 'Interannual Variability', value: 'iav_label' }],
+  gtd_cat: [{ label: 'Groundwater Table Decline', value: 'gtd_label' }],
+  sev_cat: [{ label: 'Seasonal Variability', value: 'sev_label' }],
+  drr_cat: [{ label: 'Drought Risk', value: 'drr_label' }],
+  rfr_cat: [{ label: 'Riverine Flood Risk Stress', value: 'rfr_label' }],
+  cfr_cat: [{ label: 'Coastal Flood Risk', value: 'cfr_label' }],
   // Water Quality Risk
   w_awr_def_qal_cat: [
     { label: 'Water Quality Risk', value: 'w_awr_def_qal_label' },
     { label: 'Untreated Collected Wastewater', value: 'ucw_label' },
     { label: 'Coastal Eutrophication Potential', value: 'cep_label' }
   ],
+  ucw_cat: [{ label: 'Drought Risk', value: 'ucw_label' }],
+  cep_cat: [{ label: 'Riverine Flood Risk Stress', value: 'cep_label' }],
   // Regulatory and Reputational
   w_awr_def_rrr_cat: [
     { label: 'Regulatory and Reputational', value: 'w_awr_def_rrr_label' },
@@ -458,6 +468,9 @@ export const INDICATOR_COLUMNS = {
     { label: 'Unimproved/no sanitation', value: 'usa_label' },
     { label: 'RepRisk Index', value: 'rri_label' }
   ],
+  udw_cat: [{ label: 'Unimproved/no drinking water', value: 'udw_label' }],
+  usa_cat: [{ label: 'Unimproved/no sanitation', value: 'usa_label' }],
+  rri_cat: [{ label: 'RepRisk Index', value: 'rri_label' }],
   projected_change: [
     { label: 'Projected Change In {{indicator}} ({{projection}} To {{year}} {{scenario}} )', value: 'label' }
   ],
@@ -468,12 +481,7 @@ export const INDICATOR_COLUMNS = {
     iav_cat: [{ label: 'Interannual Variability', value: 'iav_label' }]
   },
   preset: {
-    w_awr_def_tot_cat: [
-      { label: 'Overall Water Risk', value: 'w_awr_def_tot_label' },
-      // { label: 'Water Quantity Risk', value: 'w_awr_def_qan_label' },
-      // { label: 'Water Quality Risk', value: 'w_awr_def_qal_label' },
-      // { label: 'Regulatory and Reputational', value: 'w_awr_def_rrr_label' }
-    ],
+    w_awr_def_tot_cat: [{ label: 'Overall Water Risk', value: 'w_awr_def_tot_label' }],
     w_awr_def_qan_cat: [{ label: 'Water Quantity Risk', value: 'w_awr_def_qan_label' }],
     w_awr_def_qal_cat: [{ label: 'Water Quality Risk', value: 'w_awr_def_qal_label' }],
     w_awr_def_rrr_cat: [{ label: 'Regulatory and Reputational', value: 'w_awr_def_rrr_label' }]

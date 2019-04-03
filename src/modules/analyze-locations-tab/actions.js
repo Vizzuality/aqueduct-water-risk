@@ -18,6 +18,7 @@ export const setSelectedPoints = createAction('ANALYZE-LOCATIONS-TAB__SET-SELECT
 export const setAnalysis = createAction('ANALYZE-LOCATIONS-TAB__SET-ANALYSIS');
 export const setAnalysisLoading = createAction('ANALYZE-LOCATIONS-TAB__SET-ANALYSIS-LOADING');
 export const setAnalysisError = createAction('ANALYZE-LOCATIONS-TAB__SET-ANALYSIS-ERROR');
+export const setDownloadUrl = createAction('ANALYZE-LOCATIONS-TAB__SET-DOWNLOAD-ERROR');
 export const clearAnalysis = createAction('ANALYZE-LOCATIONS-TAB__CLEAR-ANALYSIS');
 // geostore
 export const setGeostore = createAction('ANALYZE-LOCATIONS-TAB__SET-GEOSTORE');
@@ -96,13 +97,14 @@ export const onFetchAnalysis = createThunkAction('ANALYZE-LOCATIONS-TAB__FETCH-A
 
     return fetchAnalysis(params)
       .then((analysis) => {
-        const { data, analysis_type: analysisType } = analysis;
+        const { data, analysis_type: analysisType, downloadUrl } = analysis;
         if (['annual', 'monthly'].includes(analysisType) && (scheme === 'DEF')) {
           const filteredData = filterData(data, indicator, scheme);
           dispatch(setAnalysis(filteredData));
         } else {
           dispatch(setAnalysis(data));
         }
+        dispatch(setDownloadUrl(downloadUrl));
         dispatch(setAnalysisLoading(false));
       })
       .catch((err) => {
@@ -139,6 +141,7 @@ export default {
   setAnalysis,
   setAnalysisLoading,
   setAnalysisError,
+  setDownloadUrl,
   clearAnalysis,
   getGeostore,
   onSaveGeostore,

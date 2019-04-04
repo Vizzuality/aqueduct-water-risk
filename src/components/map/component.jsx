@@ -46,10 +46,16 @@ class MapComponent extends PureComponent {
     }
   }
 
-  addPoint(event) {
-    const { latlng } = event;
-    const { onAddPoint } = this.props;
-    onAddPoint(latlng);
+  handlePoint(event) {
+    const { latlng, layer } = event;
+    const { onAddPoint, onRemovePoint } = this.props;
+    if (layer) {
+      const { editing: { _marker: { _latlng } } } = layer;
+      const { lat, lng } = _latlng;
+      onRemovePoint({ lat, lng });
+    } else {
+      onAddPoint(latlng);
+    }
   }
 
   handleLayerOpacity(layer, opacity) {
@@ -123,7 +129,7 @@ class MapComponent extends PureComponent {
                         : true
                     }}
                     events={{
-                      ...scope === 'analyzeLocations' && { click: (e) => { this.addPoint(e); } },
+                      ...scope === 'analyzeLocations' && { click: (e) => { this.handlePoint(e); } },
                       ...scope === 'mapView' && { click: (e) => { this.handleClickMap(e, l); } }
                     }}
                   />
@@ -200,6 +206,7 @@ MapComponent.propTypes = {
   setPopupLocation: PropTypes.func.isRequired,
   setPopupData: PropTypes.func.isRequired,
   onAddPoint: PropTypes.func.isRequired,
+  onRemovePoint: PropTypes.func.isRequired,
   toggleSourceModal: PropTypes.func.isRequired,
   toggleShareModal: PropTypes.func.isRequired,
   setLoading: PropTypes.func.isRequired

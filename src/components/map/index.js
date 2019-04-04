@@ -10,7 +10,7 @@ import {
   setPopupData,
   setLoading
 } from 'modules/map/actions';
-import { onAddPoint } from 'modules/analyze-locations-tab/actions';
+import { onAddPoint, onRemovePoint } from 'modules/analyze-locations-tab/actions';
 
 import IndicatorModal from 'components/ui/modal/indicator';
 
@@ -44,6 +44,7 @@ export default connect(
     setMapParams: (params) => { dispatch(setMapLocation(params)); },
     setLayerParametrization: (params) => { dispatch(setLayerParametrization(params)); },
     onAddPoint: (point) => { dispatch(onAddPoint(point)); },
+    onRemovePoint: (point) => { dispatch(onRemovePoint(point))},
     toggleShareModal: () => { dispatch(toggleModal(true, { children: ShareModal })); },
     toggleSourceModal: (indicator) => {
       dispatch(toggleModal(true, {

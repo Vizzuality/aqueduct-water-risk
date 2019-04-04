@@ -31,6 +31,7 @@ const getMarkerLayer = createSelector(
   [getPoints],
   _points => ({
     ...MARKER_LAYER,
+    id: `${MARKER_LAYER.id}-${new Date().getTime()}`,
     layerConfig: {
       ...MARKER_LAYER.layerConfig,
       body: _points.map(m => L.marker(

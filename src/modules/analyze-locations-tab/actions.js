@@ -41,8 +41,7 @@ export const getGeostore = createThunkAction('ANALYZE-LOCATIONS-TAB__GET-GEOSTOR
           dispatch(setGeostoreLoading(false));
         }
 
-        const points = features[0].geometry.coordinates.map(_coordinate =>
-          L.latLng(_coordinate[1], _coordinate[0]));
+        const points = features[0].geometry.coordinates.map(_coordinate => ({ lat: _coordinate[1], lng: _coordinate[0] }));
 
         dispatch(setPoints(points));
       })
@@ -122,6 +121,14 @@ export const onAddPoint = createThunkAction('ANALYZE-LOCATIONS-TAB__ADD-POINT', 
     dispatch(setPoints(points));
   });
 
+export const onRemovePoint = createThunkAction('ANALYZE-LOCATIONS-TAB__REMOVE-POINT', point =>
+  (dispatch, getState) => {
+    const { analyzeLocations: { points: { list } } } = getState();
+    const points = list.filter(_point => (_point.lat !== point.lat) && (_point.lng !== point.lng));
+
+    dispatch(setPoints(points));
+  });
+
 export const onApplyAnalysis = createThunkAction('ANALYZE-LOCATIONS-TAB__APPLY-ANALYSIS', () =>
   (dispatch, getState) => {
     const { analyzeLocations: { points: { list } } } = getState();
@@ -146,5 +153,6 @@ export default {
   getGeostore,
   onSaveGeostore,
   onAddPoint,
+  onRemovePoint,
   onApplyAnalysis
 };

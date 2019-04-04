@@ -6,11 +6,16 @@ import { browserHistory } from 'react-router';
 import thunk from 'redux-thunk';
 import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux';
 
+// es6 shim for .finally() in promises
+import finallyShim from 'promise.prototype.finally';
+
 // reducers
 import reducers from 'modules';
 
 // components
 import Routes from './routes';
+
+finallyShim.shim();
 
 
 /**

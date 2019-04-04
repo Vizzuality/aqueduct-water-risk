@@ -447,6 +447,7 @@ export const INDICATOR_COLUMNS = {
     { label: 'Coastal Flood Risk', value: 'cfr_label' }
   ],
   bws_cat: [{ label: 'Baseline Water Stress', value: 'bws_label' }],
+  bwd_cat: [{ label: 'Baseline Water Depletion', value: 'bwd_label' }],
   iav_cat: [{ label: 'Interannual Variability', value: 'iav_label' }],
   gtd_cat: [{ label: 'Groundwater Table Decline', value: 'gtd_label' }],
   sev_cat: [{ label: 'Seasonal Variability', value: 'sev_label' }],

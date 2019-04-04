@@ -32,6 +32,7 @@ const getMarkerLayer = createSelector(
   _points => ({
     ...MARKER_LAYER,
     id: `${MARKER_LAYER.id}-${new Date().getTime()}`,
+    isMarkerLayer: true,
     layerConfig: {
       ...MARKER_LAYER.layerConfig,
       body: _points.map(m => L.marker(
@@ -110,7 +111,7 @@ export const getLayerGroup = createSelector(
   _layers => ([{
     dataset: 'random_id',
     visibility: true,
-    layers: _layers.filter(_layer => ![MARKER_LAYER.id, HYDRO_LAYER, AQUIFER_LAYER].includes(_layer.id))
+    layers: _layers.filter(_layer => ![HYDRO_LAYER, AQUIFER_LAYER].includes(_layer.id) && !_layer.isMarkerLayer)
   }])
 );
 

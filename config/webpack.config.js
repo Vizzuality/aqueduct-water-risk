@@ -12,6 +12,7 @@ const rootPath = process.cwd();
 const config = {
 
   entry: [
+    'babel-polyfill',
     path.join(rootPath, 'src/main.jsx')
   ],
 

@@ -10,9 +10,9 @@ import {
 import { getProjectChangeColumn } from './utils';
 
 // states
-const getCurrentIndicator = state => state.mapView.filters.indicator;
-const getCurrentPonderation = state => state.mapView.ponderation.scheme;
-const getFilters = state => state.mapView.filters;
+const getCurrentIndicator = state => state.settings.filters.indicator;
+const getCurrentPonderation = state => state.settings.ponderation.scheme;
+const getFilters = state => state.settings.filters;
 
 export const getColumns = createSelector(
   [getCurrentIndicator, getFilters, getCurrentPonderation],

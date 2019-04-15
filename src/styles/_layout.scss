@@ -1,3 +1,5 @@
+$min-height-analyzer: 285px;
+$max-height-analyzer: 445px;
 
 /* App */
 .l-app {
@@ -55,6 +57,11 @@
   }
 }
 
+.l-filters {
+  padding: $space-1 * 4;
+  background: palette(blue);
+}
+
 /* MapView content */
 .l-mapview-content {
   flex: 1;
@@ -72,4 +79,95 @@
   &.-bottom { padding-bottom: 0 }
   &.-left { padding-left: 0 }
   &.-right { padding-right: 0 }
+}
+
+.c-accordion {
+  &:not(.-closed) {
+    &.-filters {
+      > .accordion-header {
+        margin: $space-1 * 3 0 0;
+      }
+    }
+  }
+
+  &.-filters {
+    > .accordion-header {
+      padding: 0 !important;
+    }
+  }
+}
+
+.l-analyzer-accordion {
+  position: absolute;
+  bottom: 0;
+  max-height: $max-height-analyzer;
+  width: 100%;
+
+  > .accordion-header {
+    position: relative;
+    width: 100%;
+    padding: $space-1 0;
+    line-height: 0;
+
+    &:after {
+      content: '';
+      display: inline-block;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: $space-1 * 2;
+      transform: translate(0, -50%);
+      background: linear-gradient(to top, rgba(palette(gray, dark), .15), rgba(palette(gray, dark), 0));
+    }
+
+    > .accordion-btn {
+      z-index: 1;
+      position: relative;
+      left: 50%;
+      display: inline-flex;
+      transform: translate(-50%, 0);
+
+      > .accordion-analyzer-btn {
+        fill: palette(gray, dark);
+        transition: transform $animation-time $ease-in-out-cubic;
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  > .accordion-content {
+    padding: $space-1 * 2 $sidebar-padding;
+    background-color: palette(sand);
+  }
+
+  &.-closed {
+    > .accordion-header {
+      > .accordion-btn {
+        > .accordion-analyzer-btn {
+          transform: rotate(0);
+        }
+      }
+
+      &:after {
+        display: none;
+      }
+    }
+  }
+}
+
+.sidebar-with-open-analyzer {
+  > .l-sidebar-content {
+    padding: 0 0 $min-height-analyzer;
+  }
+}
+
+.sidebar-with-data-analyzer {
+  > .l-sidebar-content {
+    padding: 0 0 calc(#{$max-height-analyzer - 33px});
+  }
+}
+
+.l-sidebar-content {
+  color: palette(gray, dark);
 }

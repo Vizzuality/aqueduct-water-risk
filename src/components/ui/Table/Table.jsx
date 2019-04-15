@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import uniq from 'lodash/uniq';
 import flatten from 'lodash/flatten';
 import isEqual from 'lodash/isEqual';
-import classnames from 'classnames';
-import { Spinner } from 'aqueduct-components';
 
 import TableHeader from './Header/TableHeader';
 import TableContent from './Content/TableContent';
@@ -212,16 +210,10 @@ class CustomTable extends PureComponent {
     });
   }
 
-  /* Render */
   render() {
-    const tableClasses = classnames('c-table', {
-      '-loading': this.props.loading
-    });
     return (
-      <div className={tableClasses}>
-        <Spinner isLoading={this.props.loading} />
-        {/* Table */}
-        {!this.props.loading && <div className="table-content">
+      <div className="c-table">
+        <div className="table-content">
           <div className="table-overflow">
             <table className="table">
               {/* Table header */}
@@ -244,12 +236,11 @@ class CustomTable extends PureComponent {
               />
             </table>
           </div>
-        </div>}
-        {/* Table footer */}
-        {!this.props.loading && <TableFooter
+        </div>
+        <TableFooter
           pagination={this.state.pagination}
           onChangePage={this.onChangePage}
-        />}
+        />
       </div>
     );
   }
@@ -258,7 +249,6 @@ class CustomTable extends PureComponent {
 CustomTable.propTypes = {
   actions: PropTypes.object,
   data: PropTypes.array,
-  loading: PropTypes.bool,
   columns: PropTypes.array,
   pagination: PropTypes.object,
   onToggleSelectedRow: PropTypes.func,

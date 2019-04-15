@@ -138,6 +138,22 @@ export const FUTURE_INDICATORS = {
   ]
 };
 
+// "equivalence" of future indicators through their projection
+export const FUTURE_INDICATORS_SWAP = {
+  bs: {
+    'd5c8316c-de80-4be3-a973-d3fbafc7eaca': '5aafeab1-4b48-40b0-9042-f654f1531aaf',
+    'd7d5fd18-e8e4-4654-b595-7accbb582992': '45a1f9c5-7b0b-4705-978f-1e98dc8b3277',
+    'a045b21a-c2ff-4ec5-b7fa-2c1f206b8911': 'c124cfce-0414-4cf3-ba2d-e63634199b04',
+    'cf7e6a51-3366-42d7-a8ae-ef0f1f11a5f1': 'a3795c06-d2eb-4aa3-8e24-62965b69e5ce'
+  },
+  absolute: {
+    '5aafeab1-4b48-40b0-9042-f654f1531aaf': 'd5c8316c-de80-4be3-a973-d3fbafc7eaca',
+    '45a1f9c5-7b0b-4705-978f-1e98dc8b3277': 'd7d5fd18-e8e4-4654-b595-7accbb582992',
+    'c124cfce-0414-4cf3-ba2d-e63634199b04': 'a045b21a-c2ff-4ec5-b7fa-2c1f206b8911',
+    'a3795c06-d2eb-4aa3-8e24-62965b69e5ce': 'cf7e6a51-3366-42d7-a8ae-ef0f1f11a5f1'
+  }
+};
+
 export const INDICATOR_NAMES_RELATION = {
   w_awr_def_tot_cat: 'Overall Water Risk',
   w_awr_def_qan_cat: 'Water Quantity Risk',
@@ -533,6 +549,7 @@ export const INDICATORS_MODAL_DEFINITION = {
 export default {
   INDICATORS,
   FUTURE_INDICATORS,
+  FUTURE_INDICATORS_SWAP,
   PARENT_CHILDREN_LAYER_RELATION,
   INDICATOR_COLUMNS,
   INDICATOR_NAMES_RELATION,

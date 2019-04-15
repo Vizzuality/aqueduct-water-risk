@@ -1,0 +1,75 @@
+.c-analyzer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  > .analyzer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    > .title {
+      font-size: $font-size-extrabig;
+      color: palette(gray, dark);
+    }
+  }
+
+  > .analyzer-content {
+    position: relative;
+    min-height: 150px;
+    margin: $space-1 * 2 0 0;
+
+    > .no-data-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 150px;
+
+      > .no-data {
+        color: palette(gray, dark);
+      }
+    }
+
+    > .table-container {
+      height: 225px;
+      overflow-y: hidden;
+
+      .c-table {
+        height: calc(100% - 50px);
+        padding: 0 $space-1;
+      }
+    }
+
+    > .download-container {
+      margin: $space-1 * 2 0;
+      color: palette(blue, secondary);
+
+      ul {
+        display: inline-flex;
+
+        > li {
+          color: palette(gray, dark);
+          margin: 0 0 0 $space-1;
+          > a {
+            color: inherit;
+            font-weight: 500;
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+
+  > .analyzer-footer {
+    display: flex;
+    justify-content: center;
+    margin: $space-1 * 2 0 0;
+
+    > .apply-analysis-btn {
+      padding: ($space-1 / 2) $space-1 * 2;
+      background: palette(blue, dark);
+      color: palette(white);
+      text-transform: uppercase;
+    }
+  }
+}

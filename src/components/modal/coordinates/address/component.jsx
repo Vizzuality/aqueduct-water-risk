@@ -37,7 +37,9 @@ class AddressForm extends PureComponent {
     const {
       onAddPoint,
       onSaveGeostore,
-      toggleModal
+      onFetchAnalysis,
+      toggleModal,
+      setMapMode
     } = this.props;
 
     this.setState({ loading: true });
@@ -45,10 +47,12 @@ class AddressForm extends PureComponent {
     geocodeByAddress(this.state.address)
       .then(results => getLatLng(results[0]))
       .then((point) => {
+        setMapMode('analysis');
         this.setState({ loading: false });
 
         onAddPoint(point);
-        onSaveGeostore();
+        onSaveGeostore()
+          .then(() => { onFetchAnalysis(); });
         toggleModal(false, {});
       })
       .catch((error) => {
@@ -112,6 +116,8 @@ class AddressForm extends PureComponent {
 AddressForm.propTypes = {
   onAddPoint: PropTypes.func.isRequired,
   onSaveGeostore: PropTypes.func.isRequired,
+  onFetchAnalysis: PropTypes.func.isRequired,
+  setMapMode: PropTypes.func.isRequired,
   toggleModal: PropTypes.func.isRequired
 };
 

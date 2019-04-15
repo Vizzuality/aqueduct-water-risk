@@ -88,7 +88,7 @@ class MapComponent extends PureComponent {
       layers,
       loading,
       indicator,
-      scope,
+      mapMode,
       setMapParams,
       toggleSourceModal,
       toggleShareModal,
@@ -129,8 +129,8 @@ class MapComponent extends PureComponent {
                         : true
                     }}
                     events={{
-                      ...scope === 'analyzeLocations' && { click: (e) => { this.handlePoint(e); } },
-                      ...scope === 'mapView' && { click: (e) => { this.handleClickMap(e, l); } }
+                      ...mapMode === 'analysis' && { click: (e) => { this.handlePoint(e); } },
+                      ...mapMode === 'view' && { click: (e) => { this.handleClickMap(e, l); } }
                     }}
                   />
                   ))}
@@ -200,7 +200,7 @@ MapComponent.propTypes = {
   layerGroup: PropTypes.array.isRequired,
   indicator: PropTypes.string.isRequired,
   popup: PropTypes.object.isRequired,
-  scope: PropTypes.string.isRequired,
+  mapMode: PropTypes.string.isRequired,
   setMapParams: PropTypes.func.isRequired,
   setLayerParametrization: PropTypes.func.isRequired,
   setPopupLocation: PropTypes.func.isRequired,

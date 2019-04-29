@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 // actions
-import { setFilters } from 'modules/map-view-tab/actions';
+import { setFilters } from 'modules/settings/actions';
 import { onFetchAnalysis } from 'modules/analyze-locations-tab/actions';
 
 // selectors

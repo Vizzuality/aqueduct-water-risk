@@ -1,7 +1,7 @@
 $separation: $space-1 * 2;
 
 .c-layerlist {
-  padding: $sidebar-padding;
+  padding: $space-1 * 4;
   background-color: palette(sand);
   color: palette(gray, dark);
   font-family: $font-family-roboto;
@@ -142,6 +142,7 @@ $separation: $space-1 * 2;
   > svg {
     width: 20px;
     height: 20px;
+    padding: 2px;
     border: 1px solid palette(gray, dark);
     border-radius: 50%;
     fill: palette(gray, dark);

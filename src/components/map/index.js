@@ -32,7 +32,8 @@ import MapComponent from './component';
 export default connect(
   state => ({
     scope: state.app.scope,
-    indicator: state.mapView.filters.indicator,
+    mapMode: state.app.mapMode,
+    indicator: state.settings.filters.indicator,
     map: parseMapState(state),
     basemap: parseBasemap(state),
     layers: getUpdatedLayers(state),
@@ -44,7 +45,7 @@ export default connect(
     setMapParams: (params) => { dispatch(setMapLocation(params)); },
     setLayerParametrization: (params) => { dispatch(setLayerParametrization(params)); },
     onAddPoint: (point) => { dispatch(onAddPoint(point)); },
-    onRemovePoint: (point) => { dispatch(onRemovePoint(point))},
+    onRemovePoint: (point) => { dispatch(onRemovePoint(point)); },
     toggleShareModal: () => { dispatch(toggleModal(true, { children: ShareModal })); },
     toggleSourceModal: (indicator) => {
       dispatch(toggleModal(true, {

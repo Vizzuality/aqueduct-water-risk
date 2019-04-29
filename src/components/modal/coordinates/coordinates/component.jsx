@@ -50,7 +50,9 @@ class CoordinatesForm extends PureComponent {
     const {
       onAddPoint,
       onSaveGeostore,
-      toggleModal
+      onFetchAnalysis,
+      toggleModal,
+      setMapMode
     } = this.props;
 
     e.preventDefault();
@@ -68,8 +70,10 @@ class CoordinatesForm extends PureComponent {
           lng: convertDMSToDD(lng)
         };
 
+        setMapMode('analysis');
         onAddPoint(point);
-        onSaveGeostore();
+        onSaveGeostore()
+          .then(() => { onFetchAnalysis(); });
         toggleModal(false, {});
       }
     }, 0);
@@ -292,7 +296,9 @@ class CoordinatesForm extends PureComponent {
 CoordinatesForm.propTypes = {
   onAddPoint: PropTypes.func.isRequired,
   onSaveGeostore: PropTypes.func.isRequired,
-  toggleModal: PropTypes.func.isRequired
+  onFetchAnalysis: PropTypes.func.isRequired,
+  toggleModal: PropTypes.func.isRequired,
+  setMapMode: PropTypes.func.isRequired
 };
 
 export default CoordinatesForm;

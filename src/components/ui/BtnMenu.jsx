@@ -10,7 +10,7 @@ export default function BtnMenu(props) {
   return (
     <ul className={cNames}>
       {props.items.map((item, index) => (
-        <li className="btn-menu-item" key={index}>
+        <li className={classnames('btn-menu-item', { '-active': item.active })} key={index}>
           <button className="btn-menu-btn" type="button" onClick={() => item.cb && item.cb(item)}>{item.label}</button>
         </li>
       ))}

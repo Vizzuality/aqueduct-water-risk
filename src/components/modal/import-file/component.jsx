@@ -58,6 +58,8 @@ class ImportFileModal extends PureComponent {
     const {
       onAddPoint,
       onSaveGeostore,
+      onFetchAnalysis,
+      setMapMode,
       toggleModal
     } = this.props;
 
@@ -72,6 +74,7 @@ class ImportFileModal extends PureComponent {
       body: formData,
       multipart: true,
       onSuccess: (response) => {
+        setMapMode('analysis');
         // Be sure that user upload points
         const features = response.data.attributes.features;
 
@@ -86,7 +89,8 @@ class ImportFileModal extends PureComponent {
             const points = features.map(p => ({ lat: p.geometry.coordinates[0], lng: p.geometry.coordinates[1] }));
 
             onAddPoint(points);
-            onSaveGeostore();
+            onSaveGeostore()
+              .then(() => { onFetchAnalysis(); });
             toggleModal(false, {});
           } else {
             this.setState({
@@ -192,6 +196,8 @@ class ImportFileModal extends PureComponent {
 ImportFileModal.propTypes = {
   onAddPoint: PropTypes.func.isRequired,
   onSaveGeostore: PropTypes.func.isRequired,
+  onFetchAnalysis: PropTypes.func.isRequired,
+  setMapMode: PropTypes.func.isRequired,
   toggleModal: PropTypes.func.isRequired
 };
 

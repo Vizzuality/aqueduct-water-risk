@@ -1,6 +1,6 @@
 export const SCOPE_OPTIONS = [
-  { label: 'settings', value: 'mapView' },
-  { label: 'analyze locations', value: 'analyzeLocations' }
+  { label: 'baseline', value: 'baseline' },
+  { label: 'future', value: 'future' }
 ];
 
 export const SCENARIO_OPTIONS = [

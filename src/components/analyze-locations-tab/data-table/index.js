@@ -9,8 +9,7 @@ import DataTable from './component';
 export default connect(
   state => ({
     columns: getColumns(state),
-    data: state.analyzeLocations.analysis.data,
-    loading: state.analyzeLocations.analysis.loading
+    data: state.analyzeLocations.analysis.data
   }),
   null
 )(DataTable);

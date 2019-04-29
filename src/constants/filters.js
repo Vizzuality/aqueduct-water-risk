@@ -1,6 +1,5 @@
 
 export const TIMEFRAME_OPTIONS = [
-  { value: 'baseline', label: 'Baseline' },
   { value: '2030', label: '2030' },
   { value: '2040', label: '2040' }
 ];
@@ -31,8 +30,8 @@ export const projectionOptions = [
 ];
 
 export const TIMEFRAME_MODAL_DESCRIPTION = {
-  title: 'Time Scale',
-  description: 'Depending on the time scale selection, different indicators will be available.'
+  title: 'Temporal resolution',
+  description: 'Depending on the temporal resolution selected, different indicators will be available.'
 };
 
 export default {

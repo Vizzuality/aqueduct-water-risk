@@ -18,12 +18,12 @@ import {
 } from './constants';
 
 // states
-const getScope = state => state.app.scope;
+const getMapMode = state => state.app.mapMode;
 const getMap = state => state.map;
 const getBasemap = state => state.map.basemap;
 const getLayers = state => state.layers.list;
-const getParametrization = state => state.mapView.filters;
-const getPonderation = state => state.mapView.ponderation;
+const getParametrization = state => state.settings.filters;
+const getPonderation = state => state.settings.ponderation;
 const getPoints = state => state.analyzeLocations.points.list;
 const getLayerUpdatedParams = state => state.map.layerParametrization;
 
@@ -48,8 +48,8 @@ const getMarkerLayer = createSelector(
 );
 
 const getFilteredLayers = createSelector(
-  [getLayers, getMarkerLayer, getParametrization, getPonderation, getScope],
-  (_layers, _markerLayer, _parametrization, _ponderation, _scope) => {
+  [getLayers, getMarkerLayer, getParametrization, getPonderation, getMapMode],
+  (_layers, _markerLayer, _parametrization, _ponderation, _mapMode) => {
     if (!Object.keys(_layers).length) return [];
 
     const { scheme: ponderationScheme } = _ponderation;
@@ -76,7 +76,7 @@ const getFilteredLayers = createSelector(
         layers = _layers.annual;
     }
 
-    return _scope === 'analyzeLocations' ? [...[_markerLayer], ...layers] : [..._layers.hydrobasins, ..._layers.aquifers, ...layers];
+    return _mapMode === 'analysis' ? [...[_markerLayer], ...layers] : [..._layers.hydrobasins, ..._layers.aquifers, ...layers];
   }
 );
 

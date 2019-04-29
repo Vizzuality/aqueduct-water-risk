@@ -8,16 +8,14 @@ class DataTable extends PureComponent {
   render() {
     const {
       columns,
-      data,
-      loading
+      data
     } = this.props;
 
     return (
       <CustomTable
         columns={columns}
         data={data}
-        loading={loading}
-        pageSize={20}
+        pageSize={5}
         actions={{
           showable: false,
           editable: false,
@@ -25,7 +23,7 @@ class DataTable extends PureComponent {
         }}
         pagination={{
           enabled: true,
-          pageSize: 20,
+          pageSize: 5,
           page: 0
         }}
       />
@@ -35,8 +33,7 @@ class DataTable extends PureComponent {
 
 DataTable.propTypes = {
   columns: PropTypes.array.isRequired,
-  data: PropTypes.array.isRequired,
-  loading: PropTypes.bool.isRequired
+  data: PropTypes.array.isRequired
 };
 
 export default DataTable;

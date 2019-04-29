@@ -7,7 +7,7 @@ import {
 } from 'constants/indicators';
 
 // states
-const getCurrentIndicator = state => state.mapView.filters.indicator;
+const getCurrentIndicator = state => state.settings.filters.indicator;
 
 export const getMonthlyOptions = createSelector(
   [getCurrentIndicator],

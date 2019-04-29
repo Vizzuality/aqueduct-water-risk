@@ -73,7 +73,7 @@ export const onFetchAnalysis = createThunkAction('ANALYZE-LOCATIONS-TAB__FETCH-A
   (dispatch, getState) => {
     const {
       analyzeLocations: { geostore: { id } },
-      mapView: {
+      settings: {
         filters: { month, year, projection, indicator, timeScale, scenario },
         ponderation
       }

@@ -3,7 +3,7 @@ import { replace } from 'react-router-redux';
 
 // actions
 import { setMapLocation, setLayerParametrization } from 'modules/map/actions';
-import { setFilters, setPonderation } from 'modules/map-view-tab/actions';
+import { setFilters, setPonderation, setAnalyzerOpen } from 'modules/settings/actions';
 import { setGeostore, getGeostore } from 'modules/analyze-locations-tab/actions';
 
 // constants
@@ -11,17 +11,18 @@ import { INDICATOR_SCHEME_ORDER } from 'constants/indicators';
 
 export const setScope = createAction('APP__SET-SCOPE');
 export const setAdvancedMode = createAction('APP__SET-ADVANCED-MODE');
+export const setMapMode = createAction('APP__SET-MAP-MODE');
 
 export const updateUrl = createThunkAction('APP__UPDATE-URL', () =>
   (dispatch, getState) => {
     const {
       map,
-      mapView,
-      app: { scope, advanced },
+      settings,
+      app: { scope, advanced, mapMode },
       analyzeLocations: { geostore: { id } }
     } = getState();
-    const { year, scenario, timeScale, projection, month, indicator } = mapView.filters;
-    const { ponderation: { scheme, custom } } = mapView;
+    const { year, scenario, timeScale, projection, month, indicator } = settings.filters;
+    const { ponderation: { scheme, custom } } = settings;
     const {
       basemap,
       center: { lat, lng },
@@ -47,6 +48,7 @@ export const updateUrl = createThunkAction('APP__UPDATE-URL', () =>
         ...scheme === 'custom' && { ponderation_values: `[${Object.values(custom).toString()}]` },
         scope,
         advanced,
+        mapMode,
         ...id && { geoStore: id }
       }
     };
@@ -98,7 +100,9 @@ export const onEnterMapPage = createThunkAction('APP__MAP-PAGE-HOOK', ({ params,
     }
     if (location.query.advanced) dispatch(setAdvancedMode(location.query.advanced === 'true'));
     if (location.query.scope) dispatch(setScope(location.query.scope));
+    if (location.query.mapMode) dispatch(setMapMode(location.query.mapMode));
     if (location.query.geoStore) {
+      dispatch(setAnalyzerOpen(true));
       dispatch(setGeostore(location.query.geoStore));
       dispatch(getGeostore(location.query.geoStore));
     }
@@ -109,6 +113,7 @@ export const onEnterMapPage = createThunkAction('APP__MAP-PAGE-HOOK', ({ params,
 export default {
   setScope,
   setAdvancedMode,
+  setMapMode,
   updateUrl,
   onEnterMapPage
 };

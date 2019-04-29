@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { getLayers } from 'modules/layers/actions';
 import { setScope, updateUrl } from 'modules/app/actions';
 import { setSelectedPoints, setAnalysis } from 'modules/analyze-locations-tab/actions';
+import { setFilters, setAnalyzerOpen } from 'modules/settings/actions';
 
 // component
 import MapPage from './component';
@@ -14,15 +15,19 @@ export default connect(
     advanced: state.app.advanced,
     mapState: state.map,
     loading: state.layers.loading || state.map.loading,
-    filters: state.mapView.filters,
-    ponderation: state.mapView.ponderation,
-    geostore: state.analyzeLocations.geostore.id
+    filters: state.settings.filters,
+    ponderation: state.settings.ponderation,
+    geostore: state.analyzeLocations.geostore.id,
+    analysis: state.analyzeLocations.analysis,
+    analyzerOpen: state.settings.analyzer.open
   }),
   {
     updateUrl,
     setScope,
     setSelectedPoints,
     setAnalysis,
-    getLayers
+    getLayers,
+    setFilters,
+    setAnalyzerOpen
   }
 )(MapPage);

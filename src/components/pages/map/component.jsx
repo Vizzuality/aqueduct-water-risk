@@ -1,15 +1,19 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { Sidebar, SegmentedUi, Spinner } from 'aqueduct-components';
+import classnames from 'classnames';
+import { Accordion, Icon, Sidebar, SegmentedUi, Spinner } from 'aqueduct-components';
 import isEqual from 'lodash/isEqual';
 
 // components
-import MapView from 'components/pages/map/map-view-tab';
-import AnalyzeLocations from 'components/pages/map/analyze-locations-tab';
+import BaselineTab from 'components/pages/map/baseline-tab';
+import FutureTab from 'components/pages/map/future-tab';
 import MapComponent from 'components/map';
+import Analyzer from 'components/analyzer';
 
 // constants
 import { SCOPE_OPTIONS } from 'constants/app';
+import { TIMEFRAME_OPTIONS } from 'constants/filters';
+import { INDICATORS, DEFAULT_FUTURE_INDICATOR } from 'constants/indicators';
 
 class MapPage extends PureComponent {
   componentWillMount() {
@@ -54,26 +58,62 @@ class MapPage extends PureComponent {
       || advancedModeChanged || geostoreChanged) updateUrl();
   }
 
+  onChangeTab({ value }) {
+    const {
+      setScope,
+      setFilters,
+      filters: { projection }
+    } = this.props;
+    const isFuture = value === 'future';
+
+    setScope(value);
+    setFilters({
+      year: isFuture ? TIMEFRAME_OPTIONS[0].value : 'baseline',
+      indicator: isFuture ? DEFAULT_FUTURE_INDICATOR[projection] : INDICATORS[0].id
+    });
+  }
+
   render() {
     const {
       scope,
       loading,
-      setScope
+      analyzerOpen,
+      analysis: { data },
+      setAnalyzerOpen
     } = this.props;
+
+    const sidebarClass = classnames({
+      'sidebar-with-open-analyzer': analyzerOpen,
+      'sidebar-with-data-analyzer': analyzerOpen && data.length
+    });
 
     return (
       <div className="c-map-page l-map-page">
-        <Sidebar setSidebarWidth={() => {}}>
+        <Sidebar
+          setSidebarWidth={() => {}}
+          className={sidebarClass}
+        >
           <SegmentedUi
             className="-tabs"
             items={SCOPE_OPTIONS}
             selected={scope}
-            onChange={({ value }) => { setScope(value); }}
+            onChange={(tab) => { this.onChangeTab(tab); }}
           />
           <div className="l-mapview-content">
-            {scope === 'mapView' && (<MapView />)}
-            {scope === 'analyzeLocations' && (<AnalyzeLocations />)}
+            {scope === 'baseline' && (<BaselineTab />)}
+            {scope === 'future' && (<FutureTab />)}
           </div>
+          <Accordion
+            className="l-analyzer-accordion"
+            opened={analyzerOpen}
+            contentPosition="bottom"
+            onToggle={(open) => { setAnalyzerOpen(open); }}
+            toggleIcon={<Icon name="icon-arrow-up-2" className="accordion-analyzer-btn" />}
+          >
+            <div className="l-analyzer">
+              <Analyzer />
+            </div>
+          </Accordion>
         </Sidebar>
         <MapComponent />
         <Spinner
@@ -88,14 +128,18 @@ class MapPage extends PureComponent {
 MapPage.propTypes = {
   filters: PropTypes.object.isRequired,
   ponderation: PropTypes.object.isRequired,
+  analysis: PropTypes.object.isRequired,
   scope: PropTypes.string.isRequired,
   advanced: PropTypes.bool.isRequired,
   loading: PropTypes.bool.isRequired,
+  analyzerOpen: PropTypes.bool.isRequired,
   mapState: PropTypes.object.isRequired,
   geostore: PropTypes.any,
   setScope: PropTypes.func.isRequired,
   updateUrl: PropTypes.func.isRequired,
-  getLayers: PropTypes.func.isRequired
+  getLayers: PropTypes.func.isRequired,
+  setFilters: PropTypes.func.isRequired,
+  setAnalyzerOpen: PropTypes.func.isRequired
 };
 
 MapPage.defaultProps = { geostore: null };

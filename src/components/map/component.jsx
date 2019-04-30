@@ -5,17 +5,17 @@ import { LayerManager, Layer } from 'layer-manager/dist/components';
 import {
   Map as WRIMap,
   MapPopup,
-  Legend,
+  Legend as VizzLegend,
   LegendItemToolbar,
   LegendListItem,
-  LegendItemTypes,
   LegendItemButtonInfo,
   LegendItemButtonOpacity
 } from 'vizzuality-components/dist/bundle';
 import {
   MapControls,
   ShareButton,
-  ZoomControl
+  ZoomControl,
+  Legend
 } from 'aqueduct-components';
 import isEqual from 'lodash/isEqual';
 
@@ -161,7 +161,7 @@ class MapComponent extends PureComponent {
 
               {layers.length && (
                 <div className="l-map-legend">
-                  <Legend sortable={false}>
+                  <VizzLegend sortable={false}>
                     {layerGroup.map((_layerGroup, i) => (
                       <LegendListItem
                         index={i}
@@ -179,10 +179,10 @@ class MapComponent extends PureComponent {
                           </LegendItemToolbar>
                         )}
                       >
-                        <LegendItemTypes />
+                        <Legend filters={{}} />
                       </LegendListItem>
                     ))}
-                  </Legend>
+                  </VizzLegend>
                 </div>)}
             </Fragment>
           }

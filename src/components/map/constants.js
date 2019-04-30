@@ -56,23 +56,28 @@ export const MARKER_LAYER = {
 const COMMON_LEGEND_ITEMS = [
   {
     color: '#FFFF99',
-    name: 'Low'
+    name: 'Low',
+    value: '(<10%)'
   },
   {
     color: '#FFE600',
-    name: 'Low - Medium'
+    name: 'Low - Medium',
+    value: '(10-20%)'
   },
   {
     color: '#FF9900',
-    name: 'Medium - High'
+    name: 'Medium - High',
+    value: '(20-40%)'
   },
   {
     color: '#FF1900',
-    name: 'High'
+    name: 'High',
+    value: '(40-80%)'
   },
   {
     color: '#990000',
-    name: 'Extremely High'
+    name: 'Extremely High',
+    value: '(>80%)'
   }
 ];
 
@@ -81,36 +86,42 @@ const NO_DATA_LEGEND_ITEM = {
   name: 'No data'
 };
 
+
 export const LEGENDS = {
   parent: {
     items: [
       {
         color: '#FFFF99',
-        name: 'Low'
+        name: 'Low',
+        value: '(0-1)'
       },
       {
         color: '#FFE600',
-        name: 'Low - Medium'
+        name: 'Low - Medium',
+        value: '(1-2)'
       },
       {
         color: '#FF9900',
-        name: 'Medium'
+        name: 'Medium',
+        value: '(2-3)'
       },
       {
         color: '#FF1900',
-        name: 'Medium - High'
+        name: 'Medium - High',
+        value: '(3-4)'
       },
       {
         color: '#990000',
-        name: 'High'
-      },
-      NO_DATA_LEGEND_ITEM
+        name: 'High',
+        value: '(4-5)'
+      }
     ],
+    disclaimer: [NO_DATA_LEGEND_ITEM],
     type: 'choropleth'
   },
   arid: {
-    items: [
-      ...COMMON_LEGEND_ITEMS,
+    items: COMMON_LEGEND_ITEMS,
+    disclaimer: [
       {
         color: '#808080',
         name: 'Arid & Low Water Use'
@@ -120,8 +131,8 @@ export const LEGENDS = {
     type: 'choropleth'
   },
   gtd_cat: {
-    items: [
-      ...COMMON_LEGEND_ITEMS,
+    items: COMMON_LEGEND_ITEMS,
+    disclaimer: [
       {
         color: '#4E4E4E',
         name: 'Insignificant Trend'
@@ -130,8 +141,8 @@ export const LEGENDS = {
     type: 'choropleth'
   },
   ucw_cat: {
-    items: [
-      ...COMMON_LEGEND_ITEMS,
+    items: [COMMON_LEGEND_ITEMS],
+    disclaimer: [
       {
         color: '#808080',
         name: 'Low - No Wastewater Collected'
@@ -142,13 +153,12 @@ export const LEGENDS = {
   },
   flood: {
     items: COMMON_LEGEND_ITEMS,
+    disclaimer: [NO_DATA_LEGEND_ITEM],
     type: 'choropleth'
   },
   common: {
-    items: [
-      ...COMMON_LEGEND_ITEMS,
-      NO_DATA_LEGEND_ITEM
-    ],
+    items: COMMON_LEGEND_ITEMS,
+    disclaimer: [NO_DATA_LEGEND_ITEM],
     type: 'choropleth'
   }
 };

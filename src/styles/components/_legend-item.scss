@@ -1,0 +1,11 @@
+.c-legend-item {
+  padding: 0;
+
+  > .legend-item-header {
+    display: none;
+  }
+
+  .graph-list-item {
+    align-items: center;
+  }
+}

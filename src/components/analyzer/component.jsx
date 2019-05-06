@@ -19,10 +19,13 @@ class Analyzer extends PureComponent {
 
   componentWillReceiveProps(nextProps) {
     const { filters, onFetchAnalysis } = this.props;
-    const { filters: nextFilters } = nextProps;
+    const {
+      filters: nextFilters,
+      geoStore
+    } = nextProps;
     const filtersChanged = !isEqual(filters, nextFilters);
 
-    if (filtersChanged) onFetchAnalysis();
+    if (filtersChanged && geoStore) onFetchAnalysis();
   }
 
   render() {

@@ -32,7 +32,8 @@ class DecimalDegreesForm extends PureComponent {
       onSaveGeostore,
       toggleModal,
       onFetchAnalysis,
-      setMapMode
+      setMapMode,
+      setAnalyzerOpen
     } = this.props;
     e.preventDefault();
 
@@ -50,8 +51,13 @@ class DecimalDegreesForm extends PureComponent {
         setMapMode('analysis');
         onAddPoint(point);
         onSaveGeostore()
-          .then(() => { onFetchAnalysis(); });
-        toggleModal(false, {});
+          .then(() => {
+            onFetchAnalysis()
+              .then(() => {
+                toggleModal(false, {});
+                setAnalyzerOpen(true);
+              });
+          });
       }
     }, 0);
   }
@@ -134,7 +140,8 @@ DecimalDegreesForm.propTypes = {
   onSaveGeostore: PropTypes.func.isRequired,
   onFetchAnalysis: PropTypes.func.isRequired,
   toggleModal: PropTypes.func.isRequired,
-  setMapMode: PropTypes.func.isRequired
+  setMapMode: PropTypes.func.isRequired,
+  setAnalyzerOpen: PropTypes.func.isRequired
 };
 
 export default DecimalDegreesForm;

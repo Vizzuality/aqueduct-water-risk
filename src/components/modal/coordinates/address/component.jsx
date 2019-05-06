@@ -1,7 +1,5 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-
-// components
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import { Spinner } from 'aqueduct-components';
 
@@ -15,7 +13,10 @@ class AddressForm extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.state = { address: '' };
+    this.state = {
+      address: '',
+      error: null
+    };
   }
 
   onChangeAdress(address) { this.setState({ address }); }
@@ -39,7 +40,8 @@ class AddressForm extends PureComponent {
       onSaveGeostore,
       onFetchAnalysis,
       toggleModal,
-      setMapMode
+      setMapMode,
+      setAnalyzerOpen
     } = this.props;
 
     this.setState({ loading: true });
@@ -52,8 +54,13 @@ class AddressForm extends PureComponent {
 
         onAddPoint(point);
         onSaveGeostore()
-          .then(() => { onFetchAnalysis(); });
-        toggleModal(false, {});
+          .then(() => {
+            onFetchAnalysis()
+              .then(() => {
+                toggleModal(false, {});
+                setAnalyzerOpen(true);
+              });
+          });
       })
       .catch((error) => {
         console.error(error);
@@ -69,46 +76,41 @@ class AddressForm extends PureComponent {
     } = this.state;
 
     return (
-      <form
-        className="c-coordinates-form"
-        onSubmit={(e) => { this.onSubmit(e); }}
-        noValidate
-      >
-        <Spinner isLoading={loading} />
-        <div className="row">
-          <div className="column small-12">
-            <div className="c-field">
-              <div className="label">
-                Search <abbr title="required">*</abbr>
+      <div className="c-address-geocoding">
+        {/* single search  */}
+        <form
+          className="single-location-form"
+          onSubmit={(e) => { this.onSubmit(e); }}
+          noValidate
+        >
+          <Spinner isLoading={loading} />
+          <div className="row">
+
+            <div className="column small-12">
+              <div className="c-field">
+                <div className="label">
+                  Search a location
+                </div>
+                <PlacesAutocomplete
+                  inputProps={{
+                    value: address,
+                    onChange: (_address) => { this.onChangeAdress(_address); }
+                  }}
+                  classNames={CSS_ADDRESS_CLASSES}
+                  onSelect={() => { this.onSelectAddress(); }}
+                  onError={() => { this.onErrorAddress(); }}
+                  clearItemsOnError
+                />
+                {error &&
+                  (<p className="error">
+                    {error}
+                  </p>)
+                }
               </div>
-              <PlacesAutocomplete
-                inputProps={{
-                  value: address,
-                  onChange: (_address) => { this.onChangeAdress(_address); }
-                }}
-                classNames={CSS_ADDRESS_CLASSES}
-                onSelect={() => { this.onSelectAddress(); }}
-                onError={() => { this.onErrorAddress(); }}
-                clearItemsOnError
-              />
-              {error &&
-                (<p className="error">
-                  {error}
-                </p>)
-              }
             </div>
           </div>
-        </div>
-        <div className="row align-right">
-          <div className="column shrink">
-            <div className="navigation">
-              <button className="c-btn -primary -light" >
-                Add to map
-              </button>
-            </div>
-          </div>
-        </div>
-      </form>
+        </form>
+      </div>
     );
   }
 }
@@ -118,6 +120,7 @@ AddressForm.propTypes = {
   onSaveGeostore: PropTypes.func.isRequired,
   onFetchAnalysis: PropTypes.func.isRequired,
   setMapMode: PropTypes.func.isRequired,
+  setAnalyzerOpen: PropTypes.func.isRequired,
   toggleModal: PropTypes.func.isRequired
 };
 

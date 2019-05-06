@@ -7,7 +7,7 @@ import { setMapMode } from 'modules/app/actions';
 import { setAnalyzerOpen } from 'modules/settings/actions';
 
 // component
-import DecimalDegreesForm from './component';
+import ImportFileModal from './component';
 
 export default connect(
   null,
@@ -15,8 +15,8 @@ export default connect(
     onAddPoint,
     onSaveGeostore,
     onFetchAnalysis,
-    toggleModal,
     setMapMode,
-    setAnalyzerOpen
+    setAnalyzerOpen,
+    toggleModal
   }
-)(DecimalDegreesForm);
+)(ImportFileModal);

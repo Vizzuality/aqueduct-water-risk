@@ -102,57 +102,466 @@ export const LEGENDS = {
       },
       {
         color: '#FF9900',
-        name: 'Medium',
+        name: 'Medium-high',
         value: '(2-3)'
       },
       {
         color: '#FF1900',
-        name: 'Medium - High',
+        name: 'High',
         value: '(3-4)'
       },
       {
         color: '#990000',
-        name: 'High',
+        name: 'Extremely high',
         value: '(4-5)'
       }
     ],
     disclaimer: [NO_DATA_LEGEND_ITEM],
     type: 'choropleth'
   },
-  arid: {
-    items: COMMON_LEGEND_ITEMS,
+  // Groundwater Table Decline
+  gtd_cat: {
+    items: [
+      {
+        name: 'Low',
+        value: '(<0 cm/y)',
+        color: '#FFFF99'
+      },
+      {
+        name: 'Low-medium',
+        value: '(0-2 cm/y)',
+        color: '#FFE600'
+      },
+      {
+        name: 'Medium-high',
+        value: '(2-4 cm/y)',
+        color: '#FF9900'
+      },
+      {
+        name: 'High',
+        value: '(4-8 cm/y)',
+        color: '#FF1900'
+      },
+      {
+        name: 'Extremely high',
+        value: '(>8 cm/y)',
+        color: '#990000'
+      }
+    ],
     disclaimer: [
       {
         color: '#808080',
-        name: 'Arid & Low Water Use'
+        name: 'Insignificant Trend'
       },
       NO_DATA_LEGEND_ITEM
     ],
     type: 'choropleth'
   },
-  gtd_cat: {
-    items: COMMON_LEGEND_ITEMS,
+  // Riverine Flood Risk
+  rfr_cat: {
+    items: [
+      {
+        name: 'Low',
+        value: '(0 to 1 in 1,000)',
+        color: '#FFFF99'
+      },
+      {
+        name: 'Low-medium',
+        value: '(1 in 1,000 to 2 in 1,000)',
+        color: '#FFE600'
+      },
+      {
+        name: 'Medium-high',
+        value: '(2 in 1,000 to 6 in 1,000)',
+        color: '#FF9900'
+      },
+      {
+        name: 'High',
+        value: '(6 in 1,000 to 1 in 100)',
+        color: '#FF1900'
+      },
+      {
+        name: 'Extremely high',
+        value: '(more than 1 in 100)',
+        color: '#990000'
+      }
+    ],
+    disclaimer: [NO_DATA_LEGEND_ITEM],
+    type: 'choropleth'
+  },
+  // Coastal Flood Risk
+  cfr_cat: {
+    items: [
+      {
+        name: 'Low',
+        value: '(0 to 9 in 1,000,000)',
+        color: '#FFFF99'
+      },
+      {
+        name: 'Low-medium',
+        value: '(9 in 1,000,000 to 7 in 100,000)',
+        color: '#FFE600'
+      },
+      {
+        name: 'Medium-high',
+        value: '(7 in 100,000 to 3 in 10,000)',
+        color: '#FF9900'
+      },
+      {
+        name: 'High',
+        value: '(3 in 10,000 to 2 in 1,000)',
+        color: '#FF1900'
+      },
+      {
+        name: 'Extremely high',
+        value: '(more than 2 in 1,000)',
+        color: '#990000'
+      }
+    ],
+    disclaimer: [NO_DATA_LEGEND_ITEM],
+    type: 'choropleth'
+  },
+  // Baseline Water Stress
+  bws_cat: {
+    items: [
+      {
+        name: 'Low',
+        value: '(<10%)',
+        color: '#FFFF99'
+      },
+      {
+        name: 'Low-medium',
+        value: '(10-20%)',
+        color: '#FFE600'
+      },
+      {
+        name: 'Medium-high',
+        value: '(20-40%)',
+        color: '#FF9900'
+      },
+      {
+        name: 'High',
+        value: '(40-80%)',
+        color: '#FF1900'
+      },
+      {
+        name: 'Extremely high',
+        value: '(>80%)',
+        color: '#990000'
+      }
+    ],
     disclaimer: [
       {
+        color: '#808080',
+        name: 'Arid and low water use'
+      },
+      {
         color: '#4E4E4E',
-        name: 'Insignificant Trend'
+        name: 'No data'
       }
     ],
     type: 'choropleth'
   },
-  ucw_cat: {
-    items: [COMMON_LEGEND_ITEMS],
+  // Baseline Water Depletion
+  bwd_cat: {
+    items: [
+      {
+        name: 'Low',
+        value: '(<5%)',
+        color: '#FFFF99'
+      },
+      {
+        name: 'Low-medium',
+        value: '(5-25%)',
+        color: '#FFE600'
+      },
+      {
+        name: 'Medium-high',
+        value: '(25-50%)',
+        color: '#FF9900'
+      },
+      {
+        name: 'High',
+        value: '(50-75%)',
+        color: '#FF1900'
+      },
+      {
+        name: 'Extremely high',
+        value: '(>75%)',
+        color: '#990000'
+      }
+    ],
     disclaimer: [
       {
         color: '#808080',
-        name: 'Low - No Wastewater Collected'
+        name: 'Arid and low water use'
+      },
+      {
+        color: '#4E4E4E',
+        name: 'No data'
+      }
+    ],
+    type: 'choropleth'
+  },
+  // Interannual Variability
+  iav_cat: {
+    items: [
+      {
+        name: 'Low',
+        value: '(<0.25)',
+        color: '#FFFF99'
+      },
+      {
+        name: 'Low-medium',
+        value: '(0.25-0.50)',
+        color: '#FFE600'
+      },
+      {
+        name: 'Medium-high',
+        value: '(0.50-0.75)',
+        color: '#FF9900'
+      },
+      {
+        name: 'High',
+        value: '(0.75-1.00)',
+        color: '#FF1900'
+      },
+      {
+        name: 'Extremely high',
+        value: '(>1.00)',
+        color: '#990000'
+      }
+    ],
+    disclaimer: [NO_DATA_LEGEND_ITEM],
+    type: 'choropleth'
+  },
+  // Seasonal Variability
+  sev_cat: {
+    items: [
+      {
+        name: 'Low',
+        value: '(<0.33)',
+        color: '#FFFF99'
+      },
+      {
+        name: 'Low-medium',
+        value: '(0.33-0.66)',
+        color: '#FFE600'
+      },
+      {
+        name: 'Medium-high',
+        value: '(0.66-1.00)',
+        color: '#FF9900'
+      },
+      {
+        name: 'High',
+        value: '(1.00-1.33)',
+        color: '#FF1900'
+      },
+      {
+        name: 'Extremely high',
+        value: '(>1.33)',
+        color: '#990000'
+      }
+    ],
+    disclaimer: [NO_DATA_LEGEND_ITEM],
+    type: 'choropleth'
+  },
+  // Drought Risk
+  drr_cat: {
+    items: [
+      {
+        name: 'Low',
+        value: '(0.0-0.2)',
+        color: '#FFFF99'
+      },
+      {
+        name: 'Low-medium',
+        value: '(0.2-0.4)',
+        color: '#FFE600'
+      },
+      {
+        name: 'Medium',
+        value: '(0.4-0.6)',
+        color: '#FF9900'
+      },
+      {
+        name: 'Medium-high',
+        value: '(0.6-0.8)',
+        color: '#FF1900'
+      },
+      {
+        name: 'High',
+        value: '(0.8-1.0)',
+        color: '#990000'
+      }
+    ],
+    disclaimer: [NO_DATA_LEGEND_ITEM],
+    type: 'choropleth'
+  },
+  // Untreated Collected Wastewater
+  ucw_cat: {
+    items: [
+      {
+        name: 'Low',
+        value: '(<30%)',
+        color: '#FFFF99'
+      },
+      {
+        name: 'Low-medium',
+        value: '(30-60%)',
+        color: '#FFE600'
+      },
+      {
+        name: 'Medium-high',
+        value: '(60-90%)',
+        color: '#FF9900'
+      },
+      {
+        name: 'High',
+        value: '(90-100%)',
+        color: '#FF1900'
+      },
+      {
+        name: 'Extremely high',
+        value: '(100%)',
+        color: '#990000'
+      }
+    ],
+    disclaimer: [
+      {
+        color: '#808080',
+        name: 'No to Low Wastewater Collected'
       },
       NO_DATA_LEGEND_ITEM
     ],
     type: 'choropleth'
   },
-  flood: {
-    items: COMMON_LEGEND_ITEMS,
+  // Coastal Eutrophication Potential
+  cep_cat: {
+    items: [
+      {
+        name: 'Low',
+        value: '(<-5)',
+        color: '#FFFF99'
+      },
+      {
+        name: 'Low-medium',
+        value: '(-5 to 0)',
+        color: '#FFE600'
+      },
+      {
+        name: 'Medium-high',
+        value: '(0 to 1)',
+        color: '#FF9900'
+      },
+      {
+        name: 'High',
+        value: '(1 to 5)',
+        color: '#FF1900'
+      },
+      {
+        name: 'Extremely high',
+        value: '(>5)',
+        color: '#990000'
+      }
+    ],
+    disclaimer: [NO_DATA_LEGEND_ITEM],
+    type: 'choropleth'
+  },
+  // Unimproved/no drinking water
+  udw_cat: {
+    items: [
+      {
+        name: 'Low',
+        value: '(<2.5%)',
+        color: '#FFFF99'
+      },
+      {
+        name: 'Low-medium',
+        value: '(2.5-5%)',
+        color: '#FFE600'
+      },
+      {
+        name: 'Medium-high',
+        value: '(5-10%)',
+        color: '#FF9900'
+      },
+      {
+        name: 'High',
+        value: '(10-20%)',
+        color: '#FF1900'
+      },
+      {
+        name: 'Extremely high',
+        value: '(>20%)',
+        color: '#990000'
+      }
+    ],
+    disclaimer: [NO_DATA_LEGEND_ITEM],
+    type: 'choropleth'
+  },
+  // Unimproved/no sanitation
+  usa_cat: {
+    items: [
+      {
+        name: 'Low',
+        value: '(<2.5%)',
+        color: '#FFFF99'
+      },
+      {
+        name: 'Low-medium',
+        value: '(2.5-5%)',
+        color: '#FFE600'
+      },
+      {
+        name: 'Medium-high',
+        value: '(5-10%)',
+        color: '#FF9900'
+      },
+      {
+        name: 'High',
+        value: '(10-20%)',
+        color: '#FF1900'
+      },
+      {
+        name: 'Extremely high',
+        value: '(>20%)',
+        color: '#990000'
+      }
+    ],
+    disclaimer: [NO_DATA_LEGEND_ITEM],
+    type: 'choropleth'
+  },
+  // RepRisk Index
+  rri_cat: {
+    items: [
+      {
+        name: 'Low',
+        value: '(<25%)',
+        color: '#FFFF99'
+      },
+      {
+        name: 'Low-medium',
+        value: '(25-50%)',
+        color: '#FFE600'
+      },
+      {
+        name: 'Medium-high',
+        value: '(50-60%)',
+        color: '#FF9900'
+      },
+      {
+        name: 'High',
+        value: '(60-75%)',
+        color: '#FF1900'
+      },
+      {
+        name: 'Extremely high',
+        value: '(>75%)',
+        color: '#990000'
+      }
+    ],
     disclaimer: [NO_DATA_LEGEND_ITEM],
     type: 'choropleth'
   },

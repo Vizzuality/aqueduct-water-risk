@@ -4,4 +4,14 @@
   > .legend-header {
     display: none;
   }
+
+  > .legend-content {
+    .graph {
+      &.-disclaimer {
+        .graph-list {
+          flex-direction: column;
+        }
+      }
+    }
+  }
 }

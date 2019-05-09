@@ -1,19 +1,4 @@
 .c-analyzer {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-
-  > .analyzer-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    > .title {
-      font-size: $font-size-extrabig;
-      color: palette(gray, dark);
-    }
-  }
-
   > .analyzer-content {
     position: relative;
     min-height: 150px;

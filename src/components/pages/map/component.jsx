@@ -1,14 +1,16 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { Accordion, Icon, Sidebar, SegmentedUi, Spinner } from 'aqueduct-components';
+import { Sidebar, SegmentedUi, Spinner } from 'aqueduct-components';
 import isEqual from 'lodash/isEqual';
 
 // components
 import BaselineTab from 'components/pages/map/baseline-tab';
 import FutureTab from 'components/pages/map/future-tab';
 import MapComponent from 'components/map';
+import CustomAccordion from 'components/ui/custom-accordion';
 import Analyzer from 'components/analyzer';
+import AnalyzerHeader from 'components/analyzer/header';
 
 // constants
 import { SCOPE_OPTIONS } from 'constants/app';
@@ -78,8 +80,7 @@ class MapPage extends PureComponent {
       scope,
       loading,
       analyzerOpen,
-      analysis: { data },
-      setAnalyzerOpen
+      analysis: { data }
     } = this.props;
 
     const sidebarClass = classnames({
@@ -103,17 +104,15 @@ class MapPage extends PureComponent {
             {scope === 'baseline' && (<BaselineTab />)}
             {scope === 'future' && (<FutureTab />)}
           </div>
-          <Accordion
+          <CustomAccordion
             className="l-analyzer-accordion"
-            opened={analyzerOpen}
-            contentPosition="bottom"
-            onToggle={(open) => { setAnalyzerOpen(open); }}
-            toggleIcon={<Icon name="icon-arrow-up-2" className="accordion-analyzer-btn" />}
+            open={analyzerOpen}
+            header={<AnalyzerHeader />}
           >
             <div className="l-analyzer">
               <Analyzer />
             </div>
-          </Accordion>
+          </CustomAccordion>
         </Sidebar>
         <MapComponent />
         <Spinner

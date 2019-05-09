@@ -15,12 +15,12 @@
       width: 100%;
       height: $space-1 * 2;
       background: linear-gradient(to top, rgba(palette(gray, dark), .15), rgba(palette(gray, dark), 0));
-      transform: translate(0, -50%);
     }
 
     > .accordion-analyzer-btn {
       display: inline-flex;
-      transform: translate(0, -50%);
+      position: relative;
+      top: -$space-1 / 2;
     }
   }
 

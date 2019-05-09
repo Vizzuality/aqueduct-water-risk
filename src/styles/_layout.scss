@@ -119,12 +119,12 @@ $max-height-analyzer: 445px;
   &.-closed {
 
     .toggle-container {
-      &:before {
-        transform: translate(0, 0);
-      }
+      // &:before {
+      //   transform: translate(0, 0);
+      // }
 
       .accordion-analyzer-btn {
-        transform: translate(0, 0);
+        // transform: translate(0, 0);
         > .c-icon {
           transform: rotate(0);
         }

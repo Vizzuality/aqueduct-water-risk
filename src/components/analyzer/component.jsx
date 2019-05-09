@@ -5,9 +5,6 @@ import classnames from 'classnames';
 import { Spinner } from 'aqueduct-components';
 
 // components
-import BtnMenu from 'components/ui/BtnMenu';
-import CoordinatesModal from 'components/modal/coordinates';
-import ImportFileModal from 'components/modal/import-file';
 import DataTable from 'components/analyze-locations-tab/data-table';
 
 class Analyzer extends PureComponent {
@@ -28,28 +25,10 @@ class Analyzer extends PureComponent {
     if (filtersChanged) onFetchAnalysis();
   }
 
-  toggleModal(children) {
-    const { toggleModal } = this.props;
-
-    toggleModal(true, {
-      children,
-      size: '-auto'
-    });
-  }
-
-  handleMapMode() {
-    const { mapMode, setMapMode } = this.props;
-    const nextMapMode = mapMode === 'analysis' ? 'view' : 'analysis';
-
-    setMapMode(nextMapMode);
-  }
-
   render() {
     const {
       points,
       analysis: { data, loading, downloadUrl },
-      mapMode,
-      clearAnalysis,
       onApplyAnalysis
     } = this.props;
     const btnClass = classnames(
@@ -59,22 +38,6 @@ class Analyzer extends PureComponent {
 
     return (
       <div className="c-analyzer">
-        <div className="analyzer-header">
-          <span className="title">Analyze</span>
-          <BtnMenu
-            className="-theme-white"
-            items={[
-              ...(points.length > 0) && [{ label: 'Clear', cb: () => { clearAnalysis(); } }],
-              {
-                label: 'Click map',
-                ...mapMode === 'analysis' && { active: true },
-                cb: () => { this.handleMapMode(); }
-              },
-              { label: 'Enter Address', cb: () => { this.toggleModal(CoordinatesModal); } },
-              { label: 'Import file', cb: () => { this.toggleModal(ImportFileModal); } }
-            ]}
-          />
-        </div>
         <div className="analyzer-content">
           <Spinner
             isLoading={loading}
@@ -127,12 +90,8 @@ Analyzer.propTypes = {
   geoStore: PropTypes.string,
   points: PropTypes.array.isRequired,
   analysis: PropTypes.object.isRequired,
-  mapMode: PropTypes.string.isRequired,
-  setMapMode: PropTypes.func.isRequired,
-  toggleModal: PropTypes.func.isRequired,
   onFetchAnalysis: PropTypes.func.isRequired,
-  onApplyAnalysis: PropTypes.func.isRequired,
-  clearAnalysis: PropTypes.func.isRequired
+  onApplyAnalysis: PropTypes.func.isRequired
 };
 
 Analyzer.defaultProps = { geoStore: null };

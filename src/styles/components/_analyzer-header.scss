@@ -1,0 +1,39 @@
+.c-analyzer-header {
+  > .toggle-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 100%;
+
+    &:before {
+      content: '';
+      display: inline-block;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: $space-1 * 2;
+      background: linear-gradient(to top, rgba(palette(gray, dark), .15), rgba(palette(gray, dark), 0));
+      transform: translate(0, -50%);
+    }
+
+    > .accordion-analyzer-btn {
+      display: inline-flex;
+      transform: translate(0, -50%);
+    }
+  }
+
+  > .actions-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: $space-1 $space-1 * 4;
+    background-color: palette(sand);
+
+    > .title {
+      font-size: $font-size-extrabig;
+      color: palette(gray, dark);
+    }
+  }
+}

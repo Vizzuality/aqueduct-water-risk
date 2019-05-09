@@ -103,36 +103,11 @@ $max-height-analyzer: 445px;
   max-height: $max-height-analyzer;
   width: 100%;
 
-  > .accordion-header {
-    position: relative;
-    width: 100%;
-    padding: $space-1 0;
-    line-height: 0;
-
-    &:after {
-      content: '';
-      display: inline-block;
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: $space-1 * 2;
-      transform: translate(0, -50%);
-      background: linear-gradient(to top, rgba(palette(gray, dark), .15), rgba(palette(gray, dark), 0));
-    }
-
-    > .accordion-btn {
-      z-index: 1;
-      position: relative;
-      left: 50%;
-      display: inline-flex;
-      transform: translate(-50%, 0);
-
-      > .accordion-analyzer-btn {
-        fill: palette(gray, dark);
-        transition: transform $animation-time $ease-in-out-cubic;
-        transform: rotate(180deg);
-      }
+  .accordion-analyzer-btn {
+    > .c-icon {
+      fill: palette(gray, dark);
+      transition: transform $animation-time $ease-in-out-cubic;
+      transform: rotate(180deg);
     }
   }
 
@@ -142,15 +117,17 @@ $max-height-analyzer: 445px;
   }
 
   &.-closed {
-    > .accordion-header {
-      > .accordion-btn {
-        > .accordion-analyzer-btn {
-          transform: rotate(0);
-        }
+
+    .toggle-container {
+      &:before {
+        transform: translate(0, 0);
       }
 
-      &:after {
-        display: none;
+      .accordion-analyzer-btn {
+        transform: translate(0, 0);
+        > .c-icon {
+          transform: rotate(0);
+        }
       }
     }
   }

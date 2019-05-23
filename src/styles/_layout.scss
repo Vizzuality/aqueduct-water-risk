@@ -28,7 +28,7 @@ $max-height-analyzer: 445px;
   left: 0;
   height: 100%;
   width: 50%;
-  max-width: $max-width-sidebar;
+  max-width: 1000px;
   display: flex;
   flex-direction: column;
   z-index: 999; // Must be over Leaflet map
@@ -102,6 +102,7 @@ $max-height-analyzer: 445px;
   bottom: 0;
   max-height: $max-height-analyzer;
   width: 100%;
+  box-shadow: 0px 0px 20px 0px rgba(palette(gray, dark) ,0.15);
 
   .accordion-analyzer-btn {
     > .c-icon {

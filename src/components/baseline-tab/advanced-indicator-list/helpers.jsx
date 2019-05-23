@@ -29,7 +29,7 @@ export const renderList = (properties = {}, deep = 0) => {
           { '-upper': deep < 2 });
 
         const timelineClass = classnames(
-          '-rate -fixed -bloqued',
+          '-rate -fixed',
           { '-disabled': _indicator.disabled }
         );
 
@@ -59,6 +59,11 @@ export const renderList = (properties = {}, deep = 0) => {
                     className={timelineClass}
                     items={PRESET_POINTS}
                     selected={{ value: PRESET_VALUES[ponderation][_indicator.id] }}
+                    tooltipProps={{
+                      placement: 'top',
+                      overlay: item => <span>{item.description} ({+item.value}x)</span>,
+                      overlayClassName: 'c-tooltip'
+                    }}
                   />
                 </span> :
                 <span className={titleClass}>

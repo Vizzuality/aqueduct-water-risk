@@ -60,6 +60,11 @@ export const renderList = (properties = {}, deep = 0) => {
                   disabled={customPonderation[_indicator.id] === 'null'}
                   selected={{ value: customPonderation[_indicator.id] }}
                   onChange={({ value }) => { onClickPonderation(_indicator, value); }}
+                  tooltipProps={{
+                    placement: 'top',
+                    overlay: item => <span>{item.description} ({+item.value}x)</span>,
+                    overlayClassName: 'c-tooltip'
+                  }}
                 />
               </span> :
               <span className={titleClass}>

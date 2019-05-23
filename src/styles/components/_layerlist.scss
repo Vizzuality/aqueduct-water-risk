@@ -1,7 +1,7 @@
 $separation: $space-1 * 2;
 
 .c-layerlist {
-  padding: $space-1 * 4;
+  padding: $space-1 * 4 $space-1 * 4 $space-1 * 6;
   background-color: palette(sand);
   color: palette(gray, dark);
   font-family: $font-family-roboto;

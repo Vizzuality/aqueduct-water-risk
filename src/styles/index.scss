@@ -31,10 +31,13 @@
 @import "~aqueduct-components/styles/sticky-filters";
 @import "~aqueduct-components/styles/timeline";
 
+
 /* Vizzuality components */
 @import "~vizzuality-components/dist/map";
 @import "~vizzuality-components/dist/legend";
 @import "~vizzuality-components/dist/slider";
+
+@import "~aqueduct-components/styles/tooltip";
 
 /* components */
 @import "components/address";

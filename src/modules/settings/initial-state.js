@@ -16,5 +16,5 @@ export default {
     scheme: 'DEF',
     custom: PRESET_VALUES.custom
   },
-  analyzer: { open: true }
+  analyzer: { open: false }
 };

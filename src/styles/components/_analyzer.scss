@@ -53,8 +53,9 @@
     > .apply-analysis-btn {
       padding: ($space-1 / 2) $space-1 * 2;
       background: palette(blue, dark);
+      font-size: $font-size-big;
       color: palette(white);
-      text-transform: uppercase;
+      text-transform: none;
     }
   }
 }

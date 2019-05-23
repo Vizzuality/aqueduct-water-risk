@@ -181,11 +181,11 @@ export const PRESET_VALUES = {
 };
 
 export const PRESET_POINTS = [
-  { label: '', value: '0.25' },
-  { label: '', value: '0.5' },
-  { label: '', value: '1.0' },
-  { label: '', value: '2.0' },
-  { label: '', value: '4.0' }
+  { label: '', value: '0.25', description: 'Very Low' },
+  { label: '', value: '0.5', description: 'Low' },
+  { label: '', value: '1.0', description: 'Medium' },
+  { label: '', value: '2.0', description: 'High' },
+  { label: '', value: '4.0', description: 'Very High' }
 ];
 
 export default {

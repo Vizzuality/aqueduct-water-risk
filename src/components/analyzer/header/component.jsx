@@ -9,9 +9,15 @@ import ImportFileModal from 'components/modal/import-file';
 
 class AnalyzerHeader extends PureComponent {
   handleMapMode() {
-    const { mapMode, setMapMode } = this.props;
+    const {
+      mapMode,
+      analyzerOpen,
+      setMapMode,
+      setAnalyzerOpen
+    } = this.props;
     const nextMapMode = mapMode === 'analysis' ? 'view' : 'analysis';
 
+    if (!analyzerOpen) setAnalyzerOpen(true);
     setMapMode(nextMapMode);
   }
 
@@ -35,7 +41,7 @@ class AnalyzerHeader extends PureComponent {
 
     return (
       <div className="c-analyzer-header">
-        <div className="toggle-container">
+        {/* <div className="toggle-container">
           <button
             className="accordion-analyzer-btn"
             onClick={() => { setAnalyzerOpen(!analyzerOpen); }}
@@ -43,9 +49,20 @@ class AnalyzerHeader extends PureComponent {
             <Icon name="icon-arrow-up-2" />
           </button>
 
-        </div>
+        </div> */}
         <div className="actions-container">
-          <span className="title">Analyze</span>
+          <div className="toggle-container">
+            <button
+              className="accordion-analyzer-btn"
+              onClick={() => { setAnalyzerOpen(!analyzerOpen); }}
+            >
+              <Icon
+                name="icon-arrow-up-2"
+                className="arrow-icon"
+              />
+              <span className="title">Analyze</span>
+            </button>
+          </div>
           <BtnMenu
             className="-theme-white"
             items={[

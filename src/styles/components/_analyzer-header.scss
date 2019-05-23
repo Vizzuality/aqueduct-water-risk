@@ -1,39 +1,30 @@
 .c-analyzer-header {
-  > .toggle-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    width: 100%;
-
-    &:before {
-      content: '';
-      display: inline-block;
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: $space-1 * 2;
-      background: linear-gradient(to top, rgba(palette(gray, dark), .15), rgba(palette(gray, dark), 0));
-    }
-
-    > .accordion-analyzer-btn {
-      display: inline-flex;
-      position: relative;
-      top: -$space-1 / 2;
-    }
-  }
-
   > .actions-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: $space-1 $space-1 * 4;
+    padding: $space-1 $space-1 * 6 $space-1 $space-1 * 4;
     background-color: palette(sand);
 
-    > .title {
-      font-size: $font-size-extrabig;
-      color: palette(gray, dark);
+    > .toggle-container {
+      > .accordion-analyzer-btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        > .arrow-icon {
+          display: inline-flex;
+          width: 16px;
+          height: 16px;
+        }
+      }
+
+      .title {
+        margin: 0 0 0 $space-1 * 2;
+        line-height: $font-size-extrabig;
+        font-size: $font-size-extrabig;
+        color: palette(gray, dark);
+      }
     }
   }
 }

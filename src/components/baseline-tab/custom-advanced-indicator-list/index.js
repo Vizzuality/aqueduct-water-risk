@@ -3,6 +3,7 @@ import { toggleModal } from 'aqueduct-components';
 
 // actions
 import { updateUrl } from 'modules/app/actions';
+import { setPonderation } from 'modules/settings/actions';
 
 // constants
 import { INDICATOR_DESCRIPTIONS } from 'constants/indicators';
@@ -18,6 +19,7 @@ export default connect(
   }),
   dispatch => ({
     updateUrl() { dispatch(updateUrl()); },
+    setPonderation() { dispatch(setPonderation()); },
     openModal: (indicator) => {
       dispatch(toggleModal(true, {
         children: IndicatorModal,

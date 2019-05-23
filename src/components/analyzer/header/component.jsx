@@ -41,15 +41,6 @@ class AnalyzerHeader extends PureComponent {
 
     return (
       <div className="c-analyzer-header">
-        {/* <div className="toggle-container">
-          <button
-            className="accordion-analyzer-btn"
-            onClick={() => { setAnalyzerOpen(!analyzerOpen); }}
-          >
-            <Icon name="icon-arrow-up-2" />
-          </button>
-
-        </div> */}
         <div className="actions-container">
           <div className="toggle-container">
             <button

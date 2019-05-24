@@ -4,9 +4,10 @@ import { connect } from 'react-redux';
 import { toggleModal } from 'aqueduct-components';
 import { onAddPoint, onSaveGeostore, onFetchAnalysis } from 'modules/analyze-locations-tab/actions';
 import { setMapMode } from 'modules/app/actions';
+import { setAnalyzerOpen } from 'modules/settings/actions';
 
 // component
-import ImportFileModal from './component';
+import ImportTabAddresses from './component';
 
 export default connect(
   null,
@@ -15,6 +16,7 @@ export default connect(
     onSaveGeostore,
     onFetchAnalysis,
     setMapMode,
+    setAnalyzerOpen,
     toggleModal
   }
-)(ImportFileModal);
+)(ImportTabAddresses);

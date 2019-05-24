@@ -1,0 +1,29 @@
+.c-address-geocoding {
+  padding: $space-1 * 4 $space-1 * 2;
+
+  .single-location-form {
+    .c-field-container {
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+
+      > * {
+        width: 100%;
+        margin: 0 $space-1 * 2 0 0;
+        &:last-child { margin: 0; }
+      }
+
+      input[type=number]::-webkit-inner-spin-button,
+      input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+        display: none;
+      }
+    }
+  }
+
+  .dropzone-geocoding {
+    padding: 0;
+    margin: $space-1 * 2 0 0;
+  }
+}

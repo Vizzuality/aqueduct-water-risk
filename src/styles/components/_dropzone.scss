@@ -1,14 +1,6 @@
 .c-dropzone {
   padding: $space-1 * 5;
 
-  &.-active {
-    // background: green;
-  }
-
-  &.-reject {
-    // background: red;
-  }
-
   h2 {
     font-size: $font-size-huge;
     font-weight: 400;
@@ -76,6 +68,13 @@
       display: flex;
       justify-content: flex-start;
       align-items: flex-start;
+
+      &.-error {
+        .dropzone-file-name {
+          color: palette(feedback, 'error');
+          border-color: palette(feedback, 'error');
+        }
+      }
     }
 
     .dropzone-file-name {
@@ -92,10 +91,8 @@
     .dropzone-file-errors {
       padding: $space-1 10px 0;
 
-      ul {
-        li {
-          color: palette(feedback, 'error');
-        }
+      * {
+        color: palette(feedback, 'error');
       }
     }
   }

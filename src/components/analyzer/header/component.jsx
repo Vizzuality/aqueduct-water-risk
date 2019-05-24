@@ -5,7 +5,7 @@ import { Icon } from 'aqueduct-components';
 // components
 import BtnMenu from 'components/ui/BtnMenu';
 import CoordinatesModal from 'components/modal/coordinates';
-import ImportFileModal from 'components/modal/import-file';
+import ImportFileModal from 'components/modal/import';
 
 class AnalyzerHeader extends PureComponent {
   handleMapMode() {

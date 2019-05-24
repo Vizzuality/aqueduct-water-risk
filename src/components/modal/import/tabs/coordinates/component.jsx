@@ -5,7 +5,7 @@ import Dropzone from 'react-dropzone';
 // components
 import { Spinner, post } from 'aqueduct-components';
 
-class ImportFileModal extends PureComponent {
+class ImportTabCoordinates extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -60,6 +60,7 @@ class ImportFileModal extends PureComponent {
       onSaveGeostore,
       onFetchAnalysis,
       setMapMode,
+      setAnalyzerOpen,
       toggleModal
     } = this.props;
 
@@ -90,7 +91,10 @@ class ImportFileModal extends PureComponent {
 
             onAddPoint(points);
             onSaveGeostore()
-              .then(() => { onFetchAnalysis(); });
+              .then(() => {
+                onFetchAnalysis()
+                  .then(() => { setAnalyzerOpen(true); });
+              });
             toggleModal(false, {});
           } else {
             this.setState({
@@ -152,10 +156,7 @@ class ImportFileModal extends PureComponent {
           }
 
           <header className="dropzone-header">
-            <h2>Import files</h2>
-            {/* <p>Drop a file in the designated area to analyze or subscribe to it. The recommended maximum file size is 1MB. Anything larger than that may not work properly.</p>
-            <p>NOTE: Only point data is supported, not polygon and line data. Please ensure that your file only contains point data.</p> */}
-
+            <h2>Import multiple coordinates</h2>
             <p>List of supported file formats <i>(click on any format to download the template)</i>:</p>
             <ul>
               <li>Unzipped: <a download="template.csv" href="/files/points/template.csv">.csv</a>, <a download="template.geojson" href="/files/points/template.geojson">.geojson</a>, <a download="template.kml" href="/files/points/template.kml">.kml</a>, <a download="template.kmz" href="/files/points/template.kmz">.kmz</a>, <a download="template.wkt" href="/files/points/template.wkt">.wkt</a> <i>(.csv files must contain a geom column that contains geographic information)</i></li>
@@ -193,12 +194,13 @@ class ImportFileModal extends PureComponent {
   }
 }
 
-ImportFileModal.propTypes = {
+ImportTabCoordinates.propTypes = {
   onAddPoint: PropTypes.func.isRequired,
   onSaveGeostore: PropTypes.func.isRequired,
   onFetchAnalysis: PropTypes.func.isRequired,
   setMapMode: PropTypes.func.isRequired,
+  setAnalyzerOpen: PropTypes.func.isRequired,
   toggleModal: PropTypes.func.isRequired
 };
 
-export default ImportFileModal;
+export default ImportTabCoordinates;

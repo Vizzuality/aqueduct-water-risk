@@ -28,7 +28,7 @@ $max-height-analyzer: 445px;
   left: 0;
   height: 100%;
   width: 50%;
-  max-width: 1000px;
+  max-width: $max-width-sidebar;
   display: flex;
   flex-direction: column;
   z-index: 999; // Must be over Leaflet map
@@ -45,6 +45,10 @@ $max-height-analyzer: 445px;
     display: flex;
     flex-direction: column;
     overflow-y: hidden;
+  }
+
+  &.sidebar-with-open-analyzer {
+    max-width: none;
   }
 }
 

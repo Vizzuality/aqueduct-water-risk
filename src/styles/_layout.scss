@@ -33,6 +33,7 @@ $max-height-analyzer: 445px;
   flex-direction: column;
   z-index: 999; // Must be over Leaflet map
   min-width: 650px;
+  transition: all .3s $ease-in-out-sine;
 
   .l-sidebar-toggle {
     position: absolute;
@@ -48,7 +49,7 @@ $max-height-analyzer: 445px;
   }
 
   &.sidebar-with-open-analyzer {
-    max-width: none;
+    max-width: 5000px;
   }
 }
 

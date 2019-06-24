@@ -66,23 +66,15 @@ class ImportTabAddresses extends PureComponent {
       toggleModal
     } = this.props;
 
-    // const formData = new FormData();
-    // formData.append('local-addresses-file', addressFile);
+    const formData = new FormData();
+    formData.append('file', addressFile);
 
     this.setState({
       loading: true,
       errors: null
     },
       () => {
-        fetchGeocoding({
-          data: addressFile,
-          transformRequest: (data) => {
-            const formData = new FormData();
-            formData.append('local-addresses-file', data);
-
-            return formData;
-          }
-        })
+        fetchGeocoding(formData)
           .then((locatedAddresses) => {
             // checks if there are no errors in the importation
             const errors = locatedAddresses.filter(address => !address.match);

@@ -71,7 +71,7 @@ class Indicators extends PureComponent {
             <span className="layerlist-title">Indicators</span>
             <button
               type="button"
-              className="icon-container"
+              className="icon-container -info"
               onClick={() => { this.handleClickModal(); }}
             >
               <Icon

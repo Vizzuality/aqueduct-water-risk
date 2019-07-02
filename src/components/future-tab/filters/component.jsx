@@ -66,7 +66,10 @@ class Filters extends PureComponent {
                     className="icon-container"
                     onClick={() => this.onClickInfoFilters('timeframe')}
                   >
-                    <Icon name="icon-info" className="title-icon" />
+                    <Icon
+                      name="icon-question"
+                      className="title-icon"
+                    />
                   </button>
                 </div>
                 <Timeline

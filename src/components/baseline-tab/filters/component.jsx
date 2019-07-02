@@ -80,7 +80,7 @@ class Filters extends PureComponent {
                           onClick={() => this.onClickInfoFilters('temporal-resolution')}
                         >
                           <Icon
-                            name="icon-info"
+                            name="icon-question"
                             className="title-icon"
                           />
                         </button>

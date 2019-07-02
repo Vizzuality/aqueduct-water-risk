@@ -31,7 +31,6 @@ class FutureIndicatorList extends PureComponent {
             selected={currentIndicator}
             className="-secondary"
             onInfo={(item) => { this.handleModal(item); }}
-            iconClass="-secondary"
           />
         </div>
       </div>

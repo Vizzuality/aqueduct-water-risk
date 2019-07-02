@@ -133,25 +133,22 @@ $separation: $space-1 * 2;
   p {
     margin-bottom: $space-1 * 3;
   }
-}
 
-.icon-container {
-  display: inline-flex;
-  margin: 0 0 0 $space-1;
+  .icon-container {
+    > svg {
+      width: 20px;
+      height: 20px;
+      padding: 2px;
+      border: 1px solid palette(gray, dark);
+      border-radius: 50%;
+      fill: palette(gray, dark);
+      transition: background-color .1s linear;
+      cursor: pointer;
 
-  > svg {
-    width: 20px;
-    height: 20px;
-    padding: 2px;
-    border: 1px solid palette(gray, dark);
-    border-radius: 50%;
-    fill: palette(gray, dark);
-    transition: background-color .1s linear;
-    cursor: pointer;
-
-    &:hover {
-      fill: palette(sand);
-      background-color: palette(gray, dark);
+      &:hover {
+        fill: palette(sand);
+        background-color: palette(gray, dark);
+      }
     }
   }
 }

@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import Dropzone from 'react-dropzone';
+import { toastr } from 'react-redux-toastr';
 
 // services
 import { fetchGeocoding } from 'services/geocoding';
@@ -74,6 +75,7 @@ class ImportTabAddresses extends PureComponent {
       errors: null
     },
       () => {
+        toastr.info('Searching for addresses, this might take a few minutes', { title: 'Analysis' });
         fetchGeocoding(formData)
           .then((locatedAddresses) => {
             // checks if there are no errors in the importation

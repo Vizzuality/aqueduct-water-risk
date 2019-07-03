@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { render } from 'react-dom';
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import { browserHistory } from 'react-router';
 import thunk from 'redux-thunk';
 import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux';
+import Toastr from 'react-redux-toastr';
 
 // es6 shim for .finally() in promises
 import finallyShim from 'promise.prototype.finally';
@@ -62,7 +63,17 @@ export { store, dispatch };
 
 render(
   <Provider store={store}>
-    <Routes history={history} />
+    <Fragment>
+      <Routes history={history} />
+      <Toastr
+        timeOut={2000}
+        preventDuplicates
+        transitionIn="fadeIn"
+        transitionOut="fadeOut"
+        progressBar
+        closeOnToastrClick
+      />
+    </Fragment>
   </Provider>,
   document.getElementById('app')
 );

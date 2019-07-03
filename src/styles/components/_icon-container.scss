@@ -1,0 +1,25 @@
+.icon-container {
+  display: inline-flex;
+  margin: 0 0 0 $space-1;
+
+  > svg {
+    width: 20px;
+    height: 20px;
+    border: 1px solid palette(gray, dark);
+    border-radius: 50%;
+    fill: palette(gray, dark);
+    transition: background-color .1s linear;
+    cursor: pointer;
+
+    &:hover {
+      fill: palette(sand);
+      background-color: palette(gray, dark);
+    }
+  }
+
+  &.-info {
+    > svg {
+      padding: 2px;
+    }
+  }
+}

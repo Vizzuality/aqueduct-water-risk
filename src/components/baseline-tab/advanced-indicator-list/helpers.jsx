@@ -45,7 +45,7 @@ export const renderList = (properties = {}, deep = 0) => {
                     <span className="timeline-title">{_indicator.name}</span>
                     <button
                       type="button"
-                      className="icon-container"
+                      className="icon-container -info"
                       onClick={() => { openModal(_indicator.id); }}
                     >
                       <Icon
@@ -77,7 +77,7 @@ export const renderList = (properties = {}, deep = 0) => {
                   />
                   <button
                     type="button"
-                    className="icon-container"
+                    className="icon-container -info"
                     onClick={() => { openModal(_indicator.id); }}
                   >
                     <Icon

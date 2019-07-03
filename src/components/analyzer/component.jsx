@@ -7,6 +7,9 @@ import { Spinner } from 'aqueduct-components';
 // components
 import DataTable from 'components/analyze-locations-tab/data-table';
 
+// helpers
+import { getFileName } from './helpers';
+
 class Analyzer extends PureComponent {
   componentDidMount() {
     const {
@@ -38,6 +41,7 @@ class Analyzer extends PureComponent {
       'c-btn -light apply-analysis-btn',
       { '-disabled': !points.length }
     );
+    const fileName = getFileName();
 
     return (
       <div className="c-analyzer">
@@ -64,9 +68,9 @@ class Analyzer extends PureComponent {
             (<div className="download-container">
              Download as
              <ul>
-               <li><a href={`${downloadUrl}&format=csv`}>CSV</a>,</li>
-               <li><a href={`${downloadUrl}&format=shp`}>SHP</a>,</li>
-               <li><a href={`${downloadUrl}&format=gpkg`}>GPKG</a></li>
+               <li><a href={`${downloadUrl}&format=csv&filename=${fileName}`}>CSV</a>,</li>
+               <li><a href={`${downloadUrl}&format=shp&filename=${fileName}`}>SHP</a>,</li>
+               <li><a href={`${downloadUrl}&format=gpkg&filename=${fileName}`}>GPKG</a></li>
              </ul>
             </div>)}
         </div>

@@ -1,6 +1,6 @@
 {
   "name": "aqueduct-water-risk",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "TODO: write a description",
   "main": "server.js",
   "scripts": {

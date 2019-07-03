@@ -74,13 +74,13 @@ export default class TableFilters extends React.Component {
               <div className="content">
                 <ul>
                   <li>
-                    <button onClick={() => this.props.onSort && this.props.onSort({ field: this.props.field, value: -1 })}>
-                      DESC
+                    <button onClick={() => this.props.onSort && this.props.onSort({ field: this.props.field, value: 1 })}>
+                      Ascending
                     </button>
                   </li>
                   <li>
-                    <button onClick={() => this.props.onSort && this.props.onSort({ field: this.props.field, value: 1 })}>
-                      ASC
+                    <button onClick={() => this.props.onSort && this.props.onSort({ field: this.props.field, value: -1 })}>
+                      Descending
                     </button>
                   </li>
                 </ul>

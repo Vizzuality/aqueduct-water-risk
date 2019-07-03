@@ -66,9 +66,6 @@ class Analyzer extends PureComponent {
              <ul>
                <li><a href={`${downloadUrl}&format=csv`}>CSV</a>,</li>
                <li><a href={`${downloadUrl}&format=shp`}>SHP</a>,</li>
-               <li><a href={`${downloadUrl}&format=kml`}>KML</a>,</li>
-               <li><a href={`${downloadUrl}&format=geojson`}>GeoJSON</a>,</li>
-               <li><a href={`${downloadUrl}&format=svg`}>SVG</a>,</li>
                <li><a href={`${downloadUrl}&format=gpkg`}>GPKG</a></li>
              </ul>
             </div>)}

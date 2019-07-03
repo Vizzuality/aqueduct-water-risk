@@ -15,7 +15,6 @@ class DataTable extends PureComponent {
       <CustomTable
         columns={columns}
         data={data}
-        pageSize={5}
         actions={{
           showable: false,
           editable: false,
@@ -23,7 +22,7 @@ class DataTable extends PureComponent {
         }}
         pagination={{
           enabled: true,
-          pageSize: 5,
+          pageSize: 100,
           page: 0
         }}
       />

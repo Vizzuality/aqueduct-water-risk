@@ -17,7 +17,7 @@ export default class TableContent extends React.Component {
   }
 
   render() {
-    const { actions, columns, sort, rowSelection } = this.props;
+    const { actions, columns, sort, rowSelection, onRowDelete } = this.props;
     const { bottom, top } = this.getPageBounds();
 
     let data = this.props.filteredData;
@@ -45,21 +45,24 @@ export default class TableContent extends React.Component {
     return (
       <tbody>
         {data.map((row, index) => {
-          const selectedClass = classnames({ '-selected': rowSelection.includes(row.id) });
+          const selectedClass = classnames({ '-selected': rowSelection.includes(index) });
+
           return (
             <tr
               className={`${selectedClass}`}
-              onClick={() => this.props.onToggleSelectedRow(row.id)}
+              onClick={() => this.props.onToggleSelectedRow(row, index)}
               key={index}
             >
               {(actions.showable || actions.editable || actions.removable) &&
                 <td>
                   {actions.removable &&
                     <button
+                      type="button"
                       onClick={(e) => {
-                        e && e.stopPropagation();
-                        this.props.onRowDelete(row.id);
+                        e.stopPropagation();
+                        onRowDelete(row, index);
                       }}
+                      className="remove-row-btn"
                     >
                       <Icon name="icon-cross" className="-small" />
                     </button>
@@ -84,7 +87,6 @@ TableContent.propTypes = {
   pagination: PropTypes.object,
   rowSelection: PropTypes.array,
   sort: PropTypes.object,
-  // FUNCTIONS
   onRowDelete: PropTypes.func,
   onToggleSelectedRow: PropTypes.func
 };
@@ -96,7 +98,6 @@ TableContent.defaultProps = {
   pagination: {},
   rowSelection: [],
   sort: {},
-  // FUNCTIONS
   onRowDelete: null,
   onToggleSelectedRow: null
 };

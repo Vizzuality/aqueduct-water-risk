@@ -26,8 +26,8 @@ export const fetchGeostore = id =>
  * @returns {Object} serialized geostore.
  */
 
-export const saveGeostore = points =>
-  WRIAPI.post('/geostore', toGeoJsonCollection(points))
+export const saveGeostore = (points, properties) =>
+  WRIAPI.post('/geostore', toGeoJsonCollection(points, properties))
     .then((response) => {
       const { status, statusText, data } = response;
       if (status >= 400) throw new Error(statusText);

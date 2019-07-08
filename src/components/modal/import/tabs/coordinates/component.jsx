@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Dropzone from 'react-dropzone';
-import { Link } from 'react-router';
 
 // components
 import { Spinner, post } from 'aqueduct-components';
@@ -61,7 +60,9 @@ class ImportTabCoordinates extends PureComponent {
       onSaveGeostore,
       onFetchAnalysis,
       setMapMode,
+      setGeostoreLocations,
       setAnalyzerOpen,
+      clearPoints,
       toggleModal
     } = this.props;
 
@@ -77,6 +78,9 @@ class ImportTabCoordinates extends PureComponent {
       multipart: true,
       onSuccess: (response) => {
         setMapMode('analysis');
+
+        clearPoints();
+
         // Be sure that user upload points
         const features = response.data.attributes.features;
 
@@ -88,9 +92,17 @@ class ImportTabCoordinates extends PureComponent {
           if (allPoints) {
             this.setState({ loading: false });
 
-            const points = features.map(p => ({ lat: p.geometry.coordinates[0], lng: p.geometry.coordinates[1] }));
+
+            const points = features.map(p => ({ lat: p.geometry.coordinates[1], lng: p.geometry.coordinates[0] }));
+            const locations = features.map(_feature => ({
+              location_name: _feature.properties['location name'],
+              input_address: '_',
+              match_address: '-'
+            }));
 
             onAddPoint(points);
+            setGeostoreLocations(locations);
+
             onSaveGeostore()
               .then(() => {
                 onFetchAnalysis()
@@ -225,7 +237,9 @@ ImportTabCoordinates.propTypes = {
   onFetchAnalysis: PropTypes.func.isRequired,
   setMapMode: PropTypes.func.isRequired,
   setAnalyzerOpen: PropTypes.func.isRequired,
-  toggleModal: PropTypes.func.isRequired
+  clearPoints: PropTypes.func.isRequired,
+  toggleModal: PropTypes.func.isRequired,
+  setGeostoreLocations: PropTypes.func.isRequired
 };
 
 export default ImportTabCoordinates;

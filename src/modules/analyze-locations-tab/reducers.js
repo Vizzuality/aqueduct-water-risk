@@ -10,6 +10,13 @@ export default {
       list: payload
     }
   }),
+  [actions.clearPoints]: state => ({
+    ...state,
+    points: {
+      ...state.points,
+      list: initialState.points.list
+    }
+  }),
   [actions.setSelectedPoints]: (state, { payload }) => ({
     ...state,
     points: {
@@ -52,12 +59,26 @@ export default {
       downloadUrl: payload
     }
   }),
+  [actions.setSelectedData]: (state, { payload }) => ({
+    ...state,
+    analysis: {
+      ...state.analysis,
+      selected: payload
+    }
+  }),
   // geostore
   [actions.setGeostore]: (state, { payload }) => ({
     ...state,
     geostore: {
       ...state.geostore,
       id: payload
+    }
+  }),
+  [actions.setGeostoreLocations]: (state, { payload }) => ({
+    ...state,
+    geostore: {
+      ...state.geostore,
+      locations: payload
     }
   }),
   [actions.setGeostoreLoading]: (state, { payload }) => ({

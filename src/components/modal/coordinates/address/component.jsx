@@ -19,9 +19,14 @@ class AddressForm extends PureComponent {
     };
   }
 
-  onChangeAdress(address) { this.setState({ address }); }
+  // componentDidUpdate(prevProps, prevState) {
+  //   const { address: prevAddress } = prevState;
+  //   const { address } = this.state;
 
-  onSelectAddress() { this.getAddresLatLng(); }
+  //   if (address && address.length && prevAddress !== address) this.getAddresLatLng();
+  // }
+
+  // onSelectAddress() { this.getAddresLatLng(); }
 
   onErrorAddress(status) {
     const error = getErrorDetails(status);
@@ -34,39 +39,59 @@ class AddressForm extends PureComponent {
     this.getAddresLatLng();
   }
 
-  getAddresLatLng() {
+  getAddresLatLng(_address) {
     const {
       onAddPoint,
       onSaveGeostore,
       onFetchAnalysis,
       toggleModal,
       setMapMode,
-      setAnalyzerOpen
+      setAnalyzerOpen,
+      onAddLocation
     } = this.props;
 
-    this.setState({ loading: true });
+    this.setState({
+      loading: true,
+      address: _address
+    }, () => {
+      geocodeByAddress(this.state.address)
+        .then((results) => {
+          const location = results[0];
 
-    geocodeByAddress(this.state.address)
-      .then(results => getLatLng(results[0]))
-      .then((point) => {
-        setMapMode('analysis');
-        this.setState({ loading: false });
+          if (location) {
+            onAddLocation({
+              location_name: location.formatted_address,
+              input_address: '-',
+              match_address: '-'
+            });
+            return getLatLng(location);
+          }
 
-        onAddPoint(point);
-        onSaveGeostore()
-          .then(() => {
-            onFetchAnalysis()
-              .then(() => {
-                toggleModal(false, {});
-                setAnalyzerOpen(true);
-              });
-          });
-      })
-      .catch((error) => {
-        console.error(error);
-        this.setState({ loading: false });
-      });
+          return Promise.resolve();
+        })
+        .then((point) => {
+          setMapMode('analysis');
+          this.setState({ loading: false });
+
+          onAddPoint(point);
+
+          onSaveGeostore()
+            .then(() => {
+              onFetchAnalysis()
+                .then(() => {
+                  toggleModal(false, {});
+                  setAnalyzerOpen(true);
+                });
+            });
+        })
+        .catch((error) => {
+          console.error(error);
+          this.setState({ loading: false });
+        });
+    });
   }
+
+  handleAddress(address) { this.setState({ address }); }
 
   render() {
     const {
@@ -77,7 +102,6 @@ class AddressForm extends PureComponent {
 
     return (
       <div className="c-address-geocoding">
-        {/* single search  */}
         <form
           className="single-location-form"
           onSubmit={(e) => { this.onSubmit(e); }}
@@ -85,7 +109,6 @@ class AddressForm extends PureComponent {
         >
           <Spinner isLoading={loading} />
           <div className="row">
-
             <div className="column small-12">
               <div className="c-field">
                 <div className="label">
@@ -94,10 +117,10 @@ class AddressForm extends PureComponent {
                 <PlacesAutocomplete
                   inputProps={{
                     value: address,
-                    onChange: (_address) => { this.onChangeAdress(_address); }
+                    onChange: (_address) => { this.handleAddress(_address); }
                   }}
                   classNames={CSS_ADDRESS_CLASSES}
-                  onSelect={() => { this.onSelectAddress(); }}
+                  onSelect={(_address) => { this.getAddresLatLng(_address); }}
                   onError={() => { this.onErrorAddress(); }}
                   clearItemsOnError
                 />
@@ -121,7 +144,8 @@ AddressForm.propTypes = {
   onFetchAnalysis: PropTypes.func.isRequired,
   setMapMode: PropTypes.func.isRequired,
   setAnalyzerOpen: PropTypes.func.isRequired,
-  toggleModal: PropTypes.func.isRequired
+  toggleModal: PropTypes.func.isRequired,
+  onAddLocation: PropTypes.func.isRequired
 };
 
 export default AddressForm;

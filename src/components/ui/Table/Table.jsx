@@ -79,6 +79,7 @@ class CustomTable extends PureComponent {
     const currentData = this.props.data;
     const currentColumnsKeys = CustomTable.getColumnKeys(this.state.data).sort();
     const nextData = nextProps.data;
+    const nextSelection = nextProps.selected;
     const nextColumnsKeys = CustomTable.getColumnKeys(nextProps.data).sort();
 
     const dataChanged = !isEqual(currentData, nextData);
@@ -99,6 +100,8 @@ class CustomTable extends PureComponent {
         rowSelection: []
       });
     }
+
+    if (nextSelection) this.setState({ rowSelection: nextSelection });
   }
 
   /**
@@ -109,25 +112,20 @@ class CustomTable extends PureComponent {
    * - onSort
    * - onChangePage
   */
-  onToggleSelectedRow(id) {
+  onToggleSelectedRow(row, _index) {
     const rowSelection = this.state.rowSelection.slice();
-    const index = rowSelection.indexOf(id);
 
     // Toggle the active dataset
-    if (index !== -1) {
-      rowSelection.splice(index, 1);
-    } else {
-      rowSelection.push(id);
-    }
+    if (_index !== -1) rowSelection.splice(_index, 1);
 
-    this.setState({ rowSelection }, () => {
+    this.setState({ rowSelection: [_index] }, () => {
       this.props.onToggleSelectedRow && this.props.onToggleSelectedRow(this.state.rowSelection);
     });
   }
 
-  onRowDelete(id) {
+  onRowDelete(_row, _index) {
     const data = this.state.data.slice();
-    const index = data.findIndex(row => row.id === id);
+    const index = data.findIndex(row => row.id === _row.id);
     data.splice(index, 1);
 
     this.setState({
@@ -137,7 +135,7 @@ class CustomTable extends PureComponent {
       columnValues: CustomTable.getColumnValues(data)
     }, () => {
       this.filter();
-      this.props.onRowDelete && this.props.onRowDelete(id);
+      this.props.onRowDelete && this.props.onRowDelete(_row, _index);
     });
   }
 

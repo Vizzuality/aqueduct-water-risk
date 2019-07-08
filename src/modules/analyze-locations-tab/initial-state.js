@@ -1,6 +1,7 @@
 export default {
   analysis: {
     data: [],
+    selected: [],
     downloadUrl: null,
     loading: false,
     error: null
@@ -12,6 +13,7 @@ export default {
   geostore: {
     id: null,
     loading: false,
-    error: null
+    error: null,
+    locations: []
   }
 };

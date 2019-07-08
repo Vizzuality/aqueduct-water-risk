@@ -11,7 +11,8 @@ import {
   setLoading,
   setBoundaries
 } from 'modules/map/actions';
-import { onAddPoint, onRemovePoint } from 'modules/analyze-locations-tab/actions';
+import { onAddPoint, onRemovePoint, setSelectedData, onFetchAnalysis, onApplyAnalysis, onAddUnknownLocation } from 'modules/analyze-locations-tab/actions';
+import { setAnalyzerOpen } from 'modules/settings/actions';
 
 import IndicatorModal from 'components/ui/modal/indicator';
 
@@ -19,13 +20,13 @@ import IndicatorModal from 'components/ui/modal/indicator';
 import { INDICATOR_DESCRIPTIONS } from 'constants/indicators';
 
 // selectors
+import { getColumns } from 'components/analyze-locations-tab/data-table/selectors';
 import {
   parseMapState,
   parseBasemap,
   getUpdatedLayers,
   getLayerGroup
 } from './selectors';
-
 
 // component
 import MapComponent from './component';
@@ -41,12 +42,16 @@ export default connect(
     layers: getUpdatedLayers(state),
     layerGroup: getLayerGroup(state),
     popup: state.map.popup,
-    loading: state.map.loading
+    analysisPopupColumns: getColumns(state),
+    loading: state.map.loading,
+    analysisData: state.analyzeLocations.analysis.data,
+    analysisSelectedData: state.analyzeLocations.analysis.selected,
+    points: state.analyzeLocations.points.list
   }),
   dispatch => ({
     setMapParams: (params) => { dispatch(setMapLocation(params)); },
     setLayerParametrization: (params) => { dispatch(setLayerParametrization(params)); },
-    onAddPoint: (point) => { dispatch(onAddPoint(point)); },
+    onAddPoint: (point, isUnknown) => { dispatch(onAddPoint(point, isUnknown)); },
     onRemovePoint: (point) => { dispatch(onRemovePoint(point)); },
     toggleShareModal: () => { dispatch(toggleModal(true, { children: ShareModal })); },
     toggleSourceModal: (indicator) => {
@@ -58,6 +63,11 @@ export default connect(
     setLoading: (loading) => { dispatch(setLoading(loading)); },
     setPopupData: (data) => { dispatch(setPopupData(data)); },
     setPopupLocation: (location) => { dispatch(setPopupLocation(location)); },
+    setSelectedData: (selected) => { dispatch(setSelectedData(selected)); },
+    onFetchAnalysis: () => { dispatch(onFetchAnalysis()); },
+    onApplyAnalysis: () => { dispatch(onApplyAnalysis()); },
+    onAddUnknownLocation: () => { dispatch(onAddUnknownLocation()); },
+    setAnalyzerOpen: () => { dispatch(setAnalyzerOpen()); },
     setBoundaries: (boundaries) => { dispatch(setBoundaries(boundaries)); }
   })
 )(MapComponent);

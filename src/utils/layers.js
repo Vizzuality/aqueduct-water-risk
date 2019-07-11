@@ -30,7 +30,8 @@ const getCustomPonderationParametrization = customPonderation => (
 const getDefaultPonderationParametrization = ({ indicator }, customPonderation) => (
   {
     indicator: indicator.replace('def', customPonderation),
-    label: indicator.replace('def', customPonderation).replace('cat', 'label')
+    label: indicator.replace('def', customPonderation).replace('cat', 'label'),
+    fraction: indicator.replace('def', customPonderation).replace('cat', 'weight_fraction')
   }
 );
 
@@ -48,7 +49,7 @@ export const getLayerParametrization = (parametrization, ponderation) => {
       params = getProjectedParametrization(parametrization);
       break;
      // predefined ponderation
-    case (ponderationScheme !== 'custom' && ponderationScheme !== 'DEF'):
+    case (ponderationScheme !== 'custom'):
       params = getDefaultPonderationParametrization(parametrization, ponderationScheme);
       break;
     // annual

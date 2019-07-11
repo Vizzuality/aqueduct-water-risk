@@ -53,7 +53,7 @@ const getFilteredLayers = createSelector(
     if (!Object.keys(_layers).length) return [];
 
     const { scheme: ponderationScheme } = _ponderation;
-    const { year, timeScale, indicator } = _parametrization;
+    const { year, timeScale, indicator, predefined } = _parametrization;
     let layers = [];
 
     switch (true) {
@@ -63,10 +63,13 @@ const getFilteredLayers = createSelector(
       case (year === 'baseline' && timeScale === 'monthly' && ponderationScheme === 'DEF'):
         layers = _layers.monthly;
         break;
-      case (year === 'baseline' && timeScale === 'annual' && ponderationScheme === 'DEF'):
+      case (year === 'baseline' && timeScale === 'annual' && predefined && ponderationScheme !== 'custom' && indicator !== 'w_awr_def_tot_cat'):
         layers = _layers.annual;
         break;
-      case (year === 'baseline' && timeScale === 'annual' && ponderationScheme !== 'custom' && ponderationScheme !== 'DEF'):
+      case (year === 'baseline' && timeScale === 'annual' && predefined && ponderationScheme !== 'custom' && indicator === 'w_awr_def_tot_cat'):
+        layers = _layers.weights;
+        break;
+      case (year === 'baseline' && timeScale === 'annual' && !predefined):
         layers = _layers.annual;
         break;
       case (year !== 'baseline'):

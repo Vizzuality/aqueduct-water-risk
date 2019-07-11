@@ -5,7 +5,7 @@ export const DATASET_DICTIONARY = {
   // non-baseline datasets
   projected: '17f3b259-b3b9-4bd6-910d-852fb3c1c510',
   // presets
-  // weights: 'dee362f5-6631-46b2-a8e3-bdd05d5605ce',
+  weights: 'dee362f5-6631-46b2-a8e3-bdd05d5605ce',
   custom: 'cbe7cee3-b44b-4e56-8233-9111b4076fe0',
   hydrobasins: '57de0a79-caaa-4caa-bcfd-a1faff7103b8',
   aquifers: 'f239298f-25a1-430d-9723-f0a853b81184'

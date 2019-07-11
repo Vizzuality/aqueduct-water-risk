@@ -10,7 +10,8 @@ export default {
     indicator: 'w_awr_def_tot_cat',
     scenario: 'optimistic',
     timeScale: 'annual',
-    projection: 'absolute'
+    projection: 'absolute',
+    predefined: false
   },
   ponderation: {
     scheme: 'DEF',

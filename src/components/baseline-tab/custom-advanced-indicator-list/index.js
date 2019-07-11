@@ -19,7 +19,7 @@ export default connect(
   }),
   dispatch => ({
     updateUrl() { dispatch(updateUrl()); },
-    setPonderation() { dispatch(setPonderation()); },
+    setPonderation: (ponderation) => { dispatch(setPonderation(ponderation)); },
     openModal: (indicator) => {
       dispatch(toggleModal(true, {
         children: IndicatorModal,

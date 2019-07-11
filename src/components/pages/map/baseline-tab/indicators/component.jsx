@@ -58,7 +58,7 @@ class Indicators extends PureComponent {
   }
 
   renderCurrent() {
-    const { timeScale, advancedMode } = this.props;
+    const { timeScale, advancedMode, setFilters } = this.props;
     const checkboxClass = classnames(
       '-reverse',
       { '-disabled': timeScale !== 'annual' }
@@ -88,7 +88,10 @@ class Indicators extends PureComponent {
                 name="advanced"
                 value="advanced"
                 defaultChecked={advancedMode}
-                onChange={({ checked }) => { this.handleAdvancedMode(checked); }}
+                onChange={({ checked }) => {
+                  this.handleAdvancedMode(checked);
+                  setFilters({ predefined: checked });
+                }}
               />
             </span>)}
         </div>

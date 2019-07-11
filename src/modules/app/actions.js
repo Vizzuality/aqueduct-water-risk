@@ -21,7 +21,7 @@ export const updateUrl = createThunkAction('APP__UPDATE-URL', () =>
       app: { scope, advanced, mapMode },
       analyzeLocations: { geostore: { id } }
     } = getState();
-    const { year, scenario, timeScale, projection, month, indicator } = settings.filters;
+    const { year, scenario, timeScale, projection, month, indicator, predefined } = settings.filters;
     const { ponderation: { scheme, custom } } = settings;
     const {
       basemap,
@@ -49,7 +49,8 @@ export const updateUrl = createThunkAction('APP__UPDATE-URL', () =>
         scope,
         advanced,
         mapMode,
-        ...id && { geoStore: id }
+        ...id && { geoStore: id },
+        predefined
       }
     };
 
@@ -77,14 +78,15 @@ export const onEnterMapPage = createThunkAction('APP__MAP-PAGE-HOOK', ({ params,
       }));
     }
     if (location.query.year) {
-      const { year, scenario, timeScale, projection, month, indicator } = location.query;
+      const { year, scenario, timeScale, projection, month, indicator, predefined } = location.query;
       dispatch(setFilters({
         year,
         scenario,
         timeScale,
         month,
         projection,
-        indicator
+        indicator,
+        predefined
       }));
     }
 

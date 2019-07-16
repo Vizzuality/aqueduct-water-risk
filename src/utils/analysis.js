@@ -16,11 +16,17 @@ export const filterData = (data = [], indicator, ponderationScheme) => {
   const children = INDICATOR_COLUMNS[indicator] || INDICATOR_COLUMNS[PARENT_CHILDREN_LAYER_RELATION[indicator]];
 
   return data.map(_data => ({
-    country: _data.country || '-',
-    province: _data.province || '-',
-    major_basin: _data.major_basin || '-',
-    minor_basin: _data.minor_basin || '-',
-    major_aquifer_system: _data.major_aquifer_system || '-',
+    // ..._data,
+    location_name: _data.location_name || '-',
+    input_address: _data.input_address || '-',
+    match_address: _data.match_address || '-',
+    latitude: _data.latitude ? _data.latitude.toFixed(2) : '-',
+    longitude: _data.longitude ? _data.longitude.toFixed(2) : '-',
+    name_0: _data.name_0 || '-',
+    name_1: _data.name_1 || '-',
+    major_basin_name: _data.major_basin_name || '-',
+    minor_basin_name: _data.minor_basin_name || '-',
+    aquifer_name: _data.aquifer_name || '-',
     ...{ [_indicator]: _data[_indicator] || '-' },
     ...children && children.reduce((acc, { value }) =>
       ({

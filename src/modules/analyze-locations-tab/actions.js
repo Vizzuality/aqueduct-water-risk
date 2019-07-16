@@ -72,7 +72,10 @@ export const onSaveGeostore = createThunkAction('ANALYZE-LOCATIONS-TAB__SAVE-GEO
 export const onFetchAnalysis = createThunkAction('ANALYZE-LOCATIONS-TAB__FETCH-ANALYSIS', () =>
   (dispatch, getState) => {
     const {
-      analyzeLocations: { geostore: { id } },
+      analyzeLocations: {
+        geostore: { id },
+        points: { list: pointList }
+      },
       settings: {
         filters: { month, year, projection, indicator, timeScale, scenario },
         ponderation
@@ -80,9 +83,11 @@ export const onFetchAnalysis = createThunkAction('ANALYZE-LOCATIONS-TAB__FETCH-A
     } = getState();
     const { scheme } = ponderation;
     const analysis_type = getAnalysisType(timeScale, scheme, year);
+    const locations = pointList.map((_point, index) => `''Location #${index + 1}''`);
     const params = {
       geostore: id,
       analysis_type,
+      ...locations.length && { locations: `[${locations.toString()}]` },
       month,
       year,
       scenario,
@@ -90,6 +95,9 @@ export const onFetchAnalysis = createThunkAction('ANALYZE-LOCATIONS-TAB__FETCH-A
       indicator: analysis_type === 'projected' ? FUTURE_LAYERS_GROUPS[indicator] : indicator,
       wscheme: `'[${parseWeights(ponderation)}]'`
     };
+
+    console.log(params)
+
 
     dispatch(setAnalysisLoading(true));
     dispatch(setAnalysisError(null));

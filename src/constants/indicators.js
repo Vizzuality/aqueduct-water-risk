@@ -443,11 +443,16 @@ export const PARENT_CHILDREN_LAYER_RELATION = {
 export const INDICATOR_COLUMNS = {
   // common columns for all indicators
   common: [
-    { label: 'Country', value: 'country' },
-    { label: 'Province', value: 'province' },
-    { label: 'Major Basin', value: 'major_basin' },
-    { label: 'Minor Basin', value: 'minor_basin' },
-    { label: 'Aquifer', value: 'major_aquifer_system' }
+    { label: 'Name', value: 'location_name' },
+    { label: 'Input address', value: 'input_address' },
+    { label: 'Match address', value: 'match_address' },
+    { label: 'Latitude', value: 'latitude' },
+    { label: 'Longitude', value: 'longitude' },
+    { label: 'Major Basin', value: 'major_basin_name' },
+    { label: 'Minor Basin', value: 'minor_basin_name' },
+    { label: 'Aquifer', value: 'aquifer_name' },
+    { label: 'Country', value: 'name_0' },
+    { label: 'Province', value: 'name_1' }
   ],
   // Overall Water Risk
   w_awr_def_tot_cat: [{ label: 'Overall Water Risk', value: 'w_awr_def_tot_label' }],

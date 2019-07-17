@@ -25,6 +25,54 @@ export const setGeostore = createAction('ANALYZE-LOCATIONS-TAB__SET-GEOSTORE');
 export const setGeostoreLoading = createAction('ANALYZE-LOCATIONS-TAB__SET-GEOSTORE-LOADING');
 export const setGeostoreError = createAction('ANALYZE-LOCATIONS-TAB__SET-GEOSTORE-ERROR');
 
+export const onFetchAnalysis = createThunkAction('ANALYZE-LOCATIONS-TAB__FETCH-ANALYSIS', () =>
+  (dispatch, getState) => {
+    const {
+      analyzeLocations: {
+        geostore: { id },
+        points: { list: pointList }
+      },
+      settings: {
+        filters: { month, year, projection, indicator, timeScale, scenario },
+        ponderation
+      }
+    } = getState();
+    const { scheme } = ponderation;
+    const analysis_type = getAnalysisType(timeScale, scheme, year);
+    const locations = pointList.map((_point, index) => `''Location ${index + 1}''`);
+    const params = {
+      geostore: id,
+      analysis_type,
+      ...locations.length && { locations: `[${locations.toString()}]` },
+      month,
+      year,
+      scenario,
+      change_type: projection === 'absolute' ? 'future_value' : 'change_from_baseline',
+      indicator: analysis_type === 'projected' ? FUTURE_LAYERS_GROUPS[indicator] : indicator,
+      wscheme: `'[${parseWeights(ponderation)}]'`
+    };
+
+    dispatch(setAnalysisLoading(true));
+    dispatch(setAnalysisError(null));
+
+    return fetchAnalysis(params)
+      .then((analysis) => {
+        const { data, analysis_type: analysisType, downloadUrl } = analysis;
+        if (['annual', 'monthly'].includes(analysisType) && (scheme === 'DEF')) {
+          const filteredData = filterData(data, indicator, scheme);
+          dispatch(setAnalysis(filteredData));
+        } else {
+          dispatch(setAnalysis(data));
+        }
+        dispatch(setDownloadUrl(downloadUrl));
+        dispatch(setAnalysisLoading(false));
+      })
+      .catch((err) => {
+        dispatch(setAnalysisError(err));
+        dispatch(setAnalysisLoading(false));
+      });
+  });
+
 export const getGeostore = createThunkAction('ANALYZE-LOCATIONS-TAB__GET-GEOSTORE', () =>
   (dispatch, getState) => {
     const { analyzeLocations: { geostore: { id } } } = getState();
@@ -32,7 +80,7 @@ export const getGeostore = createThunkAction('ANALYZE-LOCATIONS-TAB__GET-GEOSTOR
     dispatch(setGeostoreLoading(true));
     dispatch(setGeostoreError(null));
 
-    fetchGeostore(id)
+    return fetchGeostore(id)
       .then((geoStore) => {
         const { geojson: { features } } = geoStore;
 
@@ -44,6 +92,7 @@ export const getGeostore = createThunkAction('ANALYZE-LOCATIONS-TAB__GET-GEOSTOR
         const points = features[0].geometry.coordinates.map(_coordinate => ({ lat: _coordinate[1], lng: _coordinate[0] }));
 
         dispatch(setPoints(points));
+        dispatch(onFetchAnalysis());
       })
       .catch((err) => {
         dispatch(setGeostoreError(err));
@@ -66,57 +115,6 @@ export const onSaveGeostore = createThunkAction('ANALYZE-LOCATIONS-TAB__SAVE-GEO
       .catch((err) => {
         dispatch(setGeostoreError(err));
         dispatch(setGeostoreLoading(false));
-      });
-  });
-
-export const onFetchAnalysis = createThunkAction('ANALYZE-LOCATIONS-TAB__FETCH-ANALYSIS', () =>
-  (dispatch, getState) => {
-    const {
-      analyzeLocations: {
-        geostore: { id },
-        points: { list: pointList }
-      },
-      settings: {
-        filters: { month, year, projection, indicator, timeScale, scenario },
-        ponderation
-      }
-    } = getState();
-    const { scheme } = ponderation;
-    const analysis_type = getAnalysisType(timeScale, scheme, year);
-    const locations = pointList.map((_point, index) => `''Location #${index + 1}''`);
-    const params = {
-      geostore: id,
-      analysis_type,
-      ...locations.length && { locations: `[${locations.toString()}]` },
-      month,
-      year,
-      scenario,
-      change_type: projection === 'absolute' ? 'future_value' : 'change_from_baseline',
-      indicator: analysis_type === 'projected' ? FUTURE_LAYERS_GROUPS[indicator] : indicator,
-      wscheme: `'[${parseWeights(ponderation)}]'`
-    };
-
-    console.log(params)
-
-
-    dispatch(setAnalysisLoading(true));
-    dispatch(setAnalysisError(null));
-
-    return fetchAnalysis(params)
-      .then((analysis) => {
-        const { data, analysis_type: analysisType, downloadUrl } = analysis;
-        if (['annual', 'monthly'].includes(analysisType) && (scheme === 'DEF')) {
-          const filteredData = filterData(data, indicator, scheme);
-          dispatch(setAnalysis(filteredData));
-        } else {
-          dispatch(setAnalysis(data));
-        }
-        dispatch(setDownloadUrl(downloadUrl));
-        dispatch(setAnalysisLoading(false));
-      })
-      .catch((err) => {
-        dispatch(setAnalysisError(err));
-        dispatch(setAnalysisLoading(false));
       });
   });
 

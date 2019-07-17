@@ -48,6 +48,10 @@ export const getLayerParametrization = (parametrization, ponderation) => {
     case (year !== 'baseline'):
       params = getProjectedParametrization(parametrization);
       break;
+    // monthly
+    case (timeScale === 'monthly' && year === 'baseline'):
+      params = getMonthlyParametrization(parametrization);
+      break;
      // predefined ponderation
     case (ponderationScheme !== 'custom'):
       params = getDefaultPonderationParametrization(parametrization, ponderationScheme);
@@ -55,10 +59,6 @@ export const getLayerParametrization = (parametrization, ponderation) => {
     // annual
     case (timeScale === 'annual' && year === 'baseline' && ponderationScheme !== 'custom'):
       params = getAnnualParametrization(parametrization);
-      break;
-    // monthly
-    case (timeScale === 'monthly' && year === 'baseline'):
-      params = getMonthlyParametrization(parametrization);
       break;
     // custom ponderation
     case (ponderationScheme === 'custom'):

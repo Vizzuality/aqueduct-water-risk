@@ -98,7 +98,7 @@ export const FUTURE_INDICATORS = {
       id: '5aafeab1-4b48-40b0-9042-f654f1531aaf',
       name: 'Water Stress'
     },
-      // projected change in seasonal variability
+    // projected change in seasonal variability
     {
       id: '45a1f9c5-7b0b-4705-978f-1e98dc8b3277',
       name: 'Seasonal Variability'

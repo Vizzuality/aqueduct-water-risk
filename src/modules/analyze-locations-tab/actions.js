@@ -25,54 +25,13 @@ export const setGeostore = createAction('ANALYZE-LOCATIONS-TAB__SET-GEOSTORE');
 export const setGeostoreLoading = createAction('ANALYZE-LOCATIONS-TAB__SET-GEOSTORE-LOADING');
 export const setGeostoreError = createAction('ANALYZE-LOCATIONS-TAB__SET-GEOSTORE-ERROR');
 
-export const getGeostore = createThunkAction('ANALYZE-LOCATIONS-TAB__GET-GEOSTORE', () =>
-  (dispatch, getState) => {
-    const { analyzeLocations: { geostore: { id } } } = getState();
-
-    dispatch(setGeostoreLoading(true));
-    dispatch(setGeostoreError(null));
-
-    fetchGeostore(id)
-      .then((geoStore) => {
-        const { geojson: { features } } = geoStore;
-
-        if (!features[0]) {
-          dispatch(setGeostoreError('Error: there are no geometries in this geostore'));
-          dispatch(setGeostoreLoading(false));
-        }
-
-        const points = features[0].geometry.coordinates.map(_coordinate => ({ lat: _coordinate[1], lng: _coordinate[0] }));
-
-        dispatch(setPoints(points));
-      })
-      .catch((err) => {
-        dispatch(setGeostoreError(err));
-        dispatch(setGeostoreLoading(false));
-      });
-  });
-
-export const onSaveGeostore = createThunkAction('ANALYZE-LOCATIONS-TAB__SAVE-GEOSTORE', () =>
-  (dispatch, getState) => {
-    const { analyzeLocations: { points: { list } } } = getState();
-
-    dispatch(setGeostoreLoading(true));
-    dispatch(setGeostoreError(null));
-
-    return saveGeostore(list)
-      .then((data) => {
-        dispatch(setGeostore(data.id));
-        dispatch(setGeostoreLoading(false));
-      })
-      .catch((err) => {
-        dispatch(setGeostoreError(err));
-        dispatch(setGeostoreLoading(false));
-      });
-  });
-
 export const onFetchAnalysis = createThunkAction('ANALYZE-LOCATIONS-TAB__FETCH-ANALYSIS', () =>
   (dispatch, getState) => {
     const {
-      analyzeLocations: { geostore: { id } },
+      analyzeLocations: {
+        geostore: { id },
+        points: { list: pointList }
+      },
       settings: {
         filters: { month, year, projection, indicator, timeScale, scenario },
         ponderation
@@ -80,9 +39,11 @@ export const onFetchAnalysis = createThunkAction('ANALYZE-LOCATIONS-TAB__FETCH-A
     } = getState();
     const { scheme } = ponderation;
     const analysis_type = getAnalysisType(timeScale, scheme, year);
+    const locations = pointList.map((_point, index) => `''Location ${index + 1}''`);
     const params = {
       geostore: id,
       analysis_type,
+      ...locations.length && { locations: `[${locations.toString()}]` },
       month,
       year,
       scenario,
@@ -109,6 +70,51 @@ export const onFetchAnalysis = createThunkAction('ANALYZE-LOCATIONS-TAB__FETCH-A
       .catch((err) => {
         dispatch(setAnalysisError(err));
         dispatch(setAnalysisLoading(false));
+      });
+  });
+
+export const getGeostore = createThunkAction('ANALYZE-LOCATIONS-TAB__GET-GEOSTORE', () =>
+  (dispatch, getState) => {
+    const { analyzeLocations: { geostore: { id } } } = getState();
+
+    dispatch(setGeostoreLoading(true));
+    dispatch(setGeostoreError(null));
+
+    return fetchGeostore(id)
+      .then((geoStore) => {
+        const { geojson: { features } } = geoStore;
+
+        if (!features[0]) {
+          dispatch(setGeostoreError('Error: there are no geometries in this geostore'));
+          dispatch(setGeostoreLoading(false));
+        }
+
+        const points = features[0].geometry.coordinates.map(_coordinate => ({ lat: _coordinate[1], lng: _coordinate[0] }));
+
+        dispatch(setPoints(points));
+        dispatch(onFetchAnalysis());
+      })
+      .catch((err) => {
+        dispatch(setGeostoreError(err));
+        dispatch(setGeostoreLoading(false));
+      });
+  });
+
+export const onSaveGeostore = createThunkAction('ANALYZE-LOCATIONS-TAB__SAVE-GEOSTORE', () =>
+  (dispatch, getState) => {
+    const { analyzeLocations: { points: { list } } } = getState();
+
+    dispatch(setGeostoreLoading(true));
+    dispatch(setGeostoreError(null));
+
+    return saveGeostore(list)
+      .then((data) => {
+        dispatch(setGeostore(data.id));
+        dispatch(setGeostoreLoading(false));
+      })
+      .catch((err) => {
+        dispatch(setGeostoreError(err));
+        dispatch(setGeostoreLoading(false));
       });
   });
 

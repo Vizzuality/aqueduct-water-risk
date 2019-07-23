@@ -11,15 +11,6 @@ import DataTable from 'components/analyze-locations-tab/data-table';
 import { getFileName } from './helpers';
 
 class Analyzer extends PureComponent {
-  componentDidMount() {
-    const {
-      geoStore,
-      onFetchAnalysis
-    } = this.props;
-
-    if (geoStore) onFetchAnalysis();
-  }
-
   componentWillReceiveProps(nextProps) {
     const { filters, onFetchAnalysis } = this.props;
     const {

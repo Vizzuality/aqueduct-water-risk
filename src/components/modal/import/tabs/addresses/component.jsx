@@ -152,8 +152,8 @@ class ImportTabAddresses extends PureComponent {
             <p>List of supported file formats <i>(click on any format to download the template)</i>:</p>
             <ul>
               <li>Unzipped:
-                <a download="template.csv" href="/files/points/multi/template.csv">.csv</a>,&nbsp;
-                <a download="template.xlsx" href="/files/points/multi/template.xlsx">.xlsx</a>
+                <a download="example_address.csv" href="/files/points/addresses/example_address.csv">.csv</a>,&nbsp;
+                <a download="example_address.xlsx" href="/files/points/addresses/example_address.xlsx">.xlsx</a>
               </li>
             </ul>
           </header>

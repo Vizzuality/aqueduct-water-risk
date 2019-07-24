@@ -117,6 +117,14 @@ class ImportTabAddresses extends PureComponent {
 
   triggerOpenDialog() { this.dropzone.open(); }
 
+  goToDocs() {
+    const { toggleModal } = this.props;
+
+    toggleModal(false);
+
+    window.location.href = '/#/documentation';
+  }
+
   render() {
     const {
       dropzoneActive,
@@ -156,6 +164,8 @@ class ImportTabAddresses extends PureComponent {
                 <a download="example_address.xlsx" href="/files/points/addresses/example_address.xlsx">.xlsx</a>
               </li>
             </ul>
+
+            <p>You can find more info <button className="go-to-docs-btn" onClick={() => { this.goToDocs(); }}>here</button>.</p>
           </header>
 
           <div className="dropzone-file">

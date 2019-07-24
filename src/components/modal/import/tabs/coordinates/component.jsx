@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Dropzone from 'react-dropzone';
+import { Link } from 'react-router';
 
 // components
 import { Spinner, post } from 'aqueduct-components';
@@ -127,6 +128,14 @@ class ImportTabCoordinates extends PureComponent {
 
   triggerOpenDialog() { this.dropzone.open(); }
 
+  goToDocs() {
+    const { toggleModal } = this.props;
+
+    toggleModal(false);
+
+    window.location.href = '/#/documentation';
+  }
+
   render() {
     const {
       dropzoneActive,
@@ -173,6 +182,8 @@ class ImportTabCoordinates extends PureComponent {
                 <i>(zipped shapefiles must include .shp, .shx, .dbf, and .prj files)</i>
               </li>
             </ul>
+
+            <p>You can find more info <button className="go-to-docs-btn" onClick={() => { this.goToDocs(); }}>here</button>.</p>
           </header>
 
           <div className="dropzone-file">

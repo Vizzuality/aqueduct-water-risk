@@ -16,8 +16,10 @@ const Routes = ({ history, onEnterMapPage: mapPageHook }) => (
   <Router history={history}>
     <Route path="/" component={App}>
       <IndexRoute component={MapPage} onEnter={mapPageHook} />
-      <IndexRoute component={DocumentationPage} />
+      <Route path="documentation" component={DocumentationPage} />
     </Route>
+
+
   </Router>
 );
 

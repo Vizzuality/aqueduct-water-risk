@@ -10,11 +10,13 @@ import { onEnterMapPage } from 'modules/app/actions';
 // components
 import App from 'components/app';
 import MapPage from 'components/pages/map';
+import DocumentationPage from 'components/pages/documentation';
 
 const Routes = ({ history, onEnterMapPage: mapPageHook }) => (
   <Router history={history}>
     <Route path="/" component={App}>
       <IndexRoute component={MapPage} onEnter={mapPageHook} />
+      <IndexRoute component={DocumentationPage} />
     </Route>
   </Router>
 );

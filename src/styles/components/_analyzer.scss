@@ -25,6 +25,7 @@
     }
 
     > .download-container {
+      display: flex;
       margin: $space-1 * 2 0;
       color: palette(blue, secondary);
 

@@ -157,6 +157,11 @@ class ImportTabAddresses extends PureComponent {
 
           <header className="dropzone-header">
             <h2>Import multiple addresses</h2>
+
+            <p>Please use this <a href="https://github.com/wri/aqueduct_analyze_locations/raw/master/input_templates/example_address.xlsx">template</a> to structure your data.</p>
+            <p>Replace with your own location names and addresses. The address columns should contain the <b>full</b> address including city name and country. </p>
+            <p>More <button className="go-to-docs-btn" onClick={() => { this.goToDocs(); }}>info</button>.</p>
+
             <p>List of supported file formats <i>(click on any format to download the template)</i>:</p>
             <ul>
               <li>Unzipped:
@@ -164,8 +169,6 @@ class ImportTabAddresses extends PureComponent {
                 <a download="example_address.xlsx" href="/files/points/addresses/example_address.xlsx">.xlsx</a>
               </li>
             </ul>
-
-            <p>You can find more info <button className="go-to-docs-btn" onClick={() => { this.goToDocs(); }}>here</button>.</p>
           </header>
 
           <div className="dropzone-file">

@@ -166,6 +166,11 @@ class ImportTabCoordinates extends PureComponent {
 
           <header className="dropzone-header">
             <h2>Import multiple coordinates</h2>
+
+            <p>Please use this <a href="https://github.com/wri/aqueduct_analyze_locations/raw/master/input_templates/example_coordinates.xlsx">template</a> to structure your data.</p>
+            <p>Replace with your own location names and coordinates. Do not add additional columns.</p>
+            <p>More <button className="go-to-docs-btn" onClick={() => { this.goToDocs(); }}>info</button>.</p>
+
             <p>List of supported file formats <i>(click on any format to download the template)</i>:</p>
             <ul>
               <li>Unzipped:
@@ -182,8 +187,6 @@ class ImportTabCoordinates extends PureComponent {
                 <i>(zipped shapefiles must include .shp, .shx, .dbf, and .prj files)</i>
               </li>
             </ul>
-
-            <p>You can find more info <button className="go-to-docs-btn" onClick={() => { this.goToDocs(); }}>here</button>.</p>
           </header>
 
           <div className="dropzone-file">

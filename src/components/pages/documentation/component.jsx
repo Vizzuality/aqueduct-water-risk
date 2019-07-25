@@ -41,7 +41,8 @@ class DocumentationPage extends PureComponent {
               <div className="text-subsection">
                 <h3>Q: I have an excel file where street name, city and country are in separate columns, how can I combine them into one column?</h3>
                 <p>A: In Excel and Google Sheets, you can use <code>=TEXTJOIN()</code></p>
-                <p>As delimiter you can use a comma “,” or a comma and space “, “ for ignore_empty you can use <code>TRUE=TEXTJOIN(&quot;, &quot;,TRUE,A2:D2)</code></p>
+                <p>As delimiter you can use a comma “,” or a comma and space “, “ for ignore_empty you can use <code>TRUE</code></p>
+                <p><code>=TEXTJOIN(&quot;, &quot;,TRUE,A2:D2)</code></p>
                 <p>Change the range <code>(A2:D2)</code> to match your input data.</p>
                 <p>Finally, copy the values (not the formulas) of the site name and address columns to a new excel file and safe as .csv or .xlsx.
                   To copy the values only, selected both columns by holding Ctrl and paste using Ctrl+Alt+V

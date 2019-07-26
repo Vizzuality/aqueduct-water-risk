@@ -15,7 +15,8 @@ import {
   MapControls,
   ShareButton,
   ZoomControl,
-  Legend
+  Legend,
+  Icon
 } from 'aqueduct-components';
 import isEqual from 'lodash/isEqual';
 
@@ -81,6 +82,12 @@ class MapComponent extends PureComponent {
     });
   }
 
+  handleBoundaries() {
+    const { boundaries, setBoundaries } = this.props;
+
+    setBoundaries(!boundaries);
+  }
+
   render() {
     const {
       map,
@@ -94,6 +101,7 @@ class MapComponent extends PureComponent {
       toggleShareModal,
       layerGroup,
       popup,
+      boundaries,
       setLoading
     } = this.props;
     const { zoom, minZoom, maxZoom } = map;
@@ -105,7 +113,7 @@ class MapComponent extends PureComponent {
           mapOptions={map}
           events={mapEvents}
           basemap={basemap}
-          label={LABEL_LAYER_CONFIG}
+          {...boundaries && { label: LABEL_LAYER_CONFIG }}
         >
           {_map =>
             <Fragment>
@@ -144,6 +152,15 @@ class MapComponent extends PureComponent {
                   onZoomChange={(_zoom) => { setMapParams({ zoom: _zoom }); }}
                 />
                 <BasemapControl />
+                <button
+                  type="submit"
+                  onClick={() => { this.handleBoundaries(); }}
+                >
+                  <Icon
+                    name="icon-boundaries"
+                    className="title-icon"
+                  />
+                </button>
                 <ShareButton onClick={toggleShareModal} />
               </MapControls>
 
@@ -199,6 +216,7 @@ MapComponent.propTypes = {
   layers: PropTypes.array.isRequired,
   layerGroup: PropTypes.array.isRequired,
   indicator: PropTypes.string.isRequired,
+  boundaries: PropTypes.bool.isRequired,
   popup: PropTypes.object.isRequired,
   mapMode: PropTypes.string.isRequired,
   setMapParams: PropTypes.func.isRequired,
@@ -209,7 +227,8 @@ MapComponent.propTypes = {
   onRemovePoint: PropTypes.func.isRequired,
   toggleSourceModal: PropTypes.func.isRequired,
   toggleShareModal: PropTypes.func.isRequired,
-  setLoading: PropTypes.func.isRequired
+  setLoading: PropTypes.func.isRequired,
+  setBoundaries: PropTypes.func.isRequired
 };
 
 export default MapComponent;

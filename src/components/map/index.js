@@ -8,7 +8,8 @@ import {
   setLayerParametrization,
   setPopupLocation,
   setPopupData,
-  setLoading
+  setLoading,
+  setBoundaries
 } from 'modules/map/actions';
 import { onAddPoint, onRemovePoint } from 'modules/analyze-locations-tab/actions';
 
@@ -35,6 +36,7 @@ export default connect(
     mapMode: state.app.mapMode,
     indicator: state.settings.filters.indicator,
     map: parseMapState(state),
+    boundaries: state.map.boundaries,
     basemap: parseBasemap(state),
     layers: getUpdatedLayers(state),
     layerGroup: getLayerGroup(state),
@@ -55,6 +57,7 @@ export default connect(
     },
     setLoading: (loading) => { dispatch(setLoading(loading)); },
     setPopupData: (data) => { dispatch(setPopupData(data)); },
-    setPopupLocation: (location) => { dispatch(setPopupLocation(location)); }
+    setPopupLocation: (location) => { dispatch(setPopupLocation(location)); },
+    setBoundaries: (boundaries) => { dispatch(setBoundaries(boundaries)); }
   })
 )(MapComponent);

@@ -12,5 +12,6 @@ export default {
   popup: {
     latlng: null,
     data: {}
-  }
+  },
+  boundaries: true
 };

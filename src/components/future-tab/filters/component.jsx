@@ -108,7 +108,7 @@ class Filters extends PureComponent {
               {/* time scale */}
               <div className="c-filters-item">
                 <div className="filter-item-header">
-                  <span className="title">Time scale</span>
+                  <span className="title">Unit of Measurement</span>
                 </div>
                 <div className="time-scale-container">
                   <RadioGroup

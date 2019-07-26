@@ -1,7 +1,7 @@
 export const PRESET_OPTIONS = [
   { label: 'Custom', value: 'custom' },
   { label: 'Default weighting', value: 'DEF' },
-  { label: 'Argiculture', value: 'AGR' },
+  { label: 'Agriculture', value: 'AGR' },
   { label: 'Electric Power', value: 'ELP' },
   { label: 'Semiconductor', value: 'SMC' },
   { label: 'Oil and gas', value: 'ONG' },

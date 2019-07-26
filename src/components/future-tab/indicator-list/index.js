@@ -21,14 +21,15 @@ import Future from './component';
 export default connect(
   state => ({
     indicators: getIndicators(state),
-    currentIndicator: setCurrentIndicator(state)
+    currentIndicator: setCurrentIndicator(state),
+    scenario: state.settings.filters.scenario
   }),
   dispatch => ({
     setFilters: (filter) => { dispatch(setFilters(filter)); },
-    openModal: (indicator) => {
+    openModal: (indicator, scenario) => {
       dispatch(toggleModal(true, {
         children: IndicatorModal,
-        childrenProps: { info: INDICATOR_DESCRIPTIONS[indicator] }
+        childrenProps: { info: INDICATOR_DESCRIPTIONS[indicator](scenario) }
       }));
     }
   })

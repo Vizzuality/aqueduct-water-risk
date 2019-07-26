@@ -5,7 +5,7 @@ export const SCOPE_OPTIONS = [
 
 export const SCENARIO_OPTIONS = [
   {
-    label: 'Pesimistic',
+    label: 'Pessimistic',
     value: 'pessimistic'
   },
   {

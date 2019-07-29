@@ -200,7 +200,7 @@ export const INDICATOR_DESCRIPTIONS = {
     indicate higher water risk.`,
     sources: [{
       name: 'WRI Aqueduct 2019',
-      link: 'https://www.wri.org/publication/aqueduct-3'
+      link: 'https://www.wri.org/publication/aqueduct-30'
     }]
   },
   w_awr_def_qan_cat: {
@@ -209,7 +209,7 @@ export const INDICATOR_DESCRIPTIONS = {
     by aggregating all selected indicators from the Physical Risk Quantity category. Higher values indicate higher water quantity risks.`,
     sources: [{
       name: 'WRI Aqueduct 2019',
-      link: 'https://www.wri.org/publication/aqueduct-3'
+      link: 'https://www.wri.org/publication/aqueduct-30'
     }]
   },
   w_awr_def_qal_cat: {
@@ -218,7 +218,7 @@ export const INDICATOR_DESCRIPTIONS = {
     by aggregating all selected indicators from the Physical Risk Quality category. Higher values indicate higher water quality risks.`,
     sources: [{
       name: 'WRI Aqueduct 2019',
-      link: 'https://www.wri.org/publication/aqueduct-3'
+      link: 'https://www.wri.org/publication/aqueduct-30'
     }]
   },
   w_awr_def_rrr_cat: {
@@ -228,7 +228,7 @@ export const INDICATOR_DESCRIPTIONS = {
     reputational water risks.`,
     sources: [{
       name: 'WRI Aqueduct 2019',
-      link: 'https://www.wri.org/publication/aqueduct-3'
+      link: 'https://www.wri.org/publication/aqueduct-30'
     }]
   },
   // Water Quantity Risk
@@ -240,14 +240,8 @@ export const INDICATOR_DESCRIPTIONS = {
     on downstream water availability. Higher values indicate more competition among users.`,
     sources: [{
       name: 'WRI Aqueduct 2019',
-      link: 'https://www.wri.org/publication/aqueduct-3'
-    },
-    { name: 'FAO AQUASTAT 2008-2012' },
-    { name: 'NASA GLDAS-2 2012' },
-    { name: 'Shiklomanov and Rodda 2004' },
-    { name: 'Flörke et al. 2012' },
-    { name: 'Matsutomi et al. 2009' }
-    ]
+      link: 'https://www.wri.org/publication/aqueduct-30'
+    }]
   },
   bwd_cat: {
     name: INDICATOR_NAMES_RELATION.bwd_cat,
@@ -256,18 +250,19 @@ export const INDICATOR_DESCRIPTIONS = {
     Available renewable water supplies include surface and groundwater supplies and considers the impact of upstream consumptive
     water users and large dams on downstream water availability. Higher values indicate larger impact on the local water supply
     and decreased water availability for downstream users.`,
-    sources: []
+    sources: [{
+      name: 'WRI Aqueduct 2019',
+      link: 'https://www.wri.org/publication/aqueduct-30'
+    }]
   },
   gtd_cat: {
     name: INDICATOR_NAMES_RELATION.gtd_cat,
     description: `Groundwater table decline measures the average annual decline of the groundwater table.
     Higher values indicate higher levels of unsustainable groundwater withdrawals.`,
-    sources: [
-      { name: 'Gleeson' },
-      { name: 'Wada' },
-      { name: 'Bierkens' },
-      { name: 'van Beek 2012' }
-    ]
+    sources: [{
+      name: 'WRI Aqueduct 2019',
+      link: 'https://www.wri.org/publication/aqueduct-30'
+    }]
   },
   iav_cat: {
     name: INDICATOR_NAMES_RELATION.iav_cat,
@@ -275,10 +270,8 @@ export const INDICATOR_DESCRIPTIONS = {
     including both renewable surface and groundwater supplies. Higher values indicate wider variations in available supply from year to year.`,
     sources: [{
       name: 'WRI Aqueduct 2019',
-      link: 'https://www.wri.org/publication/aqueduct-3'
-    },
-    { name: 'NASA GLDAS-2 2012' }
-    ]
+      link: 'https://www.wri.org/publication/aqueduct-30'
+    }]
   },
   sev_cat: {
     name: INDICATOR_NAMES_RELATION.sev_cat,
@@ -286,10 +279,8 @@ export const INDICATOR_DESCRIPTIONS = {
     Higher values indicate wider variations of available supply within a year.`,
     sources: [{
       name: 'WRI Aqueduct 2019',
-      link: 'https://www.wri.org/publication/aqueduct-3'
-    },
-    { name: 'NASA GLDAS-2 2012' }
-    ]
+      link: 'https://www.wri.org/publication/aqueduct-30'
+    }]
   },
   drr_cat: {
     name: INDICATOR_NAMES_RELATION.drr_cat,
@@ -302,14 +293,20 @@ export const INDICATOR_DESCRIPTIONS = {
     description: `Riverine flood risk measures the percentage of population expected to be affected by riverine
     flooding in an average year, accounting for existing flood protection standards.
     Higher values indicate greater proportion of the population is expected to be impacted by riverine floods.`,
-    sources: []
+    sources: [{
+      name: 'WRI Aqueduct 2019',
+      link: 'https://www.wri.org/publication/aqueduct-30'
+    }]
   },
   cfr_cat: {
     name: INDICATOR_NAMES_RELATION.gtd_cat,
     description: `Coastal flood risk measures the percentage of population expected to be affected by coastal flooding in
     an average year, accounting for existing flood protection standards. Higher values indicate greater proportion of the
     population is expected to be impacted by coastal floods.`,
-    sources: []
+    sources: [{
+      name: 'WRI Aqueduct 2019',
+      link: 'https://www.wri.org/publication/aqueduct-30'
+    }]
   },
   // Water Quality Risk
   ucw_cat: {
@@ -317,33 +314,48 @@ export const INDICATOR_DESCRIPTIONS = {
     description: `Untreated connected wastewater measures the percentage of domestic wastewater that is connected through a
     sewerage system and not treated to at least a primary treatment level.
     Higher values indicate higher percentages of point source wastewater discharged without treatment.`,
-    sources: []
+    sources: [{
+      name: 'WRI Aqueduct 2019',
+      link: 'https://www.wri.org/publication/aqueduct-30'
+    }]
   },
   cep_cat: {
     name: INDICATOR_NAMES_RELATION.cep_cat,
     description: `Coastal Eutrophication Potential measures the potential for riverine loadings of nitrogen, phosphorus and
     silica to stimulate harmful algal blooms in coastal waters. Higher values indicate higher levels of excess nutrients with
     respect to silica, creating more favorable conditions for harmful algal growth and eutrophication in coastal waters downstream.`,
-    sources: []
+    sources: [{
+      name: 'WRI Aqueduct 2019',
+      link: 'https://www.wri.org/publication/aqueduct-30'
+    }]
   },
   // Regulatory and Reputational
   udw_cat: {
     name: INDICATOR_NAMES_RELATION.udw_cat,
     description: `Unimproved/ no drinking water measures the percentage of the population that relies on drinking water from an unprotected dug well
     or spring, or direct surface water. Higher values indicate areas where people have less access to safe drinking water supplies.`,
-    sources: []
+    sources: [{
+      name: 'WRI Aqueduct 2019',
+      link: 'https://www.wri.org/publication/aqueduct-30'
+    }]
   },
   usa_cat: {
     name: INDICATOR_NAMES_RELATION.usa_cat,
     description: `Unimproved/ no sanitation measures the percentage of population using pit latrines without a slab or platform, or a hanging
     or bucket latrine. Higher values indicate areas where people have less access to improved sanitation services.`,
-    sources: []
+    sources: [{
+      name: 'WRI Aqueduct 2019',
+      link: 'https://www.wri.org/publication/aqueduct-30'
+    }]
   },
   rri_cat: {
     name: INDICATOR_NAMES_RELATION.rri_cat,
     description: `The RepRisk Index measures environmental, social, and governance (ESG)-related reputational risk. Peak RepRisk Index equals
     the highest level of the RepRisk Index in a given country over the last two years. Higher values indicate higher overall ESG-related risks.`,
-    sources: []
+    sources: [{
+      name: 'WRI Aqueduct 2019',
+      link: 'https://www.wri.org/publication/aqueduct-30'
+    }]
   },
   // future
   '5aafeab1-4b48-40b0-9042-f654f1531aaf': scenario => ({

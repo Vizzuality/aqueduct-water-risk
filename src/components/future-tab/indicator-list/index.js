@@ -10,10 +10,7 @@ import IndicatorModal from 'components/ui/modal/indicator';
 import { INDICATOR_DESCRIPTIONS } from 'constants/indicators';
 
 // selectors
-import {
-  setCurrentIndicator,
-  getIndicators
-} from './selectors';
+import { getIndicators } from './selectors';
 
 // components
 import Future from './component';
@@ -21,7 +18,7 @@ import Future from './component';
 export default connect(
   state => ({
     indicators: getIndicators(state),
-    currentIndicator: setCurrentIndicator(state),
+    currentIndicator: state.settings.filters.indicator,
     scenario: state.settings.filters.scenario
   }),
   dispatch => ({

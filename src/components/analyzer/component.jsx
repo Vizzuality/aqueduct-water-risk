@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import isEqual from 'lodash/isEqual';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { Spinner, Icon } from 'aqueduct-components';
+import { Spinner } from 'aqueduct-components';
 
 // components
 import DataTable from 'components/analyze-locations-tab/data-table';
@@ -63,17 +63,15 @@ class Analyzer extends PureComponent {
                <li><a href={`${downloadUrl}&format=shp&filename=${fileName}`}>SHP</a>,</li>
                <li><a href={`${downloadUrl}&format=gpkg&filename=${fileName}`}>GPKG</a></li>
              </ul>
-              <a
-                href="https://github.com/wri/aqueduct30_data_download/blob/master/metadata.md"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="icon-container"
-              >
-                <Icon
-                  name="icon-question"
-                  className="title-icon"
-                />
-              </a>
+              <p className="download-instructions">
+                <a
+                  href="https://github.com/wri/aqueduct30_data_download/blob/master/metadata.md"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Instructions
+                </a>
+              </p>
             </div>
           )}
         </div>

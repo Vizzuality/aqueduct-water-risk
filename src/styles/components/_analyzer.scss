@@ -25,7 +25,6 @@
     }
 
     > .download-container {
-      display: flex;
       margin: $space-1 * 2 0;
       color: palette(blue, secondary);
 
@@ -40,6 +39,15 @@
             font-weight: 500;
             text-decoration: underline;
           }
+        }
+      }
+
+      .download-instructions {
+        margin: $space-1 0 0 0;
+
+        > a {
+          color: palette(blue, secondary);
+          text-decoration: underline;
         }
       }
     }

@@ -81,7 +81,6 @@ class MapComponent extends PureComponent {
         setSelectedData([index]);
       }
     } else {
-      setSelectedData([]);
       onAddPoint({ lat: latlng.lat, lng: latlng.lng });
       onAddUnknownLocation();
     }

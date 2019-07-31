@@ -8,17 +8,40 @@ class DataTable extends PureComponent {
   render() {
     const {
       columns,
-      data
+      data,
+      selected
     } = this.props;
 
     return (
       <CustomTable
         columns={columns}
         data={data}
+        selected={selected}
+        onToggleSelectedRow={(index) => {
+          const { setSelectedData } = this.props;
+          setSelectedData(index);
+        }}
+        onRowDelete={(row, index) => {
+          const {
+            points,
+            selected: selectedData,
+            onRemovePoint,
+            setSelectedData
+          } = this.props;
+
+          const pointToRemove = points[index];
+
+          if (pointToRemove) {
+            if (selectedData.includes(index)) setSelectedData([]);
+            return onRemovePoint(pointToRemove);
+          }
+
+          throw new Error('Point to delete not found');
+        }}
         actions={{
           showable: false,
           editable: false,
-          removable: false
+          removable: true
         }}
         pagination={{
           enabled: true,
@@ -32,7 +55,11 @@ class DataTable extends PureComponent {
 
 DataTable.propTypes = {
   columns: PropTypes.array.isRequired,
-  data: PropTypes.array.isRequired
+  data: PropTypes.array.isRequired,
+  points: PropTypes.array.isRequired,
+  selected: PropTypes.array.isRequired,
+  onRemovePoint: PropTypes.func.isRequired,
+  setSelectedData: PropTypes.func.isRequired
 };
 
 export default DataTable;

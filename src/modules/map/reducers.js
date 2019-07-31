@@ -23,10 +23,7 @@ export default {
     ...state,
     popup: {
       ...state.popup,
-      data: {
-        ...state.popup.data,
-        ...payload
-      }
+      data: payload
     }
   })
 };

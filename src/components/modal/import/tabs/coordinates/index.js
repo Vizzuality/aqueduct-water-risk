@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 
 // actions
 import { toggleModal } from 'aqueduct-components';
-import { onAddPoint, onSaveGeostore, onFetchAnalysis } from 'modules/analyze-locations-tab/actions';
+import { onAddPoint, onSaveGeostore, onFetchAnalysis, setGeostoreLocations, clearPoints } from 'modules/analyze-locations-tab/actions';
 import { setMapMode } from 'modules/app/actions';
 import { setAnalyzerOpen } from 'modules/settings/actions';
 
@@ -17,6 +17,8 @@ export default connect(
     onFetchAnalysis,
     setMapMode,
     setAnalyzerOpen,
-    toggleModal
+    setGeostoreLocations,
+    toggleModal,
+    clearPoints
   }
 )(ImportFileModal);

@@ -19,6 +19,13 @@
 
       .popup-content {
         margin: $space-1 0 0 0;
+
+        > .warning {
+          > .run-analysis-btn {
+            color: palette(blue, secondary);
+            text-decoration: underline;
+          }
+        }
       }
 
       .popup-table {
@@ -31,6 +38,23 @@
         }
         .dd {
           padding: 0 0 0 $space-1;
+        }
+      }
+
+      .popup-footer {
+        margin: $space-1 0 0;
+        padding: #{$space-1 / 2} 0 0;
+        border-top: 1px solid palette(gray, lightest);
+
+        > .btn-container {
+          display: flex;
+          justify-content: flex-end;
+
+          > .remove-point-btn {
+            font-size: $font-size-default;
+            color: palette(blue, secondary);
+            text-decoration: underline;
+          }
         }
       }
     }

@@ -64,7 +64,9 @@ class ImportTabAddresses extends PureComponent {
       onSaveGeostore,
       onFetchAnalysis,
       setAnalyzerOpen,
-      toggleModal
+      setGeostoreLocations,
+      toggleModal,
+      clearPoints
     } = this.props;
 
     const formData = new FormData();
@@ -81,6 +83,9 @@ class ImportTabAddresses extends PureComponent {
             // checks if there are no errors in the importation
             const errors = locatedAddresses.filter(address => !address.match);
 
+            // after every import, the previous points and locations will be deleted
+            clearPoints();
+
             // error flow
             if (errors.length) {
               this.setState({
@@ -90,7 +95,14 @@ class ImportTabAddresses extends PureComponent {
             } else {
               setMapMode('analysis');
               const points = locatedAddresses.map(({ lat, lon }) => ({ lat, lng: lon }));
+              const locations = locatedAddresses.map(_location => ({
+                location_name: _location['location name'],
+                input_address: _location.address,
+                match_address: _location['matched address']
+              }));
+
               onAddPoint(points);
+              setGeostoreLocations(locations);
 
               onSaveGeostore()
                 .then(() => {
@@ -217,6 +229,8 @@ ImportTabAddresses.propTypes = {
   onFetchAnalysis: PropTypes.func.isRequired,
   setMapMode: PropTypes.func.isRequired,
   setAnalyzerOpen: PropTypes.func.isRequired,
+  setGeostoreLocations: PropTypes.func.isRequired,
+  clearPoints: PropTypes.func.isRequired,
   toggleModal: PropTypes.func.isRequired
 };
 

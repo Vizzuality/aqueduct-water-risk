@@ -30,6 +30,7 @@ class DecimalDegreesForm extends PureComponent {
     const {
       onAddPoint,
       onSaveGeostore,
+      onAddUnknownLocation,
       toggleModal,
       onFetchAnalysis,
       setMapMode,
@@ -50,6 +51,8 @@ class DecimalDegreesForm extends PureComponent {
         };
         setMapMode('analysis');
         onAddPoint(point);
+        onAddUnknownLocation();
+
         onSaveGeostore()
           .then(() => {
             onFetchAnalysis()
@@ -138,6 +141,7 @@ class DecimalDegreesForm extends PureComponent {
 DecimalDegreesForm.propTypes = {
   onAddPoint: PropTypes.func.isRequired,
   onSaveGeostore: PropTypes.func.isRequired,
+  onAddUnknownLocation: PropTypes.func.isRequired,
   onFetchAnalysis: PropTypes.func.isRequired,
   toggleModal: PropTypes.func.isRequired,
   setMapMode: PropTypes.func.isRequired,

@@ -49,6 +49,7 @@ class CoordinatesForm extends PureComponent {
   onSubmit(e) {
     const {
       onAddPoint,
+      onAddUnknownLocation,
       onSaveGeostore,
       onFetchAnalysis,
       toggleModal,
@@ -72,7 +73,9 @@ class CoordinatesForm extends PureComponent {
         };
 
         setMapMode('analysis');
-        onAddPoint(point);
+        onAddPoint(point, false);
+        onAddUnknownLocation();
+
         onSaveGeostore()
           .then(() => {
             onFetchAnalysis()
@@ -302,6 +305,7 @@ class CoordinatesForm extends PureComponent {
 CoordinatesForm.propTypes = {
   onAddPoint: PropTypes.func.isRequired,
   onSaveGeostore: PropTypes.func.isRequired,
+  onAddUnknownLocation: PropTypes.func.isRequired,
   onFetchAnalysis: PropTypes.func.isRequired,
   toggleModal: PropTypes.func.isRequired,
   setMapMode: PropTypes.func.isRequired,

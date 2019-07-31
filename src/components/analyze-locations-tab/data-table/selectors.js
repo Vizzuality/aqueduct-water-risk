@@ -13,6 +13,8 @@ import { getProjectChangeColumn } from './utils';
 const getCurrentIndicator = state => state.settings.filters.indicator;
 const getCurrentPonderation = state => state.settings.ponderation.scheme;
 const getFilters = state => state.settings.filters;
+const getAnalysisData = state => state.analyzeLocations.analysis.data;
+const getLocations = state => state.analyzeLocations.geostore.locations;
 
 export const getColumns = createSelector(
   [getCurrentIndicator, getFilters, getCurrentPonderation],
@@ -62,4 +64,15 @@ export const getColumns = createSelector(
     ];
   });
 
-export default { getColumns };
+export const getData = createSelector(
+  [getAnalysisData, getLocations],
+  (_data, _locations) => _locations.map((location, index) => ({
+    ..._data[index],
+    ...location
+  }))
+);
+
+export default {
+  getColumns,
+  getData
+};

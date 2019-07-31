@@ -22,7 +22,8 @@ import isEqual from 'lodash/isEqual';
 
 // components
 import BasemapControl from './basemap-control';
-import Popup from './popup';
+import LayerPopup from './popups/layer';
+import AnalysisPopup from './popups/analysis';
 
 // constants
 import { LABEL_LAYER_CONFIG } from './constants';
@@ -47,16 +48,70 @@ class MapComponent extends PureComponent {
     }
   }
 
+  componentDidUpdate(prevProps) {
+    const { analysisSelectedData, analysisData, points, setPopupData, setPopupLocation } = this.props;
+    const { analysisSelectedData: prevAnalysisSelectedData } = prevProps;
+    const analysisSelectedDataPopupChanged = analysisSelectedData !== prevAnalysisSelectedData;
+
+    if (analysisSelectedDataPopupChanged) {
+      setPopupData({ ...analysisData[analysisSelectedData] });
+      const nextPopupPosition = points[analysisSelectedData];
+      setPopupLocation(nextPopupPosition || null);
+    }
+  }
+
   handlePoint(event) {
     const { latlng, layer } = event;
-    const { onAddPoint, onRemovePoint } = this.props;
+    const {
+      analysisSelectedData,
+      onAddPoint,
+      onAddUnknownLocation,
+      points,
+      setSelectedData
+    } = this.props;
+
     if (layer) {
       const { editing: { _marker: { _latlng } } } = layer;
       const { lat, lng } = _latlng;
-      onRemovePoint({ lat, lng });
+      const index = points.findIndex(_point => isEqual(_point, ({ lat, lng })));
+
+      if (index !== -1 && analysisSelectedData.includes(index)) {
+        setSelectedData([]);
+      } else if (index !== -1) {
+        setSelectedData([index]);
+      }
     } else {
-      onAddPoint(latlng);
+      onAddPoint({ lat: latlng.lat, lng: latlng.lng });
+      onAddUnknownLocation();
     }
+  }
+
+  handleRemovePoint() {
+    const {
+      points,
+      analysisSelectedData,
+      setSelectedData,
+      onRemovePoint,
+      onFetchAnalysis
+    } = this.props;
+
+    const pointToRemove = points[analysisSelectedData];
+
+    if (pointToRemove) {
+      onRemovePoint(pointToRemove);
+      setSelectedData([]);
+      onFetchAnalysis();
+    }
+  }
+
+  handleAnalysis() {
+    const {
+      onApplyAnalysis,
+      setSelectedData
+    } = this.props;
+
+    onApplyAnalysis();
+    setSelectedData([]);
   }
 
   handleLayerOpacity(layer, opacity) {
@@ -102,6 +157,7 @@ class MapComponent extends PureComponent {
       layerGroup,
       popup,
       boundaries,
+      analysisPopupColumns,
       setLoading
     } = this.props;
     const { zoom, minZoom, maxZoom } = map;
@@ -169,11 +225,18 @@ class MapComponent extends PureComponent {
                 latlng={popup.latlng}
                 data={{
                   layers,
-                  data: popup.data
+                  data: popup.data,
+                  columns: analysisPopupColumns
                 }}
                 onReady={(_popup) => { this.popup = _popup; }}
               >
-                <Popup />
+                {mapMode === 'analysis' ?
+                  <AnalysisPopup
+                    onRemovePoint={() => { this.handleRemovePoint(); }}
+                    onFetchAnalysis={() => { this.handleAnalysis(); }}
+                  /> :
+                  <LayerPopup />
+                }
               </MapPopup>
 
               {layers.length && (
@@ -214,10 +277,14 @@ MapComponent.propTypes = {
   basemap: PropTypes.object.isRequired,
   loading: PropTypes.bool.isRequired,
   layers: PropTypes.array.isRequired,
+  points: PropTypes.array.isRequired,
+  analysisData: PropTypes.array.isRequired,
+  analysisSelectedData: PropTypes.array.isRequired,
   layerGroup: PropTypes.array.isRequired,
   indicator: PropTypes.string.isRequired,
   boundaries: PropTypes.bool.isRequired,
   popup: PropTypes.object.isRequired,
+  analysisPopupColumns: PropTypes.array.isRequired,
   mapMode: PropTypes.string.isRequired,
   setMapParams: PropTypes.func.isRequired,
   setLayerParametrization: PropTypes.func.isRequired,
@@ -225,9 +292,13 @@ MapComponent.propTypes = {
   setPopupData: PropTypes.func.isRequired,
   onAddPoint: PropTypes.func.isRequired,
   onRemovePoint: PropTypes.func.isRequired,
+  onFetchAnalysis: PropTypes.func.isRequired,
   toggleSourceModal: PropTypes.func.isRequired,
   toggleShareModal: PropTypes.func.isRequired,
   setLoading: PropTypes.func.isRequired,
+  setSelectedData: PropTypes.func.isRequired,
+  onApplyAnalysis: PropTypes.func.isRequired,
+  onAddUnknownLocation: PropTypes.func.isRequired,
   setBoundaries: PropTypes.func.isRequired
 };
 

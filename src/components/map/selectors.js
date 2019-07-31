@@ -1,4 +1,7 @@
 import { createSelector } from 'reselect';
+import isEqual from 'lodash/isEqual';
+import classnames from 'classnames';
+import uniqid from 'uniqid';
 
 // utils
 import {
@@ -26,25 +29,29 @@ const getParametrization = state => state.settings.filters;
 const getPonderation = state => state.settings.ponderation;
 const getPoints = state => state.analyzeLocations.points.list;
 const getLayerUpdatedParams = state => state.map.layerParametrization;
+const getSelectedData = state => state.analyzeLocations.analysis.selected;
 
 const getMarkerLayer = createSelector(
-  [getPoints],
-  _points => ({
+  [getPoints, getSelectedData],
+  (_points, _selected) => [{
     ...MARKER_LAYER,
-    id: `${MARKER_LAYER.id}-${new Date().getTime()}`,
+    id: uniqid(),
     isMarkerLayer: true,
     layerConfig: {
       ...MARKER_LAYER.layerConfig,
-      body: _points.map(m => L.marker(
+      body: [..._points.map(m => L.marker(
         [m.lat, m.lng],
         { icon: L.divIcon({
-          className: 'c-marker',
+          className: classnames('c-marker', {
+            '-selected': _selected && isEqual(_points[_selected], m)
+          }),
           html: '<div class="marker-inner"></div>'
         })
         }
-      ))
-    }
-  })
+      ))]
+    },
+    params: { id: uniqid() }
+  }]
 );
 
 const getFilteredLayers = createSelector(
@@ -79,7 +86,9 @@ const getFilteredLayers = createSelector(
         layers = _layers.annual;
     }
 
-    return _mapMode === 'analysis' ? [...[_markerLayer], ...layers] : [..._layers.hydrobasins, ..._layers.aquifers, ...layers];
+    return _mapMode === 'analysis' ?
+      [..._markerLayer, ...layers] :
+      [..._layers.hydrobasins, ..._layers.aquifers, ...layers];
   }
 );
 

@@ -15,6 +15,9 @@ import { onAddPoint, onRemovePoint } from 'modules/analyze-locations-tab/actions
 
 import IndicatorModal from 'components/ui/modal/indicator';
 
+// utils
+import { logEvent } from 'utils/analytics';
+
 // constants
 import { INDICATOR_DESCRIPTIONS } from 'constants/indicators';
 
@@ -48,7 +51,10 @@ export default connect(
     setLayerParametrization: (params) => { dispatch(setLayerParametrization(params)); },
     onAddPoint: (point) => { dispatch(onAddPoint(point)); },
     onRemovePoint: (point) => { dispatch(onRemovePoint(point)); },
-    toggleShareModal: () => { dispatch(toggleModal(true, { children: ShareModal })); },
+    toggleShareModal: () => {
+      logEvent('Share', 'User opens share modal', 'Click');
+      dispatch(toggleModal(true, { children: ShareModal }));
+    },
     toggleSourceModal: (indicator) => {
       dispatch(toggleModal(true, {
         children: IndicatorModal,

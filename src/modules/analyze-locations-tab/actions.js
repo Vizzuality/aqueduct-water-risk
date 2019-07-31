@@ -7,9 +7,11 @@ import { fetchAnalysis } from 'services/analysis';
 // utils
 import { parseWeights } from 'utils/weights';
 import { getAnalysisType, filterData } from 'utils/analysis';
+import { logEvent } from 'utils/analytics';
 
 // constants
 import { FUTURE_LAYERS_GROUPS } from 'constants/analysis';
+
 
 // points
 export const setPoints = createAction('ANALYZE-LOCATIONS-TAB__SET-POINTS');
@@ -64,6 +66,7 @@ export const onFetchAnalysis = createThunkAction('ANALYZE-LOCATIONS-TAB__FETCH-A
         } else {
           dispatch(setAnalysis(data));
         }
+        logEvent('Analysis', 'Analyze Locations', 'Complete Analysis');
         dispatch(setDownloadUrl(downloadUrl));
         dispatch(setAnalysisLoading(false));
       })

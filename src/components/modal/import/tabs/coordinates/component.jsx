@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Dropzone from 'react-dropzone';
-import { Link } from 'react-router';
 
 // components
 import { Spinner, post } from 'aqueduct-components';

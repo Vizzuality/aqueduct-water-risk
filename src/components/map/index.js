@@ -11,7 +11,15 @@ import {
   setLoading,
   setBoundaries
 } from 'modules/map/actions';
-import { onAddPoint, onRemovePoint, setSelectedData, onFetchAnalysis, onApplyAnalysis, onAddUnknownLocation } from 'modules/analyze-locations-tab/actions';
+import {
+  onAddPoint,
+  onRemovePoint,
+  setSelectedData,
+  onFetchAnalysis,
+  onApplyAnalysis,
+  onAddUnknownLocation,
+  onUpdateLocation
+} from 'modules/analyze-locations-tab/actions';
 import { setAnalyzerOpen } from 'modules/settings/actions';
 
 import IndicatorModal from 'components/ui/modal/indicator';
@@ -67,6 +75,7 @@ export default connect(
     onFetchAnalysis: () => { dispatch(onFetchAnalysis()); },
     onApplyAnalysis: () => { dispatch(onApplyAnalysis()); },
     onAddUnknownLocation: () => { dispatch(onAddUnknownLocation()); },
+    onUpdateLocation: (location, index) => { dispatch(onUpdateLocation(location, index)); },
     setAnalyzerOpen: () => { dispatch(setAnalyzerOpen()); },
     setBoundaries: (boundaries) => { dispatch(setBoundaries(boundaries)); }
   })

@@ -180,14 +180,18 @@ export const onAddLocation = createThunkAction('ANALYZE-LOCATIONS-ADD-LOCATION',
     dispatch(setGeostoreLocations(nextLocations));
   });
 
-export const onUpdateLocation = createThunkAction('ANALYZE-LOCATIONS-TAB__UPDATE-LOCATION', (location, index) =>
+export const onUpdateLocation = createThunkAction('ANALYZE-LOCATIONS-TAB__UPDATE-LOCATION', location =>
   (dispatch, getState) => {
-    const { analyzeLocations: { geostore: { locations } } } = getState();
+    const { analyzeLocations: {
+      geostore: { locations },
+      analysis: { selected }
+    } } = getState();
     const nextLocations = [...locations];
 
-    nextLocations.splice(index, 0, location);
-
-    dispatch(setGeostoreLocations(nextLocations));
+    if (selected[0] !== null) {
+      nextLocations.splice(selected[0], 1, location);
+      dispatch(setGeostoreLocations(nextLocations));
+    }
   });
 
 export const onApplyAnalysis = createThunkAction('ANALYZE-LOCATIONS-TAB__APPLY-ANALYSIS', () =>

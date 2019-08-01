@@ -158,7 +158,8 @@ class MapComponent extends PureComponent {
       popup,
       boundaries,
       analysisPopupColumns,
-      setLoading
+      setLoading,
+      onUpdateLocation
     } = this.props;
     const { zoom, minZoom, maxZoom } = map;
     const mapEvents = { moveend: (e, _map) => { this.updateMap(e, _map); } };
@@ -234,6 +235,7 @@ class MapComponent extends PureComponent {
                   <AnalysisPopup
                     onRemovePoint={() => { this.handleRemovePoint(); }}
                     onFetchAnalysis={() => { this.handleAnalysis(); }}
+                    onUpdateLocation={(location) => { onUpdateLocation(location); }}
                   /> :
                   <LayerPopup />
                 }
@@ -299,7 +301,8 @@ MapComponent.propTypes = {
   setSelectedData: PropTypes.func.isRequired,
   onApplyAnalysis: PropTypes.func.isRequired,
   onAddUnknownLocation: PropTypes.func.isRequired,
-  setBoundaries: PropTypes.func.isRequired
+  setBoundaries: PropTypes.func.isRequired,
+  onUpdateLocation: PropTypes.func.isRequired
 };
 
 export default MapComponent;

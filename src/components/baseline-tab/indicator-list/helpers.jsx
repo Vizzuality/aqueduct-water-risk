@@ -2,6 +2,12 @@ import React from 'react';
 import classnames from 'classnames';
 import { Radio, Icon } from 'aqueduct-components';
 
+// constants
+import { INDICATOR_NAMES_RELATION } from 'constants/indicators';
+
+// utils
+import { logEvent } from 'utils/analytics';
+
 export const renderList = (properties = {}, deep = 0) => {
   const {
     indicators,
@@ -9,6 +15,11 @@ export const renderList = (properties = {}, deep = 0) => {
     setFilters,
     openModal
   } = properties;
+
+  const handleChangeIndicator = (indicator) => {
+    setFilters({ indicator });
+    logEvent('Map Data', 'Add data to the map', INDICATOR_NAMES_RELATION[indicator]);
+  };
 
   return (
     <ul className="layerlist-list">
@@ -33,7 +44,7 @@ export const renderList = (properties = {}, deep = 0) => {
               <span className={titleClass}>
                 <Radio
                   label={_indicator.name}
-                  onChange={indicator => setFilters({ indicator })}
+                  onChange={(indicator) => { handleChangeIndicator(indicator); }}
                   name={`indicator-${_indicator.id}`}
                   value={_indicator.id}
                   disabled={_indicator.disabled}

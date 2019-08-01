@@ -12,10 +12,14 @@ import CustomAccordion from 'components/ui/custom-accordion';
 import Analyzer from 'components/analyzer';
 import AnalyzerHeader from 'components/analyzer/header';
 
+// utils
+import { logEvent } from 'utils/analytics';
+
 // constants
 import { SCOPE_OPTIONS } from 'constants/app';
 import { TIMEFRAME_OPTIONS } from 'constants/filters';
 import { INDICATORS, DEFAULT_FUTURE_INDICATOR } from 'constants/indicators';
+
 
 class MapPage extends PureComponent {
   componentWillMount() {
@@ -67,6 +71,8 @@ class MapPage extends PureComponent {
       filters: { projection }
     } = this.props;
     const isFuture = value === 'future';
+
+    logEvent('Analysis', 'Change Tab', value);
 
     setScope(value);
     setFilters({
@@ -137,8 +143,7 @@ MapPage.propTypes = {
   setScope: PropTypes.func.isRequired,
   updateUrl: PropTypes.func.isRequired,
   getLayers: PropTypes.func.isRequired,
-  setFilters: PropTypes.func.isRequired,
-  setAnalyzerOpen: PropTypes.func.isRequired
+  setFilters: PropTypes.func.isRequired
 };
 
 MapPage.defaultProps = { geostore: null };

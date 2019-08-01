@@ -14,7 +14,10 @@ class App extends PureComponent {
     return (
       <div className="l-app">
         <Icons />
-        <Header title="Water Risk Atlas" />
+        <Header
+          title="Water Risk Atlas"
+          currentApp="water-risk-atlas"
+        />
         <main role="main" className="l-main l-content">
           {this.props.children}
         </main>

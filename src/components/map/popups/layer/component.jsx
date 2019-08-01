@@ -22,7 +22,6 @@ class Popup extends PureComponent {
       return null;
     }
 
-    const mergedData = Object.values(_data).reduce((acc, v) => ({ ...acc, ...v }), {});
     let output = [];
 
     layers.forEach((_layer) => {
@@ -31,7 +30,7 @@ class Popup extends PureComponent {
 
     const { name } = layers[0];
 
-    const category = (mergedData || {}).label || '-';
+    const category = (_data || {}).label || '-';
     const _output = output.filter(o => o.property !== 'Category');
 
     return (
@@ -40,13 +39,13 @@ class Popup extends PureComponent {
           <span className="layer-name">{name}: {category}</span>
         </header>
         <div className="popup-content">
-          {mergedData &&
+          {_data &&
             <table className="popup-table">
               <tbody>
                 {_output && _output.map((outputItem) => {
                   const { column } = outputItem;
                   const columnArray = column.split('.');
-                  const value = columnArray.reduce((acc, c) => acc[c], mergedData);
+                  const value = columnArray.reduce((acc, c) => acc[c], _data);
                   return (
                     <tr
                       key={outputItem.property || outputItem.column}

@@ -120,12 +120,11 @@ class MapComponent extends PureComponent {
     setLayerParametrization({ opacity });
   }
 
-  handleClickMap(e, layer) {
-    const { setPopupLocation, setPopupData } = this.props;
+  handleClickMap(e) {
+    const { popup: { data: currentData }, setPopupLocation, setPopupData } = this.props;
     const { latlng, data } = e;
-
     setPopupLocation(latlng);
-    setPopupData({ [layer.id]: data });
+    setPopupData({ ...currentData, ...data && data });
   }
 
   updateMap(event, map) {
@@ -188,14 +187,14 @@ class MapComponent extends PureComponent {
                     {...l.params && { params: l.params }}
                     {...l.sqlParams && { sqlParams: l.sqlParams }}
                     {...l.decodeParams && { decodeParams: l.decodeParams }}
-                    {... l.interactionConfig && {
+                    {...l.interactionConfig && {
                       interactivity: ['carto', 'cartodb'].includes(l.provider)
                         ? (l.interactionConfig.output || []).map(o => o.column)
                         : true
                     }}
                     events={{
                       ...mapMode === 'analysis' && { click: (e) => { this.handlePoint(e); } },
-                      ...mapMode === 'view' && { click: (e) => { this.handleClickMap(e, l); } }
+                      ...mapMode === 'view' && { click: (e) => { this.handleClickMap(e); } }
                     }}
                   />
                   ))}

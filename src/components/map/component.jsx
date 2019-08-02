@@ -20,6 +20,9 @@ import {
 } from 'aqueduct-components';
 import isEqual from 'lodash/isEqual';
 
+// utils
+import { logEvent } from 'utils/analytics';
+
 // components
 import BasemapControl from './basemap-control';
 import LayerPopup from './popups/layer';
@@ -134,6 +137,8 @@ class MapComponent extends PureComponent {
       zoom: map.getZoom(),
       center: map.getCenter()
     });
+
+    logEvent('Map', 'map-movement', window.location.hash);
   }
 
   handleBoundaries() {

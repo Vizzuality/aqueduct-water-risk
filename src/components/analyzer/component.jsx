@@ -7,10 +7,18 @@ import { Spinner } from 'aqueduct-components';
 // components
 import DataTable from 'components/analyze-locations-tab/data-table';
 
+// utils
+import { logEvent } from 'utils/analytics';
+
 // helpers
 import { getFileName } from './helpers';
 
+
 class Analyzer extends PureComponent {
+  static handleDownload(format) {
+    logEvent('Download', 'User Downloads from Analysis Location', format);
+  }
+
   componentWillReceiveProps(nextProps) {
     const { filters, onFetchAnalysis } = this.props;
     const {
@@ -22,11 +30,17 @@ class Analyzer extends PureComponent {
     if (filtersChanged && geoStore) onFetchAnalysis();
   }
 
+  onApplyAnalysis() {
+    const { onApplyAnalysis } = this.props;
+
+    logEvent('Analysis', 'Analyze Locations', 'Start Analysis');
+    onApplyAnalysis();
+  }
+
   render() {
     const {
       points,
-      analysis: { data, loading, downloadUrl },
-      onApplyAnalysis
+      analysis: { data, loading, downloadUrl }
     } = this.props;
     const btnClass = classnames(
       'c-btn -light apply-analysis-btn',
@@ -59,9 +73,9 @@ class Analyzer extends PureComponent {
             (<div className="download-container">
              Download as
              <ul>
-               <li><a href={`${downloadUrl}&format=csv&filename=${fileName}`}>CSV</a>,</li>
-               <li><a href={`${downloadUrl}&format=shp&filename=${fileName}`}>SHP</a>,</li>
-               <li><a href={`${downloadUrl}&format=gpkg&filename=${fileName}`}>GPKG</a></li>
+               <li><a onClick={() => { Analyzer.handleDownload('CSV'); }} href={`${downloadUrl}&format=csv&filename=${fileName}`}>CSV</a>,</li>
+               <li><a onClick={() => { Analyzer.handleDownload('SHP'); }} href={`${downloadUrl}&format=shp&filename=${fileName}`}>SHP</a>,</li>
+               <li><a onClick={() => { Analyzer.handleDownload('GPKG'); }} href={`${downloadUrl}&format=gpkg&filename=${fileName}`}>GPKG</a></li>
              </ul>
               <p className="download-instructions">
                 <a
@@ -79,7 +93,7 @@ class Analyzer extends PureComponent {
           <button
             type="button"
             className={btnClass}
-            onClick={onApplyAnalysis}
+            onClick={() => { this.onApplyAnalysis(); }}
             disabled={!points.length}
           >
             Apply analysis

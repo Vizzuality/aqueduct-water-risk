@@ -6,10 +6,24 @@ import Icons from 'vizzuality-components/dist/icons';
 // components
 import Modal from 'components/modal';
 
+// utils
+import { initGA, logPageView } from 'utils/analytics';
+
 // app styles
 import 'styles/index.scss';
 
 class App extends PureComponent {
+
+  constructor(props) {
+    super(props);
+
+    // Google Analytics
+    if (!window.GA_INITIALIZED) {
+      initGA();
+      window.GA_INITIALIZED = true;
+    }
+    logPageView();
+  }
   render() {
     return (
       <div className="l-app">

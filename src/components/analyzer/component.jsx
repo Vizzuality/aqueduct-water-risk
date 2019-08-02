@@ -2,10 +2,11 @@ import React, { PureComponent } from 'react';
 import isEqual from 'lodash/isEqual';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { Spinner } from 'aqueduct-components';
+import { Spinner, Icon } from 'aqueduct-components';
 
 // components
 import DataTable from 'components/analyze-locations-tab/data-table';
+import AnalysisModal from 'components/modal/analysis';
 
 // utils
 import { logEvent } from 'utils/analytics';
@@ -36,6 +37,14 @@ class Analyzer extends PureComponent {
     logEvent('Analysis', 'Analyze Locations', 'Start Analysis');
     onApplyAnalysis();
   }
+  triggerExpandedTableModal() {
+    const { toggleModal } = this.props;
+
+    toggleModal(true, {
+      children: AnalysisModal,
+      size: '-medium'
+    });
+  }
 
   render() {
     const {
@@ -50,6 +59,19 @@ class Analyzer extends PureComponent {
 
     return (
       <div className="c-analyzer">
+        {(!!data.length && !loading) && (
+          <div className="analyzer-header">
+            <button
+              type="button"
+              onClick={() => { this.triggerExpandedTableModal(); }}
+            >
+              <Icon
+                name="icon-expand-window"
+                className="expand-table-icon"
+              />
+            </button>
+          </div>
+        )}
         <div className="analyzer-content">
           <Spinner
             isLoading={loading}
@@ -110,7 +132,8 @@ Analyzer.propTypes = {
   points: PropTypes.array.isRequired,
   analysis: PropTypes.object.isRequired,
   onFetchAnalysis: PropTypes.func.isRequired,
-  onApplyAnalysis: PropTypes.func.isRequired
+  onApplyAnalysis: PropTypes.func.isRequired,
+  toggleModal: PropTypes.func.isRequired
 };
 
 Analyzer.defaultProps = { geoStore: null };

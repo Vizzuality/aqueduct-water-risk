@@ -1,8 +1,20 @@
 .c-analyzer {
+  > .analyzer-header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    .expand-table-icon {
+      width: 15px;
+      height: 15px;
+      fill: palette(gray, dark);
+    }
+  }
+
   > .analyzer-content {
     position: relative;
     min-height: 150px;
-    margin: $space-1 * 2 0 0;
+    margin: $space-1 0 0;
 
     > .no-data-container {
       display: flex;
@@ -23,34 +35,6 @@
         height: calc(100% - 50px);
       }
     }
-
-    > .download-container {
-      margin: $space-1 * 2 0;
-      color: palette(blue, secondary);
-
-      ul {
-        display: inline-flex;
-
-        > li {
-          color: palette(gray, dark);
-          margin: 0 0 0 $space-1;
-          > a {
-            color: inherit;
-            font-weight: 500;
-            text-decoration: underline;
-          }
-        }
-      }
-
-      .download-instructions {
-        margin: $space-1 0 0 0;
-
-        > a {
-          color: palette(blue, secondary);
-          text-decoration: underline;
-        }
-      }
-    }
   }
 
   > .analyzer-footer {
@@ -64,6 +48,34 @@
       font-size: $font-size-big;
       color: palette(white);
       text-transform: none;
+    }
+  }
+}
+
+.download-container {
+  margin: $space-1 * 2 0;
+  color: palette(blue, secondary);
+
+  ul {
+    display: inline-flex;
+
+    > li {
+      color: palette(gray, dark);
+      margin: 0 0 0 $space-1;
+      > a {
+        color: inherit;
+        font-weight: 500;
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .download-instructions {
+    margin: $space-1 0 0 0;
+
+    > a {
+      color: palette(blue, secondary);
+      text-decoration: underline;
     }
   }
 }

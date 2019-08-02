@@ -1,0 +1,11 @@
+.c-analysis-modal {
+  max-height: 525px;
+
+  @media screen and (min-width: 1280px) {
+    max-height: 700px;
+  }
+
+  > .c-info {
+    padding: $space-1 * 3 $space-1 * 7;
+  }
+}

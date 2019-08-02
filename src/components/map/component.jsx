@@ -1,5 +1,6 @@
 import React, { PureComponent, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import { PluginLeaflet } from 'layer-manager/dist/layer-manager';
 import { LayerManager, Layer } from 'layer-manager/dist/components';
 import {
@@ -167,6 +168,7 @@ class MapComponent extends PureComponent {
     } = this.props;
     const { zoom, minZoom, maxZoom } = map;
     const mapEvents = { moveend: (e, _map) => { this.updateMap(e, _map); } };
+    const mapClass = classnames('c-map', ({ '-analysis ': mapMode === 'analysis' }));
 
     return (
       <div className="l-map">
@@ -174,6 +176,7 @@ class MapComponent extends PureComponent {
           mapOptions={map}
           events={mapEvents}
           basemap={basemap}
+          customClass={mapClass}
           {...boundaries && { label: LABEL_LAYER_CONFIG }}
         >
           {_map =>

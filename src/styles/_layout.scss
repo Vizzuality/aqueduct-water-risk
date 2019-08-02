@@ -60,6 +60,14 @@ $max-height-analyzer: 445px;
   .l-map {
     height: 100%;
   }
+
+  .c-map {
+    &.-analysis {
+      .leaflet-container {
+        cursor: crosshair;
+      }
+    }
+  }
 }
 
 .l-filters {

@@ -145,7 +145,7 @@ class ImportTabCoordinates extends PureComponent {
 
     toggleModal(false);
 
-    window.location.href = '/#/documentation';
+    window.open('/#/documentation');
   }
 
   render() {

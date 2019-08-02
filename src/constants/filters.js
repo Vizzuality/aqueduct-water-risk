@@ -11,7 +11,7 @@ export const timeScaleOptions = [
 
 export const MONTH_OPTIONS = [
   { value: '1', label: 'January' },
-  { value: '2', label: 'Feburary' },
+  { value: '2', label: 'February' },
   { value: '3', label: 'March' },
   { value: '4', label: 'April' },
   { value: '5', label: 'May' },

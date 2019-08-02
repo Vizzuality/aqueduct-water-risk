@@ -82,7 +82,7 @@ export const INDICATORS = [
           },
           {
             id: 'rri_cat',
-            name: 'RepRisk Index',
+            name: 'Peak RepRisk country ESG risk index',
             ponderation: true
           }
         ]
@@ -180,7 +180,7 @@ export const INDICATOR_NAMES_RELATION = {
   // Regulatory and Reputational
   udw_cat: 'Unimproved/no drinking water',
   usa_cat: 'Unimproved/no sanitation',
-  rri_cat: 'RepRisk Index',
+  rri_cat: 'Peak RepRisk country ESG risk index',
   // future
   '5aafeab1-4b48-40b0-9042-f654f1531aaf': 'Water Stress',
   '45a1f9c5-7b0b-4705-978f-1e98dc8b3277': 'Seasonal Variability',
@@ -350,8 +350,15 @@ export const INDICATOR_DESCRIPTIONS = {
   },
   rri_cat: {
     name: INDICATOR_NAMES_RELATION.rri_cat,
-    description: `The RepRisk Index measures environmental, social, and governance (ESG)-related reputational risk. Peak RepRisk Index equals
-    the highest level of the RepRisk Index in a given country over the last two years. Higher values indicate higher overall ESG-related risks.`,
+    description: `The Peak RepRisk country ESG risk index quantifies business conduct risk exposure related to environmental, social,
+      and governance (ESG) issues in the corresponding country. The index provides insights into potential finan-cial, reputational,
+      and compliance risks, such as human rights violations and environmental destruction. RepRisk is a leading business intelligence
+      provider that specializes in ESG and business conduct risk research for companies, projects, sectors, countries, ESG issues, NGOs,
+      and more, by leveraging artificial intelligence and human analysis in 20 languages. WRI has elected to include
+      the Peak RepRisk country ESG risk index in Aqueduct to reflect the broader regulatory and reputational risks that may threaten
+      water quantity, quality, and access. While the underlying algorithm is proprietary, we believe that our inclusion of
+      the Peak RepRisk country ESG risk index, normally unavailable to the public, is a value-add to the Aqueduct community.
+      The peak value equals the high-est level of the index in a given country over the last two years. The higher the value, the higher the risk exposure.`,
     sources: [{
       name: 'WRI Aqueduct 2019',
       link: 'https://www.wri.org/publication/aqueduct-30'
@@ -500,11 +507,11 @@ export const INDICATOR_COLUMNS = {
     { label: 'Regulatory and Reputational', value: 'w_awr_def_rrr_label' },
     { label: 'Unimproved/no drinking water', value: 'udw_label' },
     { label: 'Unimproved/no sanitation', value: 'usa_label' },
-    { label: 'RepRisk Index', value: 'rri_label' }
+    { label: 'Peak RepRisk country ESG risk index', value: 'rri_label' }
   ],
   udw_cat: [{ label: 'Unimproved/no drinking water', value: 'udw_label' }],
   usa_cat: [{ label: 'Unimproved/no sanitation', value: 'usa_label' }],
-  rri_cat: [{ label: 'RepRisk Index', value: 'rri_label' }],
+  rri_cat: [{ label: 'Peak RepRisk country ESG risk index', value: 'rri_label' }],
   projected_change: [
     { label: 'Projected Change In {{indicator}} ({{projection}} To {{year}} {{scenario}} )', value: 'label' }
   ],

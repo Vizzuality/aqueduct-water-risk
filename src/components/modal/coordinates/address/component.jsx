@@ -61,7 +61,7 @@ class AddressForm extends PureComponent {
           if (location) {
             onAddLocation({
               location_name: location.formatted_address,
-              input_address: '-',
+              input_address: location.formatted_address,
               match_address: '-'
             });
             return getLatLng(location);

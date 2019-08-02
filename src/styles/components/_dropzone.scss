@@ -24,23 +24,11 @@
       margin: $space-1 0 0;
 
       li {
+        list-style: none;
         position: relative;
         margin: $space-1 0 0;
-        padding: 0 0 0 $space-1 * 2;
 
         &:first-child { margin: 0; }
-
-        &:after {
-          content: "";
-          display: block;
-          position: absolute;
-          top: 7px;
-          left: 3px;
-          width: 6px;
-          height: 6px;
-          background: $color-text-1;
-          border-radius: 50%;
-        }
       }
     }
   }

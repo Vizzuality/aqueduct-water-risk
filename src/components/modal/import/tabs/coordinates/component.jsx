@@ -185,18 +185,14 @@ class ImportTabCoordinates extends PureComponent {
 
             <p>List of supported file formats <i>(click on any format to download the template)</i>:</p>
             <ul>
-              <li>Unzipped:
-                <a download="example_coordinates.csv" href="/files/points/coordinates/example_coordinates.csv">.csv</a>,
-                <a download="example_coordinates.cpg" href="/files/points/coordinates/example_coordinates.cpg">.cpg</a>,
-                <a download="example_coordinates.dbf" href="/files/points/coordinates/example_coordinates.dbf">.dbf</a>,
-                <a download="example_coordinates.prj" href="/files/points/coordinates/example_coordinates.prj">.prj</a>,
-                <a download="example_coordinates.xlsx" href="/files/points/coordinates/example_coordinates.xlsx">.xlsx</a>,
-                <a download="example_coordinates.shp" href="/files/points/coordinates/example_coordinates.shp">.shp</a>,
-                <a download="example_coordinates.shx" href="/files/points/coordinates/example_coordinates.shx">.shx</a>
-                <i>(.csv files must contain a geom column that contains geographic information)</i></li>
-              <li>Zipped:
-                <a download="example_coordinates.zip" href="/files/points/coordinates/example_coordinates.zip">.zip</a>
-                <i>(zipped shapefiles must include .shp, .shx, .dbf, and .prj files)</i>
+              <li>
+                <a download="example_coordinates.csv" href="/files/points/coordinates/example_coordinates.csv">Comma separated file (.csv)</a>
+              </li>
+              <li>
+                <a download="example_coordinates.xlsx" href="/files/points/coordinates/example_coordinates.xlsx">Spreadsheet (.xlsx)</a>,
+              </li>
+              <li>
+                <a download="example_coordinates.zip" href="/files/points/coordinates/example_coordinates.zip">Zipped shapefile (.zip)</a>
               </li>
             </ul>
           </header>

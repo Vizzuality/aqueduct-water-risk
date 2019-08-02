@@ -176,9 +176,11 @@ class ImportTabAddresses extends PureComponent {
 
             <p>List of supported file formats <i>(click on any format to download the template)</i>:</p>
             <ul>
-              <li>Unzipped:
-                <a download="example_address.csv" href="/files/points/addresses/example_address.csv">.csv</a>,&nbsp;
-                <a download="example_address.xlsx" href="/files/points/addresses/example_address.xlsx">.xlsx</a>
+              <li>
+                <a download="example_address.csv" href="/files/points/addresses/example_address.csv">Comma separated file (.csv)</a>
+              </li>
+              <li>
+                <a download="example_address.xlsx" href="/files/points/addresses/example_address.xlsx">Spreadsheet (.xlsx)</a>
               </li>
             </ul>
           </header>

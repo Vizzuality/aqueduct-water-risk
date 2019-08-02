@@ -189,7 +189,7 @@ class ImportTabCoordinates extends PureComponent {
                 <a download="example_coordinates.csv" href="/files/points/coordinates/example_coordinates.csv">Comma separated file (.csv)</a>
               </li>
               <li>
-                <a download="example_coordinates.xlsx" href="/files/points/coordinates/example_coordinates.xlsx">Spreadsheet (.xlsx)</a>,
+                <a download="example_coordinates.xlsx" href="/files/points/coordinates/example_coordinates.xlsx">Spreadsheet (.xlsx)</a>
               </li>
               <li>
                 <a download="example_coordinates.zip" href="/files/points/coordinates/example_coordinates.zip">Zipped shapefile (.zip)</a>

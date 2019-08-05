@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/Vizzuality/aqueduct-water-risk#readme",
   "dependencies": {
-    "aqueduct-components": "^0.3.7",
+    "aqueduct-components": "^0.3.8",
     "axios": "^0.18.0",
     "babel-core": "^6.26.3",
     "babel-loader": "^6.2.7",

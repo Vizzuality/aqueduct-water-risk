@@ -30,7 +30,7 @@ class App extends PureComponent {
         <Icons />
         <Header
           title="Water Risk Atlas"
-          appRoute="/applications/aqueduct/water-risk-atlas/"
+          appRoute="https://wri.org/aqueduct"
         />
         <main role="main" className="l-main l-content">
           {this.props.children}

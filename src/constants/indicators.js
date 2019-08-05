@@ -391,7 +391,7 @@ export const INDICATOR_DESCRIPTIONS = {
   }),
   'c124cfce-0414-4cf3-ba2d-e63634199b04': () => ({
     name: INDICATOR_NAMES_RELATION['c124cfce-0414-4cf3-ba2d-e63634199b04'],
-    description: `Total blue water (renewable surface water) was our indica-tor of water supply. Projected change in total blue water is equal to
+    description: `Total blue water (renewable surface water) was our indicator of water supply. Projected change in total blue water is equal to
       the 21-year mean around the target year divided by the baseline period of 1950–2010.`,
     sources: [{
       name: 'WRI Aqueduct 2015',
@@ -433,8 +433,8 @@ export const INDICATOR_DESCRIPTIONS = {
   }),
   'a045b21a-c2ff-4ec5-b7fa-2c1f206b8911': () => ({
     name: INDICATOR_NAMES_RELATION['a045b21a-c2ff-4ec5-b7fa-2c1f206b8911'],
-    description: `Total blue water (renewable surface water) was our indica-tor of water supply. Projected change in total blue water is equal to
-      the 21-year mean around the target year divided by the baseline period of 1950–2010.`,
+    description: `Total blue water (renewable surface water) was our indicator of water supply. Projected change in total blue water is equal to
+    the 21-year mean around the target year divided by the baseline period of 1950–2010.`,
     sources: [{
       name: 'WRI Aqueduct 2015',
       link: 'https://www.wri.org/publication/aqueduct-water-stress-projections-decadal-projections-water-supply-and-demand-using'

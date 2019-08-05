@@ -28,3 +28,12 @@
 .go-to-docs-btn {
   color: palette(blue, 'secondary');
 }
+
+.coming-soon {
+  display: flex;
+  justify-content: center;
+  min-height: 200px;
+  align-items: center;
+  color: palette(blue, secondary);
+  font-size: 16px;
+}

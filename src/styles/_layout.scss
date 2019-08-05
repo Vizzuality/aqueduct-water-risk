@@ -11,6 +11,7 @@ $max-height-analyzer: 445px;
 /* Header */
 .l-header {
   display: flex;
+  justify-content: space-between;
   position: relative;
   z-index: 10000;
 }

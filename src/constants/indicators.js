@@ -6,7 +6,7 @@ export const INDICATORS = [
     children: [
       {
         id: 'w_awr_def_qan_cat',
-        name: 'Water Quantity Risk',
+        name: 'Physical Risks Quantity',
         children: [
           {
             id: 'bws_cat',
@@ -52,7 +52,7 @@ export const INDICATORS = [
       },
       {
         id: 'w_awr_def_qal_cat',
-        name: 'Water Quality Risk',
+        name: 'Physical Risks Quality',
         children: [
           {
             id: 'ucw_cat',
@@ -68,7 +68,7 @@ export const INDICATORS = [
       },
       {
         id: 'w_awr_def_rrr_cat',
-        name: 'Regulatory and Reputational',
+        name: 'Regulatory and Reputational Risk',
         children: [
           {
             id: 'udw_cat',
@@ -162,10 +162,10 @@ export const FUTURE_INDICATORS_SWAP = {
 
 export const INDICATOR_NAMES_RELATION = {
   w_awr_def_tot_cat: 'Overall Water Risk',
-  w_awr_def_qan_cat: 'Water Quantity Risk',
-  w_awr_def_qal_cat: 'Water Quality Risk',
-  w_awr_def_rrr_cat: 'Regulatory and Reputational',
-  // Water Quantity Risk
+  w_awr_def_qan_cat: 'Physical Risks Quantity',
+  w_awr_def_qal_cat: 'Physical Risks Quality',
+  w_awr_def_rrr_cat: 'Regulatory and Reputational Risk',
+  // Physical Risks Quantity
   bws_cat: 'Baseline Water Stress',
   bwd_cat: 'Baseline Water Depletion',
   gtd_cat: 'Groundwater Table Decline',
@@ -286,7 +286,10 @@ export const INDICATOR_DESCRIPTIONS = {
     name: INDICATOR_NAMES_RELATION.drr_cat,
     description: `Drought risk measures where droughts are likely to occur, the population and assets exposed, and the
     vulnerability of the population and assets to suffering adverse effects. Higher values indicate higher risk of drought.`,
-    sources: [{ name: 'Sheffield and Wood 2007' }]
+    sources: [{
+      name: 'WRI Aqueduct 2019',
+      link: 'https://www.wri.org/publication/aqueduct-30'
+    }]
   },
   rfr_cat: {
     name: INDICATOR_NAMES_RELATION.rfr_cat,
@@ -300,7 +303,7 @@ export const INDICATOR_DESCRIPTIONS = {
   },
   cfr_cat: {
     name: INDICATOR_NAMES_RELATION.gtd_cat,
-    description: `Coastal flood risk measures the percentage of population expected to be affected by coastal flooding in
+    description: `Coastal Flood Risk measures the percentage of population expected to be affected by coastal flooding in
     an average year, accounting for existing flood protection standards. Higher values indicate greater proportion of the
     population is expected to be impacted by coastal floods.`,
     sources: [{
@@ -365,75 +368,87 @@ export const INDICATOR_DESCRIPTIONS = {
     }]
   },
   // future
-  '5aafeab1-4b48-40b0-9042-f654f1531aaf': scenario => ({
+  '5aafeab1-4b48-40b0-9042-f654f1531aaf': () => ({
     name: INDICATOR_NAMES_RELATION['5aafeab1-4b48-40b0-9042-f654f1531aaf'],
-    description: `Projected change in water stress shows how development and/or climate change are expected to
-      affect water stress, the ratio of water use to supply. ${SCENARIO_DESCRIPTIONS[scenario]}`,
+    description: `Water stress is an indicator of competition for water resources and is defined informally as the ratio of demand for water
+      by human society divided by available water.`,
     sources: [{
-      name: 'WRI 2015',
+      name: 'WRI Aqueduct 2015',
       link: 'https://www.wri.org/publication/aqueduct-water-stress-projections-decadal-projections-water-supply-and-demand-using'
     }]
   }),
-  '45a1f9c5-7b0b-4705-978f-1e98dc8b3277': scenario => ({
+  '45a1f9c5-7b0b-4705-978f-1e98dc8b3277': () => ({
     name: INDICATOR_NAMES_RELATION['45a1f9c5-7b0b-4705-978f-1e98dc8b3277'],
-    description: `Projected change in seasonal variability shows how climate change is expected to affect the variability of water supply
-      between the months of the year. ${SCENARIO_DESCRIPTIONS[scenario]}`,
+    description: `Seasonal variability (SV) is an indicator of the variability between months of the year.
+      Increasing SV may indicate wetter wet months and drier dry months, and higher likelihood of droughts or wet periods.
+      We used the within-year coefficient of variance between monthly total blue water as our indicator of
+      seasonal variability of water supply. We calculated the coefficient of variance between months for each year,
+      then estimated projected change in seasonal variability as the 21-year mean around the target year over the baseline period mean.`,
     sources: [{
-      name: 'WRI 2015',
+      name: 'WRI Aqueduct 2015',
       link: 'https://www.wri.org/publication/aqueduct-water-stress-projections-decadal-projections-water-supply-and-demand-using'
     }]
   }),
-  'c124cfce-0414-4cf3-ba2d-e63634199b04': scenario => ({
+  'c124cfce-0414-4cf3-ba2d-e63634199b04': () => ({
     name: INDICATOR_NAMES_RELATION['c124cfce-0414-4cf3-ba2d-e63634199b04'],
-    description: `Projected change in water supply shows how climate change is expected to affect water supply.
-      ${SCENARIO_DESCRIPTIONS[scenario]}`,
+    description: `Total blue water (renewable surface water) was our indica-tor of water supply. Projected change in total blue water is equal to
+      the 21-year mean around the target year divided by the baseline period of 1950–2010.`,
     sources: [{
-      name: 'WRI 2015',
+      name: 'WRI Aqueduct 2015',
       link: 'https://www.wri.org/publication/aqueduct-water-stress-projections-decadal-projections-water-supply-and-demand-using'
     }]
   }),
-  'a3795c06-d2eb-4aa3-8e24-62965b69e5ce': scenario => ({
+  'a3795c06-d2eb-4aa3-8e24-62965b69e5ce': () => ({
     name: INDICATOR_NAMES_RELATION['a3795c06-d2eb-4aa3-8e24-62965b69e5ce'],
-    description: `Projected change in water demand shows how development and/or climate change are expected to affect water demand.
-      ${SCENARIO_DESCRIPTIONS[scenario]}`,
+    description: `Water demand was measured as water withdrawals. Projected change in water withdrawals is equal to
+      the summarized withdrawals for the target year, divided by the baseline year, 2010. Since irrigation consumptive use
+      varies based on climate, we generated unique estimates of consumptive and non-consumptive agricultural withdrawal for each year.
+      Estimates for consumptive and non-consumptive agricultural withdrawal for each ensemble member, scenario,
+      and target year are the mean of the 21-year window around the target year.`,
     sources: [{
-      name: 'WRI 2015',
+      name: 'WRI Aqueduct 2015',
       link: 'https://www.wri.org/publication/aqueduct-water-stress-projections-decadal-projections-water-supply-and-demand-using'
     }]
   }),
-  'd5c8316c-de80-4be3-a973-d3fbafc7eaca': scenario => ({
+  'd5c8316c-de80-4be3-a973-d3fbafc7eaca': () => ({
     name: INDICATOR_NAMES_RELATION['d5c8316c-de80-4be3-a973-d3fbafc7eaca'],
-    description: `Projected change in water stress shows how development and/or climate change are expected to
-      affect water stress, the ratio of water use to supply. ${SCENARIO_DESCRIPTIONS[scenario]}`,
+    description: `Water stress is an indicator of competition for water resources and is defined informally as the ratio of demand for water
+      by human society divided by available water.`,
     sources: [{
-      name: 'WRI 2015',
+      name: 'WRI Aqueduct 2015',
       link: 'https://www.wri.org/publication/aqueduct-water-stress-projections-decadal-projections-water-supply-and-demand-using'
     }]
   }),
-  'd7d5fd18-e8e4-4654-b595-7accbb582992': scenario => ({
+  'd7d5fd18-e8e4-4654-b595-7accbb582992': () => ({
     name: INDICATOR_NAMES_RELATION['d7d5fd18-e8e4-4654-b595-7accbb582992'],
-    description: `Projected change in seasonal variability shows how climate change is expected to affect the variability of water supply
-      between the months of the year. ${SCENARIO_DESCRIPTIONS[scenario]}`,
+    description: `Seasonal variability (SV) is an indicator of the variability between months of the year.
+      Increasing SV may indicate wetter wet months and drier dry months, and higher likelihood of droughts or wet periods.
+      We used the within-year coefficient of variance between monthly total blue water as our indicator of
+      seasonal variability of water supply. We calculated the coefficient of variance between months for each year,
+      then estimated projected change in seasonal variability as the 21-year mean around the target year over the baseline period mean.`,
     sources: [{
-      name: 'WRI 2015',
+      name: 'WRI Aqueduct 2015',
       link: 'https://www.wri.org/publication/aqueduct-water-stress-projections-decadal-projections-water-supply-and-demand-using'
     }]
   }),
-  'a045b21a-c2ff-4ec5-b7fa-2c1f206b8911': scenario => ({
+  'a045b21a-c2ff-4ec5-b7fa-2c1f206b8911': () => ({
     name: INDICATOR_NAMES_RELATION['a045b21a-c2ff-4ec5-b7fa-2c1f206b8911'],
-    description: `Projected change in water supply shows how climate change is expected to affect water supply.
-      ${SCENARIO_DESCRIPTIONS[scenario]}`,
+    description: `Total blue water (renewable surface water) was our indica-tor of water supply. Projected change in total blue water is equal to
+      the 21-year mean around the target year divided by the baseline period of 1950–2010.`,
     sources: [{
-      name: 'WRI 2015',
+      name: 'WRI Aqueduct 2015',
       link: 'https://www.wri.org/publication/aqueduct-water-stress-projections-decadal-projections-water-supply-and-demand-using'
     }]
   }),
-  'cf7e6a51-3366-42d7-a8ae-ef0f1f11a5f1': scenario => ({
+  'cf7e6a51-3366-42d7-a8ae-ef0f1f11a5f1': () => ({
     name: INDICATOR_NAMES_RELATION.rri_cat,
-    description: `Projected change in water demand shows how development and/or climate change are expected to affect water demand.
-    ${SCENARIO_DESCRIPTIONS[scenario]}`,
+    description: `Water demand was measured as water withdrawals. Projected change in water withdrawals is equal to
+      the summarized withdrawals for the target year, divided by the baseline year, 2010. Since irrigation consumptive use
+      varies based on climate, we generated unique estimates of consumptive and non-consumptive agricultural withdrawal for each year.
+      Estimates for consumptive and non-consumptive agricultural withdrawal for each ensemble member, scenario,
+      and target year are the mean of the 21-year window around the target year.`,
     sources: [{
-      name: 'WRI 2015',
+      name: 'WRI Aqueduct 2015',
       link: 'https://www.wri.org/publication/aqueduct-water-stress-projections-decadal-projections-water-supply-and-demand-using'
     }]
   })
@@ -477,7 +492,7 @@ export const INDICATOR_COLUMNS = {
   w_awr_def_tot_cat: [{ label: 'Overall Water Risk', value: 'w_awr_def_tot_label' }],
   // Water Quantity Risk
   w_awr_def_qan_cat: [
-    { label: 'Water Quantity Risk', value: 'w_awr_def_qan_label' },
+    { label: 'Physical Risks Quantity', value: 'w_awr_def_qan_label' },
     { label: 'Baseline Water Stress', value: 'bws_label' },
     { label: 'Groundwater Table Decline', value: 'gtd_label' },
     { label: 'Interannual Variability', value: 'iav_label' },
@@ -496,7 +511,7 @@ export const INDICATOR_COLUMNS = {
   cfr_cat: [{ label: 'Coastal Flood Risk', value: 'cfr_label' }],
   // Water Quality Risk
   w_awr_def_qal_cat: [
-    { label: 'Water Quality Risk', value: 'w_awr_def_qal_label' },
+    { label: 'Physical Risks Quality', value: 'w_awr_def_qal_label' },
     { label: 'Untreated Collected Wastewater', value: 'ucw_label' },
     { label: 'Coastal Eutrophication Potential', value: 'cep_label' }
   ],
@@ -504,7 +519,7 @@ export const INDICATOR_COLUMNS = {
   cep_cat: [{ label: 'Riverine Flood Risk Stress', value: 'cep_label' }],
   // Regulatory and Reputational
   w_awr_def_rrr_cat: [
-    { label: 'Regulatory and Reputational', value: 'w_awr_def_rrr_label' },
+    { label: 'Regulatory and Reputational Risk', value: 'w_awr_def_rrr_label' },
     { label: 'Unimproved/no drinking water', value: 'udw_label' },
     { label: 'Unimproved/no sanitation', value: 'usa_label' },
     { label: 'Peak RepRisk country ESG risk index', value: 'rri_label' }

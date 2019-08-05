@@ -29,9 +29,17 @@ export const projectionOptions = [
   { value: 'bs', label: 'Change from baseline' }
 ];
 
-export const TIMEFRAME_MODAL_DESCRIPTION = {
+export const SCENARIO_MODAL_DESCRIPTION = {
   title: 'Temporal resolution',
-  description: 'Depending on the temporal resolution selected, different indicators will be available.'
+  description: `<p>Optimistic:</p>
+  <p>"optimistic" scenario (SSP2 RCP4.5) represents a world with stable economic development and carbon emissions peaking and declining by 2040, with emissions constrained to stabilize at ~650 ppm CO2 and temperatures to 1.1–2.6°C by 2100.</p>
+
+  <p>Business as usual</p>
+  </p>The "business as usual" scenario (SSP2 RCP8.5) represents a world with stable economic development and steadily rising global carbon emissions, with CO2 concentrations reaching ~1370 ppm by 2100 and global mean temperatures increasing by 2.6–4.8°C relative to 1986–2005 levels</p>
+
+  <p>Pessimistic</p>
+  <p>The "pessimistic" scenario (SSP3 RCP8.5) represents a fragmented world with uneven economic development, higher population growth, lower GDP growth, and a lower rate of urbanization, all of which potentially affect water usage; and steadily rising global carbon emissions, with CO2 concentrations reaching ~1370 ppm by 2100 and global mean temperatures increasing by 2.6–4.8°C relative to 1986–2005 levels.</p>`,
+  source: '<a href="https://www.wri.org/publication/aqueduct-water-stress-projections-decadal-projections-water-supply-and-demand-using" target="_blank" rel="noopener noreferrer">Aqueduct 2015</a>'
 };
 
 export default {
@@ -39,5 +47,5 @@ export default {
   timeScaleOptions,
   MONTH_OPTIONS,
   projectionOptions,
-  TIMEFRAME_MODAL_DESCRIPTION
+  SCENARIO_MODAL_DESCRIPTION
 };

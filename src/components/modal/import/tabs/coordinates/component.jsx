@@ -157,7 +157,10 @@ class ImportTabCoordinates extends PureComponent {
 
     return (
       <div className="c-import-modal">
-        <Spinner isLoading={loading} />
+        <div className="coming-soon">
+          Coming Soon.
+        </div>
+        {/* <Spinner isLoading={loading} />
         <Dropzone
           ref={(node) => { this.dropzone = node; }}
           className="c-dropzone"
@@ -221,7 +224,7 @@ class ImportTabCoordinates extends PureComponent {
               </div>
             }
           </div>
-        </Dropzone>
+        </Dropzone> */}
       </div>
     );
   }

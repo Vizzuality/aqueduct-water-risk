@@ -370,8 +370,8 @@ export const INDICATOR_DESCRIPTIONS = {
   // future
   '5aafeab1-4b48-40b0-9042-f654f1531aaf': () => ({
     name: INDICATOR_NAMES_RELATION['5aafeab1-4b48-40b0-9042-f654f1531aaf'],
-    description: `Water stress is an indicator of competition for water resources and is defined informally as the ratio of demand for water
-      by human society divided by available water.`,
+    description: `Water stress is an indicator of competition for water resources and is defined
+      informally as the ratio of demand for water by human society divided by available water.`,
     sources: [{
       name: 'WRI Aqueduct 2015',
       link: 'https://www.wri.org/publication/aqueduct-water-stress-projections-decadal-projections-water-supply-and-demand-using'
@@ -381,9 +381,9 @@ export const INDICATOR_DESCRIPTIONS = {
     name: INDICATOR_NAMES_RELATION['45a1f9c5-7b0b-4705-978f-1e98dc8b3277'],
     description: `Seasonal variability (SV) is an indicator of the variability between months of the year.
       Increasing SV may indicate wetter wet months and drier dry months, and higher likelihood of droughts or wet periods.
-      We used the within-year coefficient of variance between monthly total blue water as our indicator of
-      seasonal variability of water supply. We calculated the coefficient of variance between months for each year,
-      then estimated projected change in seasonal variability as the 21-year mean around the target year over the baseline period mean.`,
+      We used the within-year coefficient of variance between monthly total blue water as our indicator of seasonal variability of water supply.
+      We calculated the coefficient of variance between months for each year, then estimated projected change in seasonal variability
+      as the 21-year mean around the target year over the baseline period mean.`,
     sources: [{
       name: 'WRI Aqueduct 2015',
       link: 'https://www.wri.org/publication/aqueduct-water-stress-projections-decadal-projections-water-supply-and-demand-using'
@@ -391,8 +391,8 @@ export const INDICATOR_DESCRIPTIONS = {
   }),
   'c124cfce-0414-4cf3-ba2d-e63634199b04': () => ({
     name: INDICATOR_NAMES_RELATION['c124cfce-0414-4cf3-ba2d-e63634199b04'],
-    description: `Total blue water (renewable surface water) was our indicator of water supply. Projected change in total blue water is equal to
-      the 21-year mean around the target year divided by the baseline period of 1950–2010.`,
+    description: `Total blue water (renewable surface water) was our indicator of water supply.
+      Projected change in total blue water is equal to the 21-year mean around the target year divided by the baseline period of 1950–2010.`,
     sources: [{
       name: 'WRI Aqueduct 2015',
       link: 'https://www.wri.org/publication/aqueduct-water-stress-projections-decadal-projections-water-supply-and-demand-using'
@@ -400,11 +400,11 @@ export const INDICATOR_DESCRIPTIONS = {
   }),
   'a3795c06-d2eb-4aa3-8e24-62965b69e5ce': () => ({
     name: INDICATOR_NAMES_RELATION['a3795c06-d2eb-4aa3-8e24-62965b69e5ce'],
-    description: `Water demand was measured as water withdrawals. Projected change in water withdrawals is equal to
-      the summarized withdrawals for the target year, divided by the baseline year, 2010. Since irrigation consumptive use
-      varies based on climate, we generated unique estimates of consumptive and non-consumptive agricultural withdrawal for each year.
-      Estimates for consumptive and non-consumptive agricultural withdrawal for each ensemble member, scenario,
-      and target year are the mean of the 21-year window around the target year.`,
+    description: `Water demand was measured as water withdrawals. Projected change in water withdrawals is equal to the summarized
+    withdrawals for the target year, divided by the baseline year, 2010. Since irrigation consumptive use varies based on climate,
+    we generated unique estimates of consumptive and non-consumptive agricultural withdrawal for each year.
+    Estimates for consumptive and non-consumptive agricultural withdrawal for each ensemble member, scenario,
+    and target year are the mean of the 21-year window around the target year.`,
     sources: [{
       name: 'WRI Aqueduct 2015',
       link: 'https://www.wri.org/publication/aqueduct-water-stress-projections-decadal-projections-water-supply-and-demand-using'
@@ -412,8 +412,8 @@ export const INDICATOR_DESCRIPTIONS = {
   }),
   'd5c8316c-de80-4be3-a973-d3fbafc7eaca': () => ({
     name: INDICATOR_NAMES_RELATION['d5c8316c-de80-4be3-a973-d3fbafc7eaca'],
-    description: `Water stress is an indicator of competition for water resources and is defined informally as the ratio of demand for water
-      by human society divided by available water.`,
+    description: `Water stress is an indicator of competition for water resources and is defined informally
+      as the ratio of demand for water by human society divided by available water.`,
     sources: [{
       name: 'WRI Aqueduct 2015',
       link: 'https://www.wri.org/publication/aqueduct-water-stress-projections-decadal-projections-water-supply-and-demand-using'
@@ -423,9 +423,9 @@ export const INDICATOR_DESCRIPTIONS = {
     name: INDICATOR_NAMES_RELATION['d7d5fd18-e8e4-4654-b595-7accbb582992'],
     description: `Seasonal variability (SV) is an indicator of the variability between months of the year.
       Increasing SV may indicate wetter wet months and drier dry months, and higher likelihood of droughts or wet periods.
-      We used the within-year coefficient of variance between monthly total blue water as our indicator of
-      seasonal variability of water supply. We calculated the coefficient of variance between months for each year,
-      then estimated projected change in seasonal variability as the 21-year mean around the target year over the baseline period mean.`,
+      We used the within-year coefficient of variance between monthly total blue water as our indicator of seasonal variability of water supply.
+      We calculated the coefficient of variance between months for each year, then estimated projected change in seasonal variability
+      as the 21-year mean around the target year over the baseline period mean.`,
     sources: [{
       name: 'WRI Aqueduct 2015',
       link: 'https://www.wri.org/publication/aqueduct-water-stress-projections-decadal-projections-water-supply-and-demand-using'
@@ -433,8 +433,8 @@ export const INDICATOR_DESCRIPTIONS = {
   }),
   'a045b21a-c2ff-4ec5-b7fa-2c1f206b8911': () => ({
     name: INDICATOR_NAMES_RELATION['a045b21a-c2ff-4ec5-b7fa-2c1f206b8911'],
-    description: `Total blue water (renewable surface water) was our indicator of water supply. Projected change in total blue water is equal to
-    the 21-year mean around the target year divided by the baseline period of 1950–2010.`,
+    description: `Total blue water (renewable surface water) was our indicator of water supply.
+      Projected change in total blue water is equal to the 21-year mean around the target year divided by the baseline period of 1950–2010.`,
     sources: [{
       name: 'WRI Aqueduct 2015',
       link: 'https://www.wri.org/publication/aqueduct-water-stress-projections-decadal-projections-water-supply-and-demand-using'
@@ -442,11 +442,11 @@ export const INDICATOR_DESCRIPTIONS = {
   }),
   'cf7e6a51-3366-42d7-a8ae-ef0f1f11a5f1': () => ({
     name: INDICATOR_NAMES_RELATION.rri_cat,
-    description: `Water demand was measured as water withdrawals. Projected change in water withdrawals is equal to
-      the summarized withdrawals for the target year, divided by the baseline year, 2010. Since irrigation consumptive use
-      varies based on climate, we generated unique estimates of consumptive and non-consumptive agricultural withdrawal for each year.
-      Estimates for consumptive and non-consumptive agricultural withdrawal for each ensemble member, scenario,
-      and target year are the mean of the 21-year window around the target year.`,
+    description: `Water demand was measured as water withdrawals. Projected change in water withdrawals is equal to the summarized
+    withdrawals for the target year, divided by the baseline year, 2010. Since irrigation consumptive use varies based on climate,
+    we generated unique estimates of consumptive and non-consumptive agricultural withdrawal for each year.
+    Estimates for consumptive and non-consumptive agricultural withdrawal for each ensemble member, scenario,
+    and target year are the mean of the 21-year window around the target year.`,
     sources: [{
       name: 'WRI Aqueduct 2015',
       link: 'https://www.wri.org/publication/aqueduct-water-stress-projections-decadal-projections-water-supply-and-demand-using'

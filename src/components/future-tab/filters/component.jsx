@@ -12,7 +12,7 @@ import {
 import { SCENARIO_OPTIONS } from 'constants/app';
 import {
   projectionOptions,
-  TIMEFRAME_MODAL_DESCRIPTION,
+  SCENARIO_MODAL_DESCRIPTION,
   TIMEFRAME_OPTIONS
 } from 'constants/filters';
 import { FUTURE_INDICATORS_SWAP } from 'constants/indicators';
@@ -21,10 +21,10 @@ class Filters extends PureComponent {
   onClickInfoFilters(slug) {
     const { toggleModal } = this.props;
 
-    if (slug === 'temporal-resolution') {
+    if (slug === 'scenarios') {
       return toggleModal(true, {
         children: InfoModal,
-        childrenProps: { info: TIMEFRAME_MODAL_DESCRIPTION }
+        childrenProps: { info: SCENARIO_MODAL_DESCRIPTION }
       });
     }
 
@@ -61,16 +61,6 @@ class Filters extends PureComponent {
               <div className="c-filters-item">
                 <div className="filter-item-header">
                   <span className="title">Timeframe</span>
-                  <button
-                    type="button"
-                    className="icon-container"
-                    onClick={() => this.onClickInfoFilters('timeframe')}
-                  >
-                    <Icon
-                      name="icon-question"
-                      className="title-icon"
-                    />
-                  </button>
                 </div>
                 <Timeline
                   items={TIMEFRAME_OPTIONS}
@@ -88,6 +78,17 @@ class Filters extends PureComponent {
               <div className="c-filters-item">
                 <div className="filter-item-header">
                   <span className="title">Scenarios</span>
+                  <button
+                    type="button"
+                    className="icon-container"
+                    onClick={() => this.onClickInfoFilters('scenarios')}
+                  >
+                    <Icon
+                      name="icon-question"
+                      className="title-icon"
+                    />
+                  </button>
+
                 </div>
                 <div className="time-scale-container">
                   <RadioGroup

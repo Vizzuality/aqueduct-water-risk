@@ -134,7 +134,7 @@ class ImportTabAddresses extends PureComponent {
 
     toggleModal(false);
 
-    window.open('/#/documentation');
+    window.open('/applications/aqueduct/water-risk-atlas/#/documentation');
   }
 
   render() {
@@ -177,10 +177,10 @@ class ImportTabAddresses extends PureComponent {
             <p>List of supported file formats <i>(click on any format to download the template)</i>:</p>
             <ul>
               <li>
-                <a download="example_address.csv" href="/files/points/addresses/example_address.csv">Comma separated file (.csv)</a>
+                <a download="example_address.csv" href="https://rawcdn.githack.com/Vizzuality/aqueduct-water-risk/171cb2abf99b0937a86219696ef664b8451e7efb/public/files/points/addresses/example_address.csv">Comma separated file (.csv)</a>
               </li>
               <li>
-                <a download="example_address.xlsx" href="/files/points/addresses/example_address.xlsx">Spreadsheet (.xlsx)</a>
+                <a download="example_address.xlsx" href="https://rawcdn.githack.com/Vizzuality/aqueduct-water-risk/171cb2abf99b0937a86219696ef664b8451e7efb/public/files/points/addresses/example_address.xlsx">Spreadsheet (.xlsx)</a>
               </li>
             </ul>
           </header>

@@ -145,7 +145,7 @@ class ImportTabCoordinates extends PureComponent {
 
     toggleModal(false);
 
-    window.open('/#/documentation');
+    window.open('/applications/aqueduct/water-risk-atlas/#/documentation');
   }
 
   render() {
@@ -179,20 +179,20 @@ class ImportTabCoordinates extends PureComponent {
           <header className="dropzone-header">
             <h2>Import multiple coordinates</h2>
 
-            <p>Please use this <a href="https://github.com/wri/aqueduct_analyze_locations/raw/master/input_templates/example_coordinates.xlsx">template</a> to structure your data.</p>
+            <p>Please use this <a href="https://rawcdn.githack.com/Vizzuality/aqueduct-water-risk/171cb2abf99b0937a86219696ef664b8451e7efb/public/files/points/coordinates/example_coordinates.xlsx">template</a> to structure your data.</p>
             <p>Replace with your own location names and coordinates. Do not add additional columns.</p>
             <p>More <button className="go-to-docs-btn" onClick={() => { this.goToDocs(); }}>info</button>.</p>
 
             <p>List of supported file formats <i>(click on any format to download the template)</i>:</p>
             <ul>
               <li>
-                <a download="example_coordinates.csv" href="/files/points/coordinates/example_coordinates.csv">Comma separated file (.csv)</a>
+                <a download="example_coordinates.csv" href="https://rawcdn.githack.com/Vizzuality/aqueduct-water-risk/171cb2abf99b0937a86219696ef664b8451e7efb/public/files/points/coordinates/example_coordinates.csv">Comma separated file (.csv)</a>
               </li>
               {/* <li>
-                <a download="example_coordinates.xlsx" href="/files/points/coordinates/example_coordinates.xlsx">Spreadsheet (.xlsx)</a>
+                <a download="example_coordinates.xlsx" href="https://rawcdn.githack.com/Vizzuality/aqueduct-water-risk/171cb2abf99b0937a86219696ef664b8451e7efb/public/files/points/coordinates/example_coordinates.xlsx">Spreadsheet (.xlsx)</a>
               </li> */}
               <li>
-                <a download="example_coordinates.zip" href="/files/points/coordinates/example_coordinates.zip">Zipped shapefile (.zip)</a>
+                <a download="example_coordinates.zip" href="https://rawcdn.githack.com/Vizzuality/aqueduct-water-risk/171cb2abf99b0937a86219696ef664b8451e7efb/public/files/points/coordinates/example_coordinates.zip">Zipped shapefile (.zip)</a>
               </li>
               <li>
                 <p>Coming Soon: Spreadsheet (.xlsx)</p>

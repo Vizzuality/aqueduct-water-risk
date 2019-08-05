@@ -1,11 +1,7 @@
 import React, { PureComponent, Fragment } from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
-import {
-  Checkbox,
-  Icon,
-  InfoModal
-} from 'aqueduct-components';
+import { Checkbox, InfoModal } from 'aqueduct-components';
 
 // components
 import IndicatorList from 'components/baseline-tab/indicator-list';
@@ -69,16 +65,6 @@ class Indicators extends PureComponent {
         <div className="layerlist-header">
           <div className="indicator-header">
             <span className="layerlist-title">Indicators</span>
-            <button
-              type="button"
-              className="icon-container -info"
-              onClick={() => { this.handleClickModal(); }}
-            >
-              <Icon
-                name="icon-info"
-                className="title-icon"
-              />
-            </button>
           </div>
           {timeScale === 'annual' && (
             <span className="advanced">

@@ -158,7 +158,7 @@ class ImportTabCoordinates extends PureComponent {
     return (
       <div className="c-import-modal">
         <div className="coming-soon">
-          Coming Soon.
+          Coming soon.
         </div>
         {/* <Spinner isLoading={loading} />
         <Dropzone

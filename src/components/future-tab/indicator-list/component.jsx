@@ -3,6 +3,12 @@ import PropTypes from 'prop-types';
 import { RadioGroup } from 'aqueduct-components';
 
 class FutureIndicatorList extends PureComponent {
+  handleModal({ value }) {
+    const { openModal, scenario } = this.props;
+
+    openModal(value, scenario);
+  }
+
   render() {
     const {
       indicators,
@@ -24,6 +30,7 @@ class FutureIndicatorList extends PureComponent {
             onChange={({ value }) => { setFilters({ indicator: value }); }}
             selected={currentIndicator}
             className="-secondary"
+            onInfo={(item) => { this.handleModal(item); }}
           />
         </div>
       </div>
@@ -34,7 +41,9 @@ class FutureIndicatorList extends PureComponent {
 FutureIndicatorList.propTypes = {
   indicators: PropTypes.array.isRequired,
   currentIndicator: PropTypes.string.isRequired,
-  setFilters: PropTypes.func.isRequired
+  scenario: PropTypes.string.isRequired,
+  setFilters: PropTypes.func.isRequired,
+  openModal: PropTypes.func.isRequired
 };
 
 export default FutureIndicatorList;

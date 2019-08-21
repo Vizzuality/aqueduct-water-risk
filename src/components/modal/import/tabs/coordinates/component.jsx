@@ -188,14 +188,11 @@ class ImportTabCoordinates extends PureComponent {
               <li>
                 <a download="example_coordinates.csv" href="https://rawcdn.githack.com/Vizzuality/aqueduct-water-risk/171cb2abf99b0937a86219696ef664b8451e7efb/public/files/points/coordinates/example_coordinates.csv">Comma separated file (.csv)</a>
               </li>
-              {/* <li>
-                <a download="example_coordinates.xlsx" href="https://rawcdn.githack.com/Vizzuality/aqueduct-water-risk/171cb2abf99b0937a86219696ef664b8451e7efb/public/files/points/coordinates/example_coordinates.xlsx">Spreadsheet (.xlsx)</a>
-              </li> */}
               <li>
-                <a download="example_coordinates.zip" href="https://rawcdn.githack.com/Vizzuality/aqueduct-water-risk/171cb2abf99b0937a86219696ef664b8451e7efb/public/files/points/coordinates/example_coordinates.zip">Zipped shapefile (.zip)</a>
+                <a download="example_coordinates.xlsx" href="https://rawcdn.githack.com/Vizzuality/aqueduct-water-risk/171cb2abf99b0937a86219696ef664b8451e7efb/public/files/points/coordinates/example_coordinates.xlsx">Spreadsheet (.xlsx)</a>
               </li>
               <li>
-                <p>Coming Soon: Spreadsheet (.xlsx)</p>
+                <a download="example_coordinates.zip" href="https://rawcdn.githack.com/Vizzuality/aqueduct-water-risk/171cb2abf99b0937a86219696ef664b8451e7efb/public/files/points/coordinates/example_coordinates.zip">Zipped shapefile (.zip)</a>
               </li>
             </ul>
           </header>

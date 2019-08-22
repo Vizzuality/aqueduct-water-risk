@@ -9,7 +9,7 @@ import { WRIAPI } from 'utils/axios';
  */
 
 export const fetchAnalysis = params =>
-  WRIAPI.get('/aqueduct/analysis', { params })
+  WRIAPI.post('/aqueduct/analysis', params)
     .then((response) => {
       const { status, statusText, data } = response;
       if (status >= 300) throw new Error(statusText);

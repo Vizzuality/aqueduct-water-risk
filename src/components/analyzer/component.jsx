@@ -3,10 +3,15 @@ import isEqual from 'lodash/isEqual';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { Spinner, Icon } from 'aqueduct-components';
+import { saveAs } from 'file-saver';
+import { toastr } from 'react-redux-toastr';
 
 // components
 import DataTable from 'components/analyze-locations-tab/data-table';
 import AnalysisModal from 'components/modal/analysis';
+
+// services
+import { fetchCARTOQuery } from 'services/query';
 
 // utils
 import { logEvent } from 'utils/analytics';
@@ -16,10 +21,6 @@ import { getFileName } from './helpers';
 
 
 class Analyzer extends PureComponent {
-  static handleDownload(format) {
-    logEvent('Download', 'User Downloads from Analysis Location', format);
-  }
-
   componentWillReceiveProps(nextProps) {
     const { filters, onFetchAnalysis } = this.props;
     const {
@@ -37,6 +38,7 @@ class Analyzer extends PureComponent {
     logEvent('Analysis', 'Analyze Locations', 'Start Analysis');
     onApplyAnalysis();
   }
+
   triggerExpandedTableModal() {
     const { toggleModal } = this.props;
 
@@ -44,6 +46,42 @@ class Analyzer extends PureComponent {
       children: AnalysisModal,
       size: '-medium'
     });
+  }
+
+  handleDownload(e, format) {
+    const { analysis: { downloadUrl } } = this.props;
+    const fileName = getFileName();
+
+    e.preventDefault();
+    e.stopPropagation();
+
+    fetchCARTOQuery({ q: downloadUrl })
+    .then(async(data) => {
+      console.log(data)
+
+      saveAs(data, fileName);
+
+      // console.log(blob)
+      // CSV: data:text/csv;charset=utf-8,
+      // SHP: application/zip
+
+
+      // const tempLink = document.createElement('a');
+      // tempLink.setAttribute("download", fileName);
+      // // tempLink.href = 'application/zip' + encodeURI(data);
+      // tempLink.href = 'application/zip' + encodeURI(data);
+      // // tempLink.target = '_blank';
+      // // tempLink.href = window.URL.createObjectURL(data);
+      // tempLink.click();
+
+    })
+    .catch((err) => {
+      console.error(err.message);
+      toastr.error('Ops, something went wrong');
+    })
+      .finally(() => {
+        logEvent('Download', 'User Downloads from Analysis Location', format);
+      });
   }
 
   render() {
@@ -95,9 +133,9 @@ class Analyzer extends PureComponent {
             (<div className="download-container">
              Download as
              <ul>
-               <li><a onClick={() => { Analyzer.handleDownload('CSV'); }} href={`${downloadUrl}&format=csv&filename=${fileName}`}>CSV</a>,</li>
-               <li><a onClick={() => { Analyzer.handleDownload('SHP'); }} href={`${downloadUrl}&format=shp&filename=${fileName}`}>SHP</a>,</li>
-               <li><a onClick={() => { Analyzer.handleDownload('GPKG'); }} href={`${downloadUrl}&format=gpkg&filename=${fileName}`}>GPKG</a></li>
+               <li><a onClick={(e) => { this.handleDownload(e, 'csv'); }}>CSV</a>,</li>
+               <li><a onClick={(e) => { this.handleDownload(e, 'shp'); }}>SHP</a>,</li>
+               <li><a onClick={(e) => { this.handleDownload(e, 'gpkg'); }}>GPKG</a></li>
              </ul>
               <p className="download-instructions">
                 <a

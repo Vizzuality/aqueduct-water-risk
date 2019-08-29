@@ -2,11 +2,15 @@ import React, { PureComponent } from 'react';
 import isEqual from 'lodash/isEqual';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import { toastr } from 'react-redux-toastr';
 import { Spinner, Icon } from 'aqueduct-components';
 
 // components
 import DataTable from 'components/analyze-locations-tab/data-table';
 import AnalysisModal from 'components/modal/analysis';
+
+// services
+import { fetchQuery } from 'services/query';
 
 // utils
 import { logEvent } from 'utils/analytics';
@@ -16,10 +20,6 @@ import { getFileName } from './helpers';
 
 
 class Analyzer extends PureComponent {
-  static handleDownload(format) {
-    logEvent('Download', 'User Downloads from Analysis Location', format);
-  }
-
   componentWillReceiveProps(nextProps) {
     const { filters, onFetchAnalysis } = this.props;
     const {
@@ -37,6 +37,7 @@ class Analyzer extends PureComponent {
     logEvent('Analysis', 'Analyze Locations', 'Start Analysis');
     onApplyAnalysis();
   }
+
   triggerExpandedTableModal() {
     const { toggleModal } = this.props;
 
@@ -44,6 +45,32 @@ class Analyzer extends PureComponent {
       children: AnalysisModal,
       size: '-medium'
     });
+  }
+
+  handleDownload(format) {
+    const { downloadUrl } = this.props;
+    const fileName = getFileName();
+
+    const split = downloadUrl.split('?');
+
+
+    // ${downloadUrl}&format=shp&filename=${fileName}`
+
+    const baseURL = split[0];
+    const query = split[1].split('=')[1];
+
+    const params = {
+      q: query,
+      format,
+      filename: fileName
+    };
+
+    fetchQuery(baseURL, params)
+      .then(() => { logEvent('Download', 'User Downloads from Analysis Location', format); })
+      .catch(({ message }) => {
+        toastr.error('Something went wrong with your download');
+        console.error(message);
+      });
   }
 
   render() {
@@ -55,7 +82,6 @@ class Analyzer extends PureComponent {
       'c-btn -light apply-analysis-btn',
       { '-disabled': !points.length }
     );
-    const fileName = getFileName();
 
     return (
       <div className="c-analyzer">
@@ -95,9 +121,9 @@ class Analyzer extends PureComponent {
             (<div className="download-container">
              Download as
              <ul>
-               <li><a onClick={() => { Analyzer.handleDownload('CSV'); }} href={`${downloadUrl}&format=csv&filename=${fileName}`}>CSV</a>,</li>
-               <li><a onClick={() => { Analyzer.handleDownload('SHP'); }} href={`${downloadUrl}&format=shp&filename=${fileName}`}>SHP</a>,</li>
-               <li><a onClick={() => { Analyzer.handleDownload('GPKG'); }} href={`${downloadUrl}&format=gpkg&filename=${fileName}`}>GPKG</a></li>
+               <li><button type="button" onClick={() => { this.handleDownload('csv'); }}>CSV</button>,</li>
+               <li><button type="button" onClick={() => { this.handleDownload('shp'); }}>SHP</button>,</li>
+               <li><button type="button" onClick={() => { this.handleDownload('gpkg'); }}>GPKG</button></li>
              </ul>
               <p className="download-instructions">
                 <a
@@ -129,6 +155,7 @@ class Analyzer extends PureComponent {
 Analyzer.propTypes = {
   filters: PropTypes.object.isRequired,
   geoStore: PropTypes.string,
+  downloadUrl: PropTypes.string.isRequired,
   points: PropTypes.array.isRequired,
   analysis: PropTypes.object.isRequired,
   onFetchAnalysis: PropTypes.func.isRequired,

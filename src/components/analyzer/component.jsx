@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { toastr } from 'react-redux-toastr';
 import { Spinner, Icon } from 'aqueduct-components';
+import { saveAs } from 'file-saver';
 
 // components
 import DataTable from 'components/analyze-locations-tab/data-table';
@@ -52,23 +53,23 @@ class Analyzer extends PureComponent {
     const fileName = getFileName();
 
     const split = downloadUrl.split('?');
-
-
-    // ${downloadUrl}&format=shp&filename=${fileName}`
-
     const baseURL = split[0];
     const query = split[1].split('=')[1];
-
-    const params = {
+    const params = JSON.stringify({
       q: query,
-      format,
-      filename: fileName
-    };
+      format
+    });
 
     fetchQuery(baseURL, params)
-      .then(() => { logEvent('Download', 'User Downloads from Analysis Location', format); })
+      .then((data) => {
+        logEvent('Download', 'User Downloads from Analysis Location', format);
+
+        if (format === 'csv') saveAs(`data:text/csv;charset=UTF-8,' + ${encodeURIComponent(data)}`, `${fileName}.csv`);
+        if (format === 'shp') saveAs(`data:application/zip;charset=UTF-8,' + ${encodeURIComponent(data)}`, `${fileName}.zip`);
+        if (format === 'gpkg') saveAs(`data:application/geopackage+vnd.sqlite3;charset=UTF-8,' + ${encodeURIComponent(data)}`, `${fileName}.gpkg`);
+      })
       .catch(({ message }) => {
-        toastr.error('Something went wrong with your download');
+        toastr.error('Something went wrong with the download');
         console.error(message);
       });
   }
@@ -155,7 +156,7 @@ class Analyzer extends PureComponent {
 Analyzer.propTypes = {
   filters: PropTypes.object.isRequired,
   geoStore: PropTypes.string,
-  downloadUrl: PropTypes.string.isRequired,
+  downloadUrl: PropTypes.string,
   points: PropTypes.array.isRequired,
   analysis: PropTypes.object.isRequired,
   onFetchAnalysis: PropTypes.func.isRequired,
@@ -163,6 +164,9 @@ Analyzer.propTypes = {
   toggleModal: PropTypes.func.isRequired
 };
 
-Analyzer.defaultProps = { geoStore: null };
+Analyzer.defaultProps = {
+  geoStore: null,
+  downloadUrl: null
+};
 
 export default Analyzer;

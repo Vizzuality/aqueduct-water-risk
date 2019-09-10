@@ -545,8 +545,8 @@ export const INDICATOR_COLUMNS = {
 };
 
 export const INDICATOR_SCHEME_ORDER = [
-  'bws_cat', 'bwd_cat', 'gtd_cat', 'iav_cat',
-  'sev_cat', 'drr_cat', 'rfr_cat', 'cfr_cat',
+  'bws_cat', 'bwd_cat', 'iav_cat', 'sev_cat',
+  'gtd_cat', 'rfr_cat', 'cfr_cat', 'drr_cat',
   'ucw_cat', 'cep_cat', 'udw_cat', 'usa_cat', 'rri_cat'
 ];
 

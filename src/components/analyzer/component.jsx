@@ -64,9 +64,9 @@ class Analyzer extends PureComponent {
       .then((data) => {
         logEvent('Download', 'User Downloads from Analysis Location', format);
 
-        if (format === 'csv') saveAs(`data:text/csv;charset=UTF-8,' + ${encodeURIComponent(data)}`, `${fileName}.csv`);
-        if (format === 'shp') saveAs(`data:application/zip;charset=UTF-8,' + ${encodeURIComponent(data)}`, `${fileName}.zip`);
-        if (format === 'gpkg') saveAs(`data:application/geopackage+vnd.sqlite3;charset=UTF-8,' + ${encodeURIComponent(data)}`, `${fileName}.gpkg`);
+        if (format === 'csv') saveAs(`data:text/csv;charset=UTF-8,${encodeURIComponent(data)}`, `${fileName}.csv`);
+        if (format === 'shp') saveAs(`data:application/zip;charset=UTF-8,${encodeURIComponent(data)}`, `${fileName}.zip`);
+        if (format === 'gpkg') saveAs(`data:application/geopackage+vnd.sqlite3;charset=UTF-8,${encodeURIComponent(data)}`, `${fileName}.gpkg`);
       })
       .catch(({ message }) => {
         toastr.error('Something went wrong with the download');

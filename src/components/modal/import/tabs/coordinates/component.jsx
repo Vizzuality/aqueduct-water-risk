@@ -179,8 +179,8 @@ class ImportTabCoordinates extends PureComponent {
           <header className="dropzone-header">
             <h2>Import multiple coordinates</h2>
 
-            <p>Please use this <a href="https://rawcdn.githack.com/Vizzuality/aqueduct-water-risk/171cb2abf99b0937a86219696ef664b8451e7efb/public/files/points/coordinates/example_coordinates.xlsx">template</a> to structure your data.</p>
-            <p>Replace with your own location names and coordinates. Do not add additional columns.</p>
+            <p>Please use these templates to structure your data.</p>
+            <p>Replace with your own location names and coordinates. Do not add additional columns. There is a 1000 addresses per file limit.</p>
             <p>More <button className="go-to-docs-btn" onClick={() => { this.goToDocs(); }}>info</button>.</p>
 
             <p>List of supported file formats <i>(click on any format to download the template)</i>:</p>

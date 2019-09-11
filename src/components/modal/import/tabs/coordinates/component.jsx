@@ -179,8 +179,12 @@ class ImportTabCoordinates extends PureComponent {
           <header className="dropzone-header">
             <h2>Import multiple coordinates</h2>
 
-            <p>Please use these templates to structure your data.</p>
-            <p>Replace with your own location names and coordinates. Do not add additional columns. There is a 1000 addresses per file limit.</p>
+            <p>This functionality is in beta and under development. Please help us improve and report bugs <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=H6xrR7I22UqGmc2mutH4YhV0dbt-LndBm7Vj2_VMq7tUQUYxTEJYOUVWNkxHRDUzNEI5SlM5NVdPNy4u" target="_blank" rel="noopener noreferrer">here</a>.
+              Thank you for your patience.
+            </p>
+
+            <p>Please use the <a href="https://github.com/wri/aqueduct_analyze_locations/tree/master/input_templates" target="_blank" rel="noopener noreferrer">templates</a> below to structure your data.</p>
+            <p>Replace with your own location names and coordinates.Do not add additional columns.There is a 1000 addresses per file limit.</p>
             <p>More <button className="go-to-docs-btn" onClick={() => { this.goToDocs(); }}>info</button>.</p>
 
             <p>List of supported file formats <i>(click on any format to download the template)</i>:</p>

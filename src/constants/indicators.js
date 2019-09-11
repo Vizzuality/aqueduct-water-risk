@@ -10,12 +10,12 @@ export const INDICATORS = [
         children: [
           {
             id: 'bws_cat',
-            name: 'Baseline Water Stress',
+            name: 'Water Stress',
             ponderation: true
           },
           {
             id: 'bwd_cat',
-            name: 'Baseline Water Depletion',
+            name: 'Water Depletion',
             ponderation: true
           },
           {
@@ -35,12 +35,12 @@ export const INDICATORS = [
           },
           {
             id: 'rfr_cat',
-            name: 'Riverine Flood Risk',
+            name: 'Riverine flood risk',
             ponderation: true
           },
           {
             id: 'cfr_cat',
-            name: 'Coastal Flood Risk',
+            name: 'Coastal flood risk',
             ponderation: true
           },
           {
@@ -166,14 +166,14 @@ export const INDICATOR_NAMES_RELATION = {
   w_awr_def_qal_cat: 'Physical Risks Quality',
   w_awr_def_rrr_cat: 'Regulatory and Reputational Risk',
   // Physical Risks Quantity
-  bws_cat: 'Baseline Water Stress',
-  bwd_cat: 'Baseline Water Depletion',
+  bws_cat: 'Water Stress',
+  bwd_cat: 'Water Depletion',
   gtd_cat: 'Groundwater Table Decline',
   iav_cat: 'Interannual Variability',
   sev_cat: 'Seasonal Variability',
   drr_cat: 'Drought Risk',
-  rfr_cat: 'Riverine Flood Risk',
-  cfr_cat: 'Coastal Flood Risk',
+  rfr_cat: 'Riverine flood risk',
+  cfr_cat: 'Coastal flood risk',
   // Water Quality Risk
   ucw_cat: 'Untreated Connected Wastewater',
   cep_cat: 'Coastal Eutrophication Potential',
@@ -310,7 +310,7 @@ export const INDICATOR_DESCRIPTIONS = {
   rfr_cat: {
     name: INDICATOR_NAMES_RELATION.rfr_cat,
     description: `Riverine flood risk measures the percentage of population
-    expected to be affected by riverine flooding in an average
+    expected to be affected by Riverine flooding in an average
     year, accounting for existing flood-protection standards.
     Flood risk is assessed using hazard (inundation caused by
     river overflow), exposure (population in flood zone), and
@@ -321,7 +321,7 @@ export const INDICATOR_DESCRIPTIONS = {
     impact. The impacts from infrequent, extreme flood years
     are averaged with more common, less newsworthy flood
     years to produce the “expected annual affected population.” Higher values indicate that a greater proportion of the population is expected to be impacted
-    by riverine floods on average.`,
+    by Riverine floods on average.`,
     sources: [{
       name: 'WRI Aqueduct 2019',
       link: 'https://www.wri.org/publication/aqueduct-30'
@@ -580,22 +580,22 @@ export const INDICATOR_COLUMNS = {
   // Water Quantity Risk
   w_awr_def_qan_cat: [
     { label: 'Physical Risks Quantity', value: 'w_awr_def_qan_label' },
-    { label: 'Baseline Water Stress', value: 'bws_label' },
+    { label: 'Water Stress', value: 'bws_label' },
     { label: 'Groundwater Table Decline', value: 'gtd_label' },
     { label: 'Interannual Variability', value: 'iav_label' },
     { label: 'Seasonal Variability', value: 'sev_label' },
     { label: 'Drought Risk', value: 'drr_label' },
-    { label: 'Riverine Flood Risk Stress', value: 'rfr_label' },
-    { label: 'Coastal Flood Risk', value: 'cfr_label' }
+    { label: 'Riverine flood risk Stress', value: 'rfr_label' },
+    { label: 'Coastal flood risk', value: 'cfr_label' }
   ],
-  bws_cat: [{ label: 'Baseline Water Stress', value: 'bws_label' }],
-  bwd_cat: [{ label: 'Baseline Water Depletion', value: 'bwd_label' }],
+  bws_cat: [{ label: 'Stress', value: 'bws_label' }],
+  bwd_cat: [{ label: 'Depletion', value: 'bwd_label' }],
   iav_cat: [{ label: 'Interannual Variability', value: 'iav_label' }],
   gtd_cat: [{ label: 'Groundwater Table Decline', value: 'gtd_label' }],
   sev_cat: [{ label: 'Seasonal Variability', value: 'sev_label' }],
   drr_cat: [{ label: 'Drought Risk', value: 'drr_label' }],
-  rfr_cat: [{ label: 'Riverine Flood Risk Stress', value: 'rfr_label' }],
-  cfr_cat: [{ label: 'Coastal Flood Risk', value: 'cfr_label' }],
+  rfr_cat: [{ label: 'Riverine flood risk Stress', value: 'rfr_label' }],
+  cfr_cat: [{ label: 'Coastal flood risk', value: 'cfr_label' }],
   // Water Quality Risk
   w_awr_def_qal_cat: [
     { label: 'Physical Risks Quality', value: 'w_awr_def_qal_label' },
@@ -603,7 +603,7 @@ export const INDICATOR_COLUMNS = {
     { label: 'Coastal Eutrophication Potential', value: 'cep_label' }
   ],
   ucw_cat: [{ label: 'Drought Risk', value: 'ucw_label' }],
-  cep_cat: [{ label: 'Riverine Flood Risk Stress', value: 'cep_label' }],
+  cep_cat: [{ label: 'Riverine flood risk Stress', value: 'cep_label' }],
   // Regulatory and Reputational
   w_awr_def_rrr_cat: [
     { label: 'Regulatory and Reputational Risk', value: 'w_awr_def_rrr_label' },
@@ -619,8 +619,8 @@ export const INDICATOR_COLUMNS = {
   ],
   // monthly exclusive
   monthly: {
-    bws_cat: [{ label: 'Baseline Water Stress', value: 'bws_label' }],
-    bwd_cat: [{ label: 'Baseline Water Depletion', value: 'bwd_label' }],
+    bws_cat: [{ label: 'Water Stress', value: 'bws_label' }],
+    bwd_cat: [{ label: 'Water Depletion', value: 'bwd_label' }],
     iav_cat: [{ label: 'Interannual Variability', value: 'iav_label' }]
   },
   preset: {

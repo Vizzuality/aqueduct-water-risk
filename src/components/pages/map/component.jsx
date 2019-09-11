@@ -68,17 +68,18 @@ class MapPage extends PureComponent {
     const {
       setScope,
       setFilters,
-      filters: { projection }
+      filters: { projection, timeScale }
     } = this.props;
     const isFuture = value === 'future';
-
-    logEvent('Analysis', 'Change Tab', value);
+    const defaultIndicator = timeScale === 'annual' ? INDICATORS[0].id : 'bws_cat';
 
     setScope(value);
     setFilters({
       year: isFuture ? TIMEFRAME_OPTIONS[0].value : 'baseline',
-      indicator: isFuture ? DEFAULT_FUTURE_INDICATOR[projection] : INDICATORS[0].id
+      indicator: isFuture ? DEFAULT_FUTURE_INDICATOR[projection] : defaultIndicator
     });
+
+    logEvent('Analysis', 'Change Tab', value);
   }
 
   render() {

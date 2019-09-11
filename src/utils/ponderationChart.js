@@ -1,7 +1,7 @@
 const ponderationChart = {
   "name": "Vega Visualization",
   "height": 55,
-  "width": 100,
+  "width": 500,
   "padding": "auto",
   "marks": [
     {

@@ -56,7 +56,7 @@ export const INDICATORS = [
         children: [
           {
             id: 'ucw_cat',
-            name: 'Untreated Connected Water',
+            name: 'Untreated Connected Wastewater',
             ponderation: true
           },
           {
@@ -72,17 +72,17 @@ export const INDICATORS = [
         children: [
           {
             id: 'udw_cat',
-            name: 'Unimproved/no drinking water',
+            name: 'Unimproved/No Drinking Water ',
             ponderation: true
           },
           {
             id: 'usa_cat',
-            name: 'Unimproved/no sanitation',
+            name: 'Unimproved/No Sanitation',
             ponderation: true
           },
           {
             id: 'rri_cat',
-            name: 'Peak RepRisk country ESG risk index',
+            name: 'Peak RepRisk Country ESG Risk Index',
             ponderation: true
           }
         ]
@@ -175,12 +175,12 @@ export const INDICATOR_NAMES_RELATION = {
   rfr_cat: 'Riverine Flood Risk',
   cfr_cat: 'Coastal Flood Risk',
   // Water Quality Risk
-  ucw_cat: 'Untreated Connected Water',
+  ucw_cat: 'Untreated Connected Wastewater',
   cep_cat: 'Coastal Eutrophication Potential',
   // Regulatory and Reputational
-  udw_cat: 'Unimproved/no drinking water',
-  usa_cat: 'Unimproved/no sanitation',
-  rri_cat: 'Peak RepRisk country ESG risk index',
+  udw_cat: 'Unimproved/No Drinking Water',
+  usa_cat: 'Unimproved/No Sanitation',
+  rri_cat: 'Peak RepRisk Country ESG Risk Index',
   // future
   '5aafeab1-4b48-40b0-9042-f654f1531aaf': 'Water Stress',
   '45a1f9c5-7b0b-4705-978f-1e98dc8b3277': 'Seasonal Variability',

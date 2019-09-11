@@ -19,11 +19,6 @@ export const INDICATORS = [
             ponderation: true
           },
           {
-            id: 'gtd_cat',
-            name: 'Groundwater Table Decline',
-            ponderation: true
-          },
-          {
             id: 'iav_cat',
             name: 'Interannual Variability',
             ponderation: true
@@ -34,8 +29,8 @@ export const INDICATORS = [
             ponderation: true
           },
           {
-            id: 'drr_cat',
-            name: 'Drought Risk',
+            id: 'gtd_cat',
+            name: 'Groundwater Table Decline',
             ponderation: true
           },
           {
@@ -46,6 +41,11 @@ export const INDICATORS = [
           {
             id: 'cfr_cat',
             name: 'Coastal Flood Risk',
+            ponderation: true
+          },
+          {
+            id: 'drr_cat',
+            name: 'Drought Risk',
             ponderation: true
           }
         ]

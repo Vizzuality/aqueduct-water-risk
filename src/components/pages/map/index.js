@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 
 // actions
 import { getLayers } from 'modules/layers/actions';
-import { setScope, updateUrl } from 'modules/app/actions';
+import { setScope, updateUrl, setSidebarWidth } from 'modules/app/actions';
 import { setSelectedPoints, setAnalysis } from 'modules/analyze-locations-tab/actions';
 import { setFilters, setAnalyzerOpen } from 'modules/settings/actions';
 
@@ -24,6 +24,7 @@ export default connect(
   {
     updateUrl,
     setScope,
+    setSidebarWidth,
     setSelectedPoints,
     setAnalysis,
     getLayers,

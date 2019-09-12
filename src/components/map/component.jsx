@@ -64,14 +64,15 @@ class MapComponent extends PureComponent {
     }
   }
 
-  handlePoint(event) {
+  handlePoint(event, map) {
     const { latlng, layer } = event;
     const {
       analysisSelectedData,
       onAddPoint,
       onAddUnknownLocation,
       points,
-      setSelectedData
+      setSelectedData,
+      sidebarWidth
     } = this.props;
 
     if (layer) {
@@ -84,6 +85,14 @@ class MapComponent extends PureComponent {
       } else if (index !== -1) {
         setSelectedData([index]);
       }
+
+      map.fitBounds(
+        L.latLng(lat, lng).toBounds(500),
+        {
+          paddingTopLeft: [sidebarWidth, 0],
+          maxZoom: 4
+        }
+      );
     } else {
       onAddPoint({ lat: latlng.lat, lng: latlng.lng });
       onAddUnknownLocation();
@@ -201,7 +210,7 @@ class MapComponent extends PureComponent {
                         : true
                     }}
                     events={{
-                      ...mapMode === 'analysis' && { click: (e) => { this.handlePoint(e); } },
+                      ...mapMode === 'analysis' && { click: (e) => { this.handlePoint(e, _map); } },
                       ...mapMode === 'view' && { click: (e) => { this.handleClickMap(e); } }
                     }}
                   />
@@ -295,6 +304,7 @@ MapComponent.propTypes = {
   popup: PropTypes.object.isRequired,
   analysisPopupColumns: PropTypes.array.isRequired,
   mapMode: PropTypes.string.isRequired,
+  sidebarWidth: PropTypes.number.isRequired,
   setMapParams: PropTypes.func.isRequired,
   setLayerParametrization: PropTypes.func.isRequired,
   setPopupLocation: PropTypes.func.isRequired,

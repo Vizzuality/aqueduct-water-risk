@@ -57,7 +57,8 @@ export default connect(
     loading: state.map.loading,
     analysisData: state.analyzeLocations.analysis.data,
     analysisSelectedData: state.analyzeLocations.analysis.selected,
-    points: state.analyzeLocations.points.list
+    points: state.analyzeLocations.points.list,
+    sidebarWidth: state.app.sidebarWidth
   }),
   dispatch => ({
     setMapParams: (params) => { dispatch(setMapLocation(params)); },

@@ -1,5 +1,6 @@
 export default {
   scope: 'baseline',
   advanced: false,
-  mapMode: 'view'
+  mapMode: 'view',
+  sidebarWidth: 700
 };

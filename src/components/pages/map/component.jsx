@@ -87,7 +87,8 @@ class MapPage extends PureComponent {
       scope,
       loading,
       analyzerOpen,
-      analysis: { data }
+      analysis: { data },
+      setSidebarWidth
     } = this.props;
 
     const sidebarClass = classnames({
@@ -98,7 +99,7 @@ class MapPage extends PureComponent {
     return (
       <div className="c-map-page l-map-page">
         <Sidebar
-          setSidebarWidth={() => {}}
+          setSidebarWidth={(newSidebarWidth) => { setSidebarWidth(newSidebarWidth); }}
           className={sidebarClass}
         >
           <SegmentedUi
@@ -144,7 +145,8 @@ MapPage.propTypes = {
   setScope: PropTypes.func.isRequired,
   updateUrl: PropTypes.func.isRequired,
   getLayers: PropTypes.func.isRequired,
-  setFilters: PropTypes.func.isRequired
+  setFilters: PropTypes.func.isRequired,
+  setSidebarWidth: PropTypes.func.isRequired
 };
 
 MapPage.defaultProps = { geostore: null };

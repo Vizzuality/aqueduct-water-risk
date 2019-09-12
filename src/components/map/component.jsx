@@ -37,18 +37,38 @@ class MapComponent extends PureComponent {
     const {
       layers,
       indicator,
-      setLoading
+      setLoading,
+      analysisSelectedData
     } = this.props;
     const {
       layers: nextLayers,
-      indicator: nextIndicator
+      indicator: nextIndicator,
+      analysisSelectedData: nextAnalysisSelectedData,
+      points,
+      sidebarWidth
     } = nextProps;
     const layersChanged = !isEqual(layers, nextLayers);
     const indicatorChanged = !isEqual(indicator, nextIndicator);
+    const selectedChanged = !isEqual(analysisSelectedData, nextAnalysisSelectedData);
 
     if ((layersChanged || indicatorChanged)) {
       setLoading(true);
       if (this.popup) this.popup._close();
+    }
+
+    if (selectedChanged) {
+      const currentPoint = points[nextAnalysisSelectedData[0]];
+
+      if (currentPoint && this.map) {
+        const { lat, lng } = currentPoint;
+        this.map.fitBounds(
+          L.latLng(lat, lng).toBounds(500),
+          {
+            paddingTopLeft: [sidebarWidth, 0],
+            maxZoom: 4
+          }
+        );
+      }
     }
   }
 
@@ -64,15 +84,14 @@ class MapComponent extends PureComponent {
     }
   }
 
-  handlePoint(event, map) {
+  handlePoint(event) {
     const { latlng, layer } = event;
     const {
       analysisSelectedData,
       onAddPoint,
       onAddUnknownLocation,
       points,
-      setSelectedData,
-      sidebarWidth
+      setSelectedData
     } = this.props;
 
     if (layer) {
@@ -85,14 +104,6 @@ class MapComponent extends PureComponent {
       } else if (index !== -1) {
         setSelectedData([index]);
       }
-
-      map.fitBounds(
-        L.latLng(lat, lng).toBounds(500),
-        {
-          paddingTopLeft: [sidebarWidth, 0],
-          maxZoom: 4
-        }
-      );
     } else {
       onAddPoint({ lat: latlng.lat, lng: latlng.lng });
       onAddUnknownLocation();
@@ -186,6 +197,7 @@ class MapComponent extends PureComponent {
           events={mapEvents}
           basemap={basemap}
           customClass={mapClass}
+          onReady={(_map) => { this.map = _map; }}
           {...boundaries && { label: LABEL_LAYER_CONFIG }}
         >
           {_map =>

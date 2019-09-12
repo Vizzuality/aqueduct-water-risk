@@ -65,7 +65,6 @@ class Analyzer extends PureComponent {
         logEvent('Download', 'User Downloads from Analysis Location', format);
 
         if (format === 'csv') saveAs(`data:text/csv;charset=UTF-8,${encodeURIComponent(data)}`, `${fileName}.csv`);
-        if (format === 'shp') saveAs(`data:application/zip;charset=UTF-8,${encodeURIComponent(data)}`, `${fileName}.zip`);
         if (format === 'gpkg') saveAs(`data:application/geopackage+vnd.sqlite3;charset=UTF-8,${encodeURIComponent(data)}`, `${fileName}.gpkg`);
       })
       .catch(({ message }) => {
@@ -123,7 +122,6 @@ class Analyzer extends PureComponent {
              Download as
              <ul>
                <li><button type="button" onClick={() => { this.handleDownload('csv'); }}>CSV</button>,</li>
-               <li><button type="button" onClick={() => { this.handleDownload('shp'); }}>SHP</button>,</li>
                <li><button type="button" onClick={() => { this.handleDownload('gpkg'); }}>GPKG</button></li>
              </ul>
               <p className="download-instructions">

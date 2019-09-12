@@ -4,6 +4,9 @@ import { connect } from 'react-redux';
 import AnalysisModal from './component';
 
 export default connect(
-  state => ({ downloadUrl: state.analyzeLocations.analysis.downloadUrl }),
+  state => ({
+    analysis: state.analyzeLocations.analysis,
+    downloadUrl: state.analyzeLocations.analysis.downloadUrl
+  }),
   null
 )(AnalysisModal);

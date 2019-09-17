@@ -66,6 +66,11 @@
         color: inherit;
         font-weight: 500;
         text-decoration: underline;
+
+        &:hover {
+          cursor: pointer;
+          color: palette(blue, secondary);
+        }
       }
     }
   }

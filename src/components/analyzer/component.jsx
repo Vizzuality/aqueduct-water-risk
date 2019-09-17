@@ -57,7 +57,7 @@ class Analyzer extends PureComponent {
     e.stopPropagation();
 
     fetchCARTOQuery({ q: downloadUrl, format })
-    .then((data) => saveAs(data, `fileName.${format}`))
+    .then((data) => saveAs(data, format === 'shp' ? fileName : `fileName.${format}`))
     .catch((err) => {
       console.error(err.message);
       toastr.error('Ops, something went wrong');

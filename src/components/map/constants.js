@@ -157,7 +157,7 @@ export const LEGENDS = {
     ],
     type: 'choropleth'
   },
-  // Riverine Flood Risk
+  // Riverine flood risk
   rfr_cat: {
     items: [
       {
@@ -189,7 +189,7 @@ export const LEGENDS = {
     disclaimer: [NO_DATA_LEGEND_ITEM],
     type: 'choropleth'
   },
-  // Coastal Flood Risk
+  // Coastal flood risk
   cfr_cat: {
     items: [
       {
@@ -221,7 +221,7 @@ export const LEGENDS = {
     disclaimer: [NO_DATA_LEGEND_ITEM],
     type: 'choropleth'
   },
-  // Baseline Water Stress
+  // Water Stress
   bws_cat: {
     items: [
       {
@@ -262,7 +262,7 @@ export const LEGENDS = {
     ],
     type: 'choropleth'
   },
-  // Baseline Water Depletion
+  // Water Depletion
   bwd_cat: {
     items: [
       {

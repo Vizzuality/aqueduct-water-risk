@@ -18,7 +18,8 @@ export default connect(
     points: state.analyzeLocations.points.list,
     mapMode: state.app.mapMode,
     analysis: state.analyzeLocations.analysis,
-    filters: state.settings.filters
+    filters: state.settings.filters,
+    downloadUrl: state.analyzeLocations.analysis.downloadUrl
   }),
   {
     toggleModal,

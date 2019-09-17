@@ -37,18 +37,38 @@ class MapComponent extends PureComponent {
     const {
       layers,
       indicator,
-      setLoading
+      setLoading,
+      analysisSelectedData
     } = this.props;
     const {
       layers: nextLayers,
-      indicator: nextIndicator
+      indicator: nextIndicator,
+      analysisSelectedData: nextAnalysisSelectedData,
+      points,
+      sidebarWidth
     } = nextProps;
     const layersChanged = !isEqual(layers, nextLayers);
     const indicatorChanged = !isEqual(indicator, nextIndicator);
+    const selectedChanged = !isEqual(analysisSelectedData, nextAnalysisSelectedData);
 
     if ((layersChanged || indicatorChanged)) {
       setLoading(true);
       if (this.popup) this.popup._close();
+    }
+
+    if (selectedChanged) {
+      const currentPoint = points[nextAnalysisSelectedData[0]];
+
+      if (currentPoint && this.map) {
+        const { lat, lng } = currentPoint;
+        this.map.fitBounds(
+          L.latLng(lat, lng).toBounds(500),
+          {
+            paddingTopLeft: [sidebarWidth, 0],
+            maxZoom: 4
+          }
+        );
+      }
     }
   }
 
@@ -177,6 +197,7 @@ class MapComponent extends PureComponent {
           events={mapEvents}
           basemap={basemap}
           customClass={mapClass}
+          onReady={(_map) => { this.map = _map; }}
           {...boundaries && { label: LABEL_LAYER_CONFIG }}
         >
           {_map =>
@@ -201,7 +222,7 @@ class MapComponent extends PureComponent {
                         : true
                     }}
                     events={{
-                      ...mapMode === 'analysis' && { click: (e) => { this.handlePoint(e); } },
+                      ...mapMode === 'analysis' && { click: (e) => { this.handlePoint(e, _map); } },
                       ...mapMode === 'view' && { click: (e) => { this.handleClickMap(e); } }
                     }}
                   />
@@ -295,6 +316,7 @@ MapComponent.propTypes = {
   popup: PropTypes.object.isRequired,
   analysisPopupColumns: PropTypes.array.isRequired,
   mapMode: PropTypes.string.isRequired,
+  sidebarWidth: PropTypes.number.isRequired,
   setMapParams: PropTypes.func.isRequired,
   setLayerParametrization: PropTypes.func.isRequired,
   setPopupLocation: PropTypes.func.isRequired,

@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import isEqual from 'lodash/isEqual';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import { toastr } from 'react-redux-toastr';
 import { Spinner, Icon } from 'aqueduct-components';
 import { saveAs } from 'file-saver';
 import { toastr } from 'react-redux-toastr';
@@ -75,7 +76,6 @@ class Analyzer extends PureComponent {
       'c-btn -light apply-analysis-btn',
       { '-disabled': !points.length }
     );
-    const fileName = getFileName();
 
     return (
       <div className="c-analyzer">
@@ -149,6 +149,7 @@ class Analyzer extends PureComponent {
 Analyzer.propTypes = {
   filters: PropTypes.object.isRequired,
   geoStore: PropTypes.string,
+  downloadUrl: PropTypes.string,
   points: PropTypes.array.isRequired,
   analysis: PropTypes.object.isRequired,
   onFetchAnalysis: PropTypes.func.isRequired,
@@ -156,6 +157,9 @@ Analyzer.propTypes = {
   toggleModal: PropTypes.func.isRequired
 };
 
-Analyzer.defaultProps = { geoStore: null };
+Analyzer.defaultProps = {
+  geoStore: null,
+  downloadUrl: null
+};
 
 export default Analyzer;

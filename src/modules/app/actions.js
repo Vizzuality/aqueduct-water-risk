@@ -12,6 +12,7 @@ import { INDICATOR_SCHEME_ORDER } from 'constants/indicators';
 export const setScope = createAction('APP__SET-SCOPE');
 export const setAdvancedMode = createAction('APP__SET-ADVANCED-MODE');
 export const setMapMode = createAction('APP__SET-MAP-MODE');
+export const setSidebarWidth = createAction('APP__SET-SIDEBAR-WIDTH');
 
 export const updateUrl = createThunkAction('APP__UPDATE-URL', () =>
   (dispatch, getState) => {
@@ -116,6 +117,7 @@ export default {
   setScope,
   setAdvancedMode,
   setMapMode,
+  setSidebarWidth,
   updateUrl,
   onEnterMapPage
 };

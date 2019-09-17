@@ -162,10 +162,10 @@ aproba@^1.0.3:
   resolved "https://registry.yarnpkg.com/aproba/-/aproba-1.2.0.tgz#6802e6264efd18c790a1b0d517f0f2627bf2c94a"
   integrity sha512-Y9J6ZjXtoYh8RnXVCMOU/ttDmk1aBjunq9vO0ta5x85WDQiQfUF9sIPBITdbiiIVcBo03Hi3jMxigBtsddlXRw==
 
-aqueduct-components@^0.3.9:
-  version "0.3.9"
-  resolved "https://registry.yarnpkg.com/aqueduct-components/-/aqueduct-components-0.3.9.tgz#d32b8abd14b06c4c9985c9fe2c2e972f13e020d9"
-  integrity sha512-km080F8INBmMzKJNk2zm1XzkUTbuJaFP7Iq4O3SfBgzhH3sUACYBrkGog0OCXsa8ZylJYY8+L6w9CiYgui97pA==
+aqueduct-components@^0.3.10:
+  version "0.3.10"
+  resolved "https://registry.yarnpkg.com/aqueduct-components/-/aqueduct-components-0.3.10.tgz#e1d482f1a98fd06072b1ddbb78315bed860d6dbf"
+  integrity sha512-AWlISCQT1Ec6tRLeE1XQy/IAY/nN5jryg36Q8kteg/PBLPYGWCxv3iU6Yhoyq8gngH9KMfgXFUnVEo4YEKEq7A==
   dependencies:
     classnames "^2.2.5"
     clipboard "^1.6.1"
@@ -3059,7 +3059,11 @@ file-loader@^0.9.0:
   dependencies:
     loader-utils "~0.2.5"
 
+<<<<<<< HEAD
 file-saver@^2.0.0-rc.4, file-saver@^2.0.2:
+=======
+file-saver@^2.0.2:
+>>>>>>> master
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/file-saver/-/file-saver-2.0.2.tgz#06d6e728a9ea2df2cce2f8d9e84dfcdc338ec17a"
   integrity sha512-Wz3c3XQ5xroCxd1G8b7yL0Ehkf0TC9oYC6buPFkNnU9EnaPlifeAFCyCh+iewXTyFRcg0a6j3J7FmJsIhlhBdw==

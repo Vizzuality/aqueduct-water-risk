@@ -57,7 +57,7 @@ export const renderList = (properties = {}, deep = 0) => {
                   onClick={() => openModal(_indicator.id)}
                 >
                   <Icon
-                    name="icon-info"
+                    name="icon-question"
                     className="title-icon"
                   />
                 </button>

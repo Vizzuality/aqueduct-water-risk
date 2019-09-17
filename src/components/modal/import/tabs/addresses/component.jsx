@@ -170,17 +170,21 @@ class ImportTabAddresses extends PureComponent {
           <header className="dropzone-header">
             <h2>Import multiple addresses</h2>
 
-            <p>Please use this <a href="https://github.com/wri/aqueduct_analyze_locations/raw/master/input_templates/example_address.xlsx">template</a> to structure your data.</p>
-            <p>Replace with your own location names and addresses. The address columns should contain the <b>full</b> address including city name and country. </p>
+            <p>This functionality is in beta and under development. Please help us improve and report bugs <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=H6xrR7I22UqGmc2mutH4YhV0dbt-LndBm7Vj2_VMq7tUQUYxTEJYOUVWNkxHRDUzNEI5SlM5NVdPNy4u" target="_blank" rel="noopener noreferrer">here</a>.
+              Thank you for your patience.
+            </p>
+
+            <p>Please use the templates below to structure your data.</p>
+            <p>Replace with your own location names and coordinates.Do not add additional columns.There is a 1000 addresses per file limit.</p>
             <p>More <button className="go-to-docs-btn" onClick={() => { this.goToDocs(); }}>info</button>.</p>
 
             <p>List of supported file formats <i>(click on any format to download the template)</i>:</p>
             <ul>
               <li>
-                <a download="example_address.csv" href="https://rawcdn.githack.com/Vizzuality/aqueduct-water-risk/171cb2abf99b0937a86219696ef664b8451e7efb/public/files/points/addresses/example_address.csv">Comma separated file (.csv)</a>
+                <a download="example_address.csv" href="https://rawcdn.githack.com/wri/aqueduct_analyze_locations/e8bff4c27435d2dc41b040839d3c9b072c8af9d6/input_templates/example_address.csv">Comma separated file (.csv)</a>
               </li>
               <li>
-                <a download="example_address.xlsx" href="https://rawcdn.githack.com/Vizzuality/aqueduct-water-risk/171cb2abf99b0937a86219696ef664b8451e7efb/public/files/points/addresses/example_address.xlsx">Spreadsheet (.xlsx)</a>
+                <a download="example_address.xlsx" href="https://rawcdn.githack.com/wri/aqueduct_analyze_locations/e8bff4c27435d2dc41b040839d3c9b072c8af9d6/input_templates/example_address.xlsx">Spreadsheet (.xlsx)</a>
               </li>
             </ul>
           </header>

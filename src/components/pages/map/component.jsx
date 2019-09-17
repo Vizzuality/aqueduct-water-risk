@@ -68,17 +68,18 @@ class MapPage extends PureComponent {
     const {
       setScope,
       setFilters,
-      filters: { projection }
+      filters: { projection, timeScale }
     } = this.props;
     const isFuture = value === 'future';
-
-    logEvent('Analysis', 'Change Tab', value);
+    const defaultIndicator = timeScale === 'annual' ? INDICATORS[0].id : 'bws_cat';
 
     setScope(value);
     setFilters({
       year: isFuture ? TIMEFRAME_OPTIONS[0].value : 'baseline',
-      indicator: isFuture ? DEFAULT_FUTURE_INDICATOR[projection] : INDICATORS[0].id
+      indicator: isFuture ? DEFAULT_FUTURE_INDICATOR[projection] : defaultIndicator
     });
+
+    logEvent('Analysis', 'Change Tab', value);
   }
 
   render() {
@@ -86,7 +87,8 @@ class MapPage extends PureComponent {
       scope,
       loading,
       analyzerOpen,
-      analysis: { data }
+      analysis: { data },
+      setSidebarWidth
     } = this.props;
 
     const sidebarClass = classnames({
@@ -97,7 +99,7 @@ class MapPage extends PureComponent {
     return (
       <div className="c-map-page l-map-page">
         <Sidebar
-          setSidebarWidth={() => {}}
+          setSidebarWidth={(newSidebarWidth) => { setSidebarWidth(newSidebarWidth); }}
           className={sidebarClass}
         >
           <SegmentedUi
@@ -143,7 +145,8 @@ MapPage.propTypes = {
   setScope: PropTypes.func.isRequired,
   updateUrl: PropTypes.func.isRequired,
   getLayers: PropTypes.func.isRequired,
-  setFilters: PropTypes.func.isRequired
+  setFilters: PropTypes.func.isRequired,
+  setSidebarWidth: PropTypes.func.isRequired
 };
 
 MapPage.defaultProps = { geostore: null };

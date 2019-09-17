@@ -179,20 +179,24 @@ class ImportTabCoordinates extends PureComponent {
           <header className="dropzone-header">
             <h2>Import multiple coordinates</h2>
 
-            <p>Please use this <a href="https://rawcdn.githack.com/Vizzuality/aqueduct-water-risk/171cb2abf99b0937a86219696ef664b8451e7efb/public/files/points/coordinates/example_coordinates.xlsx">template</a> to structure your data.</p>
-            <p>Replace with your own location names and coordinates. Do not add additional columns.</p>
+            <p>This functionality is in beta and under development. Please help us improve and report bugs <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=H6xrR7I22UqGmc2mutH4YhV0dbt-LndBm7Vj2_VMq7tUQUYxTEJYOUVWNkxHRDUzNEI5SlM5NVdPNy4u" target="_blank" rel="noopener noreferrer">here</a>.
+              Thank you for your patience.
+            </p>
+
+            <p>Please use the templates below to structure your data.</p>
+            <p>Replace with your own location names and coordinates.Do not add additional columns.There is a 1000 addresses per file limit.</p>
             <p>More <button className="go-to-docs-btn" onClick={() => { this.goToDocs(); }}>info</button>.</p>
 
             <p>List of supported file formats <i>(click on any format to download the template)</i>:</p>
             <ul>
               <li>
-                <a download="example_coordinates.csv" href="https://rawcdn.githack.com/Vizzuality/aqueduct-water-risk/171cb2abf99b0937a86219696ef664b8451e7efb/public/files/points/coordinates/example_coordinates.csv">Comma separated file (.csv)</a>
+                <a download="example_coordinates.csv" href="https://rawcdn.githack.com/wri/aqueduct_analyze_locations/e8bff4c27435d2dc41b040839d3c9b072c8af9d6/input_templates/example_coordinates.csv">Comma separated file (.csv)</a>
               </li>
               <li>
-                <a download="example_coordinates.xlsx" href="https://rawcdn.githack.com/Vizzuality/aqueduct-water-risk/171cb2abf99b0937a86219696ef664b8451e7efb/public/files/points/coordinates/example_coordinates.xlsx">Spreadsheet (.xlsx)</a>
+                <a download="example_coordinates.xlsx" href="https://rawcdn.githack.com/wri/aqueduct_analyze_locations/e8bff4c27435d2dc41b040839d3c9b072c8af9d6/input_templates/example_coordinates.xlsx">Spreadsheet (.xlsx)</a>
               </li>
               <li>
-                <a download="example_coordinates.zip" href="https://rawcdn.githack.com/Vizzuality/aqueduct-water-risk/171cb2abf99b0937a86219696ef664b8451e7efb/public/files/points/coordinates/example_coordinates.zip">Zipped shapefile (.zip)</a>
+                <a download="example_coordinates.zip" href="https://rawcdn.githack.com/wri/aqueduct_analyze_locations/e8bff4c27435d2dc41b040839d3c9b072c8af9d6/input_templates/example_coordinates.zip">Zipped shapefile (.zip)</a>
               </li>
             </ul>
           </header>

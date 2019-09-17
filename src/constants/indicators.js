@@ -10,17 +10,12 @@ export const INDICATORS = [
         children: [
           {
             id: 'bws_cat',
-            name: 'Baseline Water Stress',
+            name: 'Water Stress',
             ponderation: true
           },
           {
             id: 'bwd_cat',
-            name: 'Baseline Water Depletion',
-            ponderation: true
-          },
-          {
-            id: 'gtd_cat',
-            name: 'Groundwater Table Decline',
+            name: 'Water Depletion',
             ponderation: true
           },
           {
@@ -34,18 +29,23 @@ export const INDICATORS = [
             ponderation: true
           },
           {
-            id: 'drr_cat',
-            name: 'Drought Risk',
+            id: 'gtd_cat',
+            name: 'Groundwater Table Decline',
             ponderation: true
           },
           {
             id: 'rfr_cat',
-            name: 'Riverine Flood Risk',
+            name: 'Riverine flood risk',
             ponderation: true
           },
           {
             id: 'cfr_cat',
-            name: 'Coastal Flood Risk',
+            name: 'Coastal flood risk',
+            ponderation: true
+          },
+          {
+            id: 'drr_cat',
+            name: 'Drought Risk',
             ponderation: true
           }
         ]
@@ -56,7 +56,7 @@ export const INDICATORS = [
         children: [
           {
             id: 'ucw_cat',
-            name: 'Untreated Collected Wastewater',
+            name: 'Untreated Connected Wastewater',
             ponderation: true
           },
           {
@@ -72,17 +72,17 @@ export const INDICATORS = [
         children: [
           {
             id: 'udw_cat',
-            name: 'Unimproved/no drinking water',
+            name: 'Unimproved/No Drinking Water ',
             ponderation: true
           },
           {
             id: 'usa_cat',
-            name: 'Unimproved/no sanitation',
+            name: 'Unimproved/No Sanitation',
             ponderation: true
           },
           {
             id: 'rri_cat',
-            name: 'Peak RepRisk country ESG risk index',
+            name: 'Peak RepRisk Country ESG Risk Index',
             ponderation: true
           }
         ]
@@ -166,21 +166,21 @@ export const INDICATOR_NAMES_RELATION = {
   w_awr_def_qal_cat: 'Physical Risks Quality',
   w_awr_def_rrr_cat: 'Regulatory and Reputational Risk',
   // Physical Risks Quantity
-  bws_cat: 'Baseline Water Stress',
-  bwd_cat: 'Baseline Water Depletion',
+  bws_cat: 'Water Stress',
+  bwd_cat: 'Water Depletion',
   gtd_cat: 'Groundwater Table Decline',
   iav_cat: 'Interannual Variability',
   sev_cat: 'Seasonal Variability',
   drr_cat: 'Drought Risk',
-  rfr_cat: 'Riverine Flood Risk',
-  cfr_cat: 'Coastal Flood Risk',
+  rfr_cat: 'Riverine flood risk',
+  cfr_cat: 'Coastal flood risk',
   // Water Quality Risk
-  ucw_cat: 'Untreated Collected Wastewater',
+  ucw_cat: 'Untreated Connected Wastewater',
   cep_cat: 'Coastal Eutrophication Potential',
   // Regulatory and Reputational
-  udw_cat: 'Unimproved/no drinking water',
-  usa_cat: 'Unimproved/no sanitation',
-  rri_cat: 'Peak RepRisk country ESG risk index',
+  udw_cat: 'Unimproved/No Drinking Water',
+  usa_cat: 'Unimproved/No Sanitation',
+  rri_cat: 'Peak RepRisk Country ESG Risk Index',
   // future
   '5aafeab1-4b48-40b0-9042-f654f1531aaf': 'Water Stress',
   '45a1f9c5-7b0b-4705-978f-1e98dc8b3277': 'Seasonal Variability',
@@ -234,10 +234,13 @@ export const INDICATOR_DESCRIPTIONS = {
   // Water Quantity Risk
   bws_cat: {
     name: INDICATOR_NAMES_RELATION.bws_cat,
-    description: `Baseline water stress measures the ratio of total water withdrawals to available renewable water supplies.
-    Water withdrawals include domestic, industrial, irrigation and livestock consumptive and non-consumptive uses. Available renewable
-    water supplies include surface and groundwater supplies and considers the impact of upstream consumptive water users and large dams
-    on downstream water availability. Higher values indicate more competition among users.`,
+    description: `Baseline water stress measures the ratio of total water
+    withdrawals to available renewable surface and groundwater supplies. Water withdrawals include domestic,
+    industrial, irrigation, and livestock consumptive and
+    nonconsumptive uses. Available renewable water supplies include the impact of upstream consumptive water
+    users and large dams on downstream water availability.
+    Higher values indicate more competition among
+    users.`,
     sources: [{
       name: 'WRI Aqueduct 2019',
       link: 'https://www.wri.org/publication/aqueduct-30'
@@ -245,11 +248,17 @@ export const INDICATOR_DESCRIPTIONS = {
   },
   bwd_cat: {
     name: INDICATOR_NAMES_RELATION.bwd_cat,
-    description: `Baseline water depletion measures the ratio of total water consumption to available renewable
-    water supplies. Total water consumption includes domestic, industrial, irrigation and livestock consumptive uses.
-    Available renewable water supplies include surface and groundwater supplies and considers the impact of upstream consumptive
-    water users and large dams on downstream water availability. Higher values indicate larger impact on the local water supply
-    and decreased water availability for downstream users.`,
+    description: `Baseline water depletion measures the ratio of total water
+    consumption to available renewable water supplies.
+    Total water consumption includes domestic, industrial,
+    irrigation, and livestock consumptive uses. Available
+    renewable water supplies include the impact of upstream
+    consumptive water users and large dams on downstream
+    water availability. Higher values indicate larger
+    impact on the local water supply and decreased
+    water availability for downstream users. Baseline water depletion is similar to baseline water
+    stress; however, instead of looking at total water withdrawal (consumptive plus nonconsumptive), baseline
+    water depletion is calculated using consumptive withdrawal only. `,
     sources: [{
       name: 'WRI Aqueduct 2019',
       link: 'https://www.wri.org/publication/aqueduct-30'
@@ -257,8 +266,12 @@ export const INDICATOR_DESCRIPTIONS = {
   },
   gtd_cat: {
     name: INDICATOR_NAMES_RELATION.gtd_cat,
-    description: `Groundwater table decline measures the average annual decline of the groundwater table.
-    Higher values indicate higher levels of unsustainable groundwater withdrawals.`,
+    description: `Groundwater table decline measures the average decline
+    of the groundwater table as the average change for the
+    period of study (1990–2014). The result is expressed in
+    centimeters per year (cm/yr). Higher values indicate
+    higher levels of unsustainable groundwater
+    withdrawals.`,
     sources: [{
       name: 'WRI Aqueduct 2019',
       link: 'https://www.wri.org/publication/aqueduct-30'
@@ -266,8 +279,8 @@ export const INDICATOR_DESCRIPTIONS = {
   },
   iav_cat: {
     name: INDICATOR_NAMES_RELATION.iav_cat,
-    description: `Interannual variability measures the average between-year variability of available water supply,
-    including both renewable surface and groundwater supplies. Higher values indicate wider variations in available supply from year to year.`,
+    description: `Interannual variability measures the average betweenyear variability of available water supply, including both
+    renewable surface and groundwater supplies. Higher values indicate wider variations in available supply from year to year. `,
     sources: [{
       name: 'WRI Aqueduct 2019',
       link: 'https://www.wri.org/publication/aqueduct-30'
@@ -275,8 +288,10 @@ export const INDICATOR_DESCRIPTIONS = {
   },
   sev_cat: {
     name: INDICATOR_NAMES_RELATION.sev_cat,
-    description: `Seasonal variability measures the average within-year variability of available water supply, including both renewable surface and groundwater supplies.
-    Higher values indicate wider variations of available supply within a year.`,
+    description: `Seasonal variability measures the average within-year
+    variability of available water supply, including both
+    renewable surface and groundwater supplies. Higher
+    values indicate wider variations of available supply within a year.`,
     sources: [{
       name: 'WRI Aqueduct 2019',
       link: 'https://www.wri.org/publication/aqueduct-30'
@@ -284,8 +299,9 @@ export const INDICATOR_DESCRIPTIONS = {
   },
   drr_cat: {
     name: INDICATOR_NAMES_RELATION.drr_cat,
-    description: `Drought risk measures where droughts are likely to occur, the population and assets exposed, and the
-    vulnerability of the population and assets to suffering adverse effects. Higher values indicate higher risk of drought.`,
+    description: `Drought risk measures where droughts are likely to
+    occur, the population and assets exposed, and the vulnerability of the population and assets to adverse effects.
+    Higher values indicate higher risk of drought.`,
     sources: [{
       name: 'WRI Aqueduct 2019',
       link: 'https://www.wri.org/publication/aqueduct-30'
@@ -293,19 +309,39 @@ export const INDICATOR_DESCRIPTIONS = {
   },
   rfr_cat: {
     name: INDICATOR_NAMES_RELATION.rfr_cat,
-    description: `Riverine flood risk measures the percentage of population expected to be affected by riverine
-    flooding in an average year, accounting for existing flood protection standards.
-    Higher values indicate greater proportion of the population is expected to be impacted by riverine floods.`,
+    description: `Riverine flood risk measures the percentage of population
+    expected to be affected by Riverine flooding in an average
+    year, accounting for existing flood-protection standards.
+    Flood risk is assessed using hazard (inundation caused by
+    river overflow), exposure (population in flood zone), and
+    vulnerability.16 The existing level of flood protection is also
+    incorporated into the risk calculation. It is important to
+    note that this indicator represents flood risk not in terms
+    of maximum possible impact but rather as average annual
+    impact. The impacts from infrequent, extreme flood years
+    are averaged with more common, less newsworthy flood
+    years to produce the “expected annual affected population.” Higher values indicate that a greater proportion of the population is expected to be impacted
+    by Riverine floods on average.`,
     sources: [{
       name: 'WRI Aqueduct 2019',
       link: 'https://www.wri.org/publication/aqueduct-30'
     }]
   },
   cfr_cat: {
-    name: INDICATOR_NAMES_RELATION.gtd_cat,
-    description: `Coastal Flood Risk measures the percentage of population expected to be affected by coastal flooding in
-    an average year, accounting for existing flood protection standards. Higher values indicate greater proportion of the
-    population is expected to be impacted by coastal floods.`,
+    name: INDICATOR_NAMES_RELATION.cfr_cat,
+    description: `Coastal flood risk measures the percentage of the population expected to be affected by coastal flooding in an
+    average year, accounting for existing flood protection
+    standards. Flood risk is assessed using hazard (inundation caused by storm surge), exposure (population in
+    flood zone), and vulnerability.17 The existing level of flood
+    protection is also incorporated into the risk calculation.
+    It is important to note that this indicator represents flood
+    risk not in terms of maximum possible impact but rather
+    as average annual impact. The impacts from infrequent,
+    extreme flood years are averaged with more common, less
+    newsworthy flood years to produce the “expected annual
+    affected population.” Higher values indicate that a
+    greater proportion of the population is expected
+    to be impacted by coastal floods on average.`,
     sources: [{
       name: 'WRI Aqueduct 2019',
       link: 'https://www.wri.org/publication/aqueduct-30'
@@ -314,9 +350,22 @@ export const INDICATOR_DESCRIPTIONS = {
   // Water Quality Risk
   ucw_cat: {
     name: INDICATOR_NAMES_RELATION.ucw_cat,
-    description: `Untreated connected wastewater measures the percentage of domestic wastewater that is connected through a
-    sewerage system and not treated to at least a primary treatment level.
-    Higher values indicate higher percentages of point source wastewater discharged without treatment.`,
+    description: `Untreated connected wastewater measures the percentage of domestic wastewater that is connected through
+    a sewerage system and not treated to at least a primary
+    treatment level. Wastewater discharge without adequate
+    treatment could expose water bodies, the general public,
+    and ecosystems to pollutants such as pathogens and
+    nutrients. The indicator compounds two crucial elements
+    of wastewater management: connection and treatment.
+    Low connection rates reflect households’ lack of access to
+    public sewerage systems; the absence of at least primary
+    treatment reflects a country’s lack of capacity (infrastructure, institutional knowledge) to treat wastewater.
+    Together these factors can indicate the level of a country’s
+    current capacity to manage its domestic wastewater
+    through two main pathways: extremely low connection
+    rates (below 1 percent), and high connection rates with
+    little treatment. Higher values indicate higher percentages of point source wastewater discharged
+    without treatment.`,
     sources: [{
       name: 'WRI Aqueduct 2019',
       link: 'https://www.wri.org/publication/aqueduct-30'
@@ -324,9 +373,23 @@ export const INDICATOR_DESCRIPTIONS = {
   },
   cep_cat: {
     name: INDICATOR_NAMES_RELATION.cep_cat,
-    description: `Coastal Eutrophication Potential measures the potential for riverine loadings of nitrogen, phosphorus and
-    silica to stimulate harmful algal blooms in coastal waters. Higher values indicate higher levels of excess nutrients with
-    respect to silica, creating more favorable conditions for harmful algal growth and eutrophication in coastal waters downstream.`,
+    description: `Coastal eutrophication potential (CEP) measures the
+    potential for riverine loadings of nitrogen (N), phosphorus (P), and silica (Si) to stimulate harmful algal blooms
+    in coastal waters. The CEP indicator is a useful metric
+    to map where anthropogenic activities produce enough
+    point-source and nonpoint-source pollution to potentially
+    degrade the environment. When N and P are discharged
+    in excess over Si with respect to diatoms, a major type
+    of algae, undesirable algal species often develop. The
+    stimulation of algae leading to large blooms may in turn
+    result in eutrophication and hypoxia (excessive biological
+    growth and decomposition that reduces oxygen available
+    to other organisms). It is therefore possible to assess the
+    potential for coastal eutrophication from a river’s N, P,
+    and Si loading. Higher values indicate higher levels
+    of excess nutrients with respect to silica, creating more favorable conditions for harmful algal
+    growth and eutrophication in coastal waters
+    downstream.`,
     sources: [{
       name: 'WRI Aqueduct 2019',
       link: 'https://www.wri.org/publication/aqueduct-30'
@@ -335,8 +398,14 @@ export const INDICATOR_DESCRIPTIONS = {
   // Regulatory and Reputational
   udw_cat: {
     name: INDICATOR_NAMES_RELATION.udw_cat,
-    description: `Unimproved/ no drinking water measures the percentage of the population that relies on drinking water from an unprotected dug well
-    or spring, or direct surface water. Higher values indicate areas where people have less access to safe drinking water supplies.`,
+    description: `Unimproved/no drinking water reflects the percentage of the population collecting drinking water from an
+    unprotected dug well or spring, or directly from a river,
+    dam, lake, pond, stream, canal, or irrigation canal (WHO
+    and UNICEF 2017). Specifically, the indicator aligns with
+    the unimproved and surface water categories of the Joint
+    Monitoring Programme (JMP)—the lowest tiers of drinking water services. Higher values indicate areas
+    where people have less access to safe drinking
+    water supplies.`,
     sources: [{
       name: 'WRI Aqueduct 2019',
       link: 'https://www.wri.org/publication/aqueduct-30'
@@ -344,8 +413,16 @@ export const INDICATOR_DESCRIPTIONS = {
   },
   usa_cat: {
     name: INDICATOR_NAMES_RELATION.usa_cat,
-    description: `Unimproved/ no sanitation measures the percentage of population using pit latrines without a slab or platform, or a hanging
-    or bucket latrine. Higher values indicate areas where people have less access to improved sanitation services.`,
+    description: `Unimproved/no sanitation reflects the percentage of the
+    population using pit latrines without a slab or platform,
+    hanging/bucket latrines, or directly disposing human
+    waste in fields, forests, bushes, open bodies of water,
+    beaches, other open spaces, or with solid waste (WHO
+    and UNICEF 2017). Specifically, the indicator aligns with
+    JMP’s unimproved and open defecation categories—
+    the lowest tier of sanitation services. Higher values
+    indicate areas where people have less access to
+    improved sanitation services.`,
     sources: [{
       name: 'WRI Aqueduct 2019',
       link: 'https://www.wri.org/publication/aqueduct-30'
@@ -353,15 +430,25 @@ export const INDICATOR_DESCRIPTIONS = {
   },
   rri_cat: {
     name: INDICATOR_NAMES_RELATION.rri_cat,
-    description: `The Peak RepRisk country ESG risk index quantifies business conduct risk exposure related to environmental, social,
-      and governance (ESG) issues in the corresponding country. The index provides insights into potential finan-cial, reputational,
-      and compliance risks, such as human rights violations and environmental destruction. RepRisk is a leading business intelligence
-      provider that specializes in ESG and business conduct risk research for companies, projects, sectors, countries, ESG issues, NGOs,
-      and more, by leveraging artificial intelligence and human analysis in 20 languages. WRI has elected to include
-      the Peak RepRisk country ESG risk index in Aqueduct to reflect the broader regulatory and reputational risks that may threaten
-      water quantity, quality, and access. While the underlying algorithm is proprietary, we believe that our inclusion of
-      the Peak RepRisk country ESG risk index, normally unavailable to the public, is a value-add to the Aqueduct community.
-      The peak value equals the high-est level of the index in a given country over the last two years. The higher the value, the higher the risk exposure.`,
+    description: `The Peak RepRisk country ESG risk index quantifies
+    business conduct risk exposure related to environmental,
+    social, and governance (ESG) issues in the corresponding
+    country. The index provides insights into potential financial, reputational, and compliance risks, such as human
+    rights violations and environmental destruction. RepRisk
+    is a leading business intelligence provider that specializes
+    in ESG and business conduct risk research for companies,
+    projects, sectors, countries, ESG issues, NGOs, and more,
+    by leveraging artificial intelligence and human analysis
+    in 20 languages. WRI has elected to include the Peak
+    RepRisk country ESG risk index in Aqueduct to reflect
+    the broader regulatory and reputational risks that may
+    threaten water quantity, quality, and access. While the
+    underlying algorithm is proprietary, we believe that our
+    inclusion of the Peak RepRisk country ESG risk index,
+    normally unavailable to the public, is a value-add to the
+    Aqueduct community. The peak value equals the highest level of the index in a given country over the last two
+    years. The higher the value, the higher the risk
+    exposure.`,
     sources: [{
       name: 'WRI Aqueduct 2019',
       link: 'https://www.wri.org/publication/aqueduct-30'
@@ -493,30 +580,30 @@ export const INDICATOR_COLUMNS = {
   // Water Quantity Risk
   w_awr_def_qan_cat: [
     { label: 'Physical Risks Quantity', value: 'w_awr_def_qan_label' },
-    { label: 'Baseline Water Stress', value: 'bws_label' },
+    { label: 'Water Stress', value: 'bws_label' },
     { label: 'Groundwater Table Decline', value: 'gtd_label' },
     { label: 'Interannual Variability', value: 'iav_label' },
     { label: 'Seasonal Variability', value: 'sev_label' },
     { label: 'Drought Risk', value: 'drr_label' },
-    { label: 'Riverine Flood Risk Stress', value: 'rfr_label' },
-    { label: 'Coastal Flood Risk', value: 'cfr_label' }
+    { label: 'Riverine flood risk Stress', value: 'rfr_label' },
+    { label: 'Coastal flood risk', value: 'cfr_label' }
   ],
-  bws_cat: [{ label: 'Baseline Water Stress', value: 'bws_label' }],
-  bwd_cat: [{ label: 'Baseline Water Depletion', value: 'bwd_label' }],
+  bws_cat: [{ label: 'Stress', value: 'bws_label' }],
+  bwd_cat: [{ label: 'Depletion', value: 'bwd_label' }],
   iav_cat: [{ label: 'Interannual Variability', value: 'iav_label' }],
   gtd_cat: [{ label: 'Groundwater Table Decline', value: 'gtd_label' }],
   sev_cat: [{ label: 'Seasonal Variability', value: 'sev_label' }],
   drr_cat: [{ label: 'Drought Risk', value: 'drr_label' }],
-  rfr_cat: [{ label: 'Riverine Flood Risk Stress', value: 'rfr_label' }],
-  cfr_cat: [{ label: 'Coastal Flood Risk', value: 'cfr_label' }],
+  rfr_cat: [{ label: 'Riverine flood risk Stress', value: 'rfr_label' }],
+  cfr_cat: [{ label: 'Coastal flood risk', value: 'cfr_label' }],
   // Water Quality Risk
   w_awr_def_qal_cat: [
     { label: 'Physical Risks Quality', value: 'w_awr_def_qal_label' },
-    { label: 'Untreated Collected Wastewater', value: 'ucw_label' },
+    { label: 'Untreated Connected Water', value: 'ucw_label' },
     { label: 'Coastal Eutrophication Potential', value: 'cep_label' }
   ],
   ucw_cat: [{ label: 'Drought Risk', value: 'ucw_label' }],
-  cep_cat: [{ label: 'Riverine Flood Risk Stress', value: 'cep_label' }],
+  cep_cat: [{ label: 'Riverine flood risk Stress', value: 'cep_label' }],
   // Regulatory and Reputational
   w_awr_def_rrr_cat: [
     { label: 'Regulatory and Reputational Risk', value: 'w_awr_def_rrr_label' },
@@ -532,8 +619,8 @@ export const INDICATOR_COLUMNS = {
   ],
   // monthly exclusive
   monthly: {
-    bws_cat: [{ label: 'Baseline Water Stress', value: 'bws_label' }],
-    bwd_cat: [{ label: 'Baseline Water Depletion', value: 'bwd_label' }],
+    bws_cat: [{ label: 'Water Stress', value: 'bws_label' }],
+    bwd_cat: [{ label: 'Water Depletion', value: 'bwd_label' }],
     iav_cat: [{ label: 'Interannual Variability', value: 'iav_label' }]
   },
   preset: {
@@ -545,8 +632,8 @@ export const INDICATOR_COLUMNS = {
 };
 
 export const INDICATOR_SCHEME_ORDER = [
-  'bws_cat', 'bwd_cat', 'gtd_cat', 'iav_cat',
-  'sev_cat', 'drr_cat', 'rfr_cat', 'cfr_cat',
+  'bws_cat', 'bwd_cat', 'iav_cat', 'sev_cat',
+  'gtd_cat', 'rfr_cat', 'cfr_cat', 'drr_cat',
   'ucw_cat', 'cep_cat', 'udw_cat', 'usa_cat', 'rri_cat'
 ];
 

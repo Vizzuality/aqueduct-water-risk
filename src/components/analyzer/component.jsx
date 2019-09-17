@@ -5,7 +5,6 @@ import classnames from 'classnames';
 import { toastr } from 'react-redux-toastr';
 import { Spinner, Icon } from 'aqueduct-components';
 import { saveAs } from 'file-saver';
-import { toastr } from 'react-redux-toastr';
 
 // components
 import DataTable from 'components/analyze-locations-tab/data-table';
@@ -57,7 +56,7 @@ class Analyzer extends PureComponent {
     e.stopPropagation();
 
     fetchCARTOQuery({ q: downloadUrl, format })
-    .then((data) => saveAs(data, format === 'shp' ? fileName : `fileName.${format}`))
+    .then((data) => saveAs(data, format === 'shp' ? fileName : `${fileName}.${format}`))
     .catch((err) => {
       console.error(err.message);
       toastr.error('Ops, something went wrong');
@@ -115,9 +114,9 @@ class Analyzer extends PureComponent {
             (<div className="download-container">
              Download as
              <ul>
-               <li><a onClick={(e) => { this.handleDownload(e, 'csv'); }}>CSV</a>,</li>
-               <li><a onClick={(e) => { this.handleDownload(e, 'shp'); }}>SHP</a>,</li>
-               <li><a onClick={(e) => { this.handleDownload(e, 'gpkg'); }}>GPKG</a></li>
+               <li><button type="button" onClick={(e) => { this.handleDownload(e, 'csv'); }}>CSV</button>,</li>
+               <li><button type="button" onClick={(e) => { this.handleDownload(e, 'shp'); }}>SHP</button>,</li>
+               <li><button type="button" onClick={(e) => { this.handleDownload(e, 'gpkg'); }}>GPKG</button></li>
              </ul>
               <p className="download-instructions">
                 <a

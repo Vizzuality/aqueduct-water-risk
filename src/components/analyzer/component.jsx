@@ -55,26 +55,8 @@ class Analyzer extends PureComponent {
     e.preventDefault();
     e.stopPropagation();
 
-    fetchCARTOQuery({ q: downloadUrl })
-    .then(async(data) => {
-      console.log(data)
-
-      saveAs(data, fileName);
-
-      // console.log(blob)
-      // CSV: data:text/csv;charset=utf-8,
-      // SHP: application/zip
-
-
-      // const tempLink = document.createElement('a');
-      // tempLink.setAttribute("download", fileName);
-      // // tempLink.href = 'application/zip' + encodeURI(data);
-      // tempLink.href = 'application/zip' + encodeURI(data);
-      // // tempLink.target = '_blank';
-      // // tempLink.href = window.URL.createObjectURL(data);
-      // tempLink.click();
-
-    })
+    fetchCARTOQuery({ q: downloadUrl, format })
+    .then((data) => saveAs(data, fileName))
     .catch((err) => {
       console.error(err.message);
       toastr.error('Ops, something went wrong');

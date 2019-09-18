@@ -5,7 +5,7 @@ export const fetchCARTOQuery = ({ q, format }) => {
 
   return axios({
     method: 'POST',
-    url: 'https://cors-anywhere.herokuapp.com/https://wri-01.carto.com/api/v2/sql',
+    url: 'https://cors-anywhere.herokuapp.com/https://wri-rw.carto.com/api/v2/sql',
     data,
     responseType: 'blob',
   })
@@ -18,7 +18,7 @@ export const fetchCARTOQuery = ({ q, format }) => {
 
 export const fetchQuery = (url, params) =>
   axios({
-    url: 'https://cors-anywhere.herokuapp.com/http://wri-01.carto.com/api/v2/sql',
+    url: 'https://cors-anywhere.herokuapp.com/http://wri-rw.carto.com/api/v2/sql',
     method: 'POST',
     data: params,
     headers: { 'content-type': 'application/json' }

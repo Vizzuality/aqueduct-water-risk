@@ -11,7 +11,7 @@ import DataTable from 'components/analyze-locations-tab/data-table';
 import AnalysisModal from 'components/modal/analysis';
 
 // services
-import { fetchQuery } from 'services/query';
+import { fetchCARTOQuery } from 'services/query';
 
 // utils
 import { logEvent } from 'utils/analytics';
@@ -48,28 +48,21 @@ class Analyzer extends PureComponent {
     });
   }
 
-  handleDownload(format) {
-    const { downloadUrl } = this.props;
+  handleDownload(e, format) {
+    const { analysis: { downloadUrl } } = this.props;
     const fileName = getFileName();
 
-    const split = downloadUrl.split('?');
-    const baseURL = split[0];
-    const query = split[1].split('=')[1];
-    const params = JSON.stringify({
-      q: query,
-      format
-    });
+    e.preventDefault();
+    e.stopPropagation();
 
-    fetchQuery(baseURL, params)
-      .then((data) => {
+    fetchCARTOQuery({ q: downloadUrl, format })
+    .then((data) => saveAs(data, format === 'shp' ? fileName : `${fileName}.${format}`))
+    .catch((err) => {
+      console.error(err.message);
+      toastr.error('Ops, something went wrong');
+    })
+      .finally(() => {
         logEvent('Download', 'User Downloads from Analysis Location', format);
-
-        if (format === 'csv') saveAs(`data:text/csv;charset=UTF-8,${encodeURIComponent(data)}`, `${fileName}.csv`);
-        if (format === 'gpkg') saveAs(`data:application/geopackage+vnd.sqlite3;charset=UTF-8,${encodeURIComponent(data)}`, `${fileName}.gpkg`);
-      })
-      .catch(({ message }) => {
-        toastr.error('Something went wrong with the download');
-        console.error(message);
       });
   }
 
@@ -121,8 +114,9 @@ class Analyzer extends PureComponent {
             (<div className="download-container">
              Download as
              <ul>
-               <li><button type="button" onClick={() => { this.handleDownload('csv'); }}>CSV</button>,</li>
-               <li><button type="button" onClick={() => { this.handleDownload('gpkg'); }}>GPKG</button></li>
+               <li><button type="button" onClick={(e) => { this.handleDownload(e, 'csv'); }}>CSV</button>,</li>
+               <li><button type="button" onClick={(e) => { this.handleDownload(e, 'shp'); }}>SHP</button>,</li>
+               <li><button type="button" onClick={(e) => { this.handleDownload(e, 'gpkg'); }}>GPKG</button></li>
              </ul>
               <p className="download-instructions">
                 <a

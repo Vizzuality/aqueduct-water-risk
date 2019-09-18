@@ -62,10 +62,16 @@
     > li {
       color: palette(gray, dark);
       margin: 0 0 0 $space-1;
+      
       > button {
         color: inherit;
         font-weight: 500;
         text-decoration: underline;
+
+        &:hover {
+          cursor: pointer;
+          color: palette(blue, secondary);
+        }
       }
     }
   }

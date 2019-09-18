@@ -68,7 +68,7 @@ export const onFetchAnalysis = createThunkAction('ANALYZE-LOCATIONS-TAB__FETCH-A
           dispatch(setAnalysis(data));
         }
         logEvent('Analysis', 'Analyze Locations', 'Complete Analysis');
-        dispatch(setDownloadUrl(downloadUrl));
+        dispatch(setDownloadUrl(downloadUrl.split('=')[1]));
         dispatch(setAnalysisLoading(false));
       })
       .catch((err) => {

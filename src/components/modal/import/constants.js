@@ -1,6 +1,6 @@
 export const TAB_OPTIONS = [
-  { value: 'coordinates', label: 'Coordinates' },
-  { value: 'addresses', label: 'Addresses' }
+  { value: 'addresses', label: 'Addresses' },
+  { value: 'coordinates', label: 'Coordinates' }
 ];
 
 export default { TAB_OPTIONS };

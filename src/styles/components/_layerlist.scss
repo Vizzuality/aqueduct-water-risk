@@ -124,6 +124,7 @@ $separation: $space-1 * 2;
 }
 
 .future-group {
+  min-height: 175px;
   margin-bottom: $space-1 * 4;
 
   &:last-child {

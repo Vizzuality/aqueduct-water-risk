@@ -3,7 +3,7 @@ export default {
     data: [],
     selected: [],
     downloadUrl: null,
-    loading: true,
+    loading: false,
     error: null
   },
   points: {

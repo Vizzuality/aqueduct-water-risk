@@ -4,7 +4,7 @@ import { replace } from 'react-router-redux';
 // actions
 import { setMapLocation, setLayerParametrization } from 'modules/map/actions';
 import { setFilters, setPonderation, setAnalyzerOpen } from 'modules/settings/actions';
-import { setGeostore, getGeostore } from 'modules/analyze-locations-tab/actions';
+import { setGeostore, getGeostore, setAnalysisLoading } from 'modules/analyze-locations-tab/actions';
 
 // constants
 import { INDICATOR_SCHEME_ORDER } from 'constants/indicators';
@@ -106,6 +106,7 @@ export const onEnterMapPage = createThunkAction('APP__MAP-PAGE-HOOK', ({ params,
     if (location.query.mapMode) dispatch(setMapMode(location.query.mapMode));
     if (location.query.geoStore) {
       dispatch(setAnalyzerOpen(true));
+      dispatch(setAnalysisLoading(true));
       dispatch(setGeostore(location.query.geoStore));
       dispatch(getGeostore(location.query.geoStore));
     }

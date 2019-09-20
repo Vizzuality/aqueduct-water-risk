@@ -48,6 +48,10 @@
       font-size: $font-size-big;
       color: palette(white);
       text-transform: none;
+
+      &:hover {
+        background: darken(palette(blue, dark), 10%);
+      }
     }
   }
 }
@@ -62,7 +66,7 @@
     > li {
       color: palette(gray, dark);
       margin: 0 0 0 $space-1;
-      
+
       > button {
         color: inherit;
         font-weight: 500;

@@ -13,6 +13,10 @@ body {
 
 a {
   text-decoration: none;
+
+  &:hover {
+    color: darken(palette(blue, secondary), 10%) !important;
+  }
 }
 
 button {

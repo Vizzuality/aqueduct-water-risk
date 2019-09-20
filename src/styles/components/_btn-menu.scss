@@ -18,6 +18,10 @@
     .btn-menu-btn {
       background-color: palette(white);
       color: palette(blue);
+
+      &:hover {
+        background: darken(palette(white), 10%);
+      }
     }
   }
 

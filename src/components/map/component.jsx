@@ -44,7 +44,7 @@ class MapComponent extends PureComponent {
       layers: nextLayers,
       indicator: nextIndicator,
       analysisSelectedData: nextAnalysisSelectedData,
-      points,
+      analysisData,
       sidebarWidth
     } = nextProps;
     const layersChanged = !isEqual(layers, nextLayers);
@@ -57,12 +57,12 @@ class MapComponent extends PureComponent {
     }
 
     if (selectedChanged) {
-      const currentPoint = points[nextAnalysisSelectedData[0]];
+      const currentPoint = analysisData[nextAnalysisSelectedData[0]];
 
       if (currentPoint && this.map) {
-        const { lat, lng } = currentPoint;
+        const { latitude, longitude } = currentPoint;
         this.map.fitBounds(
-          L.latLng(lat, lng).toBounds(500),
+          L.latLng(latitude, longitude).toBounds(500),
           {
             paddingTopLeft: [sidebarWidth, 0],
             maxZoom: 4
@@ -79,8 +79,15 @@ class MapComponent extends PureComponent {
 
     if (analysisSelectedDataPopupChanged) {
       setPopupData({ ...analysisData[analysisSelectedData] });
-      const nextPopupPosition = points[analysisSelectedData];
-      setPopupLocation(nextPopupPosition || null);
+      if (analysisData[analysisSelectedData]) {
+        const { latitude: lat, longitude: lng } = analysisData[analysisSelectedData];
+        setPopupLocation({ lat, lng });
+      } else if (points[analysisSelectedData]) {
+        const nextPopupPosition = points[analysisSelectedData];
+        setPopupLocation(nextPopupPosition);
+      } else {
+        setPopupLocation(null);
+      }
     }
   }
 
@@ -91,19 +98,29 @@ class MapComponent extends PureComponent {
       onAddPoint,
       onAddUnknownLocation,
       points,
+      analysisData,
       setSelectedData
     } = this.props;
 
     if (layer) {
       const { editing: { _marker: { _latlng } } } = layer;
       const { lat, lng } = _latlng;
-      const index = points.findIndex(_point => isEqual(_point, ({ lat, lng })));
+      const indexFromData = analysisData.findIndex(({ longitude, latitude }) => {
+        return isEqual({ lat: latitude, lng: longitude }, ({ lat: lat.toFixed(2), lng: lng.toFixed(2) }));
+      });
 
-      if (index !== -1 && analysisSelectedData.includes(index)) {
-        setSelectedData([]);
-      } else if (index !== -1) {
-        setSelectedData([index]);
+      if (indexFromData === -1) {
+        const indexFromPoints = points.findIndex(_point => isEqual(_point, ({ lat, lng })));
+        if (indexFromPoints !== -1) setSelectedData([indexFromPoints]);
       }
+
+
+      if (indexFromData !== -1 && analysisSelectedData.includes(indexFromData)) {
+        setSelectedData([]);
+      } else if (indexFromData !== -1) {
+        setSelectedData([indexFromData]);
+      }
+
     } else {
       onAddPoint({ lat: latlng.lat, lng: latlng.lng });
       onAddUnknownLocation();
@@ -112,19 +129,35 @@ class MapComponent extends PureComponent {
 
   handleRemovePoint() {
     const {
-      points,
+      analysisData,
       analysisSelectedData,
       setSelectedData,
       onRemovePoint,
-      onFetchAnalysis
+      onApplyAnalysis,
+      points
     } = this.props;
+    let pointToRemove = null;
 
-    const pointToRemove = points[analysisSelectedData];
+    const locationToRemove = analysisData[analysisSelectedData];
+
+    if (!locationToRemove) pointToRemove = points[analysisSelectedData[0]];
+
+    if (locationToRemove) {
+      const { longitude: lng, latitude: lat } = locationToRemove;
+      onRemovePoint({ lat, lng });
+    }
 
     if (pointToRemove) {
-      onRemovePoint(pointToRemove);
+      const { lng, lat } = pointToRemove;
+      onRemovePoint({
+        lat: lat.toFixed(2),
+        lng: lng.toFixed(2)
+      });
+    }
+
+    if (locationToRemove || pointToRemove) {
       setSelectedData([]);
-      onFetchAnalysis();
+      onApplyAnalysis();
     }
   }
 

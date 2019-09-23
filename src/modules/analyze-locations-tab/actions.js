@@ -166,8 +166,8 @@ export const onRemoveLocation = createThunkAction('ANALYZE-LOCATIONS-TAB__REMOVE
 export const onRemovePoint = createThunkAction('ANALYZE-LOCATIONS-TAB__REMOVE-POINT', point =>
   (dispatch, getState) => {
     const { analyzeLocations: { points: { list } } } = getState();
-    const points = list.filter(_point => (_point.lat !== point.lat) && (_point.lng !== point.lng));
-    const indexPoint = list.findIndex(_point => (_point.lat === point.lat) && (_point.lng === point.lng));
+    const points = list.filter(_point => (_point.lat.toFixed(2) !== point.lat) && (_point.lng.toFixed(2) !== point.lng));
+    const indexPoint = list.findIndex(_point => (_point.lat.toFixed(2) === point.lat) && (_point.lng.toFixed(2) === point.lng));
 
     dispatch(setPoints(points));
     dispatch(onRemoveLocation(indexPoint));

@@ -30,25 +30,29 @@ const getPonderation = state => state.settings.ponderation;
 const getPoints = state => state.analyzeLocations.points.list;
 const getLayerUpdatedParams = state => state.map.layerParametrization;
 const getSelectedData = state => state.analyzeLocations.analysis.selected;
+const getAnalysisData = state => state.analyzeLocations.analysis.data;
 
 const getMarkerLayer = createSelector(
-  [getPoints, getSelectedData],
-  (_points, _selected) => [{
+  [getPoints, getAnalysisData, getSelectedData],
+  (_points, _data, _selected) => [{
     ...MARKER_LAYER,
     id: uniqid(),
     isMarkerLayer: true,
     layerConfig: {
       ...MARKER_LAYER.layerConfig,
-      body: [..._points.map(m => L.marker(
-        [m.lat, m.lng],
+      body: [..._points.map(({ lat, lng }) => L.marker(
+        [lat, lng],
         { icon: L.divIcon({
           className: classnames('c-marker', {
-            '-selected': _selected && isEqual(_points[_selected], m)
+            '-selected': _selected && isEqual({
+              longitude: _data[_selected[0]] ? _data[_selected[0]].longitude : null,
+              latitude: _data[_selected[0]] ? _data[_selected[0]].latitude : null
+            }, { lat, lng })
           }),
           html: '<div class="marker-inner"></div>'
         })
-        }
-      ))]
+        })
+      )]
     },
     params: { id: uniqid() }
   }]

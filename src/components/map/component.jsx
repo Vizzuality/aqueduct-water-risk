@@ -157,7 +157,7 @@ class MapComponent extends PureComponent {
 
     if (locationToRemove || pointToRemove) {
       setSelectedData([]);
-      onApplyAnalysis();
+      if (locationToRemove) onApplyAnalysis();
     }
   }
 

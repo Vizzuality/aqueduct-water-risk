@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { Sidebar, SegmentedUi, Spinner } from 'aqueduct-components';
 import isEqual from 'lodash/isEqual';
+import isIexplorer from 'is-iexplorer';
+import { toastr } from 'react-redux-toastr';
 
 // components
 import BaselineTab from 'components/pages/map/baseline-tab';
@@ -62,6 +64,13 @@ class MapPage extends PureComponent {
     if (filtersChanged || ponderationChanged
       || scopeChanged || mapStateChanged
       || advancedModeChanged || geostoreChanged) updateUrl();
+
+    const InternetWarningDisplay = localStorage.getItem('AQ_INTERNET_WARNING_DISPLAY');
+
+    if (isIexplorer && !InternetWarningDisplay) {
+      toastr.warning('Internet Explorer support is not supported in this site. Many features might not work as expected.', { timeOut: 5000 });
+      localStorage.setItem('AQ_INTERNET_WARNING_DISPLAY', true);
+    }
   }
 
   onChangeTab({ value }) {

@@ -1,4 +1,5 @@
 // utils
+import axios from 'axios';
 import { WRIAPI } from 'utils/axios';
 
 /**
@@ -9,7 +10,7 @@ import { WRIAPI } from 'utils/axios';
  */
 
 export const fetchGeocoding = file =>
-  WRIAPI.post('/aqueduct/analysis/geocoding',
+  axios.post('https://us-central1-resource-watch.cloudfunctions.net/geocoder',
     file,
     {
       transformResponse: [].concat(
@@ -17,7 +18,6 @@ export const fetchGeocoding = file =>
         ({ rows }) => rows
       )
     }
-
   )
     .then((response) => {
       const { status, statusText, data } = response;

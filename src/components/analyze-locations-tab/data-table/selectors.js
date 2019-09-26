@@ -66,10 +66,14 @@ export const getColumns = createSelector(
 
 export const getData = createSelector(
   [getAnalysisData, getLocations],
-  (_data, _locations) => _locations.map((location, index) => ({
-    ..._data[index],
-    ...location
-  }))
+  (_data, _locations) => _data.map((_d) => {
+    const locationIndex = _locations.findIndex(_location => _location.location_name === _d.location_name);
+
+    return ({
+      ..._d,
+      ..._locations[locationIndex]
+    });
+  })
 );
 
 export default {

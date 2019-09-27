@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { saveAs } from 'file-saver';
 import { toastr } from 'react-redux-toastr';
+import { Spinner } from 'aqueduct-components';
 
 // components
 import DataTable from 'components/analyze-locations-tab/data-table';
@@ -16,6 +17,12 @@ import { fetchCARTOQuery } from 'services/query';
 import { logEvent } from 'utils/analytics';
 
 class AnalysisModal extends PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = { fileLoading: false };
+  }
+
   handleDownload(e, format) {
     const { analysis: { downloadUrl } } = this.props;
     const fileName = getFileName();
@@ -23,15 +30,18 @@ class AnalysisModal extends PureComponent {
     e.preventDefault();
     e.stopPropagation();
 
-    fetchCARTOQuery({ q: downloadUrl, format })
-    .then((data) => saveAs(data, format === 'shp' ? fileName : `${fileName}.${format}`))
-    .catch((err) => {
-      console.error(err.message);
-      toastr.error('Ops, something went wrong');
-    })
-      .finally(() => {
-        logEvent('Download', 'User Downloads from Analysis Location', format);
-      });
+    this.setState({ fileLoading: true }, () => {
+      fetchCARTOQuery({ q: downloadUrl, format })
+      .then((data) => { saveAs(data, format === 'shp' ? fileName : `${fileName}.${format}`); })
+      .catch((err) => {
+        console.error(err.message);
+        toastr.error('Ops, something went wrong');
+      })
+        .finally(() => {
+          logEvent('Download', 'User Downloads from Analysis Location', format);
+          this.setState({ fileLoading: false });
+        });
+    });
   }
 
   render() {
@@ -39,6 +49,7 @@ class AnalysisModal extends PureComponent {
       analysis: { loading },
       downloadUrl
     } = this.props;
+    const { fileLoading } = this.state;
 
     return (
       <div className="c-analysis-modal">
@@ -49,11 +60,17 @@ class AnalysisModal extends PureComponent {
           {(downloadUrl && !loading) &&
             (<div className="download-container">
              Download as
-             <ul>
-               <li><button type="button" onClick={(e) => { this.handleDownload(e, 'csv'); }}>CSV</button>,</li>
-               <li><button type="button" onClick={(e) => { this.handleDownload(e, 'shp'); }}>SHP</button>,</li>
-               <li><button type="button" onClick={(e) => { this.handleDownload(e, 'gpkg'); }}>GPKG</button></li>
-             </ul>
+              <ul>
+                <li><button type="button" onClick={(e) => { this.handleDownload(e, 'csv'); }}>CSV</button>,</li>
+                <li><button type="button" onClick={(e) => { this.handleDownload(e, 'shp'); }}>SHP</button>,</li>
+                <li><button type="button" onClick={(e) => { this.handleDownload(e, 'gpkg'); }}>GPKG</button></li>
+                <li className="download-spinner">
+                  <Spinner
+                    isLoading={fileLoading}
+                    className="-transparent -tiny"
+                  />
+                </li>
+              </ul>
               <p className="download-instructions">
                 <a
                   href="https://github.com/wri/aqueduct30_data_download/blob/master/metadata.md"

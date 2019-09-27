@@ -77,6 +77,11 @@
           color: palette(blue, secondary);
         }
       }
+
+      &.download-spinner {
+        position: relative;
+        margin: 0 0 0 $space-1 * 5;
+      }
     }
   }
 

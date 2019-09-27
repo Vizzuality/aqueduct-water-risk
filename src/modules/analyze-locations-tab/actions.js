@@ -44,10 +44,16 @@ export const onFetchAnalysis = createThunkAction('ANALYZE-LOCATIONS-TAB__FETCH-A
     const { scheme } = ponderation;
     const analysis_type = getAnalysisType(timeScale, scheme, year);
     const _locations = locations.map(_location => `''${_location.location_name}''`);
+    const _input_address = locations.map(_location => `''${_location.input_address}''`);
+    const _match_address = locations.map(_location => `''${_location.match_address}''`);
+    const _ids = locations.map(_location => `''${_location.id}''`);
     const params = {
       geostore: id,
       analysis_type,
       ...locations.length && { locations: `[${_locations.toString()}]` },
+      ..._input_address.length && { input_address: `[${_input_address.toString()}]` },
+      ..._match_address.length && { match_address: `[${_match_address.toString()}]` },
+      ..._ids.length && { ids: `[${_ids.toString()}]` },
       month,
       year,
       scenario,

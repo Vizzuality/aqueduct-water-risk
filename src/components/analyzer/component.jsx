@@ -21,6 +21,11 @@ import { getFileName } from './helpers';
 
 
 class Analyzer extends PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = { fileLoading: false };
+  }
   componentWillReceiveProps(nextProps) {
     const { filters, onFetchAnalysis } = this.props;
     const {
@@ -55,15 +60,20 @@ class Analyzer extends PureComponent {
     e.preventDefault();
     e.stopPropagation();
 
-    fetchCARTOQuery({ q: downloadUrl, format })
-    .then((data) => saveAs(data, format === 'shp' ? fileName : `${fileName}.${format}`))
-    .catch((err) => {
-      console.error(err.message);
-      toastr.error('Ops, something went wrong');
-    })
-      .finally(() => {
-        logEvent('Download', 'User Downloads from Analysis Location', format);
-      });
+    this.setState({ fileLoading: true }, () => {
+      fetchCARTOQuery({ q: downloadUrl, format })
+      .then((data) => {
+        saveAs(data, format === 'shp' ? fileName : `${fileName}.${format}`);
+      })
+      .catch((err) => {
+        console.error(err.message);
+        toastr.error('Ops, something went wrong');
+      })
+        .finally(() => {
+          logEvent('Download', 'User Downloads from Analysis Location', format);
+          this.setState({ fileLoading: false });
+        });
+    });
   }
 
   render() {
@@ -71,6 +81,7 @@ class Analyzer extends PureComponent {
       points,
       analysis: { data, loading, downloadUrl }
     } = this.props;
+    const { fileLoading } = this.state;
     const btnClass = classnames(
       'c-btn -light apply-analysis-btn',
       { '-disabled': !points.length }
@@ -113,11 +124,17 @@ class Analyzer extends PureComponent {
           {(downloadUrl && !loading) &&
             (<div className="download-container">
              Download as
-             <ul>
-               <li><button type="button" onClick={(e) => { this.handleDownload(e, 'csv'); }}>CSV</button>,</li>
-               <li><button type="button" onClick={(e) => { this.handleDownload(e, 'shp'); }}>SHP</button>,</li>
-               <li><button type="button" onClick={(e) => { this.handleDownload(e, 'gpkg'); }}>GPKG</button></li>
-             </ul>
+              <ul>
+                <li><button type="button" onClick={(e) => { this.handleDownload(e, 'csv'); }}>CSV</button>,</li>
+                <li><button type="button" onClick={(e) => { this.handleDownload(e, 'shp'); }}>SHP</button>,</li>
+                <li><button type="button" onClick={(e) => { this.handleDownload(e, 'gpkg'); }}>GPKG</button></li>
+                <li className="download-spinner">
+                  <Spinner
+                    isLoading={fileLoading}
+                    className="-transparent -tiny"
+                  />
+                </li>
+              </ul>
               <p className="download-instructions">
                 <a
                   href="https://github.com/wri/aqueduct30_data_download/blob/master/metadata.md"
@@ -148,7 +165,6 @@ class Analyzer extends PureComponent {
 Analyzer.propTypes = {
   filters: PropTypes.object.isRequired,
   geoStore: PropTypes.string,
-  downloadUrl: PropTypes.string,
   points: PropTypes.array.isRequired,
   analysis: PropTypes.object.isRequired,
   onFetchAnalysis: PropTypes.func.isRequired,

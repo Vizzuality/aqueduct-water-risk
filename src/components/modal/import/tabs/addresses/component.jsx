@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import Dropzone from 'react-dropzone';
 import { toastr } from 'react-redux-toastr';
-
 // services
 import { fetchGeocoding } from 'services/geocoding';
 
@@ -96,9 +95,9 @@ class ImportTabAddresses extends PureComponent {
               setMapMode('analysis');
               const points = locatedAddresses.map(({ lat, lon }) => ({ lat, lng: lon }));
               const locations = locatedAddresses.map(_location => ({
-                location_name: _location['location name'],
+                location_name: _location['location name'] || `Location ${_location.row}`,
                 input_address: _location.address,
-                match_address: _location['matched address']
+                match_address: _location.matched_address
               }));
 
               onAddPoint(points);

@@ -92,9 +92,9 @@ class ImportTabCoordinates extends PureComponent {
           if (allPoints) {
             this.setState({ loading: false });
 
-
             const points = features.map(p => ({ lat: p.geometry.coordinates[1], lng: p.geometry.coordinates[0] }));
             const locations = features.map(_feature => ({
+              id: _feature.properties.id,
               location_name: _feature.properties['location name'],
               input_address: '_',
               match_address: '-'

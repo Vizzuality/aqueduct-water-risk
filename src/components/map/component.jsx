@@ -106,7 +106,7 @@ class MapComponent extends PureComponent {
       const { editing: { _marker: { _latlng } } } = layer;
       const { lat, lng } = _latlng;
       const indexFromData = analysisData.findIndex(({ longitude, latitude }) => {
-        return isEqual({ lat: latitude, lng: longitude }, ({ lat: lat.toFixed(2), lng: lng.toFixed(2) }));
+        return isEqual({ lat: latitude, lng: longitude }, ({ lat, lng }));
       });
 
       if (indexFromData === -1) {
@@ -150,8 +150,8 @@ class MapComponent extends PureComponent {
     if (pointToRemove) {
       const { lng, lat } = pointToRemove;
       onRemovePoint({
-        lat: lat.toFixed(2),
-        lng: lng.toFixed(2)
+        lat,
+        lng
       });
     }
 

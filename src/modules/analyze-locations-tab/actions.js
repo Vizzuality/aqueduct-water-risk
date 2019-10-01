@@ -1,4 +1,5 @@
 import { createAction, createThunkAction } from 'redux-tools';
+import compact from 'lodash/compact';
 
 // services
 import { fetchGeostore, saveGeostore } from 'services/geostore';
@@ -46,7 +47,7 @@ export const onFetchAnalysis = createThunkAction('ANALYZE-LOCATIONS-TAB__FETCH-A
     const _locations = locations.map(_location => `''${_location.location_name}''`);
     const _input_address = locations.map(_location => `''${_location.input_address}''`);
     const _match_address = locations.map(_location => `''${_location.match_address}''`);
-    const _ids = locations.map(_location => `''${_location.id}''`);
+    const _ids = compact(locations.map(_location => (_location.id || _location.row)));
     const params = {
       geostore: id,
       analysis_type,
@@ -172,8 +173,8 @@ export const onRemoveLocation = createThunkAction('ANALYZE-LOCATIONS-TAB__REMOVE
 export const onRemovePoint = createThunkAction('ANALYZE-LOCATIONS-TAB__REMOVE-POINT', point =>
   (dispatch, getState) => {
     const { analyzeLocations: { points: { list } } } = getState();
-    const points = list.filter(_point => (_point.lat.toFixed(2) !== point.lat) && (_point.lng.toFixed(2) !== point.lng));
-    const indexPoint = list.findIndex(_point => (_point.lat.toFixed(2) === point.lat) && (_point.lng.toFixed(2) === point.lng));
+    const points = list.filter(_point => (_point.lat !== point.lat) && (_point.lng !== point.lng));
+    const indexPoint = list.findIndex(_point => (_point.lat === point.lat) && (_point.lng === point.lng));
 
     dispatch(setPoints(points));
     dispatch(onRemoveLocation(indexPoint));

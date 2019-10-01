@@ -95,6 +95,7 @@ class ImportTabAddresses extends PureComponent {
               setMapMode('analysis');
               const points = locatedAddresses.map(({ lat, lon }) => ({ lat, lng: lon }));
               const locations = locatedAddresses.map(_location => ({
+                id: _location.id || _location.row,
                 location_name: _location['location name'] || `Location ${_location.row}`,
                 input_address: _location.address,
                 match_address: _location.matched_address

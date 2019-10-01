@@ -16,12 +16,11 @@ export const filterData = (data = [], indicator, ponderationScheme) => {
   const children = INDICATOR_COLUMNS[indicator] || INDICATOR_COLUMNS[PARENT_CHILDREN_LAYER_RELATION[indicator]];
 
   return data.map(_data => ({
-    // ..._data,
     location_name: _data.location_name || '-',
     input_address: _data.input_address || '-',
     match_address: _data.match_address || '-',
-    latitude: _data.latitude ? _data.latitude.toFixed(2) : '-',
-    longitude: _data.longitude ? _data.longitude.toFixed(2) : '-',
+    latitude: _data.latitude ? _data.latitude : '-',
+    longitude: _data.longitude ? _data.longitude : '-',
     name_0: _data.name_0 || '-',
     name_1: _data.name_1 || '-',
     major_basin_name: _data.major_basin_name || '-',

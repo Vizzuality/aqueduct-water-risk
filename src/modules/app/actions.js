@@ -35,8 +35,8 @@ export const updateUrl = createThunkAction('APP__UPDATE-URL', () =>
       pathname: '/',
       query: {
         basemap,
-        lat: lat.toFixed(2),
-        lng: lng.toFixed(2),
+        lat,
+        lng,
         zoom,
         opacity,
         year,

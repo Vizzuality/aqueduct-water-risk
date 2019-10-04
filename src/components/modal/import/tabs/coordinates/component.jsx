@@ -90,12 +90,10 @@ class ImportTabCoordinates extends PureComponent {
           const allPoints = features.every(p => p.geometry && p.geometry.type === 'Point');
 
           if (allPoints) {
-            this.setState({ loading: false });
-
             const points = features.map(p => ({ lat: p.geometry.coordinates[1], lng: p.geometry.coordinates[0] }));
             const locations = features.map(_feature => ({
               id: _feature.properties.id,
-              location_name: _feature.properties['location name'],
+              location_name: _feature.properties.location_name,
               input_address: '_',
               match_address: '-'
             }));
@@ -106,9 +104,13 @@ class ImportTabCoordinates extends PureComponent {
             onSaveGeostore()
               .then(() => {
                 onFetchAnalysis()
-                  .then(() => { setAnalyzerOpen(true); });
+                  .then(() => {
+                    this.setState({ loading: false }, () => {
+                      setAnalyzerOpen(true);
+                      toggleModal(false, {});
+                    });
+                  });
               });
-            toggleModal(false, {});
           } else {
             this.setState({
               errors: [{

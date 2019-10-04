@@ -175,7 +175,7 @@ class ImportTabAddresses extends PureComponent {
             </p>
 
             <p>Please use the templates below to structure your data.</p>
-            <p>Replace with your own location names and coordinates.Do not add additional columns.There is a 1000 addresses per file limit.</p>
+            <p>Replace with your own location names and coordinates.Do not add additional columns.There is a 500 addresses per file limit.</p>
             <p>More <button className="go-to-docs-btn" onClick={() => { this.goToDocs(); }}>info</button>.</p>
 
             <p>List of supported file formats <i>(click on any format to download the template)</i>:</p>

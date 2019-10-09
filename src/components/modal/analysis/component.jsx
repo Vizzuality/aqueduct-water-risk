@@ -32,7 +32,7 @@ class AnalysisModal extends PureComponent {
 
     this.setState({ fileLoading: true }, () => {
       fetchCARTOQuery({ q: downloadUrl, format })
-      .then((data) => { saveAs(data, format === 'shp' ? fileName : `${fileName}.${format}`); })
+      .then((data) => { saveAs(data, `${fileName}.${format}`); })
       .catch((err) => {
         console.error(err.message);
         toastr.error('Ops, something went wrong');
@@ -62,7 +62,6 @@ class AnalysisModal extends PureComponent {
              Download as
               <ul>
                 <li><button type="button" onClick={(e) => { this.handleDownload(e, 'csv'); }}>CSV</button>,</li>
-                <li><button type="button" onClick={(e) => { this.handleDownload(e, 'shp'); }}>SHP</button>,</li>
                 <li><button type="button" onClick={(e) => { this.handleDownload(e, 'gpkg'); }}>GPKG</button></li>
                 <li className="download-spinner">
                   <Spinner

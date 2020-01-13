@@ -52,7 +52,8 @@ class AddressForm extends PureComponent {
 
     this.setState({
       loading: true,
-      address: _address
+      address: _address,
+      error: null
     }, () => {
       geocodeByAddress(this.state.address)
         .then((results) => {
@@ -121,7 +122,7 @@ class AddressForm extends PureComponent {
                   }}
                   classNames={CSS_ADDRESS_CLASSES}
                   onSelect={(_address) => { this.getAddresLatLng(_address); }}
-                  onError={() => { this.onErrorAddress(); }}
+                  onError={(_error) => { this.onErrorAddress(_error); }}
                   clearItemsOnError
                 />
                 {error &&

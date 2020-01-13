@@ -100,7 +100,6 @@
     "webpack-bundle-analyzer": "^2.4.0"
   },
   "engines": {
-    "node": "8.11.2",
-    "yarn": "1.17.3"
+    "node": "8.11.2"
   }
 }

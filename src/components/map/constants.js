@@ -572,8 +572,8 @@ export const LEGENDS = {
   }
 };
 
-export const HYDRO_LAYER = '0f573be8-71a9-46c1-bee4-a3909212cecc';
-export const AQUIFER_LAYER = '728cda48-5164-4c1f-a626-12e527db5874';
+export const HYDRO_LAYER = 'c3844335-db59-4a42-94fa-77ff47adc731';
+export const AQUIFER_LAYER = '695a26a0-92d3-4a5f-98e5-1ebc4d55ba27';
 
 export default {
   MAP_OPTIONS,

@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 import isEqual from 'lodash/isEqual';
 import classnames from 'classnames';
-import uniqid from 'uniqid';
+import { v4 as uuidv4 } from 'uuid';
 
 // utils
 import {
@@ -36,7 +36,7 @@ const getMarkerLayer = createSelector(
   [getPoints, getAnalysisData, getSelectedData],
   (_points, _data, _selected) => [{
     ...MARKER_LAYER,
-    id: uniqid(),
+    id: uuidv4(),
     isMarkerLayer: true,
     layerConfig: {
       ...MARKER_LAYER.layerConfig,
@@ -54,7 +54,7 @@ const getMarkerLayer = createSelector(
         })
       )]
     },
-    params: { id: uniqid() }
+    params: { id: uuidv4() }
   }]
 );
 

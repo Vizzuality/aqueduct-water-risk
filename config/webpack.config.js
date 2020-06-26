@@ -1,5 +1,7 @@
 /* eslint camelcase:0 */
 require('dotenv').config({ silent: true });
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+
 
 process.env.BROWSERSLIST_CONFIG = 'browserslist';
 
@@ -93,15 +95,16 @@ const config = {
 
 // Environment configuration
 if (process.env.NODE_ENV === 'production') {
-  config.plugins.push(new webpack.optimize.UglifyJsPlugin({
-    compress: {
-      warnings: false,
-      dead_code: true,
-      drop_debugger: true,
-      drop_console: true
-    },
-    comments: false
-  }));
+  config.plugins.push(new UglifyJsPlugin());
+  // config.plugins.push(new webpack.optimize.UglifyJsPlugin({
+  //   compress: {
+  //     warnings: false,
+  //     dead_code: true,
+  //     drop_debugger: true,
+  //     drop_console: true
+  //   },
+  //   comments: false
+  // }));
 } else {
   config.devtool = 'eval-source-map';
 }

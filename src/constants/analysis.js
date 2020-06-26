@@ -6,14 +6,14 @@ export const TABLE_INDICATOR_VALUES = {
 };
 
 export const FUTURE_LAYERS_GROUPS = {
-  '5aafeab1-4b48-40b0-9042-f654f1531aaf': 'water_stress',
-  'd5c8316c-de80-4be3-a973-d3fbafc7eaca': 'water_stress',
-  '45a1f9c5-7b0b-4705-978f-1e98dc8b3277': 'seasonal_variability',
-  'd7d5fd18-e8e4-4654-b595-7accbb582992': 'seasonal_variability',
-  'c124cfce-0414-4cf3-ba2d-e63634199b04': 'water_supply',
-  'a045b21a-c2ff-4ec5-b7fa-2c1f206b8911': 'water_supply',
-  'a3795c06-d2eb-4aa3-8e24-62965b69e5ce': 'water_demand',
-  'cf7e6a51-3366-42d7-a8ae-ef0f1f11a5f1': 'water_demand'
+  'ff7f5739-b2ef-4930-a7ab-7205a72a7dc3': 'water_stress',
+  'a7c3ffe1-aa0e-46ed-b947-d3cbafa2a5d1': 'water_stress',
+  '870edc4d-8112-4e3f-a823-3f6d0f02bf79': 'seasonal_variability',
+  '3ad0a9aa-36e7-476b-9f78-113f1d76144a': 'seasonal_variability',
+  '9a59e767-c50a-4f05-9b71-6104acaa4108': 'water_supply',
+  '4bbc7f03-c5fd-46d6-8212-318f3f3d85a3': 'water_supply',
+  'c7c4d3b7-b6f6-46dc-bb03-311cc2a5557d': 'water_demand',
+  '0157ee28-48a2-43e7-8d68-b0f1d4a39bb1': 'water_demand'
 };
 
 export default {

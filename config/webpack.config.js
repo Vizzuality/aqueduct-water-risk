@@ -2,6 +2,7 @@
 require('dotenv').config({ silent: true });
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
+const isProduction = process.env.NODE_ENV === 'production';
 
 process.env.BROWSERSLIST_CONFIG = 'browserslist';
 
@@ -21,7 +22,7 @@ const config = {
   output: {
     path: path.join(rootPath, 'dist/'),
     filename: '[name]-[hash].js',
-    publicPath: '/'
+    publicPath: isProduction ? './' : '/'
   },
 
   module: {

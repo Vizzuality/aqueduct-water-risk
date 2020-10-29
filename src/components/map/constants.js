@@ -10,7 +10,9 @@ export const BASEMAPS = {
     id: 'osm',
     value: process.env.BASEMAP_TILE_URL,
     label: 'Light',
-    options: { attribution: '&copy; <a href="http://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a>' }
+    options: {
+      attribution: '<a href="https://www.mapbox.com/about/maps/" target="_blank" rel="noopener noreferrer">© Mapbox</a>'
+    }
   },
   satellite: {
     id: 'satellite',

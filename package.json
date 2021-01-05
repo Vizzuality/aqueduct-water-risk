@@ -21,7 +21,7 @@
   "homepage": "https://github.com/Vizzuality/aqueduct-water-risk#readme",
   "dependencies": {
     "aqueduct-components": "0.3.14",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "babel-core": "^6.26.3",
     "babel-loader": "^6.2.7",
     "babel-plugin-add-react-displayname": "0.0.4",

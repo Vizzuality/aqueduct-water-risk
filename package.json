@@ -18,7 +18,7 @@
   "bugs": {
     "url": "https://github.com/Vizzuality/aqueduct-water-risk/issues"
   },
-  "homepage": "https://github.com/Vizzuality/aqueduct-water-risk#readme",
+  "homepage": ".",
   "dependencies": {
     "aqueduct-components": "0.3.14",
     "axios": "^0.18.0",

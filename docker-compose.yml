@@ -1,0 +1,40 @@
+# This is for development (not deployment)
+version: '3.9'
+
+x-app: &app
+  image: wri-water-risk:0.1
+  stdin_open: true
+  tty: true
+  build:
+    context: .
+    dockerfile: docker/Dockerfile
+    args:
+      NODE_VERSION: '10.20.1'
+  environment: &env
+    EDITOR: vi
+    HISTFILE: /bash_history
+    NODE_ENV: ${NODE_ENV:-development}
+    BASEMAP_TILE_URL: https://not.used.i.think.com/a/b/c
+    PORT: ${PORT:-3000}
+  env_file:
+    - .env
+  tmpfs:
+    - /tmp
+  volumes:
+    - .:/app:cached
+    - node_modules:/node_modules
+    - bash_history:/bash_history
+
+services:
+  web:
+    <<: *app
+    container_name: wri-water-risk-web
+    command: yarn start
+    expose:
+      - "${PORT-3000}"
+    ports:
+      - "${PORT-3000}:${PORT-3000}"
+
+volumes:
+  node_modules:
+  bash_history:

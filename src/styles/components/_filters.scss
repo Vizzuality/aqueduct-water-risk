@@ -37,6 +37,18 @@
   }
 }
 
+.c-filters-header {
+  .title {
+    color: palette(white);
+    font-size: $font-size-extrabig;
+    font-weight: 600;
+  }
+  .description {
+    color: palette(white);
+    font-size: $font-size-default;
+    display: flex
+  }
+}
 
 .c-filters-item {
   padding-right: $space-1 * 4;

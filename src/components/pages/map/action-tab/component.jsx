@@ -2,10 +2,11 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 // components
-// import ActionFilters from 'components/future-tab/filters';
-// import ActionIndicators from 'components/future-tab/indicator-list';
+import Filters from 'components/action-tab/filters';
+import Indicators from 'components/action-tab/indicator-list';
 
 // constants
+import { SCOPE_OPTIONS } from 'constants/app';
 
 class ActionTab extends PureComponent {
 
@@ -29,6 +30,9 @@ class ActionTab extends PureComponent {
   render() {
     return (
       <div className="l-action">
+        <div className="l-filters">
+          <Filters name='Prioritize Action' />
+        </div>
       </div>
     );
   }

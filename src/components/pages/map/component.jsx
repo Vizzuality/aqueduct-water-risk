@@ -9,6 +9,7 @@ import { toastr } from 'react-redux-toastr';
 // components
 import BaselineTab from 'components/pages/map/baseline-tab';
 import FutureTab from 'components/pages/map/future-tab';
+import ActionTab from 'components/pages/map/Action-tab';
 import MapComponent from 'components/map';
 import CustomAccordion from 'components/ui/custom-accordion';
 import Analyzer from 'components/analyzer';
@@ -120,6 +121,7 @@ class MapPage extends PureComponent {
           <div className="l-mapview-content">
             {scope === 'baseline' && (<BaselineTab />)}
             {scope === 'future' && (<FutureTab />)}
+            {scope === 'action' && (<ActionTab />)}
           </div>
           <CustomAccordion
             className="l-analyzer-accordion"

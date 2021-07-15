@@ -1,6 +1,7 @@
 export const SCOPE_OPTIONS = [
-  { label: 'baseline', value: 'baseline' },
-  { label: 'future', value: 'future' }
+  { label: 'Baseline', value: 'baseline' },
+  { label: 'Future', value: 'future' },
+  { label: 'Prioritize Action', value: 'action' }
 ];
 
 export const SCENARIO_OPTIONS = [

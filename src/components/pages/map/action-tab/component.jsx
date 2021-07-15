@@ -3,10 +3,8 @@ import PropTypes from 'prop-types';
 
 // components
 import Filters from 'components/action-tab/filters';
-import Indicators from 'components/action-tab/indicator-list';
 
 // constants
-import { SCOPE_OPTIONS } from 'constants/app';
 
 class ActionTab extends PureComponent {
 

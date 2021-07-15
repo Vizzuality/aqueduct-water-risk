@@ -19,7 +19,6 @@ export const SCENARIO_OPTIONS = [
   }
 ];
 
-
 export default {
   SCOPE_OPTIONS,
   SCENARIO_OPTIONS

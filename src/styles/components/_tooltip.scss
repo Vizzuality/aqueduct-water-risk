@@ -1,6 +1,6 @@
 // https://codepen.io/joshuaward/pen/NprxPE
 
-a[data-tooltip].top {
+[data-tooltip].top {
 	&:before,
 	&:after {
 		transform: translateY(10px);
@@ -12,7 +12,7 @@ a[data-tooltip].top {
 	}
 }
 
-a[data-tooltip].right {
+[data-tooltip].right {
 	&:before,
 	&:after {
 		transform: translateX(0px);
@@ -24,7 +24,7 @@ a[data-tooltip].right {
 	}
 }
 
-a[data-tooltip].bottom {
+[data-tooltip].bottom {
 	&:before,
 	&:after {
 		transform: translateY(-10px);
@@ -36,7 +36,7 @@ a[data-tooltip].bottom {
 	}
 }
 
-a[data-tooltip].left {
+[data-tooltip].left {
 	&:before,
 	&:after {
 		transform: translateX(0px);
@@ -48,7 +48,7 @@ a[data-tooltip].left {
 	}
 }
 
-a[data-tooltip] {
+[data-tooltip] {
 	position: relative;
 
 	&:after,
@@ -65,13 +65,11 @@ a[data-tooltip] {
 		content: attr(data-tooltip);
 		background: #000;
 		color: #fff;
-		font-size: 10px;
-		font-weight: bold;
-		padding: 10px 15px;
+		font-size: 12px;
+		padding: 5px 10px;
 		border-radius: 5px;
 		white-space: nowrap;
 		text-decoration: none;
-		text-transform: uppercase;
 		letter-spacing: 1px;
 	}
 
@@ -91,13 +89,13 @@ a[data-tooltip] {
 }
 
 // top tooltip
-a[data-tooltip][data-position="top"]:before {
+[data-tooltip][data-position="top"]:before {
 	bottom: 100%;
 	left: -130%;
 	margin-bottom: 10px;
 }
 
-a[data-tooltip][data-position="top"]:after {
+[data-tooltip][data-position="top"]:after {
 	border-top-color: #000;
 	border-bottom: none;
 	bottom: 101%;
@@ -105,13 +103,13 @@ a[data-tooltip][data-position="top"]:after {
 	margin-bottom: 4px;
 }
 // left tooltip
-a[data-tooltip][data-position="left"]:before {
+[data-tooltip][data-position="left"]:before {
 	top: -12%;
 	right: 100%;
 	margin-right: 10px;
 }
 
-a[data-tooltip][data-position="left"]:after {
+[data-tooltip][data-position="left"]:after {
 	border-left-color: #000;
 	border-right: none;
 	top: calc(50% - 3px);
@@ -120,13 +118,13 @@ a[data-tooltip][data-position="left"]:after {
 	margin-right: 4px;
 }
 // right tooltip
-a[data-tooltip][data-position="right"]:before {
+[data-tooltip][data-position="right"]:before {
 	top: -5%;
 	left: 100%;
 	margin-left: 10px;
 }
 
-a[data-tooltip][data-position="right"]:after {
+[data-tooltip][data-position="right"]:after {
 	border-right-color: #000;
 	border-left: none;
 	top: calc(50% - 6px);
@@ -134,13 +132,13 @@ a[data-tooltip][data-position="right"]:after {
 }
 
 // bottom tooltip
-a[data-tooltip][data-position="bottom"]:before {
+[data-tooltip][data-position="bottom"]:before {
 	top: 100%;
 	left: -130%;
 	margin-top: 10px;
 }
 
-a[data-tooltip][data-position="bottom"]:after {
+[data-tooltip][data-position="bottom"]:after {
 	border-bottom-color: #000;
 	border-top: none;
 	top: 100%;

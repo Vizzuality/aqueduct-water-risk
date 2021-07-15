@@ -9,7 +9,7 @@ import { toastr } from 'react-redux-toastr';
 // components
 import BaselineTab from 'components/pages/map/baseline-tab';
 import FutureTab from 'components/pages/map/future-tab';
-import ActionTab from 'components/pages/map/Action-tab';
+import ActionTab from 'components/pages/map/action-tab';
 import MapComponent from 'components/map';
 import CustomAccordion from 'components/ui/custom-accordion';
 import Analyzer from 'components/analyzer';

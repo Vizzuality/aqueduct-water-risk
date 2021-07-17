@@ -53,6 +53,20 @@
 .c-filters-item {
   padding-right: $space-1 * 4;
 
+  &.-inline  {
+    display: flex;
+    align-items: center;
+  }
+
+  .icon-container {
+    transform: translateY(-50%);
+  }
+
+  .icon-container svg {
+    fill: #AFC7FF;
+    border-color: #AFC7FF;
+  }
+
   @include only-mobile {
     padding-top: $space-1 * 4;
   }

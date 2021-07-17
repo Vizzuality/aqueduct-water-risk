@@ -16,6 +16,11 @@ class Filters extends PureComponent {
       childrenProps: BASIN_MODAL_PROPS
     });
   }
+
+  handleInfoClick() {
+    console.log('toggle info')
+  }
+
   render() {
     const { name = '' } = this.props;
 
@@ -30,7 +35,6 @@ class Filters extends PureComponent {
     const indicators = Object.keys(LEGENDS)
       .filter((key) => Object.keys(indicatorDictionary).includes(key) )
       .map((key) => ({ label: indicatorDictionary[key], value: key } ));
-
     return (
       <div>
         <div className="c-filters-header">
@@ -47,12 +51,14 @@ class Filters extends PureComponent {
             <div className="filters-section">
               <div className="row expanded collapse">
                 <div className="small-8 column">
-                  <div className="c-filters-item">
+                  <div className="c-filters-item -inline">
                     <CustomSelect
                       options={indicators}
                       value={null}
+                      placeholder={'Select Indicator'}
                       onValueChange={({ value }) => { console.log(value) }}
                     />
+                    <TooltipIcon handleClick={() => this.handleInfoClick()} />
                   </div>
                 </div>
               </div>

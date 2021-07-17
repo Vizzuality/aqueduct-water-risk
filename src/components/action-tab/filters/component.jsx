@@ -2,9 +2,11 @@ import React, { PureComponent } from 'react';
 import { func, string } from 'prop-types';
 import ContentModal from '../../ui/modal/content/';
 import TooltipIcon from '../../ui/TooltipIcon';
+import { CustomSelect } from 'aqueduct-components';
 
 // constants
 import { BASIN_MODAL_PROPS } from 'constants/filters';
+import { LEGENDS } from 'components/map/constants';
 
 class Filters extends PureComponent {
   handleTooltipClick() {
@@ -16,6 +18,18 @@ class Filters extends PureComponent {
   }
   render() {
     const { name = '' } = this.props;
+
+    const indicatorDictionary = {
+      bws_cat: 'Baseline Water Stress',
+      bwd_cat: 'Baseline Water Depletion',
+      gtd_cat: 'Groundwater Table Decline',
+      cep_cat: 'Coastal Eutrophication Potential',
+      udw_cat: 'Unimproved/No Drinking Water',
+      usa_cat: 'Unimproved/No Sanitation'
+    };
+    const indicators = Object.keys(LEGENDS)
+      .filter((key) => Object.keys(indicatorDictionary).includes(key) )
+      .map((key) => ({ label: indicatorDictionary[key], value: key } ));
 
     return (
       <div>
@@ -31,7 +45,17 @@ class Filters extends PureComponent {
               </div>
             </div>
             <div className="filters-section">
-              <div className="c-filters-item" />
+              <div className="row expanded collapse">
+                <div className="small-8 column">
+                  <div className="c-filters-item">
+                    <CustomSelect
+                      options={indicators}
+                      value={null}
+                      onValueChange={({ value }) => { console.log(value) }}
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

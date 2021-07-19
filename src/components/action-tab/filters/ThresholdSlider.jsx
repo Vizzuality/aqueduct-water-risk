@@ -6,11 +6,8 @@ import { style } from './slider_style'
 import { LEGENDS } from 'components/map/constants';
 
 const ThresholdSlider = ({ indicatorId }) => {
-  const min = 0;
-  const max = 100;
-  const step = 10;
   const indicator = LEGENDS[indicatorId];
-  const { items=[] } = indicator
+  const { items=[], rangeValues=[] } = indicator
   const colors = items.map(i => i.color);
   const {
     dotStyle,
@@ -19,19 +16,29 @@ const ThresholdSlider = ({ indicatorId }) => {
     trackStyle
   } = style({ colors });
 
+  const min = 0;
+  const max = 100;
+  const step = 10;
+
+  const valueMap = {};
+  rangeValues.forEach((v, i) => valueMap[i * 10] = v)
+  const formatTip = v => valueMap[v];
+
   const marks = {};
   items.forEach(({ name, value }, i) => {
-    marks[i*20] = <SliderMarkLabel label={name} range={value} />
+    marks[i * 20] = <SliderMarkLabel label={name} range={value} />
   });
+
 
   const SliderWithTooltip = createSliderWithTooltip(Slider);
   return (
-    <Fragment>
+    <div style={ { marginLeft: 15} }>
       <SliderWithTooltip
         marks={marks}
         min={min}
         max={max}
         step={step}
+        tipFormatter={formatTip}
         dots
         tooltipVisible
         handleStyle={handleStyle}
@@ -40,7 +47,7 @@ const ThresholdSlider = ({ indicatorId }) => {
         dotStyle={dotStyle}
         tipProps={{ visible: true }}
       />
-    </Fragment>
+    </div>
   );
 };
 

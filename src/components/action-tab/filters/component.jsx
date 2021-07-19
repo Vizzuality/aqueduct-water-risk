@@ -7,7 +7,7 @@ import ThresholdSlider from './ThresholdSlider';
 
 // constants
 import { BASIN_MODAL_PROPS } from 'constants/filters';
-import { LEGENDS } from 'components/map/constants';
+import { LEGENDS, INDICATORS } from 'components/map/constants';
 
 class Filters extends PureComponent {
   constructor(props) {
@@ -35,17 +35,9 @@ class Filters extends PureComponent {
     const { name = '' } = this.props;
     const { activeIndicatorId = null } = this.state;
 
-    const indicatorDictionary = {
-      bws_cat: 'Baseline Water Stress',
-      bwd_cat: 'Baseline Water Depletion',
-      gtd_cat: 'Groundwater Table Decline',
-      cep_cat: 'Coastal Eutrophication Potential',
-      udw_cat: 'Unimproved/No Drinking Water',
-      usa_cat: 'Unimproved/No Sanitation'
-    };
     const indicators = Object.keys(LEGENDS)
-      .filter((key) => Object.keys(indicatorDictionary).includes(key) )
-      .map((key) => ({ label: indicatorDictionary[key], value: key } ));
+      .filter((key) => Object.keys(INDICATORS).includes(key) )
+      .map((key) => ({ label: INDICATORS[key], value: key } ));
 
     return (
       <div>
@@ -77,7 +69,16 @@ class Filters extends PureComponent {
             </div>
             { activeIndicatorId &&
               <div className="filters-section">
-                <ThresholdSlider indicatorId={activeIndicatorId} />
+                <div className="c-filters-item">
+                  <div className="filter-item-header" style={ {marginBottom: 65} }>
+                    <span className="title">
+                      <span>
+                        <strong>{INDICATORS[activeIndicatorId]} Desired Condition </strong> (adjust slider to change results)
+                      </span>
+                    </span>
+                  </div>
+                  <ThresholdSlider indicatorId={activeIndicatorId} />
+                </div>
               </div>
             }
           </div>

@@ -89,6 +89,15 @@ const NO_DATA_LEGEND_ITEM = {
 };
 
 
+export const INDICATORS = {
+  bws_cat: 'Baseline Water Stress',
+  bwd_cat: 'Baseline Water Depletion',
+  gtd_cat: 'Groundwater Table Decline',
+  cep_cat: 'Coastal Eutrophication Potential',
+  udw_cat: 'Unimproved/No Drinking Water',
+  usa_cat: 'Unimproved/No Sanitation'
+};
+
 export const LEGENDS = {
   parent: {
     items: [
@@ -123,6 +132,8 @@ export const LEGENDS = {
   },
   // Groundwater Table Decline
   gtd_cat: {
+    name: 'Groundwater Table Decline',
+    rangeValues: [-12, -6, 0, 0.5, 1, 2.5, 4, 5, 6, 26, 46],
     items: [
       {
         name: 'Low',
@@ -161,6 +172,7 @@ export const LEGENDS = {
   },
   // Riverine flood risk
   rfr_cat: {
+    name: 'Riverine flood risk',
     items: [
       {
         name: 'Low',
@@ -193,6 +205,7 @@ export const LEGENDS = {
   },
   // Coastal flood risk
   cfr_cat: {
+    name: 'Coastal flood risk',
     items: [
       {
         name: 'Low',
@@ -223,8 +236,10 @@ export const LEGENDS = {
     disclaimer: [NO_DATA_LEGEND_ITEM],
     type: 'choropleth'
   },
-  // Water Stress
+  // Baseline Water Stress
   bws_cat: {
+    name: 'Baseline Water Stress',
+    rangeValues: [0, 5, 10, 15, 20, 30, 40, 60, 80, 90, 100],
     items: [
       {
         name: 'Low',
@@ -264,8 +279,10 @@ export const LEGENDS = {
     ],
     type: 'choropleth'
   },
-  // Water Depletion
+  // Baseline Water Depletion
   bwd_cat: {
+    name: 'Baseline Water Depletion',
+    rangeValues: [0, 2.5, 5, 15, 25, 37.5, 50, 62.5, 75, 87.5, 100],
     items: [
       {
         name: 'Low',
@@ -307,6 +324,7 @@ export const LEGENDS = {
   },
   // Interannual Variability
   iav_cat: {
+    name: 'Interannual Variability',
     items: [
       {
         name: 'Low',
@@ -339,6 +357,7 @@ export const LEGENDS = {
   },
   // Seasonal Variability
   sev_cat: {
+    name: 'Seasonal Variability',
     items: [
       {
         name: 'Low',
@@ -371,6 +390,7 @@ export const LEGENDS = {
   },
   // Drought Risk
   drr_cat: {
+    name: 'Drought Risk',
     items: [
       {
         name: 'Low',
@@ -403,6 +423,7 @@ export const LEGENDS = {
   },
   // Untreated Collected Wastewater
   ucw_cat: {
+    name: 'Untreated Collected Wastewater',
     items: [
       {
         name: 'Low',
@@ -441,6 +462,8 @@ export const LEGENDS = {
   },
   // Coastal Eutrophication Potential
   cep_cat: {
+    name: 'Coastal Eutrophication Potential',
+    rangeValues: [-245, -125, -5, -2.5, 0, 0.5, 1, 3, 5, 45, 85],
     items: [
       {
         name: 'Low',
@@ -473,6 +496,8 @@ export const LEGENDS = {
   },
   // Unimproved/no drinking water
   udw_cat: {
+    name: 'Unimproved/No Drinking Water',
+    rangeValues: [0, 1.25, 2.5, 3.75, 5, 7.5, 10, 15, 20, 60, 100],
     items: [
       {
         name: 'Low',
@@ -505,6 +530,8 @@ export const LEGENDS = {
   },
   // Unimproved/no sanitation
   usa_cat: {
+    name: 'Unimproved/No Sanitation',
+    rangeValues: [0, 1.25, 2.5, 3.75, 5, 7.5, 10, 15, 20, 60, 100],
     items: [
       {
         name: 'Low',
@@ -537,6 +564,7 @@ export const LEGENDS = {
   },
   // RepRisk Index
   rri_cat: {
+    name: 'RepRisk Index',
     items: [
       {
         name: 'Low',

@@ -16,6 +16,7 @@ x-app: &app
     NODE_ENV: ${NODE_ENV:-development}
     BASEMAP_TILE_URL: https://not.used.i.think.com/a/b/c
     PORT: ${PORT:-3000}
+    NODE_OPTIONS: --max_old_space_size=4096
   env_file:
     - .env
   tmpfs:
@@ -36,7 +37,7 @@ services:
       - "${PORT-3000}:${PORT-3000}"
   shell:
     <<: *app
-    command: /bin/bash
+    command: /bin/sh
 
 volumes:
   node_modules:

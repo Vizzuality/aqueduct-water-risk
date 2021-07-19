@@ -1,5 +1,6 @@
 .rc-slider {
   min-height: 125px;
+  padding-top: 75px;
 }
 
 .rc-slider-mark-text {
@@ -32,15 +33,42 @@
   margin-right: 0;
 }
 
-.rc-slider-handle:after {
-  content: "";
-  background: #a59fbb;
-  display: "block";
-  height: 50%;
-  width: 50%;
-  border-radius: 50%;
+.rc-slider-handle {
+  transform: translateX(-25%) !important;
+  &:after {
+    content: "";
+    background: #a59fbb;
+    display: "block";
+    height: 50%;
+    width: 50%;
+    border-radius: 50%;
+  }
 }
 
-.rc-slider-mark-text {
-  color: palette(white)
+.rc-slider-mark {
+  margin-left: 0;
+}
+
+
+// Tooltip
+.rc-slider-tooltip {
+  .rc-slider-tooltip-content { }
+  .rc-slider-tooltip-arrow { }
+  .rc-slider-tooltip-inner {
+    padding: 5px 15px;
+    background-color: palette(white);
+    box-shadow: 1px 2px 3px 0px rgba(0,0,0,.4);
+    color: palette(blue);
+    font-size: 16px;
+    line-height: 1;
+    height: auto;
+    font-weight: 600;
+  }
+}
+
+.rc-slider-tooltip-placement-top .rc-slider-tooltip-arrow {
+  border-top-color: palette(white) !important;
+  border-width: 8px 6px 0 !important;
+  margin-left: -6px !important;
+  bottom: 0 !important;
 }

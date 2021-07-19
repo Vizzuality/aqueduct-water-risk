@@ -1,5 +1,5 @@
 import React from 'react';
-import { string } from 'prop-types';
+import { number, string } from 'prop-types';
 
 const SliderMarkLabel = ({ label, range }) => {
   const labelStyle = {
@@ -14,7 +14,7 @@ const SliderMarkLabel = ({ label, range }) => {
     fontWeight: 'normal'
   };
   return (
-    <div>
+    <div >
       <span style={labelStyle}>{label}</span>
       <span style={rangeStyle}>{range}</span>
     </div>

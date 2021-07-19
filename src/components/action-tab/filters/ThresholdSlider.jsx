@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import Slider from 'rc-slider';
+import Slider, {createSliderWithTooltip} from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import SliderMarkLabel from './SliderMarkLabel'
 import { style } from './slider_style'
@@ -24,10 +24,10 @@ const ThresholdSlider = ({ indicatorId }) => {
     marks[i*20] = <SliderMarkLabel label={name} range={value} />
   });
 
-  // const createSliderWithTooltip = Slider.createSliderWithTooltip;
+  const SliderWithTooltip = createSliderWithTooltip(Slider);
   return (
     <Fragment>
-      <Slider
+      <SliderWithTooltip
         marks={marks}
         min={min}
         max={max}
@@ -38,6 +38,7 @@ const ThresholdSlider = ({ indicatorId }) => {
         trackStyle={trackStyle}
         railStyle={railStyle}
         dotStyle={dotStyle}
+        tipProps={{ visible: true }}
       />
     </Fragment>
   );

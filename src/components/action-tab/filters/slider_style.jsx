@@ -15,7 +15,8 @@ export const style = ({colors}) => {
     boxShadow: '1px 4px 10px 2px rgba(0,0,0,.4)',
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    transform: 'translateX(-25%) !important'
   };
   const trackStyle = {
     height,

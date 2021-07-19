@@ -34,6 +34,9 @@ services:
       - "${PORT-3000}"
     ports:
       - "${PORT-3000}:${PORT-3000}"
+  shell:
+    <<: *app
+    command: /bin/bash
 
 volumes:
   node_modules:

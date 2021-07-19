@@ -3,12 +3,18 @@ import { func, string } from 'prop-types';
 import ContentModal from '../../ui/modal/content/';
 import TooltipIcon from '../../ui/TooltipIcon';
 import { CustomSelect } from 'aqueduct-components';
+import ThresholdSlider from './ThresholdSlider';
 
 // constants
 import { BASIN_MODAL_PROPS } from 'constants/filters';
 import { LEGENDS } from 'components/map/constants';
 
 class Filters extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = { activeIndicatorId: null };
+  }
+
   handleTooltipClick() {
     const { toggleModal } = this.props;
     return toggleModal(true, {
@@ -18,11 +24,16 @@ class Filters extends PureComponent {
   }
 
   handleInfoClick() {
-    console.log('toggle info')
+    console.log('toggle info');
+  }
+
+  handleIndicatorSelect(activeIndicatorId) {
+    this.setState({ activeIndicatorId});
   }
 
   render() {
     const { name = '' } = this.props;
+    const { activeIndicatorId = null } = this.state;
 
     const indicatorDictionary = {
       bws_cat: 'Baseline Water Stress',
@@ -35,6 +46,7 @@ class Filters extends PureComponent {
     const indicators = Object.keys(LEGENDS)
       .filter((key) => Object.keys(indicatorDictionary).includes(key) )
       .map((key) => ({ label: indicatorDictionary[key], value: key } ));
+
     return (
       <div>
         <div className="c-filters-header">
@@ -54,15 +66,20 @@ class Filters extends PureComponent {
                   <div className="c-filters-item -inline">
                     <CustomSelect
                       options={indicators}
-                      value={null}
+                      value={activeIndicatorId}
                       placeholder={'Select Indicator'}
-                      onValueChange={({ value }) => { console.log(value) }}
+                      onValueChange={({ value }) => { this.handleIndicatorSelect(value) }}
                     />
                     <TooltipIcon handleClick={() => this.handleInfoClick()} />
                   </div>
                 </div>
               </div>
             </div>
+            { activeIndicatorId &&
+              <div className="filters-section">
+                <ThresholdSlider indicatorId={activeIndicatorId} />
+              </div>
+            }
           </div>
         </div>
       </div>

@@ -1,6 +1,6 @@
 import React from 'react';
-import { func } from 'prop-types';
-import { Icon, string } from 'aqueduct-components';
+import { func, string  } from 'prop-types';
+import { Icon } from 'aqueduct-components';
 
 export default function TooltipIcon(props) {
   const {

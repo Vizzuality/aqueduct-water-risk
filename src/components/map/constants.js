@@ -135,7 +135,7 @@ export const LEGENDS = {
     name: 'Groundwater Table Decline',
     rangeValues: [-12, -6, 0, 0.5, 1, 2.5, 4, 5, 6, 26, 46],
     defaultValue: 1,
-    unit: 'cm/year',
+    unit: 'cm/y',
     items: [
       {
         name: 'Low',
@@ -144,22 +144,22 @@ export const LEGENDS = {
       },
       {
         name: 'Low-medium',
-        value: '(0-2 cm/y)',
+        value: '(0-1 cm/y)',
         color: '#FFE600'
       },
       {
         name: 'Medium-high',
-        value: '(2-4 cm/y)',
+        value: '(1-4 cm/y)',
         color: '#FF9900'
       },
       {
         name: 'High',
-        value: '(4-8 cm/y)',
+        value: '(4-6 cm/y)',
         color: '#FF1900'
       },
       {
         name: 'Extremely high',
-        value: '(>8 cm/y)',
+        value: '(>6 cm/y)',
         color: '#990000'
       }
     ],

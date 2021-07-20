@@ -134,6 +134,8 @@ export const LEGENDS = {
   gtd_cat: {
     name: 'Groundwater Table Decline',
     rangeValues: [-12, -6, 0, 0.5, 1, 2.5, 4, 5, 6, 26, 46],
+    defaultValue: 1,
+    unit: 'cm/year',
     items: [
       {
         name: 'Low',
@@ -240,6 +242,8 @@ export const LEGENDS = {
   bws_cat: {
     name: 'Baseline Water Stress',
     rangeValues: [0, 5, 10, 15, 20, 30, 40, 60, 80, 90, 100],
+    defaultValue: 40,
+    unit: '%',
     items: [
       {
         name: 'Low',
@@ -283,6 +287,8 @@ export const LEGENDS = {
   bwd_cat: {
     name: 'Baseline Water Depletion',
     rangeValues: [0, 2.5, 5, 15, 25, 37.5, 50, 62.5, 75, 87.5, 100],
+    defaultValue: 25,
+    unit: '%',
     items: [
       {
         name: 'Low',
@@ -464,6 +470,8 @@ export const LEGENDS = {
   cep_cat: {
     name: 'Coastal Eutrophication Potential',
     rangeValues: [-245, -125, -5, -2.5, 0, 0.5, 1, 3, 5, 45, 85],
+    defaultValue: 0,
+    unit: '',
     items: [
       {
         name: 'Low',
@@ -498,6 +506,8 @@ export const LEGENDS = {
   udw_cat: {
     name: 'Unimproved/No Drinking Water',
     rangeValues: [0, 1.25, 2.5, 3.75, 5, 7.5, 10, 15, 20, 60, 100],
+    defaultValue: 5,
+    unit: '%',
     items: [
       {
         name: 'Low',
@@ -532,6 +542,8 @@ export const LEGENDS = {
   usa_cat: {
     name: 'Unimproved/No Sanitation',
     rangeValues: [0, 1.25, 2.5, 3.75, 5, 7.5, 10, 15, 20, 60, 100],
+    defaultValue: 5,
+    unit: '%',
     items: [
       {
         name: 'Low',

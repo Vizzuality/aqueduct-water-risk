@@ -7,7 +7,12 @@ import { LEGENDS } from 'components/map/constants';
 
 const ThresholdSlider = ({ indicatorId }) => {
   const indicator = LEGENDS[indicatorId];
-  const { items=[], rangeValues=[] } = indicator
+  const {
+    items = [],
+    rangeValues = [],
+    defaultValue = 0,
+    unit = ''
+  } = indicator;
   const colors = items.map(i => i.color);
   const {
     dotStyle,
@@ -20,13 +25,18 @@ const ThresholdSlider = ({ indicatorId }) => {
   const max = 100;
   const step = 10;
 
+  let sliderDefaultValue = defaultValue
   const valueMap = {};
-  rangeValues.forEach((v, i) => valueMap[i * 10] = v);
+  rangeValues.forEach((v, i) => {
+    const sliderValue = i * 10
+    if (v === defaultValue) sliderDefaultValue = sliderValue
+    valueMap[sliderValue] = v
+  });
   const getActualValue = v => valueMap[v];
 
   const marks = {};
   items.forEach(({ name, value }, i) => {
-    marks[i * 20] = <SliderMarkLabel label={name} range={value} />
+    marks[i * 20] = <SliderMarkLabel label={name} range={value} />;
   });
 
 
@@ -35,15 +45,25 @@ const ThresholdSlider = ({ indicatorId }) => {
     // update filter state
   };
 
+  const tooltipValue = (value) => {
+    let prefix = '';
+    const actualValue = getActualValue(value)
+    if (rangeValues.indexOf(actualValue) > 0) {
+      prefix = '> ';
+    }
+    return `${prefix}${actualValue} ${unit}`;
+  };
+
   const SliderWithTooltip = createSliderWithTooltip(Slider);
   return (
-    <div style={ { marginLeft: 15} }>
+    <div style={{ marginLeft: 5 }} >
       <SliderWithTooltip
         marks={marks}
         min={min}
         max={max}
         step={step}
-        tipFormatter={getActualValue}
+        defaultValue={sliderDefaultValue}
+        tipFormatter={tooltipValue}
         dots
         tooltipVisible
         handleStyle={handleStyle}

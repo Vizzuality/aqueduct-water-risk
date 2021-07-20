@@ -85,7 +85,7 @@ class Filters extends PureComponent {
                     <ThresholdSlider indicatorId={activeIndicatorId} />
                   </div>
                 </div>
-                <div className="c-btn-menu -theme-secondary">
+                <div style={{ marginTop: 20 }} className="c-btn-menu -theme-secondary">
                   <button className="btn-menu-btn -shout" onClick={handleApply}>Apply Changes</button>
                 </div>
               </Fragment>

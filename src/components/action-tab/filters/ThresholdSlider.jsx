@@ -21,14 +21,19 @@ const ThresholdSlider = ({ indicatorId }) => {
   const step = 10;
 
   const valueMap = {};
-  rangeValues.forEach((v, i) => valueMap[i * 10] = v)
-  const formatTip = v => valueMap[v];
+  rangeValues.forEach((v, i) => valueMap[i * 10] = v);
+  const getActualValue = v => valueMap[v];
 
   const marks = {};
   items.forEach(({ name, value }, i) => {
     marks[i * 20] = <SliderMarkLabel label={name} range={value} />
   });
 
+
+  const handleChange = (value) => {
+    // getActualValue(value)
+    // update filter state
+  };
 
   const SliderWithTooltip = createSliderWithTooltip(Slider);
   return (
@@ -38,7 +43,7 @@ const ThresholdSlider = ({ indicatorId }) => {
         min={min}
         max={max}
         step={step}
-        tipFormatter={formatTip}
+        tipFormatter={getActualValue}
         dots
         tooltipVisible
         handleStyle={handleStyle}
@@ -46,6 +51,7 @@ const ThresholdSlider = ({ indicatorId }) => {
         railStyle={railStyle}
         dotStyle={dotStyle}
         tipProps={{ visible: true }}
+        onChange={handleChange}
       />
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import { func, string } from 'prop-types';
 import ContentModal from '../../ui/modal/content/';
 import TooltipIcon from '../../ui/TooltipIcon';
@@ -39,6 +39,10 @@ class Filters extends PureComponent {
       .filter((key) => Object.keys(INDICATORS).includes(key) )
       .map((key) => ({ label: INDICATORS[key], value: key } ));
 
+    const handleApply = () => {
+      console.log('Update filters!')
+    }
+
     return (
       <div>
         <div className="c-filters-header">
@@ -68,18 +72,23 @@ class Filters extends PureComponent {
               </div>
             </div>
             { activeIndicatorId &&
-              <div className="filters-section">
-                <div className="c-filters-item">
-                  <div className="filter-item-header" style={ {marginBottom: 65} }>
-                    <span className="title">
-                      <span>
-                        <strong>{INDICATORS[activeIndicatorId]} Desired Condition </strong> (adjust slider to change results)
+              <Fragment>
+                <div className="filters-section">
+                  <div className="c-filters-item">
+                    <div className="filter-item-header" style={ {marginBottom: 65} }>
+                      <span className="title">
+                        <span>
+                          <strong>{INDICATORS[activeIndicatorId]} Desired Condition </strong> (adjust slider to change results)
+                        </span>
                       </span>
-                    </span>
+                    </div>
+                    <ThresholdSlider indicatorId={activeIndicatorId} />
                   </div>
-                  <ThresholdSlider indicatorId={activeIndicatorId} />
                 </div>
-              </div>
+                <div className="c-btn-menu -theme-secondary">
+                  <button className="btn-menu-btn -shout" onClick={handleApply}>Apply Changes</button>
+                </div>
+              </Fragment>
             }
           </div>
         </div>

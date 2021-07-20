@@ -28,11 +28,11 @@ class Filters extends PureComponent {
   }
 
   handleIndicatorSelect(activeIndicatorId) {
-    this.setState({ activeIndicatorId});
+    this.setState({ activeIndicatorId });
   }
 
   render() {
-    const { name = '' } = this.props;
+    const { name = '', setFilters } = this.props;
     const { activeIndicatorId = null } = this.state;
 
     const indicators = Object.keys(LEGENDS)
@@ -40,8 +40,8 @@ class Filters extends PureComponent {
       .map((key) => ({ label: INDICATORS[key], value: key } ));
 
     const handleApply = () => {
-      console.log('Update filters!')
-    }
+      setFilters({ indicator: activeIndicatorId });
+    };
 
     return (
       <div>
@@ -99,6 +99,7 @@ class Filters extends PureComponent {
 
 Filters.propTypes = {
   name: string.isRequired,
+  setFilters: func.isRequired,
   toggleModal: func.isRequired
 };
 

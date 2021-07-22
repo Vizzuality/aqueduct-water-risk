@@ -1,14 +1,14 @@
 import React, { PureComponent, Fragment } from 'react';
 import { func, string } from 'prop-types';
 
-import { CustomSelect, InfoModal, APP_DEFINITIONS } from 'aqueduct-components';
+import { CustomSelect, InfoModal } from 'aqueduct-components';
 
 import ContentModal from '../../ui/modal/content/';
 import TooltipIcon from '../../ui/TooltipIcon';
 import ThresholdSlider from './ThresholdSlider';
 
 // constants
-import { BASIN_MODAL_PROPS } from 'constants/filters';
+import { BASIN_MODAL_PROPS, WATER_RISK_PROPS  } from 'constants/filters';
 import { LEGENDS, INDICATORS } from 'components/map/constants';
 
 class Filters extends PureComponent {
@@ -29,9 +29,7 @@ class Filters extends PureComponent {
     const { toggleAside } = this.props;
     return toggleAside(true, {
       children: InfoModal,
-      childrenProps: {
-        info: APP_DEFINITIONS['water-risk']
-      }
+      childrenProps: WATER_RISK_PROPS
     });
   }
 

@@ -5,6 +5,7 @@ import Icons from 'vizzuality-components/dist/icons';
 
 // components
 import Modal from 'components/modal';
+import AsideContext from 'components/aside';
 
 // utils
 import { initGA, logPageView } from 'utils/analytics';
@@ -34,6 +35,7 @@ class App extends PureComponent {
         />
         <main role="main" className="l-main l-content">
           {this.props.children}
+          <AsideContext />
         </main>
         <Modal />
       </div>

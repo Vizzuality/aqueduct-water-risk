@@ -4,6 +4,7 @@ import { routerReducer } from 'react-router-redux';
 import { modalReducer } from 'aqueduct-components';
 import { reducer as toastrReducer } from 'react-redux-toastr';
 
+import { asideReducer } from 'modules/aside/reducers';
 import * as appModule from 'modules/app';
 import * as layersModule from 'modules/layers';
 import * as settingsModule from 'modules/settings';
@@ -15,6 +16,7 @@ export default {
   // third-party reducers
   routing: routerReducer,
   modal: modalReducer,
+  aside: asideReducer,
   toastr: toastrReducer,
   // local reducers
   app: handleModule(appModule),

@@ -1,0 +1,28 @@
+.c-sidebar {
+  &.-context {
+    left: auto;
+    right: 0;
+    // box-shadow: none;
+    transform: translate(calc(100% + 10px), 0);
+    width: 40%;
+    max-width: 600px;
+    min-width: 300px;
+    &.-opened {
+      transform: translate(0, 0);
+    }
+
+    .btn-toggle {
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      left: auto;
+      background: none;
+      .c-icon {
+        fill: palette(blue, 'secondary');
+        &:hover {
+          fill: palette(blue, 'primary');
+        }
+      }
+    }
+  }
+}

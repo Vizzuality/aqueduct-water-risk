@@ -1,8 +1,10 @@
 import React, { PureComponent, Fragment } from 'react';
 import { func, string } from 'prop-types';
+
+import { CustomSelect, InfoModal, APP_DEFINITIONS } from 'aqueduct-components';
+
 import ContentModal from '../../ui/modal/content/';
 import TooltipIcon from '../../ui/TooltipIcon';
-import { CustomSelect } from 'aqueduct-components';
 import ThresholdSlider from './ThresholdSlider';
 
 // constants
@@ -24,7 +26,13 @@ class Filters extends PureComponent {
   }
 
   handleInfoClick() {
-    console.log('toggle info');
+    const { toggleAside } = this.props;
+    return toggleAside(true, {
+      children: InfoModal,
+      childrenProps: {
+        info: APP_DEFINITIONS['water-risk']
+      }
+    });
   }
 
   handleIndicatorSelect(activeIndicatorId) {
@@ -100,7 +108,8 @@ class Filters extends PureComponent {
 Filters.propTypes = {
   name: string.isRequired,
   setFilters: func.isRequired,
-  toggleModal: func.isRequired
+  toggleModal: func.isRequired,
+  toggleAside: func.isRequired
 };
 
 export default Filters;

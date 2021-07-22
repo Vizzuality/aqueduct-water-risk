@@ -1,6 +1,6 @@
 import React from 'react';
 import { func, object } from 'prop-types';
-import { Icon, Sidebar } from 'aqueduct-components';
+import { Icon } from 'aqueduct-components';
 
 export default class AsideContext extends React.Component {
 
@@ -14,13 +14,8 @@ export default class AsideContext extends React.Component {
       aside = {}
     } = this.props;
     const { opened } = aside;
-    console.log('Rendered', this.props)
     return (
-      <Sidebar
-        className={`-context -right ${opened ? '-opened' : ''}`}
-        setSidebarWidth={() => null}
-        opened={false}
-      >
+      <div className={`l-sidebar c-sidebar -context -right ${opened ? '-opened' : ''}`}>
         <button
           type="button"
           className="l-sidebar-toggle btn-toggle -opened"
@@ -28,8 +23,10 @@ export default class AsideContext extends React.Component {
         >
           <Icon name="icon-cross" className="-big" />
         </button>
-        { this.getContent() }
-      </Sidebar>
+        <div className='c-sidebar__content'>
+          { this.getContent() }
+        </div>
+      </div>
     );
   }
 }

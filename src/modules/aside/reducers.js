@@ -16,6 +16,12 @@ export function toggleAside(opened, opts = {}) {
   };
 }
 
+function setAsideOptions(opts) {
+  return function (dispatch) {
+    return dispatch({ type: ASIDE_SET_OPTIONS, payload: opts });
+  };
+}
+
 // REDUCER
 const initialState = {
   opened: false,

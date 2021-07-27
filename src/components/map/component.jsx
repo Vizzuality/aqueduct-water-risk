@@ -302,7 +302,7 @@ class MapComponent extends PureComponent {
                 }
               </MapPopup>
 
-              {layers.length && (
+              { layers.length && indicator &&
                 <div className="l-map-legend">
                   <VizzLegend sortable={false}>
                     {layerGroup.map((_layerGroup, i) => (
@@ -326,7 +326,8 @@ class MapComponent extends PureComponent {
                       </LegendListItem>
                     ))}
                   </VizzLegend>
-                </div>)}
+                </div>
+              }
             </Fragment>
           }
         </WRIMap>

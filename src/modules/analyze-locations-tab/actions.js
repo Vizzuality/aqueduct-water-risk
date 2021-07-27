@@ -59,9 +59,15 @@ export const onFetchAnalysis = createThunkAction('ANALYZE-LOCATIONS-TAB__FETCH-A
       year,
       scenario,
       change_type: projection === 'absolute' ? 'future_value' : 'change_from_baseline',
-      indicator: analysis_type === 'projected' ? FUTURE_LAYERS_GROUPS[indicator] : indicator,
       wscheme: `'[${parseWeights(ponderation)}]'`
     };
+
+
+    let _indicator = indicator;
+    if (analysis_type === 'projected' && indicator) {
+      _indicator = FUTURE_LAYERS_GROUPS[indicator];
+    }
+    params.indicator = _indicator;
 
     dispatch(setAnalysisError(null));
 

@@ -41,7 +41,7 @@ class Filters extends Component {
     this.setState({ activeIndicatorId });
   }
 
-  handleSliderChange(threshold) {
+  handleSliderChange(threshold=null) {
     this.setState({ threshold });
   }
 

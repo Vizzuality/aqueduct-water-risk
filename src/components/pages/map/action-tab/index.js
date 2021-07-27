@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 
 // actions
 import { toggleModal } from 'aqueduct-components';
-import { setFilters } from 'modules/settings/actions';
+import { setFilters, setTabFilters } from 'modules/settings/actions';
 import {
   onApplyAnalysis,
   clearAnalysis,
@@ -30,6 +30,7 @@ export default connect(
   {
     toggleModal,
     setFilters,
+    setTabFilters,
     onApplyAnalysis,
     clearAnalysis,
     setPoints,

@@ -8,6 +8,10 @@ export default {
       ...payload
     }
   }),
+  [actions.setTabFilters]: (state, { payload }) => ({
+    ...state,
+    ...payload
+  }),
   [actions.setPonderation]: (state, { payload }) => ({
     ...state,
     ponderation: {

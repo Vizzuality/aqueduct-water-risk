@@ -11,6 +11,7 @@ class ActionTab extends PureComponent {
   componentWillMount() {
     const {
       setFilters,
+      setTabFilters,
       filters: {}
     } = this.props;
     setFilters({ });
@@ -26,6 +27,7 @@ class ActionTab extends PureComponent {
   }
 
   render() {
+    console.log(this.props)
     return (
       <div className="l-action">
         <div className="l-filters">
@@ -40,6 +42,7 @@ ActionTab.propTypes = {
   filters: PropTypes.object.isRequired,
   geoStore: PropTypes.string,
   setFilters: PropTypes.func.isRequired,
+  setTabFilters: PropTypes.func.isRequired,
   onFetchAnalysis: PropTypes.func.isRequired,
   toggleModal: PropTypes.func.isRequired
 };

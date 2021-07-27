@@ -46,7 +46,7 @@ class Filters extends Component {
   }
 
   render() {
-    const { name = '', setFilters } = this.props;
+    const { name = '', setFilters, setTabFilters } = this.props;
     const {
       activeIndicatorId = null,
       threshold = null
@@ -61,6 +61,10 @@ class Filters extends Component {
         indicator: activeIndicatorId,
         threshold
       });
+      setTabFilters({
+        action: this.state.filters,
+      })
+      console.log(this.state)
     };
 
     return (

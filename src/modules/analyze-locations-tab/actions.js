@@ -67,7 +67,7 @@ export const onFetchAnalysis = createThunkAction('ANALYZE-LOCATIONS-TAB__FETCH-A
     if (analysis_type === 'projected' && indicator) {
       _indicator = FUTURE_LAYERS_GROUPS[indicator];
     }
-    params.indicator = _indicator;
+    params.indicator = _indicator || '""';
 
     dispatch(setAnalysisError(null));
 

@@ -1,4 +1,4 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { Component, Fragment } from 'react';
 import { func, string } from 'prop-types';
 
 import { CustomSelect, InfoModal } from 'aqueduct-components';
@@ -11,10 +11,14 @@ import ThresholdSlider from './ThresholdSlider';
 import { BASIN_MODAL_PROPS, WATER_RISK_PROPS  } from 'constants/filters';
 import { LEGENDS, INDICATORS } from 'components/map/constants';
 
-class Filters extends PureComponent {
+class Filters extends Component {
   constructor(props) {
     super(props);
-    this.state = { activeIndicatorId: null };
+    this.state = { activeIndicatorId: null, threshold: null };
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return this.state.activeIndicatorId !== nextState.activeIndicatorId;
   }
 
   handleTooltipClick() {
@@ -37,16 +41,26 @@ class Filters extends PureComponent {
     this.setState({ activeIndicatorId });
   }
 
+  handleSliderChange(threshold) {
+    this.setState({ threshold });
+  }
+
   render() {
     const { name = '', setFilters } = this.props;
-    const { activeIndicatorId = null } = this.state;
+    const {
+      activeIndicatorId = null,
+      threshold = null
+    } = this.state;
 
     const indicators = Object.keys(LEGENDS)
       .filter((key) => Object.keys(INDICATORS).includes(key) )
       .map((key) => ({ label: INDICATORS[key], value: key } ));
 
-    const handleApply = () => {
-      setFilters({ indicator: activeIndicatorId });
+    const handleApply = (threshold) => {
+      setFilters({
+        indicator: activeIndicatorId,
+        threshold
+      });
     };
 
     return (
@@ -88,7 +102,7 @@ class Filters extends PureComponent {
                         </span>
                       </span>
                     </div>
-                    <ThresholdSlider indicatorId={activeIndicatorId} />
+                    <ThresholdSlider indicatorId={activeIndicatorId} threshold={threshold} handleChange={(value) => this.handleSliderChange(value)} />
                   </div>
                 </div>
                 <div style={{ marginTop: 20 }} className="c-btn-menu -theme-secondary">

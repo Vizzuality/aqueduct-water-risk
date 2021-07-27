@@ -1,11 +1,13 @@
-import React, { Fragment } from 'react';
-import Slider, {createSliderWithTooltip} from 'rc-slider';
+import React from 'react';
+import { func, number, string } from 'prop-types';
+import Slider, { createSliderWithTooltip } from 'rc-slider';
 import 'rc-slider/assets/index.css';
-import SliderMarkLabel from './SliderMarkLabel'
-import { style } from './slider_style'
-import { LEGENDS } from 'components/map/constants';
 
-const ThresholdSlider = ({ indicatorId }) => {
+import { LEGENDS } from 'components/map/constants';
+import SliderMarkLabel from './SliderMarkLabel';
+import { style } from './slider_style';
+
+const ThresholdSlider = ({ indicatorId, threshold, handleChange }) => {
   const indicator = LEGENDS[indicatorId];
   const {
     items = [],
@@ -25,36 +27,36 @@ const ThresholdSlider = ({ indicatorId }) => {
   const max = 100;
   const step = 10;
 
-  let sliderDefaultValue = defaultValue
+  let sliderDefaultValue = defaultValue;
   const valueMap = {};
   rangeValues.forEach((v, i) => {
-    const sliderValue = i * 10
-    if (v === defaultValue) sliderDefaultValue = sliderValue
-    valueMap[sliderValue] = v
+    const sliderValue = i * 10;
+    if (v === defaultValue) sliderDefaultValue = sliderValue;
+    valueMap[sliderValue] = v;
   });
   const getActualValue = v => valueMap[v];
+  const getSliderValue = v => Object.keys(valueMap).find(key => valueMap[key] === v);
 
   const marks = {};
   items.forEach(({ name, value }, i) => {
     marks[i * 20] = <SliderMarkLabel label={name} range={value} />;
   });
 
-
-  const handleChange = (value) => {
-    // getActualValue(value)
-    // update filter state
-  };
-
   const tooltipValue = (value) => {
     let prefix = '';
-    const actualValue = getActualValue(value)
+    const actualValue = getActualValue(value);
     if (rangeValues.indexOf(actualValue) > 0) {
       prefix = '> ';
     }
     return `${prefix}${actualValue} ${unit}`;
   };
 
+  const handleValueChange = (value) => {
+    handleChange(getActualValue(value));
+  };
+
   const SliderWithTooltip = createSliderWithTooltip(Slider);
+
   return (
     <div style={{ marginLeft: 5 }} >
       <SliderWithTooltip
@@ -62,7 +64,7 @@ const ThresholdSlider = ({ indicatorId }) => {
         min={min}
         max={max}
         step={step}
-        defaultValue={sliderDefaultValue}
+        defaultValue={threshold === null ? sliderDefaultValue : getSliderValue(threshold)}
         tipFormatter={tooltipValue}
         dots
         tooltipVisible
@@ -71,12 +73,16 @@ const ThresholdSlider = ({ indicatorId }) => {
         railStyle={railStyle}
         dotStyle={dotStyle}
         tipProps={{ visible: true }}
-        onChange={handleChange}
+        onChange={handleValueChange}
       />
     </div>
   );
 };
 
-ThresholdSlider.propTypes = { };
+ThresholdSlider.propTypes = {
+  indicatorId: string,
+  threshold: number,
+  handleChange: func
+};
 
 export default ThresholdSlider;

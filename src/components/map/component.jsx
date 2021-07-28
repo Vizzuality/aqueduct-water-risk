@@ -51,7 +51,7 @@ class MapComponent extends PureComponent {
     const indicatorChanged = !isEqual(indicator, nextIndicator);
     const selectedChanged = !isEqual(analysisSelectedData, nextAnalysisSelectedData);
 
-    if ((layersChanged || indicatorChanged)) {
+    if ((layersChanged || indicatorChanged) && nextIndicator) {
       setLoading(true);
       if (this.popup) this.popup._close();
     }

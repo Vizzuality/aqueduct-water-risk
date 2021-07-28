@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { func, string } from 'prop-types';
+import { func, object, string } from 'prop-types';
 
 import { CustomSelect, InfoModal } from 'aqueduct-components';
 
@@ -14,11 +14,11 @@ import { LEGENDS, INDICATORS } from 'components/map/constants';
 class Filters extends Component {
   constructor(props) {
     super(props);
-    this.state = { activeIndicatorId: null, threshold: null };
+    this.state = { indicator: null, threshold: null };
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return this.state.activeIndicatorId !== nextState.activeIndicatorId;
+    return this.state.indicator !== nextState.indicator;
   }
 
   handleTooltipClick() {
@@ -37,8 +37,8 @@ class Filters extends Component {
     });
   }
 
-  handleIndicatorSelect(activeIndicatorId) {
-    this.setState({ activeIndicatorId });
+  handleIndicatorSelect(indicator) {
+    this.setState({ indicator });
   }
 
   handleSliderChange(threshold=null) {
@@ -46,25 +46,21 @@ class Filters extends Component {
   }
 
   render() {
-    const { name = '', setFilters, setTabFilters } = this.props;
-    const {
-      activeIndicatorId = null,
-      threshold = null
-    } = this.state;
+    const { name = '', setFilters, setTabFilters, tabFilters={} } = this.props;
+    const indicator = this.state.indicator || tabFilters.action.indicator;
+    const threshold = this.state.threshold || tabFilters.action.threshold;
 
     const indicators = Object.keys(LEGENDS)
       .filter((key) => Object.keys(INDICATORS).includes(key) )
       .map((key) => ({ label: INDICATORS[key], value: key } ));
 
-    const handleApply = (threshold) => {
-      setFilters({
-        indicator: activeIndicatorId,
-        threshold
-      });
-      setTabFilters({
-        action: this.state.filters,
-      })
-      console.log(this.state)
+    const handleApply = () => {
+      const newFilters = {
+        indicator,
+        threshold: this.state.threshold
+      };
+      setFilters(newFilters);
+      setTabFilters({action: newFilters})
     };
 
     return (
@@ -86,7 +82,7 @@ class Filters extends Component {
                   <div className="c-filters-item -inline">
                     <CustomSelect
                       options={indicators}
-                      value={activeIndicatorId}
+                      value={indicator}
                       placeholder={'Select Indicator'}
                       onValueChange={({ value }) => { this.handleIndicatorSelect(value) }}
                     />
@@ -95,18 +91,18 @@ class Filters extends Component {
                 </div>
               </div>
             </div>
-            { activeIndicatorId &&
+            { indicator &&
               <Fragment>
                 <div className="filters-section">
                   <div className="c-filters-item">
                     <div className="filter-item-header" style={ {marginBottom: 65} }>
                       <span className="title">
                         <span>
-                          <strong>{INDICATORS[activeIndicatorId]} Desired Condition </strong> (adjust slider to change results)
+                          <strong>{INDICATORS[indicator]} Desired Condition </strong> (adjust slider to change results)
                         </span>
                       </span>
                     </div>
-                    <ThresholdSlider indicatorId={activeIndicatorId} threshold={threshold} handleChange={(value) => this.handleSliderChange(value)} />
+                    <ThresholdSlider indicatorId={indicator} threshold={threshold} handleChange={(value) => this.handleSliderChange(value)} />
                   </div>
                 </div>
                 <div style={{ marginTop: 20 }} className="c-btn-menu -theme-secondary">
@@ -123,7 +119,10 @@ class Filters extends Component {
 
 Filters.propTypes = {
   name: string.isRequired,
+  filters: object,
+  tabFilters: object,
   setFilters: func.isRequired,
+  setTabFilters: func.isRequired,
   toggleModal: func.isRequired,
   toggleAside: func.isRequired
 };

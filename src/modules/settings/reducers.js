@@ -10,7 +10,10 @@ export default {
   }),
   [actions.setTabFilters]: (state, { payload }) => ({
     ...state,
-    ...payload
+    tabFilters: {
+      ...state.tabFilters,
+      ...payload
+    }
   }),
   [actions.setPonderation]: (state, { payload }) => ({
     ...state,

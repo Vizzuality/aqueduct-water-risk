@@ -9,7 +9,7 @@ import { toggleAside } from 'modules/aside/reducers';
 import ActionFilters from './component';
 
 export default connect(
-  state => ({ filters: state.settings.filters }),
+  state => ({ filters: state.settings.filters, tabFilters: state.settings.tabFilters }),
   {
     setFilters,
     setTabFilters,

@@ -10,13 +10,17 @@ const defaultFilters = {
   scenario: 'optimistic',
   timeScale: 'annual',
   projection: 'absolute',
-  predefined: false
+  predefined: false,
+  threshold: null
 };
 
 export default {
   filters: defaultFilters,
-  tabStates: {
-    action: defaultFilters,
+  tabFilters: {
+    action: {
+      indicator: null,
+      threshold: null
+    },
     baseline: defaultFilters,
     future: defaultFilters
   },

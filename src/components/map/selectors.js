@@ -102,6 +102,7 @@ export const getUpdatedLayers = createSelector(
     if (!_activeLayers.length) return _activeLayers;
 
     const { indicator } = _parametrization;
+    if (!indicator) return [];
     const params = getLayerParametrization(_parametrization, _ponderation);
 
     return _activeLayers.map((_activeLayer, index) => ({
